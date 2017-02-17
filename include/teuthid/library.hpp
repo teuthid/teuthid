@@ -16,7 +16,6 @@
     along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #ifndef TEUTHID_LIBRARY_HPP
 
 #include <string>
