@@ -21,12 +21,6 @@ if (OpenCL_FOUND)
 endif()
 
 
-
-set(TEUTHID_WITH_OPENCL ${OpenCL_FOUND})
+set(TEUTHID_USE_OPENCL ${OpenCL_FOUND})
 set(BOOST_COMPUTE_USE_OFFLINE_CACHE ${OpenCL_FOUND})
-
-# -DBOOST_COMPUTE_USE_OFFLINE_CACHE will enable the offline kernel cache 
-# (this requires linking with boost_filesystem). Then the kernels you use will 
-# be stored in your file system and only be compiled the very first time you
-# run your application (NVIDIA on Linux already does this by default).
 
