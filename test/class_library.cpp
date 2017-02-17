@@ -30,6 +30,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_library)
   BOOST_TEST(library::patch_version() == TEUTHID_PATCH_VERSION);
   BOOST_TEST(library::soversion() == TEUTHID_SOVERSION);
   BOOST_TEST(library::version() == std::string(TEUTHID_VERSION));
+  
   BOOST_TEST(library::required_version(TEUTHID_MAJOR_VERSION, 
     TEUTHID_MINOR_VERSION));
   BOOST_TEST(!library::required_version(TEUTHID_MAJOR_VERSION + 1, 
