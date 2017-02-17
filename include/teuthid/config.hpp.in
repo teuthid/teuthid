@@ -1,0 +1,13 @@
+
+#ifndef TEUTHID_CONFIG_HPP
+
+#define TEUTHID_MAJOR_VERSION @teuthid_VERSION_MAJOR@
+#define TEUTHID_MINOR_VERSION @teuthid_VERSION_MINOR@
+#define TEUTHID_PATCH_VERSION @teuthid_VERSION_PATCH@
+#define TEUTHID_SOVERSION @teuthid_library_soversion@
+#define TEUTHID_VERSION "@teuthid_VERSION@"
+
+#cmakedefine TEUTHID_WITH_OPENCL
+#cmakedefine BOOST_COMPUTE_USE_OFFLINE_CACHE
+
+#endif // TEUTHID_CONFIG_HPP
