@@ -1,4 +1,3 @@
-
 # Check if doing out of source build
 macro(CHECK_OUT_OF_SOURCE_BUILD message_)
   string(COMPARE EQUAL "${CMAKE_SOURCE_DIR}" "${CMAKE_BINARY_DIR}" insource_)

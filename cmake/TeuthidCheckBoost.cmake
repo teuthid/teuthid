@@ -1,4 +1,3 @@
-
 find_package(Boost 1.61.0 QUIET REQUIRED COMPONENTS filesystem random
   OPTIONAL_COMPONENTS unit_test_framework) 
 

@@ -1,4 +1,3 @@
-
 find_package(OpenCL QUIET)
 
 if (NOT OpenCL_FOUND)
