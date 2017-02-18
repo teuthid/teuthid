@@ -15,13 +15,13 @@
 ####From sources
 Clone the repository: `git clone https://github.com/teuthid/teuthid.git`
 
-Once that's finished, navigate to the Root directory. In this case it would be `./teuthid`:
+Once that's finished, navigate to the Root directory and create `build` folder:
 
-`cd ./teuthid`
+`cd teuthid ; mkdir build ; cd build`
 
 Then run [CMake](https://cmake.org/)
 
-`cmake .`
+`cmake ../`
 
 Available options for building the framework are: `BUILD_STATIC_LIBS`, `BUILD_WITH_OPENCL`, `BUILD_TESTS`, `BUILD_DOCUMENTATION` (using [Doxygen](http://www.stack.nl/~dimitri/doxygen/)).
 
