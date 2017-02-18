@@ -15,5 +15,5 @@ endif()
 
 message(STATUS "Boost libraries:")
 foreach(lib_ ${Boost_LIBRARIES})
-  message("    ${lib_}")
+  message("   ${lib_}")
 endforeach()
