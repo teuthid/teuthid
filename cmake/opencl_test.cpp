@@ -117,7 +117,7 @@ int main()
 
         // print number of devices found
         std::cout << "   Platform " << i << " has " << num_devices 
-            << " devices:";
+            << " device(s):";
 
         // get device ids for the platform
         cl_device_id *devices = new cl_device_id[num_devices];
@@ -150,7 +150,7 @@ int main()
             }
 
             // print out the device name
-            std::cout << std::endl << "     Device: " << name;
+            std::cout << std::endl << "     #1: " << name;
 
             delete[] name;
         }

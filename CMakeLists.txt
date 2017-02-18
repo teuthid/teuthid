@@ -4,9 +4,11 @@ set(teuthid_library_soversion 0)
 set(teuthid_library_version 
 ${teuthid_library_soversion}.${teuthid_VERSION_MAJOR}.${teuthid_VERSION_MINOR})
 
-if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
-  message(FATAL_ERROR "In-source builds is not allowed.")
-endif()
+set(teuthid_CMAKE_DIR "${teuthid_SOURCE_DIR}/cmake")
+set(CMAKE_MODULE_PATH ${teuthid_CMAKE_DIR} ${CMAKE_MODULE_PATH})
+include(CheckOutOfSourceBuild)
+CHECK_OUT_OF_SOURCE_BUILD(
+  "${CMAKE_PROJECT_NAME} requires an out of source build.")
 
 if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Release")
@@ -29,8 +31,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_EXTENSIONS False)
 SET(CMAKE_COLOR_MAKEFILE ON)
 
-set(teuthid_CMAKE_DIR "${teuthid_SOURCE_DIR}/cmake")
-set(CMAKE_MODULE_PATH ${teuthid_CMAKE_DIR} ${CMAKE_MODULE_PATH})
+set(teuthid_link_libraries ${teuthid_linked_libs})
 include(TeuthidCheckBoost)
 
 set(BUILD_SHARED_LIBS ON)
@@ -45,6 +46,7 @@ endif()
 
 set(teuthid_INCLUDE_DIR "${teuthid_SOURCE_DIR}/include/teuthid")
 set(teuthid_LIBRARY_SOURCE_DIR "${teuthid_SOURCE_DIR}/src")
+
 add_subdirectory(include)
 add_subdirectory(src)
 configure_file("${teuthid_INCLUDE_DIR}/config.hpp.in" 
