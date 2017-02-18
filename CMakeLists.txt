@@ -49,8 +49,6 @@ set(teuthid_LIBRARY_SOURCE_DIR "${teuthid_SOURCE_DIR}/src")
 
 add_subdirectory(include)
 add_subdirectory(src)
-configure_file("${teuthid_INCLUDE_DIR}/config.hpp.in" 
-  "${teuthid_INCLUDE_DIR}/config.hpp")
 
 option(BUILD_TESTS "Build the testing tree" ON)
 if (BUILD_TESTS AND Boost_UNIT_TEST_FRAMEWORK_FOUND)

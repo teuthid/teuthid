@@ -1,4 +1,3 @@
-
 set(teuthid_library_sources
   library.cpp
 )
