@@ -18,8 +18,3 @@ list(APPEND teuthid_link_libraries
 if (NOT Boost_UNIT_TEST_FRAMEWORK_FOUND)
   message(STATUS "Cannot find Boost.Test! Unit tests are disabled.")
 endif()
-
-#message(STATUS "Boost libraries:")
-#foreach(lib_ ${Boost_LIBRARIES})
-#  message("   ${lib_}")
-#endforeach()

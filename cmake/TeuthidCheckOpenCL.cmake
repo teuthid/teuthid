@@ -26,5 +26,3 @@ set(BOOST_COMPUTE_USE_OFFLINE_CACHE ${OpenCL_FOUND})
 if (OpenCL_FOUND)
   list(APPEND teuthid_link_libraries ${OpenCL_LIBRARIES})
 endif()
-
-# message("${teuthid_link_libraries}")
