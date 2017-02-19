@@ -34,9 +34,12 @@ set(teuthid_INCLUDE_DIR ${teuthid_SOURCE_DIR}/include/teuthid)
 set(teuthid_link_libraries ${teuthid_link_libraries})
 
 include(CheckIncludeFileCXX)
+option(BUILD_WITH_OPENCL "Build with OpenCL" ON)
+option(USE_BOOST_COMPUTE "Using Boost.Compute for OpenCL" OFF)
+option(BUILD_TESTS "Build the testing tree" ON)
+
 include(TeuthidCheckBoost)
 
-option(BUILD_WITH_OPENCL "Build with OpenCL" ON)
 if (BUILD_WITH_OPENCL)
   include(TeuthidCheckOpenCL)
   if (NOT OpenCL_FOUND)
@@ -50,7 +53,6 @@ option(BUILD_STATIC_LIBS "Build the static library" ON)
 add_subdirectory(include)
 add_subdirectory(src)
 
-option(BUILD_TESTS "Build the testing tree" ON)
 if (BUILD_TESTS AND Boost_UNIT_TEST_FRAMEWORK_FOUND)
   enable_testing()
   add_subdirectory(test)

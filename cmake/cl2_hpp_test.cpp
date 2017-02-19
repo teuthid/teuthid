@@ -3,8 +3,13 @@
 #define CL_HPP_MINIMUM_OPENCL_VERSION 120
 // #define CL_HPP_CL_1_2_DEFAULT_BUILD
 
+#if defined(__APPLE__)
+#include <OpenCL/cl2.hpp>
+#include <AvailabilityMacros.h>
+#else
 #include <CL/cl2.hpp>
-#include <iostream>
+#endif
+
 #include <vector>
 
 int main(void)
@@ -21,19 +26,14 @@ int main(void)
     }
   }
   if (plat() == 0)
-  {
-    std::cout << "No OpenCL 2.0 platform found.";
     return -1;
-  }
 
   cl::Platform newP = cl::Platform::setDefault(plat);
   if (newP != plat)
-  {
-    std::cout << "Error setting default platform.";
     return -1;
-  }
 
-  cl::DeviceCommandQueue defaultDeviceQueue = cl::DeviceCommandQueue::makeDefault(
-      cl::Context::getDefault(), cl::Device::getDefault());
+  cl::DeviceCommandQueue defaultDeviceQueue =
+      cl::DeviceCommandQueue::makeDefault(cl::Context::getDefault(),
+                                          cl::Device::getDefault());
   return 0;
 }
