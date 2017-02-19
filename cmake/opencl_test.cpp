@@ -116,7 +116,7 @@ int main()
         }
 
         // print number of devices found
-        std::cout << "   Platform " << i << " has " << num_devices 
+        std::cout << "Platform " << i << " has " << num_devices 
             << " device(s):";
 
         // get device ids for the platform

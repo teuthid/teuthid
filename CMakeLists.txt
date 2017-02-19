@@ -29,11 +29,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_EXTENSIONS False)
 SET(CMAKE_COLOR_MAKEFILE ON)
 
+set(teuthid_INCLUDE_PATH ${teuthid_SOURCE_DIR}/include)
+set(teuthid_INCLUDE_DIR ${teuthid_SOURCE_DIR}/include/teuthid)
 set(teuthid_link_libraries ${teuthid_link_libraries})
+
+include(CheckIncludeFileCXX)
 include(TeuthidCheckBoost)
 
-set(BUILD_SHARED_LIBS ON)
-option(BUILD_STATIC_LIBS "Build the static library" ON)
 option(BUILD_WITH_OPENCL "Build with OpenCL" ON)
 if (BUILD_WITH_OPENCL)
   include(TeuthidCheckOpenCL)
@@ -42,8 +44,8 @@ if (BUILD_WITH_OPENCL)
   endif()
 endif()
 
-set(teuthid_INCLUDE_PATH ${teuthid_SOURCE_DIR}/include)
-set(teuthid_INCLUDE_DIR ${teuthid_SOURCE_DIR}/include/teuthid)
+set(BUILD_SHARED_LIBS ON)
+option(BUILD_STATIC_LIBS "Build the static library" ON)
 
 add_subdirectory(include)
 add_subdirectory(src)
