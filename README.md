@@ -5,7 +5,7 @@
 ##Features##
 * Multilayer artificial neural network libraries in C++11
 * Versatile (possible to adjust many parameters and features)
-* Designed with OpenCL support using [Boost.Compute](http://www.boost.org/doc/libs/release/libs/compute/) library
+* Designed with OpenCL support
 * Language bindings to C
 * Open source, but can be used in commercial applications (licenced under [LGPLv3](https://www.gnu.org/licenses/lgpl-3.0.en.html))
 * ...
