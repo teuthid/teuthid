@@ -16,7 +16,7 @@
     along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "library.hpp"
+#include <teuthid/library.hpp>
 
 using namespace teuthid;
 

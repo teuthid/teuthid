@@ -7,8 +7,6 @@ ${teuthid_library_soversion}.${teuthid_VERSION_MAJOR}.${teuthid_VERSION_MINOR})
 set(teuthid_CMAKE_DIR "${teuthid_SOURCE_DIR}/cmake")
 set(CMAKE_MODULE_PATH ${teuthid_CMAKE_DIR} ${CMAKE_MODULE_PATH})
 include(CheckOutOfSourceBuild)
-CHECK_OUT_OF_SOURCE_BUILD(
-  "${CMAKE_PROJECT_NAME} requires an out of source build.")
 
 if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Release")
@@ -31,11 +29,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_EXTENSIONS False)
 SET(CMAKE_COLOR_MAKEFILE ON)
 
-set(teuthid_link_libraries ${teuthid_linked_libs})
+set(teuthid_link_libraries ${teuthid_link_libraries})
 include(TeuthidCheckBoost)
 
 set(BUILD_SHARED_LIBS ON)
-option(BUILD_STATIC_LIBS "Build the static library" OFF)
+option(BUILD_STATIC_LIBS "Build the static library" ON)
 option(BUILD_WITH_OPENCL "Build with OpenCL" ON)
 if (BUILD_WITH_OPENCL)
   include(TeuthidCheckOpenCL)
@@ -44,8 +42,8 @@ if (BUILD_WITH_OPENCL)
   endif()
 endif()
 
-set(teuthid_INCLUDE_DIR "${teuthid_SOURCE_DIR}/include/teuthid")
-set(teuthid_LIBRARY_SOURCE_DIR "${teuthid_SOURCE_DIR}/src")
+set(teuthid_INCLUDE_PATH ${teuthid_SOURCE_DIR}/include)
+set(teuthid_INCLUDE_DIR ${teuthid_SOURCE_DIR}/include/teuthid)
 
 add_subdirectory(include)
 add_subdirectory(src)
@@ -79,6 +77,14 @@ message(STATUS "Build shared libraries: ${BUILD_SHARED_LIBS}\
   (Soversion: ${teuthid_library_version})" )
 message(STATUS "Build static libraries: ${BUILD_STATIC_LIBS}")
 message(STATUS "Build with OpenCL support: ${BUILD_WITH_OPENCL}")
+
+foreach(libname_ ${teuthid_link_libraries})
+  get_filename_component(libname_ ${libname_} NAME)
+  list(APPEND libname_list_ ${libname_})  
+endforeach()
+string(REGEX REPLACE ";" " " libname_list_ "${libname_list_}")
+message(STATUS "Linked libraries: ${libname_list_}")
+
 message(STATUS "Build the testing tree: ${BUILD_TESTS}")
 message(STATUS "Build the documentation: ${BUILD_DOCUMENTATION}")
 message(STATUS "Install directory: ${CMAKE_INSTALL_PREFIX}")

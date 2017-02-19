@@ -1,5 +1,8 @@
-find_package(Boost 1.61.0 QUIET REQUIRED COMPONENTS filesystem random
-  OPTIONAL_COMPONENTS unit_test_framework) 
+set(boost_required_components_ random)
+set(boost_optional_components_ unit_test_framework)
+find_package(Boost 1.61.0 QUIET REQUIRED 
+  COMPONENTS ${boost_required_components_}
+  OPTIONAL_COMPONENTS ${boost_optional_components_}) 
 
 if (NOT Boost_FOUND)
   message(FATAL_ERROR "Cannot find Boost libraries: Random")

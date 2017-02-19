@@ -19,7 +19,7 @@
 #ifndef TEUTHID_LIBRARY_HPP
 
 #include <string>
-#include "config.hpp"
+#include <teuthid/config.hpp>
 
 namespace teuthid
 {
