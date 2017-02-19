@@ -50,6 +50,10 @@ public:
     return version_;
   }
   static bool required_version(int min_major, int min_minor);
+  static constexpr bool use_opencl()
+  {
+    return use_opencl_;
+  }
 
 private:
   library() {}
@@ -61,6 +65,11 @@ private:
   static constexpr int patch_ = TEUTHID_PATCH_VERSION;
   static constexpr int soversion_ = TEUTHID_SOVERSION;
   static const std::string &version_;
+#if defined(TEUTHID_USE_OPENCL)
+  static constexpr bool use_opencl_ = true;
+#else
+  static constexpr bool use_opencl_ = false;
+#endif
 };
 
 } // namespace teuthid
