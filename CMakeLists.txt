@@ -33,9 +33,9 @@ set(teuthid_INCLUDE_PATH ${teuthid_SOURCE_DIR}/include)
 set(teuthid_INCLUDE_DIR ${teuthid_SOURCE_DIR}/include/teuthid)
 set(teuthid_link_libraries ${teuthid_link_libraries})
 
-include(CheckIncludeFileCXX)
+option(USE_FLOAT_128 "Use 128-bit floating-point numbers" ON)
 option(BUILD_WITH_OPENCL "Build with OpenCL" OFF)
-option(USE_BOOST_COMPUTE "Using Boost.Compute for OpenCL" ON)
+option(USE_BOOST_COMPUTE "Use Boost.Compute for OpenCL" ON)
 option(BUILD_TESTS "Build the testing tree" ON)
 
 include(TeuthidCheckBoost)

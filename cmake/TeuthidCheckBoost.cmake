@@ -1,4 +1,6 @@
 set(boost_required_components_ random)
+list(APPEND boost_required_components_ 
+  math_c99 math_c99f math_c99l math_tr1 math_tr1f math_tr1l)
 if (BUILD_WITH_OPENCL AND USE_BOOST_COMPUTE)
   list(APPEND boost_required_components_ filesystem)
 endif()
@@ -20,7 +22,12 @@ else()
 endif()
 
 list(APPEND teuthid_link_libraries 
-  ${Boost_SYSTEM_LIBRARIES} ${Boost_RANDOM_LIBRARIES})
+  ${Boost_SYSTEM_LIBRARIES} 
+  ${Boost_MATH_C99_LIBRARIES} ${Boost_MATH_C99F_LIBRARIES}
+  ${Boost_MATH_C99L_LIBRARIES}
+  ${Boost_MATH_TR1_LIBRARIES} ${Boost_MATH_TR1F_LIBRARIES}
+  ${Boost_MATH_TR1L_LIBRARIES}
+  ${Boost_RANDOM_LIBRARIES})
 if (BUILD_WITH_OPENCL AND USE_BOOST_COMPUTE)
   list(APPEND teuthid_link_libraries ${Boost_FILESYSTEM_LIBRARIES})
 endif()
