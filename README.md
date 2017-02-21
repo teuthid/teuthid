@@ -26,6 +26,7 @@ After that, you'll need to use elevated priviledges to install the framework: `s
 Available **CMake** options for building the framework are: 
 * `BUILD_STATIC_LIBS` - build static libraries,
 * `BUILD_WITH_OPENCL`- build with OpenCL support,
+* `USE_BOOST_COMPUTE` - use [Boost.Compute](https://github.com/boostorg/compute) for OpenCL support (`BUILD_WITH_OPENCL` must be `ON` in this case),
 * `BUILD_TESTS` - build unit tests,
 * `BUILD_DOCUMENTATION` - build HTML documentation (using **[Doxygen](http://www.stack.nl/~dimitri/doxygen/)**).
 
