@@ -32,4 +32,4 @@ Available **CMake** options for building the framework are:
 
 
 ---
-*P.S. This is early stage of the project, as this README* ;)
+*P.S. This is early stage of the project, as this README ;)*
