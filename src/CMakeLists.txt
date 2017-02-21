@@ -19,4 +19,3 @@ if (BUILD_STATIC_LIBS)
   set_target_properties(teuthid-static PROPERTIES PREFIX "lib")
   install(TARGETS teuthid-static DESTINATION lib)
 endif()
-

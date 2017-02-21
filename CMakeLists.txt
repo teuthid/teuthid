@@ -1,4 +1,28 @@
 cmake_minimum_required(VERSION 3.5.0)
+
+set(teuthid_message_switch ON)
+macro(message_warning msg_)
+  message(STATUS "WARNING: ${msg_}")
+endmacro()
+macro(message_error msg_)
+  message(STATUS "ERROR: ${msg_}")
+  message(FATAL_ERROR "")
+endmacro()
+
+function(message)
+  if (teuthid_message_switch)
+    if (MessageType STREQUAL FATAL_ERROR OR MessageType STREQUAL SEND_ERROR OR
+      MessageType STREQUAL WARNING OR MessageType STREQUAL AUTHOR_WARNING OR
+      MessageType STREQUAL STATUS)
+      list(GET ARGV 0 MessageType)
+      list(REMOVE_AT ARGV 0)
+    endif()
+    _message(${MessageType} ${ARGV})
+  endif()
+endfunction(message)
+
+#==============================================================================
+
 project(teuthid VERSION 0.1.0)
 set(teuthid_library_soversion 0)
 set(teuthid_library_version 
@@ -29,11 +53,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_EXTENSIONS False)
 SET(CMAKE_COLOR_MAKEFILE ON)
 
+set(teuthid_compiler_options)
+set(teuthid_tests_compiler_avx_sse_options)
+include(TeuthidCompilerFlags)
+
 set(teuthid_INCLUDE_PATH ${teuthid_SOURCE_DIR}/include)
 set(teuthid_INCLUDE_DIR ${teuthid_SOURCE_DIR}/include/teuthid)
 set(teuthid_link_libraries ${teuthid_link_libraries})
 
-option(USE_FLOAT_128 "Use 128-bit floating-point numbers" ON)
 option(BUILD_WITH_OPENCL "Build with OpenCL" OFF)
 option(USE_BOOST_COMPUTE "Use Boost.Compute for OpenCL" ON)
 option(BUILD_TESTS "Build the testing tree" ON)
@@ -72,13 +99,13 @@ if (BUILD_DOCUMENTATION)
   endif()
 endif()
 
-#include(CheckCXXCompilerFlag)
-#include(GNUInstallDirs)
-
 message(STATUS "Teuthid version: ${teuthid_VERSION}\
-  Build type: ${CMAKE_BUILD_TYPE}")
+   Build type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "Compiler options: ${teuthid_compiler_options}" )
+message(STATUS "Compiler options for tests:\
+ ${teuthid_tests_compiler_avx_sse_options}")
 message(STATUS "Build shared libraries: ${BUILD_SHARED_LIBS}\
-  (Soversion: ${teuthid_library_version})" )
+ (Soversion: ${teuthid_library_version})" )
 message(STATUS "Build static libraries: ${BUILD_STATIC_LIBS}")
 message(STATUS "Build with OpenCL support: ${BUILD_WITH_OPENCL}")
 

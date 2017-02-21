@@ -18,7 +18,7 @@ if (NOT Boost_FOUND)
     "Cannot find Boost libraries: ${boost_required_components_}")
 else()
   message(STATUS "Boost version:\
-    ${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION}.${Boost_SUBMINOR_VERSION}")
+ ${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION}.${Boost_SUBMINOR_VERSION}")
 endif()
 
 list(APPEND teuthid_link_libraries 
