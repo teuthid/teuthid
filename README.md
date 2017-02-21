@@ -19,15 +19,16 @@ Once that's finished, navigate to the Root directory and create `build` folder:
 
 `cd teuthid ; mkdir build ; cd build`
 
-Then run [CMake](https://cmake.org/)
+Then run **[CMake](https://cmake.org/)**: `cmake ../`
 
-`cmake ../`
+After that, you'll need to use elevated priviledges to install the framework: `sudo make install`
 
-Available options for building the framework are: `BUILD_STATIC_LIBS`, `BUILD_WITH_OPENCL`, `BUILD_TESTS`, `BUILD_DOCUMENTATION` (using [Doxygen](http://www.stack.nl/~dimitri/doxygen/)).
+Available **CMake** options for building the framework are: 
+* `BUILD_STATIC_LIBS` - build static libraries,
+* `BUILD_WITH_OPENCL`- build with OpenCL support,
+* `BUILD_TESTS` - build unit tests,
+* `BUILD_DOCUMENTATION` - build HTML documentation (using **[Doxygen](http://www.stack.nl/~dimitri/doxygen/)**).
 
-After that, you'll need to use elevated priviledges to install the framework:
-
-`sudo make install`
 
 ---
 *P.S. This is early stage of the project, as this README* :relaxed:
