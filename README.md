@@ -24,12 +24,12 @@ Then run **[CMake](https://cmake.org/)**: `cmake ../`
 After that, you'll need to use elevated priviledges to install the framework: `sudo make install`
 
 Available **CMake** options for building the framework are: 
-* `BUILD_STATIC_LIBS` - build static libraries,
-* `BUILD_WITH_OPENCL`- build with OpenCL support,
+* `BUILD_STATIC_LIBS` - build static libraries (default is `OFF`),
+* `BUILD_WITH_OPENCL`- build with OpenCL support (default is `OFF`),
 * `USE_BOOST_COMPUTE` - use [Boost.Compute](https://github.com/boostorg/compute) for OpenCL support (`BUILD_WITH_OPENCL` must be `ON` in this case),
-* `BUILD_TESTS` - build unit tests,
-* `BUILD_DOCUMENTATION` - build HTML documentation (using **[Doxygen](http://www.stack.nl/~dimitri/doxygen/)**).
+* `BUILD_TESTS` - build unit tests (default is `ON`),
+* `BUILD_DOCS` - build HTML documentation (using **[Doxygen](http://www.stack.nl/~dimitri/doxygen/)**, default is `ON`).
 
 
 ---
-*P.S. This is early stage of the project, as this README ;)*
+*P.S. This is early stage of the project yet, as this README ;)*

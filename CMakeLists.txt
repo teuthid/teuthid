@@ -1,25 +1,7 @@
 cmake_minimum_required(VERSION 3.5.0)
 
 set(teuthid_message_switch ON)
-macro(message_warning msg_)
-  message(STATUS "WARNING: ${msg_}")
-endmacro()
-macro(message_error msg_)
-  message(STATUS "ERROR: ${msg_}")
-  message(FATAL_ERROR "")
-endmacro()
-
-function(message)
-  if (teuthid_message_switch)
-    if (MessageType STREQUAL FATAL_ERROR OR MessageType STREQUAL SEND_ERROR OR
-      MessageType STREQUAL WARNING OR MessageType STREQUAL AUTHOR_WARNING OR
-      MessageType STREQUAL STATUS)
-      list(GET ARGV 0 MessageType)
-      list(REMOVE_AT ARGV 0)
-    endif()
-    _message(${MessageType} ${ARGV})
-  endif()
-endfunction(message)
+include(cmake/TeuthidMessage.cmake)
 
 #==============================================================================
 
@@ -55,7 +37,7 @@ SET(CMAKE_COLOR_MAKEFILE ON)
 
 set(teuthid_compiler_options)
 set(teuthid_tests_compiler_avx_sse_options)
-include(TeuthidCompilerFlags)
+include(TeuthidCompilerOptions)
 
 set(teuthid_INCLUDE_PATH ${teuthid_SOURCE_DIR}/include)
 set(teuthid_INCLUDE_DIR ${teuthid_SOURCE_DIR}/include/teuthid)
@@ -87,36 +69,37 @@ else()
   set(BUILD_TESTS OFF)
 endif()
 
-option(BUILD_DOCUMENTATION "Build the documentation" ON)
-if (BUILD_DOCUMENTATION)
+option(BUILD_DOCS "Build the documentation" ON)
+if (BUILD_DOCS)
   find_package(Doxygen QUIET)
   if (NOT DOXYGEN_FOUND)
     message(STATUS "Cannot find Doxygen! Building documentation is disabled")
-    set(BUILD_DOCUMENTATION OFF)
+    set(BUILD_DOCS OFF)
   else()
     message(STATUS "Doxygen version: ${DOXYGEN_VERSION}")
     add_subdirectory(doc)
   endif()
 endif()
 
-message(STATUS "Teuthid version: ${teuthid_VERSION}\
-   Build type: ${CMAKE_BUILD_TYPE}")
-message(STATUS "Compiler options: ${teuthid_compiler_options}" )
-message(STATUS "Compiler options for tests:\
- ${teuthid_tests_compiler_avx_sse_options}")
-message(STATUS "Build shared libraries: ${BUILD_SHARED_LIBS}\
- (Soversion: ${teuthid_library_version})" )
-message(STATUS "Build static libraries: ${BUILD_STATIC_LIBS}")
-message(STATUS "Build with OpenCL support: ${BUILD_WITH_OPENCL}")
+msg_status("Teuthid version: "  "${teuthid_VERSION}")
+msg_status("Build type: " 
+  "${CMAKE_BUILD_TYPE} (${CMAKE_C_COMPILER_ID} ${CMAKE_SYSTEM})")
+msg_status("Compiler options: " "${teuthid_compiler_options}")
+msg_status("Extra compiler options for tests:"
+ "${teuthid_tests_compiler_avx_sse_options}")
+msg_status("Build shared libraries: "
+  "${BUILD_SHARED_LIBS} (Soversion: ${teuthid_library_version})")
+msg_status("Build static libraries: " "${BUILD_STATIC_LIBS}")
+msg_status("Build with OpenCL support: " "${BUILD_WITH_OPENCL}")
 
 foreach(libname_ ${teuthid_link_libraries})
   get_filename_component(libname_ ${libname_} NAME)
   list(APPEND libname_list_ ${libname_})  
 endforeach()
 string(REGEX REPLACE ";" " " libname_list_ "${libname_list_}")
-message(STATUS "Linked libraries: ${libname_list_}")
+msg_status("Linked libraries: " "${libname_list_}")
 
-message(STATUS "Build the testing tree: ${BUILD_TESTS}")
-message(STATUS "Build the documentation: ${BUILD_DOCUMENTATION}")
-message(STATUS "Install directory: ${CMAKE_INSTALL_PREFIX}")
+msg_status("Build the testing tree: " "${BUILD_TESTS}")
+msg_status("Build the documentation: " "${BUILD_DOCS}")
+msg_status("Install directory: " "${CMAKE_INSTALL_PREFIX}")
 
