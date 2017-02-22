@@ -22,7 +22,7 @@ The sources are available from https://github.com/teuthid/teuthid.
 == 1. PREREQUISITES ==
 
 This project requires:
-  * CMake v@CMAKE_REQUIRED_VERSION@ or higher.
+  * CMake v3.5.0 or higher.
   * GNU Make or equivalent.
   * GCC or an alternative, reasonably conformant C++11 compiler.
   * Boost C++ headers and libraries v@Boost_REQUIRED_VERSION@ or higher. 
@@ -48,6 +48,7 @@ Available CMake options for building the framework are:
                         Default is ON.
   * BUILD_TESTS - Build unit tests. Default is ON.
   * BUILD_DOCS - Build HTML documentation using Doxygen. Default is ON.
+  * BUILD_EXAMPLES - Build examples. Default is OFF.
 
   
 == 3. INSTALLING ==

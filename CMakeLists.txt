@@ -22,7 +22,7 @@ if (NOT _cmake_build_type STREQUAL "debug"
       AND NOT _cmake_build_type STREQUAL "release"
       AND NOT _cmake_build_type STREQUAL "relwithdebinfo"
       AND NOT _cmake_build_type STREQUAL "minsizerel")
-  message(FATAL_ERROR "Unknown build type: ${CMAKE_BUILD_TYPE}")
+  msg_error("Unknown build type: ${CMAKE_BUILD_TYPE}")
 endif()
 
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
@@ -44,9 +44,13 @@ set(teuthid_INCLUDE_PATH ${teuthid_SOURCE_DIR}/include)
 set(teuthid_INCLUDE_DIR ${teuthid_SOURCE_DIR}/include/teuthid)
 set(teuthid_link_libraries ${teuthid_link_libraries})
 
+set(BUILD_SHARED_LIBS ON)
+option(BUILD_STATIC_LIBS "Build the static library" ON)
 option(BUILD_WITH_OPENCL "Build with OpenCL" OFF)
 option(USE_BOOST_COMPUTE "Use Boost.Compute for OpenCL" ON)
 option(BUILD_TESTS "Build the testing tree" ON)
+option(BUILD_DOCS "Build the documentation" ON)
+option(BUILD_EXAMPLES "Build examples" ON)
 
 include(TeuthidCheckBoost)
 
@@ -56,9 +60,6 @@ if (BUILD_WITH_OPENCL)
     set(BUILD_WITH_OPENCL OFF)
   endif()
 endif(BUILD_WITH_OPENCL)
-
-set(BUILD_SHARED_LIBS ON)
-option(BUILD_STATIC_LIBS "Build the static library" ON)
 
 add_subdirectory(include)
 add_subdirectory(src)
@@ -71,31 +72,31 @@ else()
   set(BUILD_TESTS OFF)
 endif(BUILD_TESTS AND Boost_UNIT_TEST_FRAMEWORK_FOUND)
 
-option(BUILD_DOCS "Build the documentation" ON)
 if (BUILD_DOCS)
   find_package(Doxygen QUIET)
   if (NOT DOXYGEN_FOUND)
-    message(STATUS "Cannot find Doxygen! Building documentation is disabled")
+    msg_warning("Cannot find Doxygen! Building documentation is disabled.")
     set(BUILD_DOCS OFF)
   else()
-    message(STATUS "Doxygen version: ${DOXYGEN_VERSION}")
+    msg_status("Doxygen version: " "${DOXYGEN_VERSION}")
     add_subdirectory(doc)
   endif()
 endif(BUILD_DOCS)
 
-option(BUILD_EXAMPLES "Build examples" ON)
 if (BUILD_EXAMPLES)
   add_subdirectory(examples)
 endif(BUILD_EXAMPLES)
 
-configure_file(README.in README)
+configure_file(${teuthid_SOURCE_DIR}/README.in 
+               ${teuthid_SOURCE_DIR}/README)
 # TODO: install README AUTHORS etc.
 
+message(" ")
 msg_status("Teuthid version: "  "${teuthid_VERSION}")
 msg_status("Build type: " 
   "${CMAKE_BUILD_TYPE} (${CMAKE_C_COMPILER_ID} ${CMAKE_SYSTEM})")
 msg_status("Compiler options: " "${teuthid_compiler_options}")
-msg_status("Extra compiler options for tests:"
+msg_status("Extra compiler options for unit tests:"
  "${teuthid_tests_compiler_avx_sse_options}")
 msg_status("Build shared libraries: "
   "${BUILD_SHARED_LIBS} (Soversion: ${teuthid_library_version})")
@@ -106,10 +107,11 @@ foreach(libname_ ${teuthid_link_libraries})
   get_filename_component(libname_ ${libname_} NAME)
   list(APPEND libname_list_ ${libname_})  
 endforeach()
-string(REGEX REPLACE ";" " " libname_list_ "${libname_list_}")
+string(REPLACE ";" ", " libname_list_ "${libname_list_}")
 msg_status("Linked libraries: " "${libname_list_}")
 
 msg_status("Build the unit tests: " "${BUILD_TESTS}")
 msg_status("Build the documentation: " "${BUILD_DOCS}")
 msg_status("Install directory: " "${CMAKE_INSTALL_PREFIX}")
 
+message(" ")
