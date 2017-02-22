@@ -1,3 +1,6 @@
+# replace buit-in message() function with own version to allow disable/enable
+# printing messages using teuthid_message_switch()
+
 function(message)
   if (teuthid_message_switch)
     if (MessageType STREQUAL FATAL_ERROR OR MessageType STREQUAL SEND_ERROR OR
@@ -33,9 +36,9 @@ macro(msg_status msg_ colorized_msg_)
 endmacro()
 
 macro(msg_warning msg_)
-  message(STATUS "WARNING: ${msg_}")
+  message(STATUS "${Yellow}WARNING: ${msg_}${ColorReset}")
 endmacro()
 macro(msg_error msg_)
-  message(STATUS "ERROR: ${msg_}")
+  message(STATUS "${Red}ERROR: ${msg_}${ColorReset}")
   message(FATAL_ERROR "")
 endmacro()
