@@ -50,6 +50,11 @@ Available CMake options for building the framework are:
   * BUILD_DOCS - Build HTML documentation using Doxygen. Default is ON.
   * BUILD_EXAMPLES - Build examples. Default is OFF.
 
+Special options for x86 and x86-64 architectures:
+  * ENABLE_AVX_SSE - Enable AVX or SSE compiler options. Default is OFF.
+  * ENABLE_AVX_SSE_FOR_TESTS - Enable AVX or SSE options for compiling unit     
+                               tests only. Default is OFF.
+  
   
 == 3. INSTALLING ==
 

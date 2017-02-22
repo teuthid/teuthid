@@ -1,38 +1,21 @@
 include(CheckCXXCompilerFlag)
 
-set(list_ext_ avx avx2 sse2 sse3 ssse3 sse4a sse4.1 sse4.2 sse5) # to remove
-set(list_avx_options_ avx avx2)
-set(list_sse_options_ sse sse2 sse3 ssse3 sse4a sse4.1 sse4.2)
+set(list_avx_options_ avx avx2 __wrong__)
+set(list_sse_options_ sse sse2 sse3 ssse3 sse4a sse4.1 sse4.2 __wrong__)
 
-# TODO: rewrite for ENABLE_AVX, ENABLE_SSE, ENABLE_AVX_SSE_FOR_TESTS
- 
-# GCC depresses SSEx instructions when -mavx is used. Instead, it generates
-# new AVX instructions or AVX equivalence for all SSEx instructions when needed. 
+# GCC depresses SSEx instructions when -mavx is used. Instead, it generates new # AVX instructions or AVX equivalence for all SSEx instructions when needed. 
 # To generate SSE/SSE2 instructions automatically from floating-point code
 # (as opposed to 387 instructions), see -mfpmath=sse.
+# These options are defined for the i386 and x86-64 family of computers.
 
-set(extra_options_ "")
-function(teuthid_add_cxx_compiler_option option_)
-  string(REGEX REPLACE "-" "" soption_ ${option_})
-  check_cxx_compiler_flag(${option_} compiler_option_${soption_})
-  if (compiler_option_${soption_})
-    set(extra_options_ "${extra_options_} ${option_}" PARENT_SCOPE)
+function(teuthid_add_compiler_option option_ result_)
+  check_cxx_compiler_flag("-m${option_}" moption_${option_})
+  if (moption_${option_})
+    set(result_ "-m${option_}" PARENT_SCOPE)
+  else()
+    set(result_ "" PARENT_SCOPE)
   endif()
-endfunction(teuthid_add_cxx_compiler_option)
-
-set(str_list_ext_ "")
-foreach(ext_ ${list_ext_})
-  set(str_list_ext_ "${str_list_ext_} ${ext_}")
-endforeach()
-msg_status("Testing compiler options:" "${str_list_ext_}")
-
-set(teuthid_message_switch OFF)
-foreach(ext_ ${list_ext_})
-  teuthid_add_cxx_compiler_option("-m${ext_}")
-endforeach()
-set(teuthid_message_switch ON)
-set(teuthid_tests_compiler_avx_sse_options "${extra_options_}")
-
+endfunction(teuthid_add_compiler_option)
 
 if (CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
   set(teuthid_compiler_options ${CMAKE_CXX_FLAGS_RELWITHDEBINFO})
@@ -45,5 +28,29 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
 else()
   set(teuthid_compiler_options ${CMAKE_CXX_FLAGS}) # FIXME
 endif()
+set(teuthid_tests_compiler_options ${teuthid_compiler_options})
 
-set(CMAKE_VERBOSE_MAKEFILE ON)
+set(found_AVX OFF)
+set(found_SSE OFF)
+
+if (ENABLE_AVX_SSE)
+  message(STATUS "Check for working compiler options (AVX/SSE)")
+  #set(teuthid_message_switch OFF)
+  foreach(option_ ${list_avx_options_})
+    teuthid_add_compiler_option("${option_}" result_)
+    if (result_)
+      set(teuthid_compiler_options "${teuthid_compiler_options} ${result_}")
+      set(found_AVX_ ON)
+    endif() 
+    unset(result_)
+  endforeach()
+  if (found_AVX_)
+    set(teuthid_compiler_options "${teuthid_compiler_options} -mfpmath=sse")
+  endif()
+  #set(teuthid_message_switch ON)
+  message(STATUS "Check for working compiler options (AVX/SSE) - done") 
+endif(ENABLE_AVX_SSE)
+
+unset(found_AVX)
+unset(found_SSE)
+set(CMAKE_VERBOSE_MAKEFILE ON) # to comment out

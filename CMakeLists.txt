@@ -35,9 +35,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_EXTENSIONS False)
 SET(CMAKE_COLOR_MAKEFILE ON)
 
-# TODO: options: ENABLE_AVX, ENABLE_SSE
+option(ENABLE_AVX_SSE "Enable AVX or SSE compiler options" ON)
+option(ENABLE_AVX_SSE_FOR_TESTS 
+  "Enable AVX or SSE compiler options for unit tests only" ON)
+
 set(teuthid_compiler_options)
-set(teuthid_tests_compiler_avx_sse_options)
+set(teuthid_tests_compiler_options)
 include(TeuthidCompilerOptions)
 
 set(teuthid_INCLUDE_PATH ${teuthid_SOURCE_DIR}/include)
@@ -46,7 +49,7 @@ set(teuthid_link_libraries ${teuthid_link_libraries})
 
 set(BUILD_SHARED_LIBS ON)
 option(BUILD_STATIC_LIBS "Build the static library" ON)
-option(BUILD_WITH_OPENCL "Build with OpenCL" ON)
+option(BUILD_WITH_OPENCL "Build with OpenCL" OFF)
 option(USE_BOOST_COMPUTE "Use Boost.Compute for OpenCL" ON)
 option(BUILD_TESTS "Build the testing tree" ON)
 option(BUILD_DOCS "Build the documentation" ON)
@@ -94,10 +97,11 @@ configure_file(${teuthid_SOURCE_DIR}/README.in
 message("--")
 msg_status("Teuthid version: "  "${teuthid_VERSION}")
 msg_status("Build type: " 
-  "${CMAKE_BUILD_TYPE} (${CMAKE_C_COMPILER_ID} ${CMAKE_SYSTEM})")
+  "${CMAKE_BUILD_TYPE} (${CMAKE_C_COMPILER_ID} ${CMAKE_SYSTEM}\
+ ${CMAKE_SYSTEM_PROCESSOR})")
 msg_status("Compiler options: " "${teuthid_compiler_options}")
-msg_status("Extra compiler options for unit tests:"
- "${teuthid_tests_compiler_avx_sse_options}")
+msg_status("Compiler options for unit tests: " 
+  "${teuthid_tests_compiler_options}")
 msg_status("Build shared libraries: "
   "${BUILD_SHARED_LIBS} (Soversion: ${teuthid_library_version})")
 msg_status("Build static libraries: " "${BUILD_STATIC_LIBS}")
