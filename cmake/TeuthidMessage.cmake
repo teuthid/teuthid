@@ -38,6 +38,7 @@ endmacro()
 macro(msg_warning msg_)
   message(STATUS "${Yellow}WARNING: ${msg_}${ColorReset}")
 endmacro()
+
 macro(msg_error msg_)
   message(STATUS "${Red}ERROR: ${msg_}${ColorReset}")
   message(FATAL_ERROR "")
