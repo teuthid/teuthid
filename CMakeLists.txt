@@ -81,6 +81,8 @@ if (BUILD_DOCS)
   endif()
 endif()
 
+configure_file(README.in README)
+
 msg_status("Teuthid version: "  "${teuthid_VERSION}")
 msg_status("Build type: " 
   "${CMAKE_BUILD_TYPE} (${CMAKE_C_COMPILER_ID} ${CMAKE_SYSTEM})")
@@ -99,7 +101,7 @@ endforeach()
 string(REGEX REPLACE ";" " " libname_list_ "${libname_list_}")
 msg_status("Linked libraries: " "${libname_list_}")
 
-msg_status("Build the testing tree: " "${BUILD_TESTS}")
+msg_status("Build the unit tests: " "${BUILD_TESTS}")
 msg_status("Build the documentation: " "${BUILD_DOCS}")
 msg_status("Install directory: " "${CMAKE_INSTALL_PREFIX}")
 
