@@ -1,8 +1,17 @@
 include(CheckCXXCompilerFlag)
 
-set(extra_options_ "")
-set(list_ext_ avx avx2 sse2 sse3 ssse3 sse4a sse4.1 sse4.2 sse5)
+set(list_ext_ avx avx2 sse2 sse3 ssse3 sse4a sse4.1 sse4.2 sse5) # to remove
+set(list_avx_options_ avx avx2)
+set(list_sse_options_ sse sse2 sse3 ssse3 sse4a sse4.1 sse4.2)
 
+# TODO: rewrite for ENABLE_AVX, ENABLE_SSE, ENABLE_AVX_SSE_FOR_TESTS
+ 
+# GCC depresses SSEx instructions when -mavx is used. Instead, it generates
+# new AVX instructions or AVX equivalence for all SSEx instructions when needed. 
+# To generate SSE/SSE2 instructions automatically from floating-point code
+# (as opposed to 387 instructions), see -mfpmath=sse.
+
+set(extra_options_ "")
 function(teuthid_add_cxx_compiler_option option_)
   string(REGEX REPLACE "-" "" soption_ ${option_})
   check_cxx_compiler_flag(${option_} compiler_option_${soption_})
