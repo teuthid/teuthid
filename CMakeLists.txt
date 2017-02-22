@@ -46,7 +46,7 @@ set(teuthid_link_libraries ${teuthid_link_libraries})
 
 set(BUILD_SHARED_LIBS ON)
 option(BUILD_STATIC_LIBS "Build the static library" ON)
-option(BUILD_WITH_OPENCL "Build with OpenCL" OFF)
+option(BUILD_WITH_OPENCL "Build with OpenCL" ON)
 option(USE_BOOST_COMPUTE "Use Boost.Compute for OpenCL" ON)
 option(BUILD_TESTS "Build the testing tree" ON)
 option(BUILD_DOCS "Build the documentation" ON)
@@ -91,7 +91,7 @@ configure_file(${teuthid_SOURCE_DIR}/README.in
                ${teuthid_SOURCE_DIR}/README)
 # TODO: install README AUTHORS etc.
 
-message(" ")
+message("--")
 msg_status("Teuthid version: "  "${teuthid_VERSION}")
 msg_status("Build type: " 
   "${CMAKE_BUILD_TYPE} (${CMAKE_C_COMPILER_ID} ${CMAKE_SYSTEM})")
@@ -114,4 +114,4 @@ msg_status("Build the unit tests: " "${BUILD_TESTS}")
 msg_status("Build the documentation: " "${BUILD_DOCS}")
 msg_status("Install directory: " "${CMAKE_INSTALL_PREFIX}")
 
-message(" ")
+message("--")
