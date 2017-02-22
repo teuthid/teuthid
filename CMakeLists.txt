@@ -35,6 +35,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_EXTENSIONS False)
 SET(CMAKE_COLOR_MAKEFILE ON)
 
+# TODO: options: ENABLE_AVX, ENABLE_SSE
 set(teuthid_compiler_options)
 set(teuthid_tests_compiler_avx_sse_options)
 include(TeuthidCompilerOptions)
@@ -62,6 +63,7 @@ option(BUILD_STATIC_LIBS "Build the static library" ON)
 add_subdirectory(include)
 add_subdirectory(src)
 
+# TODO: options: ENABLE_AVX_SSE_FOR_TESTS
 if (BUILD_TESTS AND Boost_UNIT_TEST_FRAMEWORK_FOUND)
   enable_testing()
   add_subdirectory(test)
@@ -81,7 +83,13 @@ if (BUILD_DOCS)
   endif()
 endif(BUILD_DOCS)
 
+option(BUILD_EXAMPLES "Build examples" ON)
+if (BUILD_EXAMPLES)
+  add_subdirectory(examples)
+endif(BUILD_EXAMPLES)
+
 configure_file(README.in README)
+// TODO: install README AUTHORS etc.
 
 msg_status("Teuthid version: "  "${teuthid_VERSION}")
 msg_status("Build type: " 
