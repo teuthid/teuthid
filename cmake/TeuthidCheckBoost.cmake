@@ -7,8 +7,9 @@ endif()
 
 if (BUILD_TESTS)
   set(boost_optional_components_ unit_test_framework)
-endif()
+endif(BUILD_TESTS)
 
+#set(Boost_REQUIRED_VERSION 1.61.0)
 find_package(Boost 1.61.0 QUIET REQUIRED 
   COMPONENTS ${boost_required_components_}
   OPTIONAL_COMPONENTS ${boost_optional_components_}) 
