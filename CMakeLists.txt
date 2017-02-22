@@ -79,7 +79,7 @@ if (BUILD_DOCS)
     set(BUILD_DOCS OFF)
   else()
     message(STATUS "Doxygen version: ${DOXYGEN_VERSION}")
-    add_subdirectory(docs)
+    add_subdirectory(doc)
   endif()
 endif(BUILD_DOCS)
 
@@ -89,7 +89,7 @@ if (BUILD_EXAMPLES)
 endif(BUILD_EXAMPLES)
 
 configure_file(README.in README)
-// TODO: install README AUTHORS etc.
+# TODO: install README AUTHORS etc.
 
 msg_status("Teuthid version: "  "${teuthid_VERSION}")
 msg_status("Build type: " 
