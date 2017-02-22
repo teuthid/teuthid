@@ -1,0 +1,78 @@
+Teuthid is a free open source framework, which implements multilayer artificial
+neural networks in C++ with support for both fully connected and sparsely
+connected networks. 
+Cross-platform execution in floating-point numbers are supported with more
+range and precision than C's ordinary built-in types.
+The framework is designed to support multi-core CPU/GPGPU computing platforms
+based on OpenCL and using Boost, free portable C++ source libraries.
+
+Teuthid was inspired by the project FANN (http://leenissen.dk/fann/wp/).
+Thank you, Mr. Steffen Nissen!
+
+This is version @teuthid_VERSION@ of the framework. 
+The sources are available from https://github.com/teuthid/teuthid.
+
+  1.) Prerequisites
+  2.) Building
+  3.) Installing
+  4.) Contributing
+  5.) License
+
+  
+== 1. PREREQUISITES ==
+
+This project requires:
+  * CMake v@CMAKE_REQUIRED_VERSION@ or higher.
+  * GNU Make or equivalent.
+  * GCC or an alternative, reasonably conformant C++11 compiler.
+  * Boost C++ headers and libraries v@Boost_REQUIRED_VERSION@ or higher. 
+  * [optionally] OpenCL library and OpenCL C++ bindings.
+
+  
+== 2. BUILDING ==
+ 
+Tethid uses the Cross-platform Make (CMake) build system. However, we have
+conveniently provided a wrapper configure script and Makefile so that
+the typical build invocation of "./configure" followed by "make" will work.
+For a list of all possible build targets, use the command "make help".
+
+NOTE: Users of CMake may believe that the top-level Makefile has been generated
+by CMake - it has not, so please do not delete that file.
+
+Available CMake options for building the framework are:
+  * BUILD_SHARED_LIBS - Build shared libraries. Default is ON.
+  * BUILD_STATIC_LIBS - Build static libraries. Default is OFF.
+  * BUILD_WITH_OPENCL - Build with OpenCL support. Default is OFF.
+  * USE_BOOST_COMPUTE - Use Boost.Compute for OpenCL support. 
+                        Option BUILD_WITH_OPENCL must be ON in this case.
+                        Default is ON.
+  * BUILD_TESTS - Build unit tests. Default is ON.
+  * BUILD_DOCS - Build HTML documentation using Doxygen. Default is ON.
+
+  
+== 3. INSTALLING ==
+
+Once the project has been built (see "BUILDING"), execute "sudo make install".
+
+
+== 4. CONTRIBUTING ==
+
+TODO
+
+
+== 5. LICENSE
+
+Teuthid is licensed under the Lesser General Public License Version 3.
+
+This file is part of the Teuthid project.
+Copyright (C) 2016-2017 Mariusz Przygodzki (mariusz.przygodzki@gmail.com)
+    This library is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
