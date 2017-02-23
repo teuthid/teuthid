@@ -36,9 +36,6 @@ set(CMAKE_CXX_EXTENSIONS False)
 SET(CMAKE_COLOR_MAKEFILE ON)
 
 option(ENABLE_AVX_SSE "Enable AVX or SSE compiler options" OFF)
-option(ENABLE_AVX_SSE_FOR_TESTS 
-  "Enable AVX or SSE compiler options for unit tests only" OFF)
-
 set(teuthid_compiler_options)
 include(TeuthidCompilerOptions)
 
@@ -90,7 +87,8 @@ endif(BUILD_EXAMPLES)
 
 configure_file(${teuthid_SOURCE_DIR}/README.in 
                ${teuthid_SOURCE_DIR}/README)
-# TODO: install README AUTHORS etc.
+set(main_docs_ AUTHORS LICENSE.LGPLv3 README)
+install(FILES ${main_docs_} DESTINATION share/doc)
 
 message(" ")
 msg_status("Teuthid version: "  "${teuthid_VERSION}")
@@ -99,8 +97,6 @@ msg_status("Build type: "
  ${CMAKE_SYSTEM_PROCESSOR})")
 msg_status("Compiler options: " 
   "${teuthid_compiler_options}${AVX_SSE_compiler_options}")
-msg_status("Compiler options for unit tests: " 
-  "${teuthid_compiler_options}${AVX_SSE_compiler_options_for_tests}")
 msg_status("Build shared libraries: "
   "${BUILD_SHARED_LIBS} (Soversion: ${teuthid_library_version})")
 msg_status("Build static libraries: " "${BUILD_STATIC_LIBS}")

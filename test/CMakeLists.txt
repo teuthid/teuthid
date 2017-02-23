@@ -4,7 +4,7 @@ set(teuthid_tests
   class_library
 )
 
-set(compiler_options_ "${AVX_SSE_compiler_options_for_tests}")
+set(compiler_options_ "${AVX_SSE_compiler_options}")
 separate_arguments(compiler_options_)
 
 foreach(test_ ${teuthid_tests})
