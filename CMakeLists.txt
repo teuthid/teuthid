@@ -37,7 +37,7 @@ SET(CMAKE_COLOR_MAKEFILE ON)
 
 option(ENABLE_AVX_SSE "Enable AVX or SSE compiler options" ON)
 option(ENABLE_AVX_SSE_FOR_TESTS 
-  "Enable AVX or SSE compiler options for unit tests only" ON)
+  "Enable AVX or SSE compiler options for unit tests only" OFF)
 
 set(teuthid_compiler_options)
 set(teuthid_tests_compiler_options)
@@ -67,7 +67,6 @@ endif(BUILD_WITH_OPENCL)
 add_subdirectory(include)
 add_subdirectory(src)
 
-# TODO: options: ENABLE_AVX_SSE_FOR_TESTS
 if (BUILD_TESTS AND Boost_UNIT_TEST_FRAMEWORK_FOUND)
   enable_testing()
   add_subdirectory(test)
@@ -99,9 +98,10 @@ msg_status("Teuthid version: "  "${teuthid_VERSION}")
 msg_status("Build type: " 
   "${CMAKE_BUILD_TYPE} (${CMAKE_C_COMPILER_ID} ${CMAKE_SYSTEM}\
  ${CMAKE_SYSTEM_PROCESSOR})")
-msg_status("Compiler options: " "${teuthid_compiler_options}")
+msg_status("Compiler options: " 
+  "${teuthid_compiler_options} ${AVX_SSE_compiler_options}")
 msg_status("Compiler options for unit tests: " 
-  "${teuthid_tests_compiler_options}")
+  "${teuthid_tests_compiler_options} ${AVX_SSE_compiler_options_for_tests}")
 msg_status("Build shared libraries: "
   "${BUILD_SHARED_LIBS} (Soversion: ${teuthid_library_version})")
 msg_status("Build static libraries: " "${BUILD_STATIC_LIBS}")
