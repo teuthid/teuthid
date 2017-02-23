@@ -1,7 +1,7 @@
 include(CheckCXXCompilerFlag)
 
-set(list_AVX_options_ avx avx2 __wrong__)
-set(list_SSE_options_ sse sse2 sse3 ssse3 sse4a sse4.1 sse4.2 __wrong__)
+set(list_AVX_options_ avx avx2)
+set(list_SSE_options_ sse sse2 sse3 ssse3 sse4a sse4.1 sse4.2)
 
 # GCC depresses SSEx instructions when -mavx is used. Instead, it generates new # AVX instructions or AVX equivalence for all SSEx instructions when needed. 
 # To generate SSE/SSE2 instructions automatically from floating-point code
@@ -19,7 +19,6 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
 else()
   set(teuthid_compiler_options ${CMAKE_CXX_FLAGS}) # FIXME
 endif()
-set(teuthid_tests_compiler_options ${teuthid_compiler_options})
 
 macro(teuthid_add_compiler_option option_ result_)
   set(teuthid_message_switch OFF)
@@ -31,14 +30,26 @@ macro(teuthid_add_compiler_option option_ result_)
 endmacro(teuthid_add_compiler_option)
 
 macro(teuthid_add_compiler_options options_)
+  set(checked_ext_, "")
   foreach(ext_ ${list_${options_}_options_})
     teuthid_add_compiler_option("${ext_}" result_)
     if (result_)
-      set(AVX_SSE_compiler_options "${AVX_SSE_compiler_options} ${result_}")
+      set(checked_ext_ "${checked_ext_} ${result_}")
       set(found_extensions_ ${options_})
     endif()
     unset(result_)
   endforeach()
+  if (checked_ext_)
+    set(checked_ext_ "${checked_ext_} -mfpmath=sse")
+  endif()
+  if (ENABLE_AVX_SSE AND checked_ext_)
+    set(AVX_SSE_compiler_options "${AVX_SSE_compiler_options}${checked_ext_}")
+  endif()
+  if (ENABLE_AVX_SSE_FOR_TESTS AND checked_ext_)
+  set(AVX_SSE_compiler_options_for_tests 
+    "${AVX_SSE_compiler_options_for_tests}${checked_ext_}")
+  endif()
+  unset(checked_ext_)
 endmacro()
 
 set(found_extensions_ NONE)
@@ -52,7 +63,6 @@ if (ENABLE_AVX_SSE OR ENABLE_AVX_SSE_FOR_TESTS)
     teuthid_add_compiler_options(SSE)
   endif()
   if (NOT (${found_extensions_} MATCHES NONE))
-    set(AVX_SSE_compiler_options "${AVX_SSE_compiler_options} -mfpmath=sse")
     msg_status("Check for working compiler options (AVX/SSE) - " 
       "${found_extensions_}")
   else()
