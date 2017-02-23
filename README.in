@@ -31,9 +31,9 @@ This project requires:
   
 == 2. BUILDING ==
  
-Tethid uses the Cross-platform Make (CMake) build system. However, we have
-conveniently provided a wrapper configure script and Makefile so that
-the typical build invocation of "./configure" followed by "make" will work.
+Tethid uses CMake build system. However, we have conveniently provided 
+a wrapper configure script and Makefile so that the typical build 
+invocation of "./configure" followed by "make" will work. 
 For a list of all possible build targets, use the command "make help".
 
 NOTE: Users of CMake may believe that the top-level Makefile has been generated
