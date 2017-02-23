@@ -37,10 +37,9 @@ SET(CMAKE_COLOR_MAKEFILE ON)
 
 option(ENABLE_AVX_SSE "Enable AVX or SSE compiler options" OFF)
 option(ENABLE_AVX_SSE_FOR_TESTS 
-  "Enable AVX or SSE compiler options for unit tests only" ON)
+  "Enable AVX or SSE compiler options for unit tests only" OFF)
 
 set(teuthid_compiler_options)
-set(teuthid_tests_compiler_options)
 include(TeuthidCompilerOptions)
 
 set(teuthid_INCLUDE_PATH ${teuthid_SOURCE_DIR}/include)
@@ -51,7 +50,7 @@ set(BUILD_SHARED_LIBS ON)
 option(BUILD_STATIC_LIBS "Build the static library" ON)
 option(BUILD_WITH_OPENCL "Build with OpenCL" OFF)
 option(USE_BOOST_COMPUTE "Use Boost.Compute for OpenCL" ON)
-option(BUILD_TESTS "Build the testing tree" ON)
+option(BUILD_TESTS "Build unit test" ON)
 option(BUILD_DOCS "Build the documentation" ON)
 option(BUILD_EXAMPLES "Build examples" ON)
 
