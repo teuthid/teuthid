@@ -42,8 +42,8 @@ macro(teuthid_add_compiler_options options_)
 endmacro()
 
 set(found_extensions_ NONE)
-set(AVX_SSE_compiler_options)
-set(AVX_SSE_compiler_options_for_tests)
+set(AVX_SSE_compiler_options "")
+set(AVX_SSE_compiler_options_for_tests "")
 
 if (ENABLE_AVX_SSE OR ENABLE_AVX_SSE_FOR_TESTS)
   message(STATUS "Check for working compiler options (AVX/SSE)")
