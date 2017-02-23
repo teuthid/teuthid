@@ -3,9 +3,10 @@ include(CheckCXXCompilerFlag)
 set(list_AVX_options_ avx avx2)
 set(list_SSE_options_ sse sse2 sse3 ssse3 sse4a sse4.1 sse4.2)
 
-# GCC depresses SSEx instructions when -mavx is used. Instead, it generates new # AVX instructions or AVX equivalence for all SSEx instructions when needed. 
-# To generate SSE/SSE2 instructions automatically from floating-point code
-# (as opposed to 387 instructions), see -mfpmath=sse.
+# GCC depresses SSEx instructions when -mavx is used. Instead, it generates
+# new AVX instructions or AVX equivalence for all SSEx instructions when n
+# needed. To generate SSE/SSE2 instructions automatically from floating-point 
+# code (as opposed to 387 instructions), see -mfpmath=sse.
 # These options are defined for the i386 and x86-64 family of computers.
 
 if (CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
