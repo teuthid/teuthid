@@ -46,6 +46,8 @@ Available CMake options for building the framework are:
   * USE_BOOST_COMPUTE - Use Boost.Compute for OpenCL support. 
                         Option BUILD_WITH_OPENCL must be ON in this case.
                         Default is ON.
+  * CHECK_OPENCL_DEVICES - Check for working OpenCL platforms/devices. 
+                           Default is OFF.
   * BUILD_TESTS - Build unit tests. Default is ON.
   * BUILD_DOCS - Build HTML documentation using Doxygen. Default is ON.
   * BUILD_EXAMPLES - Build examples. Default is OFF.

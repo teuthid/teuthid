@@ -1,21 +1,25 @@
 find_package(OpenCL QUIET)
 
 if (NOT OpenCL_FOUND)
-  msg_warning("Cannot find OpenCL! Build with OpenCL is disabled.")
+  msg_warning(
+    "Cannot find OpenCL libraries/headers! Build with OpenCL is disabled.")
 else()
   msg_status("OpenCL version: " "${OpenCL_VERSION_STRING}")
 endif()
 
-if (OpenCL_FOUND)
-  message(STATUS "Checking OpenCL platforms and devices on this system ...")
+if (OpenCL_FOUND AND ${CHECK_OPENCL_DEVICES})
+  message(STATUS "Check for working OpenCL platforms/devices:")
   try_run(run_result_ compile_result_ ${teuthid_CMAKE_DIR}
-    "${teuthid_CMAKE_DIR}/opencl_test.cpp" LINK_LIBRARIES ${OpenCL_LIBRARIES}
+    "${teuthid_CMAKE_DIR}/checks/check_cl_devices.c"
+    LINK_LIBRARIES ${OpenCL_LIBRARIES}
     COMPILE_OUTPUT_VARIABLE compile_output_ RUN_OUTPUT_VARIABLE run_output_)
   if (run_result_ EQUAL 0)
-    message(STATUS "Found OpenCL platforms:")
+    message(STATUS "Check for working OpenCL platforms/devices: -- works")
+    message(STATUS "Found OpenCL platforms/devices:")
     msg_status("" "${run_output_}")
   else()
-    msg_warning("Cannot find OpenCL platforms! Build with OpenCL is disabled.")
+    msg_warning(
+      "Cannot find OpenCL platforms/devices! Build with OpenCL is disabled.")
     set(OpenCL_FOUND OFF)
   endif()
 
@@ -52,17 +56,19 @@ if (OpenCL_FOUND)
       set(OpenCL_FOUND OFF)
     endif(compile_result_)
   endif()
-endif(OpenCL_FOUND)
+endif() 
 
 set(TEUTHID_USE_OPENCL ${OpenCL_FOUND})
 if (OpenCL_FOUND)
   list(APPEND teuthid_link_libraries ${OpenCL_LIBRARIES})
+  list(APPEND teuthid_INCLUDE_PATH ${OpenCL_INCLUDE_DIRS})
+  list(REMOVE_DUPLICATES teuthid_INCLUDE_PATH)
   if (USE_BOOST_COMPUTE)
     set(TEUTHID_USE_BOOST_COMPUTE ON)
     set(BOOST_COMPUTE_USE_OFFLINE_CACHE ON)
   else()
     set(CL_HPP_TARGET_OPENCL_VERSION ON)
   endif(USE_BOOST_COMPUTE)
-endif(OpenCL_FOUND)
+endif()
 
 unset(msg_)
