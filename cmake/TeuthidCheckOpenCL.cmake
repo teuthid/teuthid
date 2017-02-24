@@ -8,22 +8,20 @@ else()
 endif()
 
 if (OpenCL_FOUND AND ${CHECK_OPENCL_DEVICES})
-  message(STATUS "Check for working OpenCL platforms/devices:")
+  message(STATUS "Check for OpenCL platforms/devices:")
   try_run(run_result_ compile_result_ ${teuthid_CMAKE_DIR}
     "${teuthid_CMAKE_DIR}/checks/check_cl_devices.c"
     LINK_LIBRARIES ${OpenCL_LIBRARIES}
     COMPILE_OUTPUT_VARIABLE compile_output_ RUN_OUTPUT_VARIABLE run_output_)
   if (run_result_ EQUAL 0)
-    message(STATUS "Check for working OpenCL platforms/devices: -- works")
-    message(STATUS "Found OpenCL platforms/devices:")
-    msg_status("" "${run_output_}")
+    message(STATUS "Check for OpenCL platforms/devices: -- works")
   else()
-    msg_warning(
-      "Cannot find OpenCL platforms/devices! Build with OpenCL is disabled.")
+    message(STATUS "Check for OpenCL platforms/devices: ${Red}failed!\
+ Build with OpenCL is disabled.${ColorReset}")
     set(OpenCL_FOUND OFF)
   endif()
 
-  if (NOT USE_BOOST_COMPUTE)
+  if (OpenCL_FOUND AND NOT USE_BOOST_COMPUTE)
     # check if CL/cl2.hpp (C++ bindings for OpenCL) is working
     set(open_cl_version_ "${OpenCL_VERSION_MAJOR}${OpenCL_VERSION_MINOR}0")
     set(msg_ 
@@ -41,7 +39,7 @@ if (OpenCL_FOUND AND ${CHECK_OPENCL_DEVICES})
         set(OpenCL_FOUND OFF)  
       endif(compile_result_)
     
-  else() # check if boost.compute is working
+  elseif(USE_BOOST_COMPUTE) # check if boost.compute is working
     set(msg_ 
       "Checking Boost.Compute with OpenCL version ${OpenCL_VERSION_STRING} ...")
     message(STATUS "${msg_}")
