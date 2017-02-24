@@ -52,7 +52,7 @@ int main() {
   }
 
   for (i = 0; i < platformCount; i++) {
-    printf("   Platform #%i:\n", i + 1);
+    printf("%i.Platform\n", i + 1);
     char data[1024];
     size_t retsize;
     for (int j = 0; j < ARRAYLEN(platform_data_items); ++j) {
@@ -62,7 +62,7 @@ int main() {
         printf("Unable to get platform %s\n", platform_data_items[j].name);
         continue;
       }
-      printf("     %s: %s\n", platform_data_items[j].name, data);
+      printf("  %s: %s\n", platform_data_items[j].name, data);
     }
 
     // get all devices
@@ -85,21 +85,21 @@ int main() {
       clGetDeviceInfo(devices[j], CL_DEVICE_NAME, 0, NULL, &valueSize);
       value = (char *)malloc(valueSize);
       clGetDeviceInfo(devices[j], CL_DEVICE_NAME, valueSize, value, NULL);
-      printf("%d. Device: %s\n", j + 1, value);
+      printf("  %d. Device: %s\n", j + 1, value);
       free(value);
 
       // print hardware device version
       clGetDeviceInfo(devices[j], CL_DEVICE_VERSION, 0, NULL, &valueSize);
       value = (char *)malloc(valueSize);
       clGetDeviceInfo(devices[j], CL_DEVICE_VERSION, valueSize, value, NULL);
-      printf(" %d.%d Hardware version: %s\n", j + 1, 1, value);
+      printf("    %d.%d Hardware version: %s\n", j + 1, 1, value);
       free(value);
 
       // print software driver version
       clGetDeviceInfo(devices[j], CL_DRIVER_VERSION, 0, NULL, &valueSize);
       value = (char *)malloc(valueSize);
       clGetDeviceInfo(devices[j], CL_DRIVER_VERSION, valueSize, value, NULL);
-      printf(" %d.%d Software version: %s\n", j + 1, 2, value);
+      printf("    %d.%d Software version: %s\n", j + 1, 2, value);
       free(value);
 
       // print c version supported by compiler for device
@@ -108,18 +108,19 @@ int main() {
       value = (char *)malloc(valueSize);
       clGetDeviceInfo(devices[j], CL_DEVICE_OPENCL_C_VERSION, valueSize, value,
                       NULL);
-      printf(" %d.%d OpenCL C version: %s\n", j + 1, 3, value);
+      printf("    %d.%d OpenCL C version: %s\n", j + 1, 3, value);
       free(value);
 
       // print parallel compute units
       clGetDeviceInfo(devices[j], CL_DEVICE_MAX_COMPUTE_UNITS,
                       sizeof(maxComputeUnits), &maxComputeUnits, NULL);
-      printf(" %d.%d Parallel compute units: %d\n", j + 1, 4, maxComputeUnits);
+      printf("    %d.%d Parallel compute units: %d\n", j + 1, 4,
+             maxComputeUnits);
     } // for (j = 0; j < deviceCount; j++)
-
+    printf("\n");
     free(devices);
   } // for (i = 0; i < platformCount; i++)
-  
+
   free(platforms);
   if (totalDeviceCount == 0) {
     printf("Unable to get device IDs for any platform\n");
