@@ -1,7 +1,9 @@
 // Copyright (c) 2016 Wladimir J. van der Laan
 // Distributed under the MIT software license.
-// Based on the Apple OpenCL "Hello World" demo
-// gcc hello.c -o hello -O2 /usr/lib/x86_64-linux-gnu/libOpenCL.so.1
+// Based on the Apple OpenCL "Hello World" demo.
+//
+// Modified for Teuthid project.
+
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
