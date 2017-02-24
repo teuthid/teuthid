@@ -4,6 +4,7 @@
 **Teuthid** was inspired by the project **[FANN](http://leenissen.dk/fann/wp/)**. Thank you, Mr. Steffen Nissen!
 ##Features##
 * Multilayer artificial neural network libraries in C++11
+* Multiple-precision floating-point computation
 * Versatile (possible to adjust many parameters and features)
 * Designed with OpenCL support
 * Language bindings to C
