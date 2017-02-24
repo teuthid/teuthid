@@ -23,6 +23,8 @@ else()
 endif()
 
 list(APPEND teuthid_link_libraries ${Boost_LIBRARIES})
+set(teuthid_INCLUDE_PATH ${Boost_INCLUDE_DIRS} ${teuthid_INCLUDE_PATH})
+list(REMOVE_DUPLICATES teuthid_INCLUDE_PATH)
 
 if (NOT Boost_UNIT_TEST_FRAMEWORK_FOUND AND BUILD_TESTS)
   msg_warning("Cannot find Boost.Test! Unit tests are disabled.")

@@ -102,6 +102,9 @@ msg_status("Build shared libraries: "
 msg_status("Build static libraries: " "${BUILD_STATIC_LIBS}")
 msg_status("Build with OpenCL support: " "${BUILD_WITH_OPENCL}")
 
+string(REPLACE ";" ", " include_list_ "${teuthid_INCLUDE_PATH}")
+msg_status("Include file search directories: " "${include_list_}")
+
 foreach(libname_ ${teuthid_link_libraries})
   get_filename_component(libname_ ${libname_} NAME)
   list(APPEND libname_list_ ${libname_})  
