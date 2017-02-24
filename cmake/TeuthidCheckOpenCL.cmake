@@ -8,37 +8,34 @@ else()
 endif()
 
 if (OpenCL_FOUND AND ${CHECK_OPENCL_DEVICES})
-  message(STATUS "Check for OpenCL platforms/devices:")
+  message(STATUS "Check for OpenCL platforms/devices")
   try_run(run_result_ compile_result_ ${teuthid_CMAKE_DIR}
     "${teuthid_CMAKE_DIR}/checks/check_cl_devices.c"
     LINK_LIBRARIES ${OpenCL_LIBRARIES}
     COMPILE_OUTPUT_VARIABLE compile_output_ RUN_OUTPUT_VARIABLE run_output_)
   file(WRITE "cl_info.log" ${run_output_})
   if (run_result_ EQUAL 0)
-    message(STATUS "Check for OpenCL platforms/devices: -- works")
+    message(STATUS "Check for OpenCL platforms/devices -- works")
   else()
-    message(STATUS "Check for OpenCL platforms/devices: ${Red}failed!\
+    message(STATUS "Check for OpenCL platforms/devices -- ${Red}failed!\
  Build with OpenCL is disabled.${ColorReset}")
     set(OpenCL_FOUND OFF)
   endif()
 
   if (OpenCL_FOUND AND NOT USE_BOOST_COMPUTE)
     # check if CL/cl2.hpp (C++ bindings for OpenCL) is working
-    set(open_cl_version_ "${OpenCL_VERSION_MAJOR}${OpenCL_VERSION_MINOR}0")
-    set(msg_ 
-      "Checking CL/cl2.hpp with OpenCL version ${OpenCL_VERSION_STRING} ...")
-    message(STATUS "${msg_}")
+    message(STATUS "Check for OpenCL C++ Bindings (cl2.hpp)")
     try_compile(compile_result_ ${teuthid_CMAKE_DIR}
-      "${teuthid_CMAKE_DIR}/cl2_hpp_test.cpp" 
-      COMPILE_DEFINITIONS "-DCL_HPP_TARGET_OPENCL_VERSION=${open_cl_version_}"
+      "${teuthid_CMAKE_DIR}/checks/check_cl2hpp.cpp" 
       LINK_LIBRARIES ${OpenCL_LIBRARIES} OUTPUT_VARIABLE compile_output_)
-      if (compile_result_)
-        msg_status("${msg_} " "OK")
-      else()
-        msg_status("${msg_} " "${Red}Failed${ColorReset}")
-        msg_warning("Building with OpenCL is disabled.")
-        set(OpenCL_FOUND OFF)  
-      endif(compile_result_)
+    file(WRITE "cl2hpp_info.log" ${compile_output_})
+    if (compile_result_)
+      message(STATUS "Check for OpenCL C++ Bindings (cl2.hpp) -- works")
+    else()
+      message(STATUS "Check for OpenCL C++ Bindings (cl2.hpp) --\
+ ${Red}failed! Building with OpenCL is disabled.${ColorReset}")
+      set(OpenCL_FOUND OFF)  
+    endif(compile_result_)
     
   elseif(USE_BOOST_COMPUTE) # check if boost.compute is working
     set(msg_ 
