@@ -3,12 +3,12 @@
 
 **Teuthid** was inspired by the project **[FANN](http://leenissen.dk/fann/wp/)**. Thank you, Mr. Steffen Nissen!
 ##Features##
-* Multilayer artificial neural network libraries in C++11
-* Multiple-precision floating-point computation
-* Versatile (possible to adjust many parameters and features)
-* Designed with OpenCL support
-* Language bindings to C
-* Open source, but can be used in commercial applications (licenced under [LGPLv3](https://www.gnu.org/licenses/lgpl-3.0.en.html))
+* Multilayer artificial neural network libraries in C++11.
+* Multiple-precision floating-point computation (requires [MPFR](http://www.mpfr.org/) and [GMP](https://gmplib.org/) libraries).
+* Versatile (possible to adjust many parameters and features).
+* Designed with OpenCL support.
+* Language bindings to C.
+* Open source, but can be used in commercial applications (licenced under [LGPLv3](https://www.gnu.org/licenses/lgpl-3.0.en.html)).
 * ...
 
 Refer to README file for more details.
