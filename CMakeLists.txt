@@ -91,7 +91,6 @@ configure_file(${teuthid_SOURCE_DIR}/README.in
 set(main_docs_ AUTHORS LICENSE.LGPLv3 README)
 install(FILES ${main_docs_} DESTINATION share/doc)
 
-message(" ")
 msg_status("Teuthid version: "  "${teuthid_VERSION}")
 msg_status("Build type: " 
   "${CMAKE_BUILD_TYPE} (${CMAKE_C_COMPILER_ID} ${CMAKE_SYSTEM}\
@@ -116,4 +115,3 @@ msg_status("Linked libraries: " "${libname_list_}")
 msg_status("Build the unit tests: " "${BUILD_TESTS}")
 msg_status("Build the documentation: " "${BUILD_DOCS}")
 msg_status("Install directory: " "${CMAKE_INSTALL_PREFIX}")
-message(" ")
