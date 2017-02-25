@@ -25,7 +25,9 @@ distclean:
 	@- $(RM) ./build/CMake*
 	@- $(RM) ./build/cmake.*
 	@- $(RM) ./build/*.cmake
+	@- $(RM) ./build/*.tcl
 	@- $(RM) ./build/*.txt
+	@- $(RM) ./cmake/CMakeFiles
 	
 ifeq ($(findstring distclean,$(MAKECMDGOALS)),)
 

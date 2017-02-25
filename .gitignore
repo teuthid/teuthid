@@ -3,5 +3,4 @@ _other/
 build/
 install/
 cl_info.log
-cl2hpp_info.log
 README

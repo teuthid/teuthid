@@ -21,50 +21,29 @@ if (OpenCL_FOUND AND ${CHECK_OPENCL_DEVICES})
  Build with OpenCL is disabled.${ColorReset}")
     set(OpenCL_FOUND OFF)
   endif()
+endif()  
 
-  if (OpenCL_FOUND AND NOT USE_BOOST_COMPUTE)
-    # check if CL/cl2.hpp (C++ bindings for OpenCL) is working
-    message(STATUS "Check for OpenCL C++ Bindings (cl2.hpp)")
+ if(NOT BUILD_WITH_ARRAYFIRE) # check if boost.compute is working
+    message(STATUS "Check for working Boost.Compute")
     try_compile(compile_result_ ${teuthid_CMAKE_DIR}
-      "${teuthid_CMAKE_DIR}/checks/check_cl2hpp.cpp" 
-      LINK_LIBRARIES ${OpenCL_LIBRARIES} OUTPUT_VARIABLE compile_output_)
-    file(WRITE "cl2hpp_info.log" ${compile_output_})
-    if (compile_result_)
-      message(STATUS "Check for OpenCL C++ Bindings (cl2.hpp) -- works")
-    else()
-      message(STATUS "Check for OpenCL C++ Bindings (cl2.hpp) --\
- ${Red}failed! Building with OpenCL is disabled.${ColorReset}")
-      set(OpenCL_FOUND OFF)  
-    endif(compile_result_)
-    
-  elseif(USE_BOOST_COMPUTE) # check if boost.compute is working
-    set(msg_ 
-      "Checking Boost.Compute with OpenCL version ${OpenCL_VERSION_STRING} ...")
-    message(STATUS "${msg_}")
-    try_compile(compile_result_ ${teuthid_CMAKE_DIR}
-      "${teuthid_CMAKE_DIR}/boost_compute_test.cpp" 
+      "${teuthid_CMAKE_DIR}/checks/check_boost_compute.cpp" 
       LINK_LIBRARIES ${OpenCL_LIBRARIES} OUTPUT_VARIABLE compile_output_)
     if (compile_result_)
-      msg_status("${msg_} " "OK")
+      message(STATUS "Check for working Boost.Compute -- works")
+      set(TEUTHID_USE_BOOST_COMPUTE ON)
+      set(BOOST_COMPUTE_USE_OFFLINE_CACHE ON)  
     else()
-      msg_status("${msg_} " "${Red}Failed${ColorReset}")
-      msg_warning("Building with OpenCL is disabled.")
+      message(STATUS "Check for working Boost.Compute -- ${Red}failed!\
+ Build with OpenCL is disabled.${ColorReset}")
       set(OpenCL_FOUND OFF)
     endif(compile_result_)
-  endif()
-endif() 
+ endif()
 
 set(TEUTHID_USE_OPENCL ${OpenCL_FOUND})
 if (OpenCL_FOUND)
   list(APPEND teuthid_link_libraries ${OpenCL_LIBRARIES})
   list(APPEND teuthid_INCLUDE_PATH ${OpenCL_INCLUDE_DIRS})
   list(REMOVE_DUPLICATES teuthid_INCLUDE_PATH)
-  if (USE_BOOST_COMPUTE)
-    set(TEUTHID_USE_BOOST_COMPUTE ON)
-    set(BOOST_COMPUTE_USE_OFFLINE_CACHE ON)
-  else()
-    set(CL_HPP_TARGET_OPENCL_VERSION ON)
-  endif(USE_BOOST_COMPUTE)
 endif()
 
 unset(msg_)

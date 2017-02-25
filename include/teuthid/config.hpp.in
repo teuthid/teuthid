@@ -25,9 +25,8 @@
 #define TEUTHID_VERSION "@teuthid_VERSION@"
 
 #cmakedefine TEUTHID_USE_OPENCL
-#cmakedefine CL_HPP_TARGET_OPENCL_VERSION @open_cl_version_@
-
 #cmakedefine TEUTHID_USE_BOOST_COMPUTE
 #cmakedefine BOOST_COMPUTE_USE_OFFLINE_CACHE
+#cmakedefine TEUTHID_USE_ARRAYFIRE
 
 #endif // TEUTHID_CONFIG_HPP

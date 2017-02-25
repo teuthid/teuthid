@@ -1,7 +1,7 @@
 set(boost_required_components_ random)
 list(APPEND boost_required_components_ 
   math_c99 math_c99f math_c99l math_tr1 math_tr1f math_tr1l)
-if (BUILD_WITH_OPENCL AND USE_BOOST_COMPUTE)
+if (BUILD_WITH_OPENCL AND (NOT BUILD_WITH_ARRAYFIRE))
   list(APPEND boost_required_components_ filesystem)
 endif()
 
@@ -10,6 +10,7 @@ if (BUILD_TESTS)
 endif(BUILD_TESTS)
 
 set(Boost_REQUIRED_VERSION 1.61.0)
+set(Boost_USE_MULTITHREADED ON)
 find_package(Boost ${Boost_REQUIRED_VERSION} QUIET REQUIRED 
   COMPONENTS ${boost_required_components_}
   OPTIONAL_COMPONENTS ${boost_optional_components_}) 
