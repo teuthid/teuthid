@@ -8,6 +8,7 @@
 * Versatile (possible to adjust many parameters and features).
 * Designed with OpenCL support.
 * Language bindings to C.
+* Rigorously tested using [Boost.Test](http://www.boost.org/doc/libs/release/libs/test/) library.  
 * Open source, but can be used in commercial applications (licenced under [LGPLv3](https://www.gnu.org/licenses/lgpl-3.0.en.html)).
 * ...
 
