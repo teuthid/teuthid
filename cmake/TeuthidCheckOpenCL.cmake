@@ -13,9 +13,9 @@ if (OpenCL_FOUND AND ${CHECK_OPENCL_DEVICES})
     "${teuthid_CMAKE_DIR}/checks/check_cl_devices.c"
     LINK_LIBRARIES ${OpenCL_LIBRARIES}
     COMPILE_OUTPUT_VARIABLE compile_output_ RUN_OUTPUT_VARIABLE run_output_)
-  file(WRITE "cl_info.log" ${run_output_})
+  file(WRITE "info.log" ${run_output_})
   if (run_result_ EQUAL 0)
-    file(STRINGS "cl_info.log" cl_info_)
+    file(STRINGS "info.log" cl_info_)
     list(REVERSE cl_info_)
     list(GET cl_info_ 0 driver_version_)
     message(STATUS "Check for OpenCL platforms/devices -- works")

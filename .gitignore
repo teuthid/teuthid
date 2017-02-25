@@ -2,6 +2,6 @@
 _other/
 build/
 install/
-cl_info.log
+info.log
 errors.log
 README
