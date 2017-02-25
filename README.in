@@ -9,7 +9,7 @@ based on OpenCL and using Boost, free portable C++ source libraries.
 Teuthid was inspired by the project FANN (http://leenissen.dk/fann/wp/).
 Thank you, Mr. Steffen Nissen!
 
-This is version @teuthid_VERSION@ of the framework. 
+This is version @teuthid_VERSION@ of the framework (under development). 
 The sources are available from https://github.com/teuthid/teuthid.
 
   1.) Prerequisites
