@@ -4,7 +4,7 @@ if (NOT OpenCL_FOUND)
   msg_warning(
     "Cannot find OpenCL libraries/headers! Build with OpenCL is disabled.")
 else()
-  msg_status("OpenCL version: " "${OpenCL_VERSION_STRING}")
+  msg_status("OpenCL version (header): " "${OpenCL_VERSION_STRING}")
 endif()
 
 if (OpenCL_FOUND AND ${CHECK_OPENCL_DEVICES})
@@ -15,7 +15,11 @@ if (OpenCL_FOUND AND ${CHECK_OPENCL_DEVICES})
     COMPILE_OUTPUT_VARIABLE compile_output_ RUN_OUTPUT_VARIABLE run_output_)
   file(WRITE "cl_info.log" ${run_output_})
   if (run_result_ EQUAL 0)
+    file(STRINGS "cl_info.log" cl_info_)
+    list(REVERSE cl_info_)
+    list(GET cl_info_ 0 driver_version_)
     message(STATUS "Check for OpenCL platforms/devices -- works")
+    msg_status("OpenCL version (driver): " "${driver_version_}")
   else()
     message(STATUS "Check for OpenCL platforms/devices -- ${Red}failed!\
  Build with OpenCL is disabled.${ColorReset}")
@@ -23,7 +27,8 @@ if (OpenCL_FOUND AND ${CHECK_OPENCL_DEVICES})
   endif()
 endif()  
 
- if(NOT BUILD_WITH_ARRAYFIRE) # check if boost.compute is working
+ if((NOT BUILD_WITH_ARRAYFIRE) AND OpenCL_FOUND) 
+ # check if boost.compute is working
     message(STATUS "Check for working Boost.Compute")
     try_compile(compile_result_ ${teuthid_CMAKE_DIR}
       "${teuthid_CMAKE_DIR}/checks/check_boost_compute.cpp" 

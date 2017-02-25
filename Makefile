@@ -15,6 +15,7 @@ distclean:
 	@- (cd build >/dev/null 2>&1 && cmake .. >/dev/null 2>&1)
 	@- $(MAKE) --silent -C build clean || true
 	@- $(RM) ./cl_info.log
+	@- $(RM) ./errors.log
 	@- $(RM) ./build/Makefile
 	@- $(RM) ./build/doc
 	@- $(RM) ./build/examples

@@ -14,7 +14,8 @@ Copyright (C) 2016-2017 Mariusz Przygodzki (mariusz.przygodzki@gmail.com)
 #include <CL/cl.h>
 #endif
 
-struct platform_data_item {
+struct platform_data_item
+{
   int id;
   char *name;
 };
@@ -29,7 +30,8 @@ struct platform_data_item platform_data_items[] = {
 
 #define ARRAYLEN(array) (sizeof(array) / sizeof((array)[0]))
 
-int main() {
+int main()
+{
   int i, j;
   char *value;
   size_t valueSize;
@@ -39,47 +41,61 @@ int main() {
   cl_device_id *devices;
   cl_uint maxComputeUnits;
   cl_uint totalDeviceCount = 0;
+  char strVersion[1024];
+  int checkedVersion = 0;
 
   // get all platforms
-  if (clGetPlatformIDs(0, NULL, &platformCount) != CL_SUCCESS) {
+  if (clGetPlatformIDs(0, NULL, &platformCount) != CL_SUCCESS)
+  {
     printf("Unable to get platform IDs!\n");
     exit(1);
   }
   platforms = (cl_platform_id *)malloc(sizeof(cl_platform_id) * platformCount);
-  if (clGetPlatformIDs(platformCount, platforms, NULL) != CL_SUCCESS) {
+  if (clGetPlatformIDs(platformCount, platforms, NULL) != CL_SUCCESS)
+  {
     printf("Unable to get platform IDs!\n");
     exit(1);
   }
 
-  for (i = 0; i < platformCount; i++) {
+  for (i = 0; i < platformCount; i++)
+  {
     printf("%i.Platform\n", i + 1);
     char data[1024];
     size_t retsize;
-    for (int j = 0; j < ARRAYLEN(platform_data_items); ++j) {
+    for (int j = 0; j < ARRAYLEN(platform_data_items); ++j)
+    {
       if (clGetPlatformInfo(platforms[i], platform_data_items[j].id,
                             sizeof(data), data, &retsize) != CL_SUCCESS ||
-          retsize == sizeof(data)) {
+          retsize == sizeof(data))
+      {
         printf("Unable to get platform %s\n", platform_data_items[j].name);
         continue;
       }
       printf("  %s: %s\n", platform_data_items[j].name, data);
+      if (checkedVersion == 0)
+        clGetPlatformInfo(platforms[i], CL_PLATFORM_VERSION, sizeof(strVersion),
+                          strVersion, NULL);
+      checkedVersion += 1;
     }
 
     // get all devices
     if (clGetDeviceIDs(platforms[i], CL_DEVICE_TYPE_ALL, 0, NULL,
-                       &deviceCount) != CL_SUCCESS) {
+                       &deviceCount) != CL_SUCCESS)
+    {
       printf("Unable to get device IDs for platform %p\n", platforms[i]);
       continue;
     }
     devices = (cl_device_id *)malloc(sizeof(cl_device_id) * deviceCount);
     if (clGetDeviceIDs(platforms[i], CL_DEVICE_TYPE_ALL, deviceCount, devices,
-                       NULL) != CL_SUCCESS) {
+                       NULL) != CL_SUCCESS)
+    {
       printf("Unable to get device IDs for platform %p\n", platforms[i]);
       continue;
     }
     totalDeviceCount += deviceCount;
     // for each device print critical attributes
-    for (j = 0; j < deviceCount; j++) {
+    for (j = 0; j < deviceCount; j++)
+    {
 
       // print device name
       clGetDeviceInfo(devices[j], CL_DEVICE_NAME, 0, NULL, &valueSize);
@@ -122,7 +138,10 @@ int main() {
   } // for (i = 0; i < platformCount; i++)
 
   free(platforms);
-  if (totalDeviceCount == 0) {
+  if (checkedVersion > 0)
+    printf("\n%s\n", strVersion);
+  if (totalDeviceCount == 0)
+  {
     printf("Unable to get device IDs for any platform\n");
     exit(1);
   }
