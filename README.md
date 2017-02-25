@@ -1,5 +1,5 @@
 #Teuthid#
-**Teuthid** is a free open source framework, which implements multilayer artificial neural networks in C++ with support for both fully connected and sparsely connected networks. Cross-platform execution in floating-point numbers are supported with more range and precision than C++'s ordinary built-in types. The framework is designed to support multi-core CPU/GPGPU computing platforms based on **[OpenCL](https://www.khronos.org/opencl/)** and using **[Boost](http://www.boost.org/)** and [ArrayFire](https://arrayfire.com/), free portable C++ source libraries.
+**Teuthid** is a free open source framework, which implements multilayer artificial neural networks in C++ with support for both fully connected and sparsely connected networks. Cross-platform execution in floating-point numbers are supported with more range and precision than C++'s ordinary built-in types. The framework is designed to support multi-core CPU/GPGPU computing platforms based on **[OpenCL](https://www.khronos.org/opencl/)** and using **[Boost](http://www.boost.org/)** and **[ArrayFire](https://arrayfire.com/)**, free portable C++ source libraries.
 
 **Teuthid** was inspired by the project **[FANN](http://leenissen.dk/fann/wp/)**. Thank you, Mr. Steffen Nissen!
 ##Features##
