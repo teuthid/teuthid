@@ -68,4 +68,3 @@ if (ENABLE_AVX_SSE)
 endif()
 
 unset(found_extensions_)
-set(CMAKE_VERBOSE_MAKEFILE ON) # to comment out

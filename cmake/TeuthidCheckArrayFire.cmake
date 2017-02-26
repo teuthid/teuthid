@@ -16,6 +16,9 @@ ${ArrayFire_VERSION_MINOR}.${ArrayFire_VERSION_PATCH}")
     math(EXPR ArrayFire_VERSION 
       "100 * ${ArrayFire_VERSION_MAJOR} + 10 * ${ArrayFire_VERSION_MINOR} + \
       ${ArrayFire_VERSION_PATCH}")
+  else() # broken af/version.h
+    msg_error("Cannot determine version of ArrayFire!\
+ Please check installation of ArrayFire on this system.")
   endif()
 endmacro(check_af_version_)
 
@@ -80,3 +83,6 @@ else()
   msg_warning(
     "Cannot find ArrayFire libraries! Build with ArrayFire is disabled.")
 endif(ArrayFire_FOUND)
+
+unset(af_libs_)
+unset(af_backends_)

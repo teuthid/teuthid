@@ -34,6 +34,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_EXTENSIONS False)
 SET(CMAKE_COLOR_MAKEFILE ON)
+set(CMAKE_VERBOSE_MAKEFILE ON) # to comment out
 
 option(ENABLE_AVX_SSE "Enable AVX or SSE compiler options" OFF)
 set(teuthid_compiler_options)
@@ -46,8 +47,8 @@ set(teuthid_link_libraries ${teuthid_link_libraries})
 set(BUILD_SHARED_LIBS ON)
 option(BUILD_STATIC_LIBS "Build the static library" ON)
 option(BUILD_WITH_OPENCL "Build with OpenCL" ON)
-option(CHECK_OPENCL_DEVICES "Check for working OpenCL platforms/devices" ON)
-option(BUILD_WITH_ARRAYFIRE "Build with ArrayFire" ON)
+option(CHECK_OPENCL_DEVICES "Check for working OpenCL platforms/devices" OFF)
+option(BUILD_WITH_ARRAYFIRE "Build with ArrayFire" OFF)
 option(BUILD_TESTS "Build unit test" ON)
 option(BUILD_DOCS "Build the documentation" ON)
 option(BUILD_EXAMPLES "Build examples" ON)
@@ -95,6 +96,7 @@ configure_file(${teuthid_SOURCE_DIR}/README.in
 set(main_docs_ AUTHORS LICENSE.LGPLv3 README)
 install(FILES ${main_docs_} DESTINATION share/doc)
 
+msg_status("" "--")
 msg_status("Teuthid version: "  "${teuthid_VERSION}")
 msg_status("Build type: " 
   "${CMAKE_BUILD_TYPE} (${CMAKE_C_COMPILER_ID} ${CMAKE_SYSTEM}\
@@ -119,3 +121,16 @@ msg_status("Linked libraries: " "${libname_list_}")
 msg_status("Build the unit tests: " "${BUILD_TESTS}")
 msg_status("Build the documentation: " "${BUILD_DOCS}")
 msg_status("Install directory: " "${CMAKE_INSTALL_PREFIX}")
+
+set(all_options_ BUILD_SHARED_LIBS BUILD_STATIC_LIBS BUILD_WITH_OPENCL
+  ENABLE_AVX_SSE CHECK_OPENCL_DEVICES BUILD_WITH_ARRAYFIRE BUILD_TESTS 
+  BUILD_DOCS BUILD_EXAMPLES)
+set(used_options_ "")
+foreach(option_ ${all_options_})
+  if(${option_})
+    set(used_options_ "${used_options_} ${option_}")
+  endif()
+endforeach()
+string(STRIP "${used_options_}" used_options_)
+string(REPLACE " " ", " used_options_ "${used_options_}")
+msg_status("Build options: " "${used_options_}")
