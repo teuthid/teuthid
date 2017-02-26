@@ -6,7 +6,7 @@
 * Multilayer artificial neural network libraries in C++11.
 * Multiple-precision floating-point computation (requires [MPFR](http://www.mpfr.org/) and [GMP](https://gmplib.org/) libraries).
 * Versatile (possible to adjust many parameters and features).
-* Use OpenCL as its interface for executing code on parallel devices such as GPUs and multi-core CPUs.
+* Use OpenCL as its interface for executing code on parallel devices such as GPUs and multi-core CPUs (with [Boost.Compute](http://www.boost.org/doc/libs/release/libs/compute/) or [ArrayFire](https://github.com/arrayfire/arrayfire) backend).
 * Language bindings to C.
 * Rigorously tested using [Boost.Test](http://www.boost.org/doc/libs/release/libs/test/) library.  
 * Open source, but can be used in commercial applications (licenced under [LGPLv3](https://www.gnu.org/licenses/lgpl-3.0.en.html)).
