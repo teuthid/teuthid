@@ -76,7 +76,7 @@ if (ArrayFire_FOUND)
   if (ArrayFire_Unified_FOUND)
     list(APPEND teuthid_link_libraries ${ArrayFire_Unified_LIBRARIES})
   endif(ArrayFire_Unified_FOUND)
-  list(APPEND teuthid_INCLUDE_PATH ${ArrayFire_INCLUDE_DIRS})
+  list_prepend(teuthid_INCLUDE_PATH ${ArrayFire_INCLUDE_DIRS})
   list(REMOVE_DUPLICATES teuthid_INCLUDE_PATH)
 
 else()

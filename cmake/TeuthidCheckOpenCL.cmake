@@ -49,7 +49,7 @@ endif()
 set(TEUTHID_USE_OPENCL ${OpenCL_FOUND})
 if (OpenCL_FOUND)
   list(APPEND teuthid_link_libraries ${OpenCL_LIBRARIES})
-  list(APPEND teuthid_INCLUDE_PATH ${OpenCL_INCLUDE_DIRS})
+  list_prepend(teuthid_INCLUDE_PATH ${OpenCL_INCLUDE_DIRS})
   list(REMOVE_DUPLICATES teuthid_INCLUDE_PATH)
 endif()
 

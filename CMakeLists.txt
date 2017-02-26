@@ -53,7 +53,9 @@ option(BUILD_TESTS "Build unit test" ON)
 option(BUILD_DOCS "Build the documentation" ON)
 option(BUILD_EXAMPLES "Build examples" ON)
 
+include(TeuthidHelpers)
 include(TeuthidCheckBoost)
+include(TeuthidCheckGMP)
 
 if (BUILD_WITH_OPENCL)
   include(TeuthidCheckOpenCL)
