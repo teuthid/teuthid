@@ -1,52 +1,33 @@
 find_package(ArrayFire)
-set(ArrayFire_REQUIRED_VERSION "3.3.2")
 
-macro(check_af_version_)
-  try_run(run_result_ compile_result_ ${teuthid_CMAKE_DIR}
-    "${teuthid_CMAKE_DIR}/checks/check_af_version.cpp"
-    COMPILE_OUTPUT_VARIABLE compile_output_ RUN_OUTPUT_VARIABLE run_output_)
-  if (run_result_ EQUAL 0)
-    file(WRITE "info.log" ${run_output_})
-    file(STRINGS "info.log" af_version_)
-    list(GET af_version_ 0 ArrayFire_VERSION_MAJOR)
-    list(GET af_version_ 1 ArrayFire_VERSION_MINOR)
-    list(GET af_version_ 2 ArrayFire_VERSION_PATCH)
-    set(ArrayFire_VERSION_STRING "${ArrayFire_VERSION_MAJOR}.\
-${ArrayFire_VERSION_MINOR}.${ArrayFire_VERSION_PATCH}")
-    math(EXPR ArrayFire_VERSION 
-      "100 * ${ArrayFire_VERSION_MAJOR} + 10 * ${ArrayFire_VERSION_MINOR} + \
-      ${ArrayFire_VERSION_PATCH}")
-  else() # broken af/version.h
+if(ArrayFire_FOUND)
+  check_pkg_version(result_ ArrayFire_VERSION_MAJOR ArrayFire_VERSION_MINOR
+    ArrayFire_VERSION_PATCH "check_af_version.cpp" ${ArrayFire_INCLUDE_DIRS}
+    ${ArrayFire_CPU_LIBRARIES})
+  if(result_)
+    set(ArrayFire_VERSION 
+    "${ArrayFire_VERSION_MAJOR}.${ArrayFire_VERSION_MINOR}.\
+${ArrayFire_VERSION_PATCH}")
+    msg_status("ArrayFire version: " 
+      "${ArrayFire_VERSION} (required ${ArrayFire_REQUIRED_VERSION})")
+  else()
     msg_error("Cannot determine version of ArrayFire!\
  Please check installation of ArrayFire on this system.")
   endif()
-endmacro(check_af_version_)
 
-function(check_required_version_ required_version_)
-  string(REPLACE "." ";" version_list_ ${required_version_})
-  list(GET version_list_ 0 major_required_)
-  list(GET version_list_ 1 minor_required_)
-  list(GET version_list_ 2 patch_required_)
-  math(EXPR required_ 
-    "100 * ${major_required_} + 10 * ${minor_required_} + ${patch_required_}")
-  if (${ArrayFire_VERSION} LESS required_)
+  check_pkg_required_version(result_ "${ArrayFire_REQUIRED_VERSION}" 
+    ${ArrayFire_VERSION_MAJOR} ${ArrayFire_VERSION_MINOR} 
+    ${ArrayFire_VERSION_PATCH})
+  if (NOT result_)
     msg_error("Detected version of ArrayFire is too old.\
-  Required version is ${required_version_} (or newer).")
+  Required version is ${ArrayFire_REQUIRED_VERSION} (or newer).")
   endif()
-endfunction(check_required_version_)
+endif(ArrayFire_FOUND)
 
 set(af_libs_)
 set(af_backends_ " ")
 
-if(ArrayFire_FOUND)
-  check_af_version_()
-  msg_status("ArrayFire version: " 
-    "${ArrayFire_VERSION_STRING} (required ${ArrayFire_REQUIRED_VERSION})")
-  check_required_version_(${ArrayFire_REQUIRED_VERSION})
-endif(ArrayFire_FOUND)
-
 if (ArrayFire_FOUND)
-  
   if (ArrayFire_CUDA_FOUND)
     list(APPEND af_libs_ ${ArrayFire_CUDA_LIBRARIES})
     set(af_backends_ "CUDA")

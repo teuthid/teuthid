@@ -5,8 +5,6 @@
 # GMP_LIBRARIES - Can be passed to target_link_libraries() instead of GMP::GMP #                 target
 # GMP::GMP - Imported target (if GMP_FOUND is TRUE).
 
-set(GMP_REQUIRED_VERSION "6.1.1")
-
 set(GMP_FOUND OFF)
 find_path(GMP_INCLUDE_DIRS NAMES gmp.h)
 find_library(GMP_LIBRARIES NAMES gmp libgmp)
@@ -39,9 +37,3 @@ msg_status("GMP version: " "${GMP_VERSION} (required ${GMP_REQUIRED_VERSION})")
 list(APPEND teuthid_link_libraries ${GMP_LIBRARIES})
 list_prepend(teuthid_INCLUDE_PATH ${GMP_INCLUDE_DIRS})
 list(REMOVE_DUPLICATES teuthid_INCLUDE_PATH)
-
-
-#message("GMP_FOUND: ${GMP_FOUND}")
-#message("GMP_VERSION: ${GMP_VERSION}")
-#message("GMP_INCLUDE_DIRS: ${GMP_INCLUDE_DIRS}")
-#message("GMP_LIBRARIES: ${GMP_LIBRARIES}")

@@ -9,7 +9,6 @@ if (BUILD_TESTS)
   set(boost_optional_components_ unit_test_framework)
 endif(BUILD_TESTS)
 
-set(Boost_REQUIRED_VERSION 1.61.0)
 set(Boost_USE_MULTITHREADED ON)
 find_package(Boost ${Boost_REQUIRED_VERSION} QUIET REQUIRED 
   COMPONENTS ${boost_required_components_}
