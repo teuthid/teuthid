@@ -13,4 +13,8 @@ The [Boost Software License](http://www.boost.org/users/license.html) specifies 
 
 The Teuthid source code does not contain any source code from Boost libraries. Boost libraries are linked during build time.
 
+####GMP####
+Since version 6, [GMP](https://gmplib.org/) is distributed under the dual licenses, [GNU LGPL v3](https://www.gnu.org/licenses/lgpl.html) and [GNU GPL v2](https://www.gnu.org/licenses/gpl-2.0.html). Teuthid uses GMP version 6.1.1 or higher.
+
+The Teuthid source code does not contain any source code from GMP library. GMP library is linked during build time.
 
