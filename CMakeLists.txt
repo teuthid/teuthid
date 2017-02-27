@@ -38,6 +38,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON) # to comment out
 
 set(Boost_REQUIRED_VERSION "1.61.0")
 set(GMP_REQUIRED_VERSION "6.1.1")
+set(MPFR_REQUIRED_VERSION "3.1.5")
 set(ArrayFire_REQUIRED_VERSION "3.3.2")
 
 option(ENABLE_AVX_SSE "Enable AVX or SSE compiler options" OFF)
@@ -52,14 +53,14 @@ set(BUILD_SHARED_LIBS ON)
 option(BUILD_STATIC_LIBS "Build the static library" ON)
 option(BUILD_WITH_OPENCL "Build with OpenCL" ON)
 option(CHECK_OPENCL_DEVICES "Check for working OpenCL platforms/devices" OFF)
-option(BUILD_WITH_ARRAYFIRE "Build with ArrayFire" ON)
+option(BUILD_WITH_ARRAYFIRE "Build with ArrayFire" OFF)
 option(BUILD_TESTS "Build unit test" ON)
 option(BUILD_DOCS "Build the documentation" ON)
 option(BUILD_EXAMPLES "Build examples" ON)
 
 include(TeuthidHelpers)
 include(TeuthidCheckBoost)
-include(TeuthidCheckGMP)
+include(TeuthidCheckMPFR)
 
 if (BUILD_WITH_OPENCL)
   include(TeuthidCheckOpenCL)
@@ -105,8 +106,7 @@ install(FILES ${main_docs_} DESTINATION share/doc)
 msg_status("" "--")
 msg_status("Teuthid version: "  "${teuthid_VERSION}")
 msg_status("Build type: " 
-  "${CMAKE_BUILD_TYPE} (${CMAKE_C_COMPILER_ID} ${CMAKE_SYSTEM}\
- ${CMAKE_SYSTEM_PROCESSOR})")
+  "${CMAKE_BUILD_TYPE} (${CMAKE_SYSTEM} ${CMAKE_SYSTEM_PROCESSOR})")
 msg_status("Compiler options: " 
   "${teuthid_compiler_options}${AVX_SSE_compiler_options}")
 msg_status("Build shared libraries: "
