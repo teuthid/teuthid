@@ -25,25 +25,34 @@ using namespace teuthid;
 
 BOOST_AUTO_TEST_CASE(class_teuthid_library)
 {
-  /*
-  BOOST_TEST(library::major_version() == TEUTHID_MAJOR_VERSION);
-  BOOST_TEST(library::minor_version() == TEUTHID_MINOR_VERSION);
-  BOOST_TEST(library::patch_version() == TEUTHID_PATCH_VERSION);
-  BOOST_TEST(library::soversion() == TEUTHID_SOVERSION);
-  BOOST_TEST(library::version() == std::string(TEUTHID_VERSION));
+  BOOST_TEST(library::major_version() == TEUTHID_MAJOR_VERSION,
+             "major_version()");
+  BOOST_TEST(library::minor_version() == TEUTHID_MINOR_VERSION,
+             "minor_version()");
+  BOOST_TEST(library::patch_version() == TEUTHID_PATCH_VERSION,
+             "patch_version()");
+  BOOST_TEST(library::soversion() == TEUTHID_SOVERSION, "soversion()");
+  BOOST_TEST(library::version() == std::string(TEUTHID_VERSION),
+             "version()");
 
-  BOOST_TEST(library::required_version(TEUTHID_MAJOR_VERSION,
-                                       TEUTHID_MINOR_VERSION));
-  BOOST_TEST(!library::required_version(TEUTHID_MAJOR_VERSION + 1,
-                                        TEUTHID_MINOR_VERSION));
-  BOOST_TEST(!library::required_version(TEUTHID_MAJOR_VERSION,
-                                        TEUTHID_MINOR_VERSION + 1));
-  BOOST_TEST(library::required_version(TEUTHID_MAJOR_VERSION - 1,
-                                       TEUTHID_MINOR_VERSION));
-  BOOST_TEST(library::required_version(TEUTHID_MAJOR_VERSION,
-                                       TEUTHID_MINOR_VERSION - 1));
-#if defined(TEUTHID_USE_OPENCL)
-  BOOST_TEST(library::use_opencl());
+  int major_ver = library::major_version();
+  int minor_ver = library::minor_version();
+  BOOST_TEST(library::is_required_version(major_ver, minor_ver),
+             "is_required_version()");
+  BOOST_TEST(!library::is_required_version(major_ver + 1, minor_ver),
+             "is_required_version()");
+  BOOST_TEST(!library::is_required_version(major_ver, minor_ver + 1),
+             "is_required_version()");
+  BOOST_TEST(library::is_required_version(major_ver - 1, minor_ver),
+             "is_required_version()");
+  BOOST_TEST(library::is_required_version(major_ver, minor_ver - 1),
+             "is_required_version()");
+
+#if defined(TEUTHID_HAS_OPENCL)
+  BOOST_TEST(library::use_opencl(), "use_opencl()");
+#else
+  BOOST_TEST(!library::use_opencl(), "use_opencl()");
+  BOOST_TEST(!library::use_opencl(true), "use_opencl()");
+  BOOST_TEST(!library::use_opencl(false), "use_opencl()");
 #endif
-  */
 }

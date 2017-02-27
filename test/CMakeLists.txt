@@ -2,7 +2,7 @@ include(CTest)
 
 set(teuthid_tests
   opencl
-  #class_library
+  class_library
 )
 
 set(compiler_options_ "${AVX_SSE_compiler_options}")

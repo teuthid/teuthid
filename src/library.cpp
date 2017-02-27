@@ -19,14 +19,35 @@
 #include <teuthid/library.hpp>
 
 using namespace teuthid;
+namespace serialization = boost::serialization;
 
-const std::string &library::version_ = TEUTHID_VERSION;
-
-bool library::required_version(int min_major, int min_minor)
+library::library()
 {
-  if (min_major > library::major_)
-    return false;
-  else if ((min_major == library::major_) && (min_minor > library::minor_))
-    return false;
-  return true;
+#if defined(TEUTHID_HAS_OPENCL)
+  use_opencl_ = true;
+#else
+  use_opencl_ = false;
+#endif
+}
+
+bool library::is_required_version(int min_major, int min_minor)
+{
+  int required_ = min_major * 1000 + min_minor;
+  int actual_ = TEUTHID_MAJOR_VERSION * 1000 + TEUTHID_MINOR_VERSION;
+  return (!(required_ > actual_));
+}
+
+bool library::use_opencl()
+{
+  return (serialization::singleton<library>::get_const_instance()).use_opencl_;
+}
+
+bool library::use_opencl(bool use_)
+{
+#if defined(TEUTHID_HAS_OPENCL)
+  serialization::singleton_module::lock();
+  // TO DO
+  serialization::singleton_module::unlock();
+#endif
+  return use_opencl();
 }

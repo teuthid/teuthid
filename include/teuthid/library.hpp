@@ -19,57 +19,47 @@
 #ifndef TEUTHID_LIBRARY_HPP
 
 #include <string>
+#include <boost/serialization/singleton.hpp>
 #include <teuthid/config.hpp>
 
 namespace teuthid
 {
 
-class library
+class library : public boost::serialization::singleton<const library>
 {
+  friend class boost::serialization::singleton<const library>;
+
 public:
   library(library const &) = delete;
   void operator=(library const &) = delete;
   static constexpr int major_version()
   {
-    return major_;
+    return TEUTHID_MAJOR_VERSION;
   }
   static constexpr int minor_version()
   {
-    return minor_;
+    return TEUTHID_MINOR_VERSION;
   }
   static constexpr int patch_version()
   {
-    return patch_;
+    return TEUTHID_PATCH_VERSION;
   }
   static constexpr int soversion()
   {
-    return soversion_;
+    return TEUTHID_SOVERSION;
   }
-  static const std::string &version()
+  static const std::string version()
   {
-    return version_;
+    return std::string(TEUTHID_VERSION);
   }
-  static bool required_version(int min_major, int min_minor);
-  static constexpr bool use_opencl()
-  {
-    return use_opencl_;
-  }
+  static bool is_required_version(int min_major, int min_minor);
+  static bool use_opencl();
+  static bool use_opencl(bool use_);
 
-private:
-  library() {}
+protected:
+  library();
   ~library() {}
-
-private:
-  static constexpr int major_ = TEUTHID_MAJOR_VERSION;
-  static constexpr int minor_ = TEUTHID_MINOR_VERSION;
-  static constexpr int patch_ = TEUTHID_PATCH_VERSION;
-  static constexpr int soversion_ = TEUTHID_SOVERSION;
-  static const std::string &version_;
-#if defined(TEUTHID_USE_OPENCL)
-  static constexpr bool use_opencl_ = true;
-#else
-  static constexpr bool use_opencl_ = false;
-#endif
+  bool use_opencl_;
 };
 
 } // namespace teuthid
