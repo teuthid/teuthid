@@ -1,3 +1,5 @@
 #! /bin/sh
+
 make all
-(cd build >/dev/null 2>&1 && ctest "$@")
+cd build >/dev/null 2>&1
+make CTEST_OUTPUT_ON_FAILURE=1 test

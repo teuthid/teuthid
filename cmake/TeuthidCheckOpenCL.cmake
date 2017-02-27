@@ -27,24 +27,12 @@ if (OpenCL_FOUND AND ${CHECK_OPENCL_DEVICES})
   endif()
 endif()  
 
- if((NOT BUILD_WITH_ARRAYFIRE) AND OpenCL_FOUND) 
- # check if boost.compute is working
-    message(STATUS "Check for working Boost.Compute")
-    try_compile(compile_result_ ${teuthid_CMAKE_DIR}
-      "${teuthid_CMAKE_DIR}/checks/check_boost_compute.cpp" 
-      LINK_LIBRARIES ${OpenCL_LIBRARIES} OUTPUT_VARIABLE compile_output_)
-    if (compile_result_)
-      message(STATUS "Check for working Boost.Compute -- works")
-      set(TEUTHID_USE_BOOST_COMPUTE ON)
-      set(BOOST_COMPUTE_USE_OFFLINE_CACHE ON)
-      set(BOOST_COMPUTE_HAVE_THREAD_LOCAL ON)
-      set(BOOST_COMPUTE_THREAD_SAFE ON)
-    else()
-      message(STATUS "Check for working Boost.Compute -- ${Red}failed!\
- Build with OpenCL is disabled.${ColorReset}")
-      set(OpenCL_FOUND OFF)
-    endif(compile_result_)
- endif()
+if((NOT BUILD_WITH_ARRAYFIRE) AND OpenCL_FOUND) 
+  set(TEUTHID_USE_BOOST_COMPUTE ON)
+  set(BOOST_COMPUTE_USE_OFFLINE_CACHE ON)
+  set(BOOST_COMPUTE_HAVE_THREAD_LOCAL ON)
+  set(BOOST_COMPUTE_THREAD_SAFE ON)
+endif()
 
 set(TEUTHID_USE_OPENCL ${OpenCL_FOUND})
 if (OpenCL_FOUND)

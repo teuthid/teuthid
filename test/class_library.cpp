@@ -25,6 +25,7 @@ using namespace teuthid;
 
 BOOST_AUTO_TEST_CASE(class_teuthid_library)
 {
+  /*
   BOOST_TEST(library::major_version() == TEUTHID_MAJOR_VERSION);
   BOOST_TEST(library::minor_version() == TEUTHID_MINOR_VERSION);
   BOOST_TEST(library::patch_version() == TEUTHID_PATCH_VERSION);
@@ -44,4 +45,5 @@ BOOST_AUTO_TEST_CASE(class_teuthid_library)
 #if defined(TEUTHID_USE_OPENCL)
   BOOST_TEST(library::use_opencl());
 #endif
+  */
 }
