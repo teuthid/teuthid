@@ -10,9 +10,10 @@
 //---------------------------------------------------------------------------//
 
 // Modified for Teuthid project as the unit test
-//Copyright (C) 2016-2017 Mariusz Przygodzki (mariusz.przygodzki@gmail.com)
+// Copyright (C) 2016-2017 Mariusz Przygodzki (mariusz.przygodzki@gmail.com)
 
 // See boost/compute/detail/diagnostic.hpp
+
 // GCC
 #if ((__GNUC__ * 100) + __GNUC_MINOR__) >= 402
 #define BOOST_COMPUTE_GCC_DIAG_STR(s) #s
@@ -83,22 +84,8 @@
 #define BOOST_TEST_DYN_LINK
 #include <boost/test/unit_test.hpp>
 
-#define BOOST_TEST_LOG_LEVEL all
-#define BOOST_TEST_REPORT_LEVEL detailed
-
-// the opencl_test example displays the opencl platforms and devices found
-// on the system using the opencl api directly. if this test fails to compile
-// and/or run, there is a problem with the opencl implementation found on the
-// system. users should ensure this test runs successfuly before using any of
-// the boost.compute apis (which depend on a working opencl implementation).
-
 BOOST_AUTO_TEST_CASE(opencl)
 {
-    // Suppress deprecated declarations warning
-    BOOST_COMPUTE_MSVC_DIAG_OFF(4996);                       // MSVC
-    BOOST_COMPUTE_GCC_DIAG_OFF(deprecated - declarations);   // GCC
-    BOOST_COMPUTE_CLANG_DIAG_OFF(deprecated - declarations); // Clang
-
     // query number of opencl platforms
     cl_uint num_platforms = 0;
     cl_int ret = clGetPlatformIDs(0, NULL, &num_platforms);
@@ -121,13 +108,8 @@ BOOST_AUTO_TEST_CASE(opencl)
                              &num_devices);
         if (ret != CL_SUCCESS)
             continue;
-
         deviceCount += num_devices;
     }
     delete[] platforms;
     BOOST_TEST(deviceCount > 0, "clGetDeviceIDs - found 0 devices");
 }
-
-BOOST_COMPUTE_CLANG_DIAG_ON(deprecated - declarations); // Clang
-BOOST_COMPUTE_GCC_DIAG_ON(deprecated - declarations);   // GCC
-BOOST_COMPUTE_MSVC_DIAG_OFF(4996);                      // MSVC
