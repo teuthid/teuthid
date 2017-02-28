@@ -20,11 +20,20 @@
 
 #include <mutex>
 #include <string>
-#include <teuthid/config.hpp>
 #include <thread>
 #include <unordered_map>
 
+#include <teuthid/config.hpp>
+
 namespace teuthid {
+
+// TO DO:
+// implement structs/classes: cl_platform_info & cl_device_info
+// std::size_t library::cl_platforms()
+// std::size_t library::cl_devices(std::size_t platform)
+// const cl_platform_info &library::cl_platform(std::size_t id)
+// const cl_device_info &library::cl_device(std::size_t platform, 
+//                                          std::size_t id)
 
 class library final {
 public:
