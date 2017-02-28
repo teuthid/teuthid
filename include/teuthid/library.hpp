@@ -18,49 +18,38 @@
 
 #ifndef TEUTHID_LIBRARY_HPP
 
+#include <mutex>
 #include <string>
-#include <boost/serialization/singleton.hpp>
 #include <teuthid/config.hpp>
+#include <thread>
+#include <unordered_map>
 
-namespace teuthid
-{
+namespace teuthid {
 
-class library : public boost::serialization::singleton<const library>
-{
-  friend class boost::serialization::singleton<const library>;
-
+class library final {
 public:
   library(library const &) = delete;
   void operator=(library const &) = delete;
-  static constexpr int major_version()
-  {
-    return TEUTHID_MAJOR_VERSION;
-  }
-  static constexpr int minor_version()
-  {
-    return TEUTHID_MINOR_VERSION;
-  }
-  static constexpr int patch_version()
-  {
-    return TEUTHID_PATCH_VERSION;
-  }
-  static constexpr int soversion()
-  {
-    return TEUTHID_SOVERSION;
-  }
-  static const std::string version()
-  {
-    return std::string(TEUTHID_VERSION);
-  }
+  static constexpr int major_version() { return TEUTHID_MAJOR_VERSION; }
+  static constexpr int minor_version() { return TEUTHID_MINOR_VERSION; }
+  static constexpr int patch_version() { return TEUTHID_PATCH_VERSION; }
+  static constexpr int soversion() { return TEUTHID_SOVERSION; }
+  static const std::string &version();
   static bool is_required_version(int min_major, int min_minor);
+  static bool has_opencl();
   static bool use_opencl();
-  static bool use_opencl(bool use_);
+  static bool use_opencl(bool force_use);
 
-protected:
-  library();
+private:
+  typedef std::unordered_map<std::thread::id, bool> threads_map_t_;
+
+  library() {}
   ~library() {}
-  bool use_opencl_;
-};
+
+  static std::string version_;
+  static std::mutex mutex_;
+  static threads_map_t_ cl_in_threads_;
+}; // class library
 
 } // namespace teuthid
 

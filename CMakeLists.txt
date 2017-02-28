@@ -15,7 +15,8 @@ set(CMAKE_MODULE_PATH ${teuthid_CMAKE_DIR} ${CMAKE_MODULE_PATH})
 include(CheckOutOfSourceBuild)
 
 if (NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE "Release")
+  #set(CMAKE_BUILD_TYPE "Release")
+  set(CMAKE_BUILD_TYPE "Debug")
 endif()
 string(TOLOWER "${CMAKE_BUILD_TYPE}" _cmake_build_type)
 if (NOT _cmake_build_type STREQUAL "debug"
@@ -37,7 +38,7 @@ SET(CMAKE_COLOR_MAKEFILE ON)
 set(CMAKE_VERBOSE_MAKEFILE ON) # to comment out
 
 set(Boost_REQUIRED_VERSION "1.61.0")
-set(Boost_REQUIRED_COMPONENTS random serialization)
+set(Boost_REQUIRED_COMPONENTS random)
 set(GMP_REQUIRED_VERSION "6.1.1")
 set(MPFR_REQUIRED_VERSION "3.1.5")
 set(ArrayFire_REQUIRED_VERSION "3.3.2")

@@ -1,9 +1,11 @@
 include(CTest)
 
 set(teuthid_tests
-  opencl
   class_library
 )
+if (BUILD_WITH_OPENCL)
+  list_prepend(teuthid_tests opencl)
+endif()
 
 set(compiler_options_ "${AVX_SSE_compiler_options}")
 separate_arguments(compiler_options_)
@@ -16,5 +18,3 @@ foreach(test_ ${teuthid_tests})
   target_compile_options(${test_} PRIVATE ${compiler_options_})
   add_test(${test_} ${test_})
 endforeach()
-
-unset(compiler_options_)
