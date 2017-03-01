@@ -47,7 +47,7 @@ public:
   static bool is_required_version(int min_major, int min_minor);
   static bool has_opencl();
   static bool use_opencl();
-  static bool use_opencl(bool force_use);
+  static bool use_opencl(bool enabled);
 
 private:
   typedef std::unordered_map<std::thread::id, bool> threads_map_t_;
