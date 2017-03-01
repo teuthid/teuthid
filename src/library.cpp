@@ -27,7 +27,7 @@ bool library::has_opencl_ = true;
 bool library::has_opencl_ = false;
 #endif
 
-thread_local bool library::use_opencl_ = library::has_opencl();
+thread_local bool library::use_opencl_ = library::has_opencl_;
 library::threads_map_t_ library::cl_in_threads_ = {
     {std::this_thread::get_id(), library::has_opencl()}};
 std::mutex library::mutex_;
@@ -55,5 +55,5 @@ bool library::use_opencl(bool enabled) {
   return library::use_opencl();
   // if (library::has_opencl())
   //   library::use_opencl_ = enabled;
-  // return library::use_opencl();
+  // return library::use_open_cl_;
 }
