@@ -21,6 +21,12 @@
 
 using namespace teuthid;
 
+#if defined(TEUTHID_HAS_OPENCL)
+bool library::has_opencl_ = true;
+#else
+bool library::has_opencl_ = false;
+#endif
+
 thread_local bool library::use_opencl_ = library::has_opencl();
 library::threads_map_t_ library::cl_in_threads_ = {
     {std::this_thread::get_id(), library::has_opencl()}};
@@ -33,14 +39,6 @@ bool library::is_required_version(int min_major, int min_minor) {
   int __required = min_major * 1000 + min_minor;
   int __actual = TEUTHID_MAJOR_VERSION * 1000 + TEUTHID_MINOR_VERSION;
   return (!(__required > __actual));
-}
-
-inline bool library::has_opencl() {
-#if defined(TEUTHID_HAS_OPENCL)
-  return true;
-#else
-  return false;
-#endif
 }
 
 bool library::use_opencl() {
