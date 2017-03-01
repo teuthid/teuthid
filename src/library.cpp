@@ -49,13 +49,13 @@ bool library::use_opencl() {
   // return library::use_opencl_
 }
 
-bool library::use_opencl(bool force_use) {
+bool library::use_opencl(bool enabled) {
   assert(!(library::cl_in_threads_).empty());
   std::lock_guard<std::mutex> __guard(library::mutex_);
   if (library::has_opencl())
-    library::cl_in_threads_[std::this_thread::get_id()] = force_use;
+    library::cl_in_threads_[std::this_thread::get_id()] = enabled;
   return library::use_opencl();
   // if (library::has_opencl())
-  //   library::use_opencl_ = force_use;
+  //   library::use_opencl_ = enabled;
   // return library::use_opencl();
 }
