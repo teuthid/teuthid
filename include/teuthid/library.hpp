@@ -57,6 +57,7 @@ private:
 
   static std::string version_;
   static std::mutex mutex_;
+  static bool has_opencl_;
   static thread_local bool use_opencl_;
   static threads_map_t_ cl_in_threads_;
 }; // class library
