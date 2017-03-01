@@ -21,6 +21,7 @@
 
 using namespace teuthid;
 
+thread_local bool library::use_opencl_ = library::has_opencl();
 library::threads_map_t_ library::cl_in_threads_ = {
     {std::this_thread::get_id(), library::has_opencl()}};
 std::mutex library::mutex_;
@@ -45,6 +46,7 @@ inline bool library::has_opencl() {
 bool library::use_opencl() {
   assert(!(library::cl_in_threads_).empty());
   return library::cl_in_threads_[std::this_thread::get_id()];
+  // return library::use_opencl_
 }
 
 bool library::use_opencl(bool force_use) {
@@ -53,4 +55,7 @@ bool library::use_opencl(bool force_use) {
   if (library::has_opencl())
     library::cl_in_threads_[std::this_thread::get_id()] = force_use;
   return library::use_opencl();
+  // if (library::has_opencl())
+  //   library::use_opencl_ = force_use;
+  // return library::use_opencl();
 }
