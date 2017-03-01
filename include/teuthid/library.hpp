@@ -50,6 +50,7 @@ public:
 private:
   library() {}
   ~library() {}
+  static bool check_opencl_();
 
   static std::string version_;
   static std::mutex mutex_;

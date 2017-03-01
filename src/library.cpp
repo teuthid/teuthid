@@ -21,7 +21,7 @@
 using namespace teuthid;
 
 #if defined(TEUTHID_WITH_OPENCL)
-bool library::have_opencl_ = true;
+bool library::have_opencl_ = true; // = library::check_opencl_
 #else
 bool library::have_opencl_ = false;
 #endif
@@ -40,4 +40,10 @@ bool library::use_opencl(bool enabled) {
   if (library::have_opencl_)
     library::use_opencl_ = enabled;
   return library::use_opencl_;
+}
+
+bool library::check_opencl_() {
+  // TO DO
+
+  return false;
 }
