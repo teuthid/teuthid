@@ -45,7 +45,7 @@ public:
   static constexpr int soversion() { return TEUTHID_SOVERSION; }
   static const std::string &version();
   static bool is_required_version(int min_major, int min_minor);
-  static bool has_opencl();
+  static bool has_opencl() { return library::has_opencl_; }
   static bool use_opencl();
   static bool use_opencl(bool enabled);
 
