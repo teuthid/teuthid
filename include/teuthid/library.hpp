@@ -20,8 +20,6 @@
 
 #include <mutex>
 #include <string>
-#include <thread>
-#include <unordered_map>
 
 #include <teuthid/config.hpp>
 
@@ -32,7 +30,7 @@ namespace teuthid {
 // std::size_t library::cl_platforms()
 // std::size_t library::cl_devices(std::size_t platform)
 // const cl_platform_info &library::cl_platform(std::size_t id)
-// const cl_device_info &library::cl_device(std::size_t platform, 
+// const cl_device_info &library::cl_device(std::size_t platform,
 //                                          std::size_t id)
 
 class library final {
@@ -43,25 +41,21 @@ public:
   static constexpr int minor_version() { return TEUTHID_MINOR_VERSION; }
   static constexpr int patch_version() { return TEUTHID_PATCH_VERSION; }
   static constexpr int soversion() { return TEUTHID_SOVERSION; }
-  static const std::string &version();
+  static const std::string &version() { return library::version_; }
   static bool is_required_version(int min_major, int min_minor);
-  static bool has_opencl() { return library::has_opencl_; }
-  static bool use_opencl();
+  static bool have_opencl() { return library::have_opencl_; }
+  static bool use_opencl() { return library::use_opencl_; }
   static bool use_opencl(bool enabled);
 
 private:
-  typedef std::unordered_map<std::thread::id, bool> threads_map_t_;
-
   library() {}
   ~library() {}
 
   static std::string version_;
   static std::mutex mutex_;
-  static bool has_opencl_;
+  static bool have_opencl_;
   static thread_local bool use_opencl_;
-  static threads_map_t_ cl_in_threads_;
 }; // class library
-
 } // namespace teuthid
 
 #endif // TEUTHID_LIBRARY_HPP

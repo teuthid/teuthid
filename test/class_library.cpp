@@ -18,10 +18,31 @@
 
 #define BOOST_TEST_MODULE teuthid
 #define BOOST_TEST_DYN_LINK
+
+#include <chrono>
+#include <thread>
+
 #include <boost/test/unit_test.hpp>
 #include <teuthid/library.hpp>
 
 using namespace teuthid;
+
+class test_thread {
+public:
+  void test() { library::use_opencl(false); }
+};
+
+class test {
+  std::thread t1, t2;
+
+public:
+  void call_threads() {
+    t1 = std::thread(&test_thread::test, test_thread());
+    t2 = std::thread(&test_thread::test, test_thread());
+    t1.join();
+    t2.join();
+  }
+};
 
 BOOST_AUTO_TEST_CASE(class_teuthid_library) {
   BOOST_TEST(library::major_version() == TEUTHID_MAJOR_VERSION,
@@ -46,15 +67,18 @@ BOOST_AUTO_TEST_CASE(class_teuthid_library) {
   BOOST_TEST(library::is_required_version(major_ver, minor_ver - 1),
              "is_required_version()");
 
-#if defined(TEUTHID_HAS_OPENCL)
-  BOOST_TEST(library::has_opencl(), "has_opencl()");
+  test __test = test();
+#if defined(TEUTHID_WITH_OPENCL)
+  BOOST_TEST(library::have_opencl(), "have_opencl()");
   BOOST_TEST(library::use_opencl(), "use_opencl()");
   BOOST_TEST(!library::use_opencl(false), "use_opencl(bool)");
   BOOST_TEST(!library::use_opencl(), "use_opencl()");
   BOOST_TEST(library::use_opencl(true), "use_opencl(bool)");
+  __test.call_threads();
+  std::this_thread::sleep_for(std::chrono::milliseconds(123));
   BOOST_TEST(library::use_opencl(), "use_opencl()");
 #else
-  BOOST_TEST(!library::has_opencl(), "has_opencl()");
+  BOOST_TEST(!library::have_opencl(), "have_opencl()");
   BOOST_TEST(!library::use_opencl(), "use_opencl()");
   BOOST_TEST(!library::use_opencl(true), "use_opencl(bool)");
   BOOST_TEST(!library::use_opencl(false), "use_opencl(bool)");

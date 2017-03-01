@@ -49,7 +49,8 @@ include(TeuthidCompilerOptions)
 
 set(teuthid_INCLUDE_PATH ${teuthid_SOURCE_DIR}/include)
 set(teuthid_INCLUDE_DIR ${teuthid_SOURCE_DIR}/include/teuthid)
-set(teuthid_link_libraries ${teuthid_link_libraries})
+find_package(Threads REQUIRED)
+set(teuthid_link_libraries ${CMAKE_THREAD_LIBS_INIT})
 
 set(BUILD_SHARED_LIBS ON)
 option(BUILD_STATIC_LIBS "Build the static library" ON)

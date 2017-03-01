@@ -34,7 +34,7 @@ if((NOT BUILD_WITH_ARRAYFIRE) AND OpenCL_FOUND)
   set(BOOST_COMPUTE_THREAD_SAFE ON)
 endif()
 
-set(TEUTHID_HAS_OPENCL ${OpenCL_FOUND})
+set(TEUTHID_WITH_OPENCL ${OpenCL_FOUND})
 if (OpenCL_FOUND)
   list(APPEND teuthid_link_libraries ${OpenCL_LIBRARIES})
   list_prepend(teuthid_INCLUDE_PATH ${OpenCL_INCLUDE_DIRS})

@@ -24,7 +24,7 @@
 #define TEUTHID_SOVERSION @teuthid_library_soversion@
 #define TEUTHID_VERSION "@teuthid_VERSION@"
 
-#cmakedefine TEUTHID_HAS_OPENCL
+#cmakedefine TEUTHID_WITH_OPENCL
 
 #cmakedefine TEUTHID_USE_BOOST_COMPUTE
 #cmakedefine BOOST_COMPUTE_HAVE_THREAD_LOCAL
