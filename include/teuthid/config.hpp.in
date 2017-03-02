@@ -36,4 +36,12 @@
 #cmakedefine ARRAYFIRE_OPENCL_BACKEND
 #cmakedefine ARRAYFIRE_CPU_BACKEND
 
+#include <boost/cstdint.hpp>
+namespace teuthid {
+typedef ::boost::uint8_t uint8t;
+typedef ::boost::uint16_t uint16t;
+typedef ::boost::uint32_t uint32t;
+typedef ::boost::uint64_t uint64t;
+}
+
 #endif // TEUTHID_CONFIG_HPP

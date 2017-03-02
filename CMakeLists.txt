@@ -49,6 +49,7 @@ include(TeuthidCompilerOptions)
 
 set(teuthid_INCLUDE_PATH ${teuthid_SOURCE_DIR}/include)
 set(teuthid_INCLUDE_DIR ${teuthid_SOURCE_DIR}/include/teuthid)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads QUIET REQUIRED)
 set(teuthid_link_libraries ${CMAKE_THREAD_LIBS_INIT})
 msg_status("Threads: " "${CMAKE_THREAD_LIBS_INIT}")
@@ -130,17 +131,5 @@ msg_status("Linked libraries: " "${libname_list_}")
 
 msg_status("Build the unit tests: " "${BUILD_TESTS}")
 msg_status("Build the documentation: " "${BUILD_DOCS}")
+msg_status("Build the examples: " "${BUILD_EXAMPLES}")
 msg_status("Install directory: " "${CMAKE_INSTALL_PREFIX}")
-
-set(all_options_ BUILD_SHARED_LIBS BUILD_STATIC_LIBS BUILD_WITH_OPENCL
-  ENABLE_AVX_SSE CHECK_OPENCL_DEVICES BUILD_WITH_ARRAYFIRE BUILD_TESTS 
-  BUILD_DOCS BUILD_EXAMPLES)
-set(used_options_ "")
-foreach(option_ ${all_options_})
-  if(${option_})
-    set(used_options_ "${used_options_} ${option_}")
-  endif()
-endforeach()
-string(STRIP "${used_options_}" used_options_)
-string(REPLACE " " ", " used_options_ "${used_options_}")
-msg_status("Build options: " "${used_options_}")

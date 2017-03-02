@@ -20,8 +20,9 @@
 
 #include <mutex>
 #include <string>
+#include <vector>
 
-#include <teuthid/config.hpp>
+#include <teuthid/cl_info.hpp>
 
 namespace teuthid {
 
@@ -32,6 +33,8 @@ namespace teuthid {
 // const cl_platform_info &library::cl_platform(std::size_t id)
 // const cl_device_info &library::cl_device(std::size_t platform,
 //                                          std::size_t id)
+
+typedef std::vector<cl::platform_info> opencl_platforms_t;
 
 class library final {
 public:
@@ -46,6 +49,10 @@ public:
   static bool have_opencl() { return library::have_opencl_; }
   static bool use_opencl() { return library::use_opencl_; }
   static bool use_opencl(bool enabled);
+  static int num_opencl_platforms() { return library::num_cl_platforms_; }
+  static const opencl_platforms_t &opencl_platforms() {
+    return opencl_platforms_;
+  }
 
 private:
   library() {}
@@ -56,6 +63,8 @@ private:
   static std::mutex mutex_;
   static bool have_opencl_;
   static thread_local bool use_opencl_;
+  static int num_cl_platforms_;
+  static opencl_platforms_t opencl_platforms_;
 }; // class library
 } // namespace teuthid
 
