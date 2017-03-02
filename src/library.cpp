@@ -76,6 +76,7 @@ bool library::check_opencl_() {
   // platform queries
   for (cl_uint i = 0; i < __platform_count; i++) {
     opencl_platforms_.push_back(cl::platform_info());
+    opencl_platforms_[i].id_ = i + 1; // id
     // profile
     __result = clGetPlatformInfo(__platforms[i], CL_PLATFORM_PROFILE,
                                  sizeof(__data), __data, &__retsize);
