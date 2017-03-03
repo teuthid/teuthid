@@ -18,25 +18,29 @@
 
 #ifndef TEUTHID_CL_INFO_HPP
 
-#include <list>
 #include <string>
 #include <teuthid/config.hpp>
+#include <vector>
 
 namespace teuthid {
-class library;
+
+namespace cl {
+class platform_info;
+}
+
+typedef std::vector<cl::platform_info> opencl_platforms_t;
 enum opencl_profile_t { FULL, EMBEDDED, UNKNOWN };
+
 namespace cl {
 
 class platform_info {
-  friend class ::teuthid::library;
-
 public:
   platform_info()
       : id_(0), profile_(UNKNOWN), major_version_(0), minor_version_(0),
         spec_version_(std::string("")), version_(std::string("")),
         name_(std::string("")), vendor_(std::string("")),
         host_timer_resolution_(0), icd_suffix_khr_(std::string("")) {
-    extensions_ = std::list<std::string>();
+    extensions_ = std::vector<std::string>();
   }
   ~platform_info() {}
   std::size_t id() const { return id_; }
@@ -47,9 +51,11 @@ public:
   const std::string &version() const { return version_; }
   const std::string &name() const { return name_; }
   const std::string &vendor() const { return vendor_; }
-  const std::list<std::string> &extensions() const { return extensions_; }
+  const std::vector<std::string> &extensions() const { return extensions_; }
   uint64_t host_timer_resolution() const { return host_timer_resolution_; }
   const std::string &icd_suffix_khr() const { return icd_suffix_khr_; }
+
+  static const opencl_platforms_t &platforms(bool force_detection = false);
 
 private:
   std::size_t id_;           // cl_platform_id
@@ -60,10 +66,14 @@ private:
   std::string version_;
   std::string name_;                  // CL_PLATFORM_NAME (char[])
   std::string vendor_;                // CL_PLATFORM_VENDOR (char[])
-  std::list<std::string> extensions_; // CL_PLATFORM_EXTENSIONS (char[])
+  std::vector<std::string> extensions_; // CL_PLATFORM_EXTENSIONS (char[])
   uint64_t
       host_timer_resolution_;  // CL_PLATFORM_HOST_TIMER_RESOLUTION (cl_ulong)
   std::string icd_suffix_khr_; // CL_PLATFORM_ICD_SUFFIX_KHR (char[])
+
+  static bool platforms_detected_;
+  static opencl_platforms_t platforms_;
+  static void detect_platforms_();
 };
 
 } // namespace cl

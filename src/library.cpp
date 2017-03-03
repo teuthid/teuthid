@@ -19,27 +19,17 @@
 #include <cassert>
 #include <teuthid/library.hpp>
 
-#if defined(TEUTHID_WITH_OPENCL)
-#if defined(__APPLE__)
-#include <OpenCL/opencl.h>
-#else
-#include <CL/cl.h>
-#endif
-#endif
-
 using namespace teuthid;
-
-#if defined(TEUTHID_WITH_OPENCL)
-bool library::have_opencl_ = library::check_opencl_();
-#else
-bool library::have_opencl_ = false;
-#endif
 
 thread_local bool library::use_opencl_ = library::have_opencl_;
 std::mutex library::mutex_;
 std::string library::version_ = std::string(TEUTHID_VERSION);
-int library::num_cl_platforms_ = 0;
-opencl_platforms_t library::opencl_platforms_ = opencl_platforms_t();
+
+#if defined(TEUTHID_WITH_OPENCL)
+bool library::have_opencl_ = true;
+#else
+bool library::have_opencl_ = false;
+#endif
 
 bool library::is_required_version(int min_major, int min_minor) {
   int __required = min_major * 1000 + min_minor;
@@ -53,6 +43,7 @@ bool library::use_opencl(bool enabled) {
   return library::use_opencl_;
 }
 
+/*
 bool library::check_opencl_() {
 #if defined(TEUTHID_WITH_OPENCL)
   cl_int __result;
@@ -93,6 +84,8 @@ bool library::check_opencl_() {
   delete __platforms;
   return true;
 #else
+
   return false;
-#endif // defined(TEUTHID_WITH_OPENCL)
+  //#endif // defined(TEUTHID_WITH_OPENCL)
 }
+*/

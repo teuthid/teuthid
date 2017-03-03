@@ -78,14 +78,12 @@ BOOST_AUTO_TEST_CASE(class_teuthid_library) {
   __test.call_threads();
   std::this_thread::sleep_for(std::chrono::milliseconds(123));
   BOOST_TEST(library::use_opencl(), "use_opencl()");
-  BOOST_TEST(library::num_opencl_platforms() > 0);
-  // BOOST_TEST(!__platforms.empty());
+  BOOST_TEST(__platforms.size() > 0);
 #else
   BOOST_TEST(!library::have_opencl(), "have_opencl()");
   BOOST_TEST(!library::use_opencl(), "use_opencl()");
   BOOST_TEST(!library::use_opencl(true), "use_opencl(bool)");
   BOOST_TEST(!library::use_opencl(false), "use_opencl(bool)");
-  BOOST_TEST(library::num_opencl_platforms() == 0);
   BOOST_TEST(__platforms.empty());
 #endif
 }

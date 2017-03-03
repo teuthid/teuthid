@@ -1,4 +1,5 @@
 set(teuthid_library_sources
+  cl_info.cpp
   library.cpp
 )
 
