@@ -26,7 +26,7 @@
 #else
 #include <CL/cl.h>
 #endif
-#endif
+#endif // defined(TEUTHID_WITH_OPENCL)
 
 using namespace teuthid;
 using namespace teuthid::cl;
@@ -50,6 +50,9 @@ void platform_info::detect_platforms_() {
   cl_int __result;
   cl_uint __platform_count = 0;
   cl_platform_id *__platforms;
+  char __data[1024];
+  std::size_t __retsize;
+  std::string __str;
 
   __result = clGetPlatformIDs(0, NULL, &__platform_count);
   assert(__result == CL_SUCCESS);
@@ -58,7 +61,30 @@ void platform_info::detect_platforms_() {
   __platforms = new cl_platform_id[sizeof(cl_platform_id) * __platform_count];
   __result = clGetPlatformIDs(__platform_count, __platforms, NULL);
   assert(__result == CL_SUCCESS);
+  if (__result != CL_SUCCESS) { // unable to get platform IDs
+    delete __platforms;
+    return;
+  }
+  // platform queries
+  for (cl_int i = 0; i < __platform_count; i++) {
+    platforms_.push_back(platform_info());
+    __result = clGetPlatformInfo(__platforms[i], CL_PLATFORM_PROFILE,
+                                 sizeof(__data), __data, &__retsize);
+    if ((__result != CL_SUCCESS) || (__retsize == sizeof(__data))) {
+      platforms_[i].profile_ = UNKNOWN_PROFILE;
+      continue; // unable to get platform's profile
+    }
+    __str = std::string(__data);
+    if (__str == std::string("FULL_PROFILE"))
+      platforms_[i].profile_ = FULL_PROFILE;
+    else if (__str == std::string("EMBEDDED_PROFILE"))
+      platforms_[i].profile_ = EMBEDDED_PROFILE;
+    else
+      platforms_[i].profile_ = UNKNOWN_PROFILE;
 
-// ...
+  }
+
+  // ...
+  delete __platforms;
 #endif
 }

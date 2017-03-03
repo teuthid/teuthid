@@ -35,35 +35,3 @@ bool library::use_opencl(bool enabled) {
   return library::use_opencl_;
 }
 
-/*
- 
-  
-  if (__result != CL_SUCCESS) // unable to get platform IDs
-    return false;
-  else
-    library::num_cl_platforms_ = __platform_count;
-
-  char __data[1024];
-  std::size_t __retsize;
-  // platform queries
-  for (cl_uint i = 0; i < __platform_count; i++) {
-    opencl_platforms_.push_back(cl::platform_info());
-    opencl_platforms_[i].id_ = i + 1; // id
-    // profile
-    __result = clGetPlatformInfo(__platforms[i], CL_PLATFORM_PROFILE,
-                                 sizeof(__data), __data, &__retsize);
-    assert(__result == CL_SUCCESS);
-    if ((__result != CL_SUCCESS) || (__retsize == sizeof(__data)))
-      continue; // unable to get platform's profile
-    else {
-      // ...
-    }
-    // ...
-  }
-  // ...
-
-  delete __platforms;
-  return true;
-
-}
-*/

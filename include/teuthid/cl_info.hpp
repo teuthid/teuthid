@@ -31,21 +31,21 @@ class platform_info;
 }
 
 typedef std::vector<cl::platform_info> opencl_platforms_t;
-enum opencl_profile_t { FULL, EMBEDDED, UNKNOWN };
 
 namespace cl {
 
 class platform_info {
 public:
+  enum opencl_profile_t { FULL_PROFILE, EMBEDDED_PROFILE, UNKNOWN_PROFILE };
+
   platform_info()
-      : id_(0), profile_(UNKNOWN), major_version_(0), minor_version_(0),
+      : profile_(UNKNOWN_PROFILE), major_version_(0), minor_version_(0),
         spec_version_(std::string("")), version_(std::string("")),
         name_(std::string("")), vendor_(std::string("")),
         host_timer_resolution_(0), icd_suffix_khr_(std::string("")) {
     extensions_ = std::vector<std::string>();
   }
   ~platform_info() {}
-  std::size_t id() const { return id_; }
   opencl_profile_t profile() const { return profile_; }
   int major_version() const { return major_version_; }
   int minor_version() const { return minor_version_; }
@@ -60,7 +60,6 @@ public:
   static const opencl_platforms_t &platforms(bool force_detection = false);
 
 private:
-  std::size_t id_;           // cl_platform_id
   opencl_profile_t profile_; // CL_PLATFORM_PROFILE (char[])
   int major_version_;        // CL_PLATFORM_VERSION (char[])
   int minor_version_;        // <major.minor><space><platform-specific>

@@ -30,14 +30,21 @@ using namespace teuthid;
 #define ruler                                                                  \
   "------------------------------------------------------------------------"
 
+std::string __str;
+
 int main() {
   std::cout << std::endl << ruler << std::endl;
   std::cout << "Teuthid Version " << library::version() << "." << std::endl;
   if (library::have_opencl()) {
     std::cout << "Build with OpenCL (using " << opencl_backend << ").";
     std::cout << std::endl;
-    std::cout << "Available OpenCL platform(s) and device(s):";
-    // ...
+    std::cout << "Available OpenCL platform(s) and device(s):" << std::endl;
+    for (auto __platform : library::opencl_platforms()) {
+      if (__platform.profile() == cl::platform_info::FULL_PROFILE)
+        __str = std::string("FULL_PROFILE");
+      std::cout << "  Platform profile:  " << __str;
+      std::cout << std::endl;
+    }
     std::cout << std::endl;
   }
 
