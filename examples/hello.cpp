@@ -40,8 +40,14 @@ int main() {
     std::cout << std::endl;
     std::cout << "Available OpenCL platform(s) and device(s):" << std::endl;
     for (auto __platform : library::opencl_platforms()) {
-      if (__platform.profile() == cl::platform_info::FULL_PROFILE)
+      std::cout << "  Platform version:  " << __platform.version();
+      std::cout << std::endl;
+      if (__platform.is_full_profile())
         __str = std::string("FULL_PROFILE");
+      else if (__platform.is_embedded_profile())
+        __str = std::string("EMBEDDED_PROFILE");
+      else
+        __str = std::string("UNKNOWN_PROFILE");
       std::cout << "  Platform profile:  " << __str;
       std::cout << std::endl;
     }

@@ -17,6 +17,7 @@
 */
 
 #include <cassert>
+#include <regex>
 
 #include <teuthid/cl_info.hpp>
 
@@ -81,7 +82,16 @@ void platform_info::detect_platforms_() {
       platforms_[i].profile_ = EMBEDDED_PROFILE;
     else
       platforms_[i].profile_ = UNKNOWN_PROFILE;
+    __result = clGetPlatformInfo(__platforms[i], CL_PLATFORM_VERSION,
+                                 sizeof(__data), __data, &__retsize);
+    if ((__result != CL_SUCCESS) || (__retsize == sizeof(__data)))
+      platforms_[i].version_ = "* uknown version *";
+    else {
+      __str = std::string(__data);
+      platforms_[i].version_ = __str;
+      
 
+    }
   }
 
   // ...

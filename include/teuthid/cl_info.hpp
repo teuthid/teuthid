@@ -47,6 +47,8 @@ public:
   }
   ~platform_info() {}
   opencl_profile_t profile() const { return profile_; }
+  bool is_full_profile() const { return (profile_ == FULL_PROFILE); }
+  bool is_embedded_profile() const { return (profile_ == EMBEDDED_PROFILE); }
   int major_version() const { return major_version_; }
   int minor_version() const { return minor_version_; }
   const std::string &spec_version() const { return spec_version_; }
