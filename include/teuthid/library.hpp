@@ -18,7 +18,6 @@
 
 #ifndef TEUTHID_LIBRARY_HPP
 
-#include <mutex>
 #include <string>
 
 #include <teuthid/cl_info.hpp>
@@ -35,20 +34,18 @@ public:
   static constexpr int soversion() { return TEUTHID_SOVERSION; }
   static const std::string &version() { return library::version_; }
   static bool is_required_version(int min_major, int min_minor);
-  static bool have_opencl() { return library::have_opencl_; }
-  static bool use_opencl() { return library::use_opencl_; }
-  static bool use_opencl(bool enabled);
   static const opencl_platforms_t &opencl_platforms() {
     return cl::platform_info::platforms();
   }
+  static bool have_opencl() { return (library::opencl_platforms().size() > 0); }
+  static bool use_opencl() { return library::use_opencl_; }
+  static bool use_opencl(bool enabled);
 
 private:
   library() {}
   ~library() {}
 
   static std::string version_;
-  static std::mutex mutex_;
-  static bool have_opencl_;
   static thread_local bool use_opencl_;
 }; // class library
 } // namespace teuthid

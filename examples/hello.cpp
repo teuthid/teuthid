@@ -21,22 +21,27 @@
 #include <teuthid/library.hpp>
 using namespace teuthid;
 
+#if defined(TEUTHID_USE_BOOST_COMPUTE)
+#define opencl_backend "Boost.Compute"
+#elif defined(TEUTHID_USE_ARRAYFIRE)
+#define opencl_backend "ArrayFire"
+#endif
+
+#define ruler                                                                  \
+  "------------------------------------------------------------------------"
+
 int main() {
-  std::cout << std::endl
-            << "---------------------------------------------------------------"
-               "----------"
-            << std::endl;
+  std::cout << std::endl << ruler << std::endl;
   std::cout << "Teuthid Version " << library::version() << "." << std::endl;
-  if (library::have_opencl())
-  {
-    std::cout << "Build with OpenCL (using ";
+  if (library::have_opencl()) {
+    std::cout << "Build with OpenCL (using " << opencl_backend << ").";
+    std::cout << std::endl;
+    std::cout << "Available OpenCL platform(s) and device(s):";
     // ...
     std::cout << std::endl;
   }
+
   // ...
-  std::cout << std::endl
-            << "---------------------------------------------------------------"
-               "----------"
-            << std::endl;
+  std::cout << std::endl << ruler << std::endl;
   return 0;
 }

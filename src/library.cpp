@@ -16,20 +16,12 @@
     along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cassert>
 #include <teuthid/library.hpp>
 
 using namespace teuthid;
 
-thread_local bool library::use_opencl_ = library::have_opencl_;
-std::mutex library::mutex_;
+thread_local bool library::use_opencl_ = library::have_opencl();
 std::string library::version_ = std::string(TEUTHID_VERSION);
-
-#if defined(TEUTHID_WITH_OPENCL)
-bool library::have_opencl_ = true;
-#else
-bool library::have_opencl_ = false;
-#endif
 
 bool library::is_required_version(int min_major, int min_minor) {
   int __required = min_major * 1000 + min_minor;
@@ -38,25 +30,14 @@ bool library::is_required_version(int min_major, int min_minor) {
 }
 
 bool library::use_opencl(bool enabled) {
-  if (library::have_opencl_)
+  if (library::have_opencl())
     library::use_opencl_ = enabled;
   return library::use_opencl_;
 }
 
 /*
-bool library::check_opencl_() {
-#if defined(TEUTHID_WITH_OPENCL)
-  cl_int __result;
-  cl_uint __platform_count = 0;
-  cl_platform_id *__platforms;
-
-  __result = clGetPlatformIDs(0, NULL, &__platform_count);
-  assert(__result == CL_SUCCESS);
-  if (__result != CL_SUCCESS) // unable to get platform IDs
-    return false;
-  __platforms = new cl_platform_id[sizeof(cl_platform_id) * __platform_count];
-  __result = clGetPlatformIDs(__platform_count, __platforms, NULL);
-  assert(__result == CL_SUCCESS);
+ 
+  
   if (__result != CL_SUCCESS) // unable to get platform IDs
     return false;
   else
@@ -83,9 +64,6 @@ bool library::check_opencl_() {
 
   delete __platforms;
   return true;
-#else
 
-  return false;
-  //#endif // defined(TEUTHID_WITH_OPENCL)
 }
 */

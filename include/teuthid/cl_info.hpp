@@ -18,9 +18,11 @@
 
 #ifndef TEUTHID_CL_INFO_HPP
 
+#include <mutex>
 #include <string>
-#include <teuthid/config.hpp>
 #include <vector>
+
+#include <teuthid/config.hpp>
 
 namespace teuthid {
 
@@ -64,13 +66,14 @@ private:
   int minor_version_;        // <major.minor><space><platform-specific>
   std::string spec_version_;
   std::string version_;
-  std::string name_;                  // CL_PLATFORM_NAME (char[])
-  std::string vendor_;                // CL_PLATFORM_VENDOR (char[])
+  std::string name_;                    // CL_PLATFORM_NAME (char[])
+  std::string vendor_;                  // CL_PLATFORM_VENDOR (char[])
   std::vector<std::string> extensions_; // CL_PLATFORM_EXTENSIONS (char[])
   uint64_t
       host_timer_resolution_;  // CL_PLATFORM_HOST_TIMER_RESOLUTION (cl_ulong)
   std::string icd_suffix_khr_; // CL_PLATFORM_ICD_SUFFIX_KHR (char[])
 
+  static std::mutex mutex_;
   static bool platforms_detected_;
   static opencl_platforms_t platforms_;
   static void detect_platforms_();
