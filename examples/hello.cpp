@@ -38,7 +38,8 @@ int main() {
   if (library::have_opencl()) {
     std::cout << "Build with OpenCL (using " << opencl_backend << ").";
     std::cout << std::endl;
-    std::cout << "Available OpenCL platform(s) and device(s):" << std::endl;
+    std::cout << "Available OpenCL platform(s) and device(s):  "
+              << library::opencl_platforms().size() << std::endl;
     for (auto __platform : library::opencl_platforms()) {
       std::cout << "  Platform version:  " << __platform.version();
       std::cout << std::endl;

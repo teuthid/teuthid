@@ -17,7 +17,7 @@
 */
 
 #include <cassert>
-#include <regex>
+#include <memory>
 
 #include <teuthid/cl_info.hpp>
 
@@ -60,12 +60,12 @@ void platform_info::detect_platforms_() {
   if (__result != CL_SUCCESS) // unable to get platform IDs
     return;
   __platforms = new cl_platform_id[sizeof(cl_platform_id) * __platform_count];
+  std::unique_ptr<cl_platform_id> __uptr(__platforms);
   __result = clGetPlatformIDs(__platform_count, __platforms, NULL);
   assert(__result == CL_SUCCESS);
-  if (__result != CL_SUCCESS) { // unable to get platform IDs
-    delete __platforms;
+  if (__result != CL_SUCCESS) // unable to get platform IDs
     return;
-  }
+  
   // platform queries
   for (cl_int i = 0; i < __platform_count; i++) {
     platforms_.push_back(platform_info());
@@ -89,12 +89,9 @@ void platform_info::detect_platforms_() {
     else {
       __str = std::string(__data);
       platforms_[i].version_ = __str;
-      
-
     }
   }
 
-  // ...
-  delete __platforms;
+// ...
 #endif
 }
