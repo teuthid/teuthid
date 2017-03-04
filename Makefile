@@ -14,7 +14,7 @@ all: ./build/Makefile
 distclean:
 	@- (cd build >/dev/null 2>&1 && cmake .. >/dev/null 2>&1)
 	@- $(MAKE) --silent -C build clean || true
-	@- $(RM) ./cl_info.log
+	@- $(RM) ./info.log
 	@- $(RM) ./errors.log
 	@- $(RM) ./build/Makefile
 	@- $(RM) ./build/doc
@@ -29,6 +29,10 @@ distclean:
 	@- $(RM) ./build/*.tcl
 	@- $(RM) ./build/*.txt
 	@- $(RM) ./cmake/CMakeFiles
+	@- $(RM) ./doc/api
+	@- $(RM) ./doc/doxyfile
+	@- $(RM) ./include/teuthid/config.hpp
+	@- $(RM) ./README
 	
 ifeq ($(findstring distclean,$(MAKECMDGOALS)),)
 
