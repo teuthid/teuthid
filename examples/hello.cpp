@@ -21,10 +21,10 @@
 #include <teuthid/library.hpp>
 using namespace teuthid;
 
-#if defined(TEUTHID_USE_BOOST_COMPUTE)
-#define opencl_backend "Boost.Compute"
-#elif defined(TEUTHID_USE_ARRAYFIRE)
+#if defined(TEUTHID_USE_ARRAYFIRE)
 #define opencl_backend "ArrayFire"
+#else
+#define opencl_backend "Boost.Compute"
 #endif
 
 #define ruler                                                                  \
@@ -63,7 +63,8 @@ int main() {
                 << __platform.icd_suffix_khr() << std::endl;
     }
     std::cout << std::endl;
-  }
+  } else
+    std::cout << "Build without OpenCL." << std::endl;
 
   // ...
   std::cout << std::endl << ruler << std::endl;

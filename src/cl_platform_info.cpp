@@ -22,14 +22,6 @@
 
 #include <teuthid/cl_platform_info.hpp>
 
-#if defined(TEUTHID_WITH_OPENCL)
-#if defined(__APPLE__)
-#include <OpenCL/opencl.h>
-#else
-#include <CL/opencl.h>
-#endif
-#endif // defined(TEUTHID_WITH_OPENCL)
-
 using namespace teuthid;
 using namespace teuthid::cl;
 
@@ -69,7 +61,9 @@ void platform_info::detect_platforms_() {
 
   // platform queries
   for (cl_int i = 0; i < __platform_count; i++) {
+    assert(__platforms[i]);
     platforms_.push_back(platform_info());
+    platforms_[i].id_ = __platforms[i];
     __result = clGetPlatformInfo(__platforms[i], CL_PLATFORM_PROFILE,
                                  sizeof(__data), __data, &__retsize);
     if ((__result != CL_SUCCESS) || (__retsize == sizeof(__data))) {

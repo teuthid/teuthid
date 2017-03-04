@@ -24,12 +24,25 @@
 
 #include <teuthid/config.hpp>
 
+#if defined(TEUTHID_WITH_OPENCL)
+#if defined(__APPLE__)
+#include <OpenCL/opencl.h>
+#else
+#include <CL/opencl.h>
+#endif
+#endif
+
 namespace teuthid {
 
 namespace cl {
 class platform_info;
 }
 
+#if defined(TEUTHID_WITH_OPENCL)
+typedef cl_platform_id opencl_platform_id_t;
+#else
+typedef int *opencl_platform_id_t;
+#endif
 typedef std::vector<cl::platform_info> opencl_platforms_t;
 
 namespace cl {
@@ -39,9 +52,11 @@ public:
   enum opencl_profile_t { FULL_PROFILE, EMBEDDED_PROFILE, UNKNOWN_PROFILE };
 
   platform_info()
-      : profile_(UNKNOWN_PROFILE), version_(""), name_(""), vendor_(""),
-        host_timer_resolution_(0), icd_suffix_khr_(""), extensions_("") {}
+      : id_(NULL), profile_(UNKNOWN_PROFILE), version_(""), name_(""),
+        vendor_(""), host_timer_resolution_(0), icd_suffix_khr_(""),
+        extensions_("") {}
   ~platform_info() {}
+  opencl_platform_id_t id() const { return id_; }
   opencl_profile_t profile() const { return profile_; }
   bool is_full_profile() const { return (profile_ == FULL_PROFILE); }
   bool is_embedded_profile() const { return (profile_ == EMBEDDED_PROFILE); }
@@ -55,6 +70,7 @@ public:
   static const opencl_platforms_t &platforms(bool force_detection = false);
 
 private:
+  opencl_platform_id_t id_;        // platform ID
   opencl_profile_t profile_;       // CL_PLATFORM_PROFILE
   std::string version_;            // CL_PLATFORM_VERSION
   std::string name_;               // CL_PLATFORM_NAME

@@ -46,7 +46,7 @@ Available CMake options for building the framework are:
   * BUILD_SHARED_LIBS - Build shared libraries. Default is ON.
   * BUILD_STATIC_LIBS - Build static libraries. Default is OFF.
   * BUILD_WITH_OPENCL - Build with OpenCL support and Boost.Compute.
-                        Default is OFF.
+                        Default is ON.
   * CHECK_OPENCL_DEVICES - Check for working OpenCL platforms/devices. 
                            Default is OFF.
   * BUILD_WITH_ARRAYFIRE - Build with ArrayFire. Default is OFF.
