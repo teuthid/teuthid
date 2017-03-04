@@ -20,7 +20,7 @@
 
 #include <string>
 
-#include <teuthid/cl_info.hpp>
+#include <teuthid/cl_platform_info.hpp>
 
 namespace teuthid {
 

@@ -41,7 +41,7 @@ int main() {
     std::cout << "Available OpenCL platform(s) and device(s):  "
               << library::opencl_platforms().size() << std::endl;
     for (auto __platform : library::opencl_platforms()) {
-      std::cout << "  Platform version:  " << __platform.version();
+      std::cout << "  Platform Version:  " << __platform.version();
       std::cout << std::endl;
       if (__platform.is_full_profile())
         __str = std::string("FULL_PROFILE");
@@ -49,7 +49,7 @@ int main() {
         __str = std::string("EMBEDDED_PROFILE");
       else
         __str = std::string("UNKNOWN_PROFILE");
-      std::cout << "  Platform profile:  " << __str;
+      std::cout << "  Platform Profile:  " << __str;
       std::cout << std::endl;
     }
     std::cout << std::endl;

@@ -18,8 +18,9 @@
 
 #include <cassert>
 #include <memory>
+#include <regex>
 
-#include <teuthid/cl_info.hpp>
+#include <teuthid/cl_platform_info.hpp>
 
 #if defined(TEUTHID_WITH_OPENCL)
 #if defined(__APPLE__)
@@ -65,7 +66,7 @@ void platform_info::detect_platforms_() {
   assert(__result == CL_SUCCESS);
   if (__result != CL_SUCCESS) // unable to get platform IDs
     return;
-  
+
   // platform queries
   for (cl_int i = 0; i < __platform_count; i++) {
     platforms_.push_back(platform_info());
@@ -88,7 +89,11 @@ void platform_info::detect_platforms_() {
       platforms_[i].version_ = "* uknown version *";
     else {
       __str = std::string(__data);
-      platforms_[i].version_ = __str;
+      platforms_[i].version_ = __str.substr(7, __str.length() - 1);
+      //std::regex __regex("OpenCL ");
+      //__str = std::regex_replace(__str, __regex, "");
+      //platforms_[i].version_ = __str;
+
     }
   }
 
