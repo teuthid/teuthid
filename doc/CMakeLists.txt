@@ -8,4 +8,3 @@ add_custom_target(doc
         COMMENT "Generating API documentation with Doxygen"
         VERBATIM)
 
-#message("${DOXYGEN_EXECUTABLE}")
