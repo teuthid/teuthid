@@ -39,40 +39,29 @@ public:
   enum opencl_profile_t { FULL_PROFILE, EMBEDDED_PROFILE, UNKNOWN_PROFILE };
 
   platform_info()
-      : profile_(UNKNOWN_PROFILE), major_version_(0), minor_version_(0),
-        spec_version_(std::string("")), version_(std::string("")),
-        name_(std::string("")), vendor_(std::string("")),
-        host_timer_resolution_(0), icd_suffix_khr_(std::string("")) {
-    extensions_ = std::vector<std::string>();
-  }
+      : profile_(UNKNOWN_PROFILE), version_(""), name_(""), vendor_(""),
+        host_timer_resolution_(0), icd_suffix_khr_(""), extensions_("") {}
   ~platform_info() {}
   opencl_profile_t profile() const { return profile_; }
   bool is_full_profile() const { return (profile_ == FULL_PROFILE); }
   bool is_embedded_profile() const { return (profile_ == EMBEDDED_PROFILE); }
-  int major_version() const { return major_version_; }
-  int minor_version() const { return minor_version_; }
-  const std::string &spec_version() const { return spec_version_; }
   const std::string &version() const { return version_; }
   const std::string &name() const { return name_; }
   const std::string &vendor() const { return vendor_; }
-  const std::vector<std::string> &extensions() const { return extensions_; }
+  const std::string &extensions() const { return extensions_; }
   uint64_t host_timer_resolution() const { return host_timer_resolution_; }
   const std::string &icd_suffix_khr() const { return icd_suffix_khr_; }
 
   static const opencl_platforms_t &platforms(bool force_detection = false);
 
 private:
-  opencl_profile_t profile_; // CL_PLATFORM_PROFILE (char[])
-  int major_version_;        // CL_PLATFORM_VERSION (char[])
-  int minor_version_;        // <major.minor><space><platform-specific>
-  std::string spec_version_;
-  std::string version_;
-  std::string name_;                    // CL_PLATFORM_NAME (char[])
-  std::string vendor_;                  // CL_PLATFORM_VENDOR (char[])
-  std::vector<std::string> extensions_; // CL_PLATFORM_EXTENSIONS (char[])
-  uint64_t
-      host_timer_resolution_;  // CL_PLATFORM_HOST_TIMER_RESOLUTION (cl_ulong)
-  std::string icd_suffix_khr_; // CL_PLATFORM_ICD_SUFFIX_KHR (char[])
+  opencl_profile_t profile_;       // CL_PLATFORM_PROFILE
+  std::string version_;            // CL_PLATFORM_VERSION
+  std::string name_;               // CL_PLATFORM_NAME
+  std::string vendor_;             // CL_PLATFORM_VENDOR
+  std::string extensions_;         // CL_PLATFORM_EXTENSIONS
+  uint64_t host_timer_resolution_; // CL_PLATFORM_HOST_TIMER_RESOLUTION
+  std::string icd_suffix_khr_;     // CL_PLATFORM_ICD_SUFFIX_KHR
 
   static std::mutex mutex_;
   static bool platforms_detected_;

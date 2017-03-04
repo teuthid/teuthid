@@ -17,8 +17,8 @@
 */
 
 #include <cassert>
+#include <cstdlib>
 #include <memory>
-#include <regex>
 
 #include <teuthid/cl_platform_info.hpp>
 
@@ -26,7 +26,7 @@
 #if defined(__APPLE__)
 #include <OpenCL/opencl.h>
 #else
-#include <CL/cl.h>
+#include <CL/opencl.h>
 #endif
 #endif // defined(TEUTHID_WITH_OPENCL)
 
@@ -90,13 +90,41 @@ void platform_info::detect_platforms_() {
     else {
       __str = std::string(__data);
       platforms_[i].version_ = __str.substr(7, __str.length() - 1);
-      //std::regex __regex("OpenCL ");
-      //__str = std::regex_replace(__str, __regex, "");
-      //platforms_[i].version_ = __str;
-
     }
+    __result = clGetPlatformInfo(__platforms[i], CL_PLATFORM_NAME,
+                                 sizeof(__data), __data, &__retsize);
+    if ((__result != CL_SUCCESS) || (__retsize == sizeof(__data)))
+      platforms_[i].name_ = "* uknown name *";
+    else
+      platforms_[i].name_ = std::string(__data);
+    __result = clGetPlatformInfo(__platforms[i], CL_PLATFORM_VENDOR,
+                                 sizeof(__data), __data, &__retsize);
+    if ((__result != CL_SUCCESS) || (__retsize == sizeof(__data)))
+      platforms_[i].vendor_ = "* uknown vendor *";
+    else
+      platforms_[i].vendor_ = std::string(__data);
+    __result = clGetPlatformInfo(__platforms[i], CL_PLATFORM_EXTENSIONS,
+                                 sizeof(__data), __data, &__retsize);
+    if ((__result != CL_SUCCESS) || (__retsize == sizeof(__data)))
+      platforms_[i].extensions_ = "";
+    else
+      platforms_[i].extensions_ = std::string(__data);
+    __result =
+        clGetPlatformInfo(__platforms[i], CL_PLATFORM_HOST_TIMER_RESOLUTION,
+                          sizeof(__data), __data, &__retsize);
+    if ((__result != CL_SUCCESS) || (__retsize == sizeof(__data)))
+      ; // ???
+    else {
+      __str = std::string(__data);
+      platforms_[i].host_timer_resolution_ =
+          std::strtoull(__str.c_str(), NULL, 0);
+    }
+    __result = clGetPlatformInfo(__platforms[i], CL_PLATFORM_ICD_SUFFIX_KHR,
+                                 sizeof(__data), __data, &__retsize);
+    if ((__result != CL_SUCCESS) || (__retsize == sizeof(__data)))
+      platforms_[i].icd_suffix_khr_ = "";
+    else
+      platforms_[i].icd_suffix_khr_ = std::string(__data);
   }
-
-// ...
-#endif
+#endif // defined(TEUTHID_WITH_OPENCL)
 }

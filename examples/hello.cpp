@@ -38,10 +38,14 @@ int main() {
   if (library::have_opencl()) {
     std::cout << "Build with OpenCL (using " << opencl_backend << ").";
     std::cout << std::endl;
-    std::cout << "Available OpenCL platform(s) and device(s):  "
+    std::cout << "Available OpenCL platform(s): "
               << library::opencl_platforms().size() << std::endl;
     for (auto __platform : library::opencl_platforms()) {
-      std::cout << "  Platform Version:  " << __platform.version();
+      std::cout << "  Platform Name: " << __platform.name();
+      std::cout << std::endl;
+      std::cout << "  Platform Vendor: " << __platform.vendor();
+      std::cout << std::endl;
+      std::cout << "  Platform Version: " << __platform.version();
       std::cout << std::endl;
       if (__platform.is_full_profile())
         __str = std::string("FULL_PROFILE");
@@ -49,8 +53,14 @@ int main() {
         __str = std::string("EMBEDDED_PROFILE");
       else
         __str = std::string("UNKNOWN_PROFILE");
-      std::cout << "  Platform Profile:  " << __str;
+      std::cout << "  Platform Profile: " << __str;
       std::cout << std::endl;
+      std::cout << "  Platform Extensions: " << __platform.extensions();
+      std::cout << std::endl;
+      std::cout << "  Platform Host Timer Resolution: "
+                << __platform.host_timer_resolution() << std::endl;
+      std::cout << "  Platform Extensions function suffix : "
+                << __platform.icd_suffix_khr() << std::endl;
     }
     std::cout << std::endl;
   }
