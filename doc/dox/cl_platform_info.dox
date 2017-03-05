@@ -1,13 +1,79 @@
+/*
+  This file is part of the Teuthid project.
+  Copyright (C) 2016-2017 Mariusz Przygodzki (mariusz.przygodzki@gmail.com)
 
+    This library is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+// class teuthid::cl::platform_info
 /*! \class teuthid::cl::platform_info cl_platform_info.hpp \ 
-"<teuthid/cl_platform_info.hpp>"
+<teuthid/cl_platform_info.hpp>
  *  \brief This class holds specific information about available the OpenCL
  * platform(s).
  * 
  * <a href="https://www.khronos.org/opencl/">OpenCL</a> is used as an interface 
  * for executing code on parallel devices such as GPUs and multi-core CPUs. 
  *
- * See teuthid::library::have_opencl() about checking if the running system has 
- * OpenCL-capable hardware and drivers.
+ * See \ref teuthid::library::have_opencl() "library::have_opencl()" about 
+ * checking if the running system has OpenCL-capable hardware and working 
+ * OpenCL drivers.
  */
 
+// typedef cl_platform_id teuthid::opencl_platform_id_t
+/*! \typedef cl_platform_id opencl_platform_id_t
+ * Test
+ */
+
+ // enum teuthid::cl::platform_info::opencl_profile_t
+/*! \enum teuthid::cl::platform_info::opencl_profile_t
+ * \brief This enumeration includes named constants of OpenCL platform's 
+ * profile.
+ *
+ * \see platform_info::profile(), platform_info::is_full_profile(),
+ * platform_info::is_embedded_profile().
+ */
+/*! \var teuthid::cl::platform_info::FULL_PROFILE
+ * Identifies a platform which supports the OpenCL 
+ * <a href="https://www.khronos.org/registry/OpenCL/">specification</a>
+ * (functionality defined as part of the core specification and does not 
+ * require any extensions to be supported).
+ */
+/*! \var teuthid::cl::platform_info::EMBEDDED_PROFILE
+ * Identifies a platform which supports the OpenCL embedded profile. 
+ * The embedded profile is defined to be a subset for each version of OpenCL.
+ */
+/*!
+ * \var teuthid::cl::platform_info::UNKNOWN_PROFILE
+ * Unknown OpenCL platform's profile (was not recognized).
+ */
+
+// teuthid::cl::platform_info::platform_info()
+/*! \fn teuthid::cl::platform_info::platform_info()
+ * \brief Constructs a new object of class platform_info.
+ */
+
+// teuthid::cl::platform_info::~platform_info()
+/*! \fn teuthid::cl::platform_info::~platform_info()
+ * \brief Destructs an object of class platform_info.
+ */
+
+// teuthid::cl::platform_info::id()
+/*! \fn opencl_platform_id_t teuthid::cl::platform_info::id()
+ * \brief Returns the identifier for this OpenCL platform.
+ *
+ * Returned value is the equivalent of 
+ <a href="https://www.khronos.org/registry/OpenCL/sdk/1.0/docs/man/xhtml/abstractDataTypes.html">cl_platform_id</a>.
+ * 
+ */
+   

@@ -41,7 +41,9 @@ class platform_info;
 #if defined(TEUTHID_WITH_OPENCL)
 typedef cl_platform_id opencl_platform_id_t;
 #else
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 typedef int *opencl_platform_id_t;
+#endif
 #endif
 typedef std::vector<cl::platform_info> opencl_platforms_t;
 
