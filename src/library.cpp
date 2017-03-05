@@ -34,4 +34,3 @@ bool library::use_opencl(bool enabled) {
     library::use_opencl_ = enabled;
   return library::use_opencl_;
 }
-
