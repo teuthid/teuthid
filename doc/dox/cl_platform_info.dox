@@ -25,14 +25,9 @@
  * <a href="https://www.khronos.org/opencl/">OpenCL</a> is used as an interface 
  * for executing code on parallel devices such as GPUs and multi-core CPUs. 
  *
- * See \ref teuthid::library::have_opencl() "library::have_opencl()" about 
- * checking if the running system has OpenCL-capable hardware and working 
- * OpenCL drivers.
- */
-
-// typedef cl_platform_id teuthid::opencl_platform_id_t
-/*! \typedef cl_platform_id opencl_platform_id_t
- * Test
+ * See \ref teuthid::library::have_opencl() "library::have_opencl()" and
+ * \ref platforms() "platforms()" about checking if the running system has 
+ * OpenCL-capable hardware and working OpenCL drivers.
  */
 
  // enum teuthid::cl::platform_info::opencl_profile_t
@@ -40,8 +35,7 @@
  * \brief This enumeration includes named constants of OpenCL platform's 
  * profile.
  *
- * \see platform_info::profile(), platform_info::is_full_profile(),
- * platform_info::is_embedded_profile().
+ * \see profile(), is_full_profile(), is_embedded_profile().
  */
 /*! \var teuthid::cl::platform_info::FULL_PROFILE
  * Identifies a platform which supports the OpenCL 
@@ -55,12 +49,15 @@
  */
 /*!
  * \var teuthid::cl::platform_info::UNKNOWN_PROFILE
- * Unknown OpenCL platform's profile (was not recognized).
+ * Unknown OpenCL platform's profile (is undetermined).
  */
 
 // teuthid::cl::platform_info::platform_info()
 /*! \fn teuthid::cl::platform_info::platform_info()
  * \brief Constructs a new object of class platform_info.
+ *
+ * The new object is empty and <b>does not</b> contain information about any
+ * OpenCL platform.
  */
 
 // teuthid::cl::platform_info::~platform_info()
@@ -68,12 +65,67 @@
  * \brief Destructs an object of class platform_info.
  */
 
-// teuthid::cl::platform_info::id()
-/*! \fn opencl_platform_id_t teuthid::cl::platform_info::id()
+// opencl_platform_id_t teuthid::cl::platform_info::id() const
+/*! \fn opencl_platform_id_t teuthid::cl::platform_info::id() const
  * \brief Returns the identifier for this OpenCL platform.
  *
- * Returned value is the equivalent of 
- <a href="https://www.khronos.org/registry/OpenCL/sdk/1.0/docs/man/xhtml/abstractDataTypes.html">cl_platform_id</a>.
- * 
+ * The returned value is the equivalent of \c cl_platform_id. If it's equal to
+ * \c NULL, the platform is undetermined.
  */
    
+// opencl_profile_t teuthid::cl::platform_info::profile() const
+/*! \fn opencl_profile_t teuthid::cl::platform_info::profile() const
+ * \brief Returns the OpenCL platform's profile supported by the implementation.
+ *
+ * The profile returned can be one of the following: 
+ * \ref teuthid::cl::platform_info::FULL_PROFILE "FULL_PROFILE",
+ * \ref teuthid::cl::platform_info::EMBEDDED_PROFILE "EMBEDDED_PROFILE", or
+ * \ref teuthid::cl::platform_info::UNKNOWN_PROFILE "UNKNOWN_PROFILE".
+ * \see is_full_profile(), is_embedded_profile().
+ */
+
+// bool teuthid::cl::platform_info::is_full_profile() const
+/*! \fn bool teuthid::cl::platform_info::is_full_profile() const
+ * \brief Returns \c true if the OpenCL platform's profile is 
+ * \ref teuthid::cl::platform_info::FULL_PROFILE "FULL_PROFILE".
+ * 
+ * Otherwise returns \c false.
+ * \see profile().
+ */
+
+// bool teuthid::cl::platform_info::is_embedded_profile() const
+/*! \fn bool teuthid::cl::platform_info::is_embedded_profile() const
+ * \brief Returns \c true if the OpenCL platform's profile is 
+ * \ref teuthid::cl::platform_info::EMBEDDED_PROFILE "EMBEDDED_PROFILE".
+ * 
+ * Otherwise returns \c false.
+ * \see profile().
+ */
+ 
+//  const std::string &teuthid::cl::platform_info::version() const
+/*! \fn const std::string &teuthid::cl::platform_info::version() const
+ * \brief Returns the OpenCL platform's version supported by the implementation.
+ *
+ * The returned value has the following format:
+ * \e "<major_version.minor_version><space><platform-specific information>", 
+ * for example \e "1.2 beignet 1.1.2". \n
+ * The \e "major_version.minor_version" determines version of OpenCL supported 
+ * by the implementation.
+ *
+ * The returned value is the equivalent of \c CL_PLATFORM_VERSION.
+ */
+
+// const std::string &teuthid::cl::platform_info::name() const
+/*! \fn const std::string &teuthid::cl::platform_info::name() const
+ * \brief Returns the OpenCL platform's name.
+ *
+ * The returned value is the equivalent of \c CL_PLATFORM_NAME.
+ */
+
+// const std::string &teuthid::cl::platform_info::vendor() const
+/*! \fn const std::string &teuthid::cl::platform_info::vendor() const
+ * \brief Returns the OpenCL platform's vendor.
+ *
+ * The returned value is the equivalent of \c CL_PLATFORM_VENDOR.
+ */
+
