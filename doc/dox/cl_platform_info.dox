@@ -1,0 +1,13 @@
+
+/*! \class teuthid::cl::platform_info cl_platform_info.hpp \ 
+"<teuthid/cl_platform_info.hpp>"
+ *  \brief This class holds specific information about available the OpenCL
+ * platform(s).
+ * 
+ * <a href="https://www.khronos.org/opencl/">OpenCL</a> is used as an interface 
+ * for executing code on parallel devices such as GPUs and multi-core CPUs. 
+ *
+ * See teuthid::library::have_opencl() about checking if the running system has 
+ * OpenCL-capable hardware and drivers.
+ */
+
