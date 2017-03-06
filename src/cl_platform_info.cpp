@@ -17,7 +17,6 @@
 */
 
 #include <cassert>
-#include <cstdlib>
 #include <memory>
 
 #include <teuthid/cl_platform_info.hpp>
@@ -83,7 +82,17 @@ void platform_info::detect_platforms_() {
       assert(false);
     else {
       __str = std::string(__data);
-      platforms_[i].version_ = __str.substr(7, __str.length() - 1);
+      __str = __str.substr(7);
+      assert(!__str.empty());
+      platforms_[i].version_ = __str;
+      std::string::size_type __dot = __str.find('.');
+      assert(__dot != std::string::npos);
+      std::string::size_type __space = __str.find(' ');
+      assert(__space != std::string::npos);
+      platforms_[i].major_version_ = std::stoi(__str.substr(0, __dot));
+      platforms_[i].minor_version_ =
+          std::stoi(__str.substr(__dot + 1, __space));
+      platforms_[i].spec_version_ = __str.substr(__space + 1);
     }
     __result = clGetPlatformInfo(__platforms[i], CL_PLATFORM_NAME,
                                  sizeof(__data), __data, &__retsize);
@@ -108,11 +117,8 @@ void platform_info::detect_platforms_() {
                           sizeof(__data), __data, &__retsize);
     if ((__result != CL_SUCCESS) || (__retsize == sizeof(__data)))
       ; // not supported
-    else {
-      __str = std::string(__data);
-      platforms_[i].host_timer_resolution_ =
-          std::strtoull(__str.c_str(), NULL, 0);
-    }
+    else
+      platforms_[i].host_timer_resolution_ = std::stoull(__data);
     __result = clGetPlatformInfo(__platforms[i], CL_PLATFORM_ICD_SUFFIX_KHR,
                                  sizeof(__data), __data, &__retsize);
     if ((__result != CL_SUCCESS) || (__retsize == sizeof(__data)))

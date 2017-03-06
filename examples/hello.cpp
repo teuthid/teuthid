@@ -45,7 +45,9 @@ int main() {
       std::cout << std::endl;
       std::cout << "  Platform Vendor: " << __platform.vendor();
       std::cout << std::endl;
-      std::cout << "  Platform Version: " << __platform.version();
+      std::cout << "  Platform Version: " << __platform.spec_version();
+      std::cout << "  OpenCL version supported: " << __platform.major_version()
+                << "." << __platform.minor_version();
       std::cout << std::endl;
       if (__platform.is_full_profile())
         __str = std::string("FULL_PROFILE");

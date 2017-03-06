@@ -55,15 +55,18 @@ public:
   enum opencl_profile_t { FULL_PROFILE, EMBEDDED_PROFILE, UNKNOWN_PROFILE };
 
   platform_info()
-      : id_(NULL), profile_(UNKNOWN_PROFILE), version_(""), name_(""),
-        vendor_(""), host_timer_resolution_(0), icd_suffix_khr_(""),
-        extensions_("") {}
+      : id_(NULL), profile_(UNKNOWN_PROFILE), version_(""), major_version_(0),
+        minor_version_(0), spec_version_(""), name_(""), vendor_(""),
+        host_timer_resolution_(0), icd_suffix_khr_(""), extensions_("") {}
   ~platform_info() {}
   opencl_platform_id_t id() const { return id_; }
   opencl_profile_t profile() const { return profile_; }
   bool is_full_profile() const { return (profile_ == FULL_PROFILE); }
   bool is_embedded_profile() const { return (profile_ == EMBEDDED_PROFILE); }
   const std::string &version() const { return version_; }
+  int major_version() const { return major_version_; }
+  int minor_version() const { return minor_version_; }
+  const std::string &spec_version() const { return spec_version_; }
   const std::string &name() const { return name_; }
   const std::string &vendor() const { return vendor_; }
   const std::string &extensions() const { return extensions_; }
@@ -73,9 +76,12 @@ public:
   static const opencl_platforms_t &platforms(bool force_detection = false);
 
 private:
-  opencl_platform_id_t id_;        // platform ID
-  opencl_profile_t profile_;       // CL_PLATFORM_PROFILE
-  std::string version_;            // CL_PLATFORM_VERSION
+  opencl_platform_id_t id_;  // platform ID
+  opencl_profile_t profile_; // CL_PLATFORM_PROFILE
+  std::string version_;      // CL_PLATFORM_VERSION
+  int major_version_;
+  int minor_version_;
+  std::string spec_version_;
   std::string name_;               // CL_PLATFORM_NAME
   std::string vendor_;             // CL_PLATFORM_VENDOR
   std::string extensions_;         // CL_PLATFORM_EXTENSIONS
