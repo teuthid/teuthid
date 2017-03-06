@@ -58,6 +58,17 @@ BOOST_AUTO_TEST_CASE(class_teuthid_cl_platform_info) {
                "cl::platform_info.spec_version()");
     BOOST_TEST(!__platform.name().empty(), "cl::platform_info.name()");
     BOOST_TEST(!__platform.vendor().empty(), "cl::platform_info.vendor()");
+    BOOST_TEST(__platform.is_required_version(__platform.major_version(),
+                                              __platform.minor_version()),
+               "cl::platform_info.is_required_version()");
+    BOOST_TEST(__platform.is_required_version(0, 0),
+               "cl::platform_info.is_required_version()");
+    BOOST_TEST(
+        !__platform.is_required_version(__platform.major_version() + 1, 0),
+        "cl::platform_info.is_required_version()");
+    BOOST_TEST(!__platform.is_required_version(__platform.major_version(),
+                                               __platform.minor_version() + 1),
+               "cl::platform_info.is_required_version()");
     __info = __platform;
     BOOST_TEST(__info.id(), "cl::platform_info.id()");
   }

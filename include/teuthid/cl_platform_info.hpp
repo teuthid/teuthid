@@ -68,12 +68,13 @@ public:
   int major_version() const { return major_version_; }
   int minor_version() const { return minor_version_; }
   const std::string &spec_version() const { return spec_version_; }
+  bool is_required_version(int major, int minor) const;
   const std::string &name() const { return name_; }
   const std::string &vendor() const { return vendor_; }
   const std::string &extensions() const { return extensions_; }
   uint64_t host_timer_resolution() const { return host_timer_resolution_; }
   const std::string &icd_suffix_khr() const { return icd_suffix_khr_; }
-
+  
   static const opencl_platforms_t &platforms(bool force_detection = false);
 
 private:

@@ -34,9 +34,11 @@ std::string __str;
 
 int main() {
   std::cout << std::endl << ruler << std::endl;
-  std::cout << "Teuthid Version " << library::version() << "." << std::endl;
+  std::cout << "Teuthid Version " << library::major_version() << "."
+            << library::minor_version() << std::endl;
   if (library::have_opencl()) {
-    std::cout << "Build with OpenCL (using " << opencl_backend << ").";
+    std::cout << "Build with OpenCL (using " << opencl_backend
+              << " as a backend).";
     std::cout << std::endl;
     std::cout << "Available OpenCL platform(s): "
               << library::opencl_platforms().size() << std::endl;

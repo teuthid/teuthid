@@ -28,6 +28,12 @@ std::mutex platform_info::mutex_;
 bool platform_info::platforms_detected_ = false;
 opencl_platforms_t platform_info::platforms_ = opencl_platforms_t();
 
+bool platform_info::is_required_version(int major, int minor) const {
+  int __required = major * 100 + minor;
+  int __actual = major_version_ * 100 + minor_version_;
+  return (!(__required > __actual));
+}
+
 const opencl_platforms_t &platform_info::platforms(bool force_detection) {
   std::lock_guard<std::mutex> __guard(mutex_);
   if (!platform_info::platforms_detected_ || force_detection) {
