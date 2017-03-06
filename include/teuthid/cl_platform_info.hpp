@@ -16,7 +16,8 @@
     along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef TEUTHID_CL_INFO_HPP
+#ifndef TEUTHID_CL_PLATFORM_INFO_HPP
+#define TEUTHID_CL_PLATFORM_INFO_HPP
 
 #include <mutex>
 #include <string>
@@ -97,4 +98,4 @@ private:
 } // namespace cl
 } // namespace teuthid
 
-#endif // TEUTHID_CL_INFO_HPP
+#endif // TEUTHID_CL_PLATFORM_INFO_HPP

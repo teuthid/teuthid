@@ -17,6 +17,7 @@
 */
 
 #ifndef TEUTHID_LIBRARY_HPP
+#define TEUTHID_LIBRARY_HPP
 
 #include <string>
 
