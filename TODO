@@ -1,5 +1,3 @@
-+ add unit tests for teuthid::cl::platform_info
-
 + implement classes: teuthid::cl::exception,
     teuthid::cl::invalid_platform, teuthid::cl::invalid_device
 
