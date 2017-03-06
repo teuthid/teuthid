@@ -80,7 +80,7 @@ void platform_info::detect_platforms_() {
     __result = clGetPlatformInfo(__platforms[i], CL_PLATFORM_VERSION,
                                  sizeof(__data), __data, &__retsize);
     if ((__result != CL_SUCCESS) || (__retsize == sizeof(__data)))
-      platforms_[i].version_ = "* uknown version *";
+      assert(false);
     else {
       __str = std::string(__data);
       platforms_[i].version_ = __str.substr(7, __str.length() - 1);
@@ -88,26 +88,26 @@ void platform_info::detect_platforms_() {
     __result = clGetPlatformInfo(__platforms[i], CL_PLATFORM_NAME,
                                  sizeof(__data), __data, &__retsize);
     if ((__result != CL_SUCCESS) || (__retsize == sizeof(__data)))
-      platforms_[i].name_ = "* uknown name *";
+      assert(false);
     else
       platforms_[i].name_ = std::string(__data);
     __result = clGetPlatformInfo(__platforms[i], CL_PLATFORM_VENDOR,
                                  sizeof(__data), __data, &__retsize);
     if ((__result != CL_SUCCESS) || (__retsize == sizeof(__data)))
-      platforms_[i].vendor_ = "* uknown vendor *";
+      assert(false);
     else
       platforms_[i].vendor_ = std::string(__data);
     __result = clGetPlatformInfo(__platforms[i], CL_PLATFORM_EXTENSIONS,
                                  sizeof(__data), __data, &__retsize);
     if ((__result != CL_SUCCESS) || (__retsize == sizeof(__data)))
-      platforms_[i].extensions_ = "";
+      ; // no vendor ?!
     else
       platforms_[i].extensions_ = std::string(__data);
     __result =
         clGetPlatformInfo(__platforms[i], CL_PLATFORM_HOST_TIMER_RESOLUTION,
                           sizeof(__data), __data, &__retsize);
     if ((__result != CL_SUCCESS) || (__retsize == sizeof(__data)))
-      ; // ???
+      ; // not supported
     else {
       __str = std::string(__data);
       platforms_[i].host_timer_resolution_ =
@@ -116,7 +116,7 @@ void platform_info::detect_platforms_() {
     __result = clGetPlatformInfo(__platforms[i], CL_PLATFORM_ICD_SUFFIX_KHR,
                                  sizeof(__data), __data, &__retsize);
     if ((__result != CL_SUCCESS) || (__retsize == sizeof(__data)))
-      platforms_[i].icd_suffix_khr_ = "";
+      ; // not supported
     else
       platforms_[i].icd_suffix_khr_ = std::string(__data);
   }
