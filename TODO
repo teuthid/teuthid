@@ -1,6 +1,8 @@
 + teuthid::cl::platform_info
   - int major_version(), int minor version, 
       const std::string& spec_version()
+      
+ + add unit tests for teuthid::cl::platform_info
 
 + implement classes: teuthid::cl::exception,
     teuthid::cl::invalid_platform, teuthid::cl::invalid_device
