@@ -1,0 +1,18 @@
++ teuthid::cl::platform_info
+  - int major_version(), int minor version, 
+      const std::string& spec_version()
+
++ implement classes: teuthid::cl::exception,
+    teuthid::cl::invalid_platform, teuthid::cl::invalid_device
+
++ implement class teuthid::cl::device_info
+
++ teuthid::library
+  - std::size_t num_opencl_platforms()
+  - std::size_t num_opencl_devices(const cl::platform_info&)
+  - const cl::platform_info& default_opencl_platform()
+  - void default_opencl_platform(const cl::platform_info&)
+  - const cl::device_info& default_opencl_device()
+  - void default_opencl_device(const cl::device_info&)
+  - const cl::platform_info& opencl_platform(const cl::device_info&)
+  
