@@ -50,18 +50,8 @@
  * \brief Destructs an object of class device_info.
  */
 
-/*! \fn opencl_platform_id_t device_info::platform_id() const
- * \brief Returns the identifier of OpenCL platform, which has this OpenCL 
- * device.
- *
- * The returned value is the equivalent of \c cl_platform_id. If it is equal to
- * \c NULL, the OpenCL platform is undetermined 
- * (and this OpenCL device as well).
- * \see platform_info::id().
- */
 
-
-/*! \fn opencl_device_id_t device_info::id() const
+/*! \fn const opencl_device_id_t &device_info::id() const
  * \brief Returns the identifier for this OpenCL device.
  *
  * The returned value is the equivalent of \c cl_device_id. If it is equal to

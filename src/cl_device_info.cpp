@@ -24,11 +24,3 @@
 using namespace teuthid;
 using namespace teuthid::cl;
 
-const opencl_devices_t &device_info::devices(const platform_info &platform) {
-  device_info::detect_devices_(platform);
-}
-
-void device_info::detect_devices_(const platform_info &platform) {
-
-  // ...
-}

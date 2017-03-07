@@ -1,8 +1,6 @@
 + implement classes: teuthid::cl::exception,
     teuthid::cl::invalid_platform, teuthid::cl::invalid_device
 
-+ implement class teuthid::cl::device_info
-
 + teuthid::library
   - std::size_t num_opencl_platforms()
   - std::size_t num_opencl_devices(const cl::platform_info&)

@@ -21,6 +21,7 @@
 
 #include <string>
 #include <vector>
+
 #include <teuthid/config.hpp>
 
 #if defined(TEUTHID_WITH_OPENCL)
@@ -43,25 +44,20 @@ typedef int *opencl_device_id_t;
 
 namespace cl {
 class device_info;
+class platform_info;
 }
 typedef std::vector<cl::device_info> opencl_devices_t;
 
 namespace cl {
 
-class platform_info;
-
 class device_info {
 public:
   device_info() : id_(NULL) {}
   ~device_info() {}
-  opencl_device_id_t id() const { return id_; }
-
-  static const opencl_devices_t &devices(const platform_info &platform);
+  const opencl_device_id_t &id() const { return id_; }
 
 private:
   opencl_device_id_t id_; // device ID
-
-  static void detect_devices_(const platform_info &platform);
 };
 
 } // namespace cl

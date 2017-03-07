@@ -22,7 +22,8 @@
 #include <mutex>
 #include <string>
 #include <vector>
-#include <teuthid/config.hpp>
+
+#include <teuthid/cl_device_info.hpp>
 
 #if defined(TEUTHID_WITH_OPENCL)
 #if defined(__APPLE__)
@@ -31,8 +32,6 @@
 #include <CL/opencl.h>
 #endif
 #endif
-
-#include <teuthid/cl_device_info.hpp>
 
 namespace teuthid {
 
@@ -58,7 +57,9 @@ public:
   platform_info()
       : id_(NULL), profile_(UNKNOWN_PROFILE), version_(""), major_version_(0),
         minor_version_(0), spec_version_(""), name_(""), vendor_(""),
-        host_timer_resolution_(0), icd_suffix_khr_(""), extensions_("") {}
+        host_timer_resolution_(0), icd_suffix_khr_(""), extensions_("") {
+    devices_ = opencl_devices_t();
+  }
   ~platform_info() {}
   const opencl_platform_id_t &id() const { return id_; }
   const opencl_profile_t &profile() const { return profile_; }
@@ -89,12 +90,12 @@ private:
   std::string extensions_;         // CL_PLATFORM_EXTENSIONS
   uint64_t host_timer_resolution_; // CL_PLATFORM_HOST_TIMER_RESOLUTION
   std::string icd_suffix_khr_;     // CL_PLATFORM_ICD_SUFFIX_KHR
-  opencl_devices_t devices_; // devices of this platform
+  opencl_devices_t devices_;       // devices of this platform
 
   static std::mutex mutex_;
   static bool platforms_detected_;
   static opencl_platforms_t platforms_;
-  static void detect_platforms_();
+  static void detect_platforms_and_devices_();
 };
 
 } // namespace cl

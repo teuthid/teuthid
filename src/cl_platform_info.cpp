@@ -37,13 +37,13 @@ bool platform_info::is_required_version(int major, int minor) const {
 const opencl_platforms_t &platform_info::platforms(bool force_detection) {
   std::lock_guard<std::mutex> __guard(mutex_);
   if (!platform_info::platforms_detected_ || force_detection) {
-    platform_info::detect_platforms_();
+    platform_info::detect_platforms_and_devices_();
     platform_info::platforms_detected_ = true;
   }
   return platform_info::platforms_;
 }
 
-void platform_info::detect_platforms_() {
+void platform_info::detect_platforms_and_devices_() {
   platform_info::platforms_.clear();
 #if defined(TEUTHID_WITH_OPENCL)
   cl_int __result;
@@ -64,7 +64,7 @@ void platform_info::detect_platforms_() {
   if (__result != CL_SUCCESS) // unable to get platform IDs
     return;
 
-  // platform queries
+  // platforms queries
   for (cl_int i = 0; i < __platform_count; i++) {
     assert(__platforms[i]);
     platforms_.push_back(platform_info());
@@ -131,6 +131,9 @@ void platform_info::detect_platforms_() {
       ; // not supported
     else
       platforms_[i].icd_suffix_khr_ = std::string(__data);
+
+    // devices queries
+    // TO DO
   }
 #endif // defined(TEUTHID_WITH_OPENCL)
 }
