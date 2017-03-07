@@ -16,8 +16,8 @@
     along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// typedef std::vector<cl::platform_info> teuthid::opencl_platforms_t
-/*! \typedef std::vector<cl::platform_info> teuthid::opencl_platforms_t
+
+/*! \typedef typedef std::vector<cl::platform_info> teuthid::opencl_platforms_t
  * \brief This is a type alias for the vector containing objects of class
  * \ref teuthid::cl::platform_info "platform_info".
  *
@@ -181,7 +181,7 @@
  * @param[in] major The required minimum major version of OpenCL supported 
  * by the system.
  * @param[in] minor The required minimum minor version of OpenCL supported 
- * by the system (if the major version is the same as required).
+ * by the system (if the major version is the same as required \c major).
  * \see major_version(), minor_version(), version().
  */
 

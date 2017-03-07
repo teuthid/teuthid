@@ -1,0 +1,31 @@
+/*
+  This file is part of the Teuthid project.
+  Copyright (C) 2016-2017 Mariusz Przygodzki (mariusz.przygodzki@gmail.com)
+
+    This library is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+/*! \typedef typedef std::multimap<opencl_platform_id_t, cl::device_info> \
+ *  teuthid::opencl_devices_t;
+ * \brief This is a type alias for the map containing objects of class
+ * \ref teuthid::cl::device_info "device_info". 
+ *
+ * Each object of class \c device_info is assigned to the corresponding OpenCL 
+ * platform which is identified by \c opencl_platform_id_t.
+ * \see \ref teuthid::cl::device_info::devices() "device_info::devices()",
+ * \ref teuthid::cl::platform_info::id() "platform_info::id()".
+ */
+
+

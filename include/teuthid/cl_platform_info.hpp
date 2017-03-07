@@ -35,10 +35,6 @@
 
 namespace teuthid {
 
-namespace cl {
-class platform_info;
-}
-
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 #if defined(TEUTHID_WITH_OPENCL)
 typedef cl_platform_id opencl_platform_id_t;
@@ -47,6 +43,9 @@ typedef int *opencl_platform_id_t;
 #endif // defined(TEUTHID_WITH_OPENCL)
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
+namespace cl {
+class platform_info;
+}
 typedef std::vector<cl::platform_info> opencl_platforms_t;
 
 namespace cl {
@@ -74,7 +73,7 @@ public:
   const std::string &extensions() const { return extensions_; }
   uint64_t host_timer_resolution() const { return host_timer_resolution_; }
   const std::string &icd_suffix_khr() const { return icd_suffix_khr_; }
-  
+
   static const opencl_platforms_t &platforms(bool force_detection = false);
 
 private:

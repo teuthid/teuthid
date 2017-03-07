@@ -1,5 +1,5 @@
 set(teuthid_library_sources
-  cl_platform_info.cpp
+  cl_device_info.cpp cl_platform_info.cpp
   library.cpp
 )
 
