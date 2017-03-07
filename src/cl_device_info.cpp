@@ -19,13 +19,16 @@
 #include <cassert>
 
 #include <teuthid/cl_device_info.hpp>
+#include <teuthid/cl_platform_info.hpp>
 
 using namespace teuthid;
 using namespace teuthid::cl;
 
-std::mutex device_info::mutex_;
-bool device_info::devices_detected_ = false;
-opencl_devices_t device_info::devices_ = opencl_devices_t();
+const opencl_devices_t &device_info::devices(const platform_info &platform) {
+  device_info::detect_devices_(platform);
+}
 
-const opencl_devices_t &device_info::devices(const platform_info &platform,
-                                             bool force_detection) {}
+void device_info::detect_devices_(const platform_info &platform) {
+
+  // ...
+}

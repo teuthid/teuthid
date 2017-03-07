@@ -98,7 +98,7 @@
  */
 
 
-/*! \fn opencl_platform_id_t platform_info::id() const
+/*! \fn const opencl_platform_id_t &platform_info::id() const
  * \brief Returns the identifier for this OpenCL platform.
  *
  * The returned value is the equivalent of \c cl_platform_id. If it is equal to
@@ -106,7 +106,7 @@
  */
    
 
-/*! \fn opencl_profile_t platform_info::profile() const
+/*! \fn const opencl_profile_t &platform_info::profile() const
  * \brief Returns the OpenCL platform's profile supported by the system.
  *
  * The profile returned can be one of the following: 

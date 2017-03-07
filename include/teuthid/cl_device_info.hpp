@@ -19,11 +19,9 @@
 #ifndef TEUTHID_CL_DEVICE_INFO_HPP
 #define TEUTHID_CL_DEVICE_INFO_HPP
 
-#include <map>
-#include <mutex>
 #include <string>
-
-#include <teuthid/cl_platform_info.hpp>
+#include <vector>
+#include <teuthid/config.hpp>
 
 #if defined(TEUTHID_WITH_OPENCL)
 #if defined(__APPLE__)
@@ -46,26 +44,24 @@ typedef int *opencl_device_id_t;
 namespace cl {
 class device_info;
 }
-typedef std::multimap<opencl_platform_id_t, cl::device_info> opencl_devices_t;
+typedef std::vector<cl::device_info> opencl_devices_t;
 
 namespace cl {
 
+class platform_info;
+
 class device_info {
 public:
-  device_info() : platform_id_(NULL), id_(NULL) {}
+  device_info() : id_(NULL) {}
   ~device_info() {}
-  opencl_platform_id_t platform_id() const { return platform_id_; }
   opencl_device_id_t id() const { return id_; }
-  static const opencl_devices_t &devices(const platform_info &platform,
-                                         bool force_detection = false);
+
+  static const opencl_devices_t &devices(const platform_info &platform);
 
 private:
-  opencl_platform_id_t platform_id_; // platform ID
-  opencl_device_id_t id_;            // device ID
+  opencl_device_id_t id_; // device ID
 
-  static std::mutex mutex_;
-  static bool devices_detected_;
-  static opencl_devices_t devices_;
+  static void detect_devices_(const platform_info &platform);
 };
 
 } // namespace cl

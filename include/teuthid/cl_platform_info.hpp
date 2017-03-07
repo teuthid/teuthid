@@ -22,7 +22,6 @@
 #include <mutex>
 #include <string>
 #include <vector>
-
 #include <teuthid/config.hpp>
 
 #if defined(TEUTHID_WITH_OPENCL)
@@ -32,6 +31,8 @@
 #include <CL/opencl.h>
 #endif
 #endif
+
+#include <teuthid/cl_device_info.hpp>
 
 namespace teuthid {
 
@@ -59,8 +60,8 @@ public:
         minor_version_(0), spec_version_(""), name_(""), vendor_(""),
         host_timer_resolution_(0), icd_suffix_khr_(""), extensions_("") {}
   ~platform_info() {}
-  opencl_platform_id_t id() const { return id_; }
-  opencl_profile_t profile() const { return profile_; }
+  const opencl_platform_id_t &id() const { return id_; }
+  const opencl_profile_t &profile() const { return profile_; }
   bool is_full_profile() const { return (profile_ == FULL_PROFILE); }
   bool is_embedded_profile() const { return (profile_ == EMBEDDED_PROFILE); }
   const std::string &version() const { return version_; }
@@ -88,6 +89,7 @@ private:
   std::string extensions_;         // CL_PLATFORM_EXTENSIONS
   uint64_t host_timer_resolution_; // CL_PLATFORM_HOST_TIMER_RESOLUTION
   std::string icd_suffix_khr_;     // CL_PLATFORM_ICD_SUFFIX_KHR
+  opencl_devices_t devices_; // devices of this platform
 
   static std::mutex mutex_;
   static bool platforms_detected_;
