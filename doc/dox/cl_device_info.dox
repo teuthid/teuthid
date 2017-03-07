@@ -29,3 +29,42 @@
  */
 
 
+/*! \class teuthid::cl::device_info cl_device_info.hpp \ 
+<teuthid/cl_device_info.hpp>
+ * \brief This class holds specific information about available the OpenCL
+ * devices(s) for a particular OpenCL 
+ * \ref teuthid::cl::platform_info "platform".
+ *
+ * <a href="https://www.khronos.org/opencl/">OpenCL</a> is used as an interface 
+ * for executing code on parallel devices such as GPUs and multi-core CPUs. 
+ */
+
+/*! \fn device_info::device_info()
+ * \brief Constructs a new object of class device_info.
+ *
+ * The new object is empty and <b>does not</b> contain information about any
+ * OpenCL device.
+ */
+
+/*! \fn device_info::~device_info()
+ * \brief Destructs an object of class device_info.
+ */
+
+/*! \fn opencl_platform_id_t device_info::platform_id() const
+ * \brief Returns the identifier of OpenCL platform, which has this OpenCL 
+ * device.
+ *
+ * The returned value is the equivalent of \c cl_platform_id. If it is equal to
+ * \c NULL, the OpenCL platform is undetermined 
+ * (and this OpenCL device as well).
+ * \see platform_info::id().
+ */
+
+
+/*! \fn opencl_device_id_t device_info::id() const
+ * \brief Returns the identifier for this OpenCL device.
+ *
+ * The returned value is the equivalent of \c cl_device_id. If it is equal to
+ * \c NULL, the OpenCL device is undetermined.
+ */
+

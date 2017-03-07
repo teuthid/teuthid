@@ -26,4 +26,13 @@
 using namespace teuthid;
 using namespace teuthid::cl;
 
-BOOST_AUTO_TEST_CASE(class_teuthid_cl_device_info) { device_info __info; }
+BOOST_AUTO_TEST_CASE(class_teuthid_cl_device_info) {
+  device_info __info;
+  BOOST_TEST(!__info.platform_id(), "cl::device_info.platform_id()");
+  BOOST_TEST(!__info.id(), "cl::device_info.id()");
+// opencl_devices_t __devices = library::opencl_devices();
+#if defined(TEUTHID_WITH_OPENCL)
+#else
+// BOOST_TEST(__devices.empty());
+#endif // defined(TEUTHID_WITH_OPENCL)
+}

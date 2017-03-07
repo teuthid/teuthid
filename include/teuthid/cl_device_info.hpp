@@ -52,13 +52,17 @@ namespace cl {
 
 class device_info {
 public:
-  device_info() {}
+  device_info() : platform_id_(NULL), id_(NULL) {}
   ~device_info() {}
-
+  opencl_platform_id_t platform_id() const { return platform_id_; }
+  opencl_device_id_t id() const { return id_; }
   static const opencl_devices_t &devices(const platform_info &platform,
                                          bool force_detection = false);
 
 private:
+  opencl_platform_id_t platform_id_; // platform ID
+  opencl_device_id_t id_;            // device ID
+
   static std::mutex mutex_;
   static bool devices_detected_;
   static opencl_devices_t devices_;
