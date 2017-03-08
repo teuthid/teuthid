@@ -57,9 +57,7 @@ public:
   platform_info()
       : id_(NULL), profile_(UNKNOWN_PROFILE), version_(""), major_version_(0),
         minor_version_(0), spec_version_(""), name_(""), vendor_(""),
-        host_timer_resolution_(0), icd_suffix_khr_(""), extensions_("") {
-    devices_ = opencl_devices_t();
-  }
+        host_timer_resolution_(0), icd_suffix_khr_(""), extensions_("") {}
   ~platform_info() {}
   const opencl_platform_id_t &id() const { return id_; }
   const opencl_profile_t &profile() const { return profile_; }
@@ -75,6 +73,7 @@ public:
   const std::string &extensions() const { return extensions_; }
   uint64_t host_timer_resolution() const { return host_timer_resolution_; }
   const std::string &icd_suffix_khr() const { return icd_suffix_khr_; }
+  const opencl_devices_t &devices() const { return devices_; }
 
   static const opencl_platforms_t &platforms(bool force_detection = false);
 

@@ -51,13 +51,17 @@ typedef std::vector<cl::device_info> opencl_devices_t;
 namespace cl {
 
 class device_info {
+  friend class platform_info;
+
 public:
-  device_info() : id_(NULL) {}
+  device_info() : id_(NULL), name_("") {}
   ~device_info() {}
   const opencl_device_id_t &id() const { return id_; }
+  const std::string &name() const { return name_; }
 
 private:
   opencl_device_id_t id_; // device ID
+  std::string name_;      // CL_DEVICE_NAME
 };
 
 } // namespace cl

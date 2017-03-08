@@ -65,9 +65,14 @@ int main() {
                 << __platform.host_timer_resolution() << std::endl;
       std::cout << "  Platform Extensions function suffix : "
                 << __platform.icd_suffix_khr() << std::endl;
-      
+
       // ... and devices:
-      
+      std::cout << "  Available OpenCL devices(s): "
+                << __platform.devices().size() << std::endl;
+      for (auto __device : __platform.devices()) {
+        std::cout << "    Device Name: " << __device.name();
+        std::cout << std::endl;
+      }
     }
     std::cout << std::endl;
   } else

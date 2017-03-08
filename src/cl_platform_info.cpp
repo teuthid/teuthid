@@ -19,6 +19,7 @@
 #include <cassert>
 #include <memory>
 
+#include <teuthid/cl_device_info.hpp>
 #include <teuthid/cl_platform_info.hpp>
 
 using namespace teuthid;
@@ -56,14 +57,27 @@ bool __teuthid_cl_platform_param(std::string &param, cl_platform_id platform,
   return true;
 }
 
+bool __teuthid_cl_device_param(std::string &param, cl_device_id device,
+                               cl_device_info param_name) {
+  cl_int __result;
+  std::size_t __retsize;
+  char __data[1024];
+  __result =
+      clGetDeviceInfo(device, param_name, sizeof(__data), __data, &__retsize);
+  if (__result != CL_SUCCESS)
+    return false;
+  param = std::string(__data);
+  return true;
+}
+
 void platform_info::detect_platforms_and_devices_() {
   platform_info::platforms_.clear();
 #if defined(TEUTHID_WITH_OPENCL)
   cl_int __result;
   cl_uint __platform_count = 0;
   cl_platform_id *__platforms;
-  char __data[1024];
-  std::size_t __retsize;
+  cl_uint __device_count;
+  cl_device_id *__devices;
   std::string __str;
 
   __result = clGetPlatformIDs(0, NULL, &__platform_count);
@@ -71,7 +85,7 @@ void platform_info::detect_platforms_and_devices_() {
   if (__result != CL_SUCCESS) // unable to get platform IDs
     return;
   __platforms = new cl_platform_id[sizeof(cl_platform_id) * __platform_count];
-  std::unique_ptr<cl_platform_id> __uptr(__platforms);
+  std::unique_ptr<cl_platform_id> __uptr_platforms(__platforms);
   __result = clGetPlatformIDs(__platform_count, __platforms, NULL);
   assert(__result == CL_SUCCESS);
   if (__result != CL_SUCCESS) // unable to get platform IDs
@@ -130,6 +144,24 @@ void platform_info::detect_platforms_and_devices_() {
       ; // not supported
 
     // devices queries
+    if (clGetDeviceIDs(__platforms[i], CL_DEVICE_TYPE_ALL, 0, NULL,
+                       &__device_count) != CL_SUCCESS)
+      continue; // unable to get device IDs for __platforms[i]
+    assert(__device_count > 0);
+    __devices = new cl_device_id[sizeof(cl_device_id) * __device_count];
+    std::unique_ptr<cl_device_id> __uptr_devices(__devices);
+    if (clGetDeviceIDs(__platforms[i], CL_DEVICE_TYPE_ALL, __device_count,
+                       __devices, NULL) != CL_SUCCESS) {
+      continue; // unable to get device IDs for __platforms[i]
+    }
+    opencl_devices_t &__devs = platforms_[i].devices_;
+    for (cl_int j = 0; j < __device_count; j++) {
+      __devs.push_back(device_info());
+      __devs[j].id_ = __devices[i];
+      if (!__teuthid_cl_device_param(__devs[j].name_, __devices[i],
+                                     CL_DEVICE_NAME))
+        assert(false);
+    }
     // TO DO
   }
 #endif // defined(TEUTHID_WITH_OPENCL)
