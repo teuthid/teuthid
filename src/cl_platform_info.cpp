@@ -70,6 +70,14 @@ bool __teuthid_cl_device_param(std::string &param, cl_device_id device,
   return true;
 }
 
+opencl_profile_t __teuthid_cl_get_profile(std::string str_profile) {
+  if (str_profile == std::string("FULL_PROFILE"))
+    return FULL_PROFILE;
+  else if (str_profile == std::string("EMBEDDED_PROFILE"))
+    return EMBEDDED_PROFILE;
+  return UNKNOWN_PROFILE;
+}
+
 void platform_info::detect_platforms_and_devices_() {
   platform_info::platforms_.clear();
 #if defined(TEUTHID_WITH_OPENCL)
@@ -102,12 +110,7 @@ void platform_info::detect_platforms_and_devices_() {
       platforms_[i].profile_ = UNKNOWN_PROFILE;
       continue; // unable to get platform's profile
     }
-    if (__str == std::string("FULL_PROFILE"))
-      platforms_[i].profile_ = FULL_PROFILE;
-    else if (__str == std::string("EMBEDDED_PROFILE"))
-      platforms_[i].profile_ = EMBEDDED_PROFILE;
-    else
-      platforms_[i].profile_ = UNKNOWN_PROFILE;
+    platforms_[i].profile_ = __teuthid_cl_get_profile(__str);
     if (!__teuthid_cl_platform_param(__str, __platforms[i],
                                      CL_PLATFORM_VERSION))
       assert(false);

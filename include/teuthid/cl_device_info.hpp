@@ -50,6 +50,8 @@ typedef std::vector<cl::device_info> opencl_devices_t;
 
 namespace cl {
 
+enum opencl_profile_t { FULL_PROFILE, EMBEDDED_PROFILE, UNKNOWN_PROFILE };
+
 class device_info {
   friend class platform_info;
 

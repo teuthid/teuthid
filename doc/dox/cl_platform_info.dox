@@ -63,28 +63,6 @@
  */
 
  
-/*! \enum teuthid::cl::platform_info::opencl_profile_t
- * \brief This enumeration includes named constants of OpenCL platform's 
- * profile.
- *
- * \see profile(), is_full_profile(), is_embedded_profile().
- */
-/*! \var teuthid::cl::platform_info::FULL_PROFILE
- * Identifies a platform which supports the OpenCL 
- * <a href="https://www.khronos.org/registry/OpenCL/">specification</a>
- * (functionality defined as part of the core specification and does not 
- * require any extensions to be supported).
- */
-/*! \var teuthid::cl::platform_info::EMBEDDED_PROFILE
- * Identifies a platform which supports the OpenCL embedded profile. 
- * The embedded profile is defined to be a subset for each version of OpenCL.
- */
-/*!
- * \var teuthid::cl::platform_info::UNKNOWN_PROFILE
- * Unknown OpenCL platform's profile (is undetermined).
- */
-
-
 /*! \fn platform_info::platform_info()
  * \brief Constructs a new object of class platform_info.
  *

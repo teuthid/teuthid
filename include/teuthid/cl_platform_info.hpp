@@ -52,8 +52,6 @@ namespace cl {
 
 class platform_info {
 public:
-  enum opencl_profile_t { FULL_PROFILE, EMBEDDED_PROFILE, UNKNOWN_PROFILE };
-
   platform_info()
       : id_(NULL), profile_(UNKNOWN_PROFILE), version_(""), major_version_(0),
         minor_version_(0), spec_version_(""), name_(""), vendor_(""),
