@@ -32,7 +32,8 @@
  */
 /*! \var teuthid::cl::platform_info::EMBEDDED_PROFILE
  * Identifies a platform or device which supports the OpenCL embedded 
- * profile. The embedded profile is defined to be a subset for each version of * OpenCL.
+ * profile. The embedded profile is defined to be a subset for each version of 
+ * OpenCL.
  */
 /*!
  * \var teuthid::cl::platform_info::UNKNOWN_PROFILE

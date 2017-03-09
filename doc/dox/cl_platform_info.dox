@@ -28,12 +28,14 @@
 
 /*! \class teuthid::cl::platform_info cl_platform_info.hpp \ 
 <teuthid/cl_platform_info.hpp>
- *  \brief This class holds specific information about available the OpenCL
- * platform(s).
+ *  \brief This class holds information about the OpenCL platform.
  * 
  * <a href="https://www.khronos.org/opencl/">OpenCL</a> is used as an interface 
  * for executing code on parallel devices such as GPUs and multi-core CPUs. 
- * 
+ * \note The Teuthid framework must be compiled with enabled 
+ * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
+ * devices.
+ *
  * \b Example:
  * \code
  * #include <iostream>
@@ -79,51 +81,54 @@
 /*! \fn const opencl_platform_id_t &platform_info::id() const
  * \brief Returns the identifier for this OpenCL platform.
  *
- * The returned value is the equivalent of \c cl_platform_id. If it is equal to
- * \c NULL, the OpenCL platform is undetermined.
+ * \return the identifier for this OpenCL platform. The returned value is the 
+ * equivalent of \c cl_platform_id. If it is equal to \c NULL, the OpenCL 
+ * platform is undetermined.
  */
    
 
 /*! \fn const opencl_profile_t &platform_info::profile() const
- * \brief Returns the OpenCL platform's profile supported by the system.
+ * \brief Returns the OpenCL platform's profile.
  *
- * The profile returned can be one of the following: 
- * \ref teuthid::cl::platform_info::FULL_PROFILE "FULL_PROFILE",
- * \ref teuthid::cl::platform_info::EMBEDDED_PROFILE "EMBEDDED_PROFILE", or
- * \ref teuthid::cl::platform_info::UNKNOWN_PROFILE "UNKNOWN_PROFILE".
+ * \return the OpenCL platform's profile supported by the system. It can be one 
+ * of the following: \ref teuthid::cl::FULL_PROFILE "FULL_PROFILE",
+ * \ref teuthid::cl::EMBEDDED_PROFILE "EMBEDDED_PROFILE", or
+ * \ref teuthid::cl::UNKNOWN_PROFILE "UNKNOWN_PROFILE".
  * \see is_full_profile(), is_embedded_profile().
  */
 
 
 /*! \fn bool platform_info::is_full_profile() const
- * \brief Returns \c true if the OpenCL platform's profile is 
- * \ref teuthid::cl::platform_info::FULL_PROFILE "FULL_PROFILE".
+ * \brief Returns \c true if this platform's profile is 
+ * \ref teuthid::cl::FULL_PROFILE "FULL_PROFILE".
  * 
- * Otherwise returns \c false.
+ * \return \c true if this OpenCL platform's profile is 
+ * \ref teuthid::cl::FULL_PROFILE "FULL_PROFILE". Otherwise returns \c false.
  * \see profile().
  */
 
 
 /*! \fn bool platform_info::is_embedded_profile() const
- * \brief Returns \c true if the OpenCL platform's profile is 
- * \ref teuthid::cl::platform_info::EMBEDDED_PROFILE "EMBEDDED_PROFILE".
+ * \brief Returns \c true if the platform's profile is 
+ * \ref teuthid::cl::EMBEDDED_PROFILE "EMBEDDED_PROFILE".
  * 
- * Otherwise returns \c false.
+ * \return \c true if this OpenCL platform's profile is 
+ * \ref teuthid::cl::EMBEDDED_PROFILE "EMBEDDED_PROFILE". Otherwise returns 
+ * \c false.
  * \see profile().
  */
  
 
 /*! \fn const std::string &platform_info::version() const
- * \brief Returns the OpenCL platform's version supported by the system.
+ * \brief Returns the platform's version.
  *
+ * \return the OpenCL platform's version supported by the system.\n
  * The returned value has the following format:
- * \e "<major_version.minor_version><space><platform-specific information>", 
- * for example \e "1.2 beignet 1.1.2". \n
+ * \e "<major_version.minor_version><space><platform-specific information>".\n
  * The \e "major_version.minor_version" determines version of OpenCL supported 
- * by the system.
- *
+ * by the system.\n
  * The returned value is the equivalent of \c CL_PLATFORM_VERSION.
- * If it is an empty string, the OpenCL platform's version is undetermined.
+ * If it is an empty string, a version of this OpenCL platform is undetermined.
  * \see major_version(), minor_version(), spec_version().
  */
 
