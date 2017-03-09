@@ -41,6 +41,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_cl_platform_info) {
   BOOST_TEST(__info.host_timer_resolution() == 0,
              "cl::platform_info.host_timer_resolution()");
   BOOST_TEST(__info.icd_suffix_khr().empty(), "cl::icd_suffix_khr.vendor()");
+  BOOST_TEST(__info.devices().empty(), "cl::devices()");
   opencl_platforms_t __platforms = library::opencl_platforms();
 #if defined(TEUTHID_WITH_OPENCL)
   BOOST_TEST(!__platforms.empty());
@@ -69,6 +70,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_cl_platform_info) {
     BOOST_TEST(!__platform.is_required_version(__platform.major_version(),
                                                __platform.minor_version() + 1),
                "cl::platform_info.is_required_version()");
+    BOOST_TEST(!__platform.devices().empty(), "cl::devices()");
     __info = __platform;
     BOOST_TEST(__info.id(), "cl::platform_info.id()");
   }

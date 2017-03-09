@@ -44,6 +44,7 @@ const opencl_platforms_t &platform_info::platforms(bool force_detection) {
   return platform_info::platforms_;
 }
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 bool __teuthid_cl_platform_param(std::string &param, cl_platform_id platform,
                                  cl_platform_info param_name) {
   cl_int __result;
@@ -77,6 +78,7 @@ opencl_profile_t __teuthid_cl_get_profile(std::string str_profile) {
     return EMBEDDED_PROFILE;
   return UNKNOWN_PROFILE;
 }
+#endif // DOXYGEN_SHOULD_SKIP_THIS
 
 void platform_info::detect_platforms_and_devices_() {
   platform_info::platforms_.clear();
@@ -136,15 +138,13 @@ void platform_info::detect_platforms_and_devices_() {
     if (!__teuthid_cl_platform_param(platforms_[i].extensions_, __platforms[i],
                                      CL_PLATFORM_EXTENSIONS))
       assert(false);
-    if (!__teuthid_cl_platform_param(__str, __platforms[i],
-                                     CL_PLATFORM_HOST_TIMER_RESOLUTION))
-      ; // not supported
-    else
-      platforms_[i].host_timer_resolution_ = std::stoull(__str);
+    clGetPlatformInfo(__platforms[i], CL_PLATFORM_HOST_TIMER_RESOLUTION,
+                      sizeof(platforms_[i].host_timer_resolution_),
+                      &(platforms_[i].host_timer_resolution_), NULL);
     if (!__teuthid_cl_platform_param(platforms_[i].icd_suffix_khr_,
                                      __platforms[i],
                                      CL_PLATFORM_ICD_SUFFIX_KHR))
-      ; // not supported
+      assert(false);
 
     // devices queries
     if (clGetDeviceIDs(__platforms[i], CL_DEVICE_TYPE_ALL, 0, NULL,
@@ -164,8 +164,20 @@ void platform_info::detect_platforms_and_devices_() {
       if (!__teuthid_cl_device_param(__devs[j].name_, __devices[i],
                                      CL_DEVICE_NAME))
         assert(false);
+      if (!__teuthid_cl_device_param(__devs[j].version_, __devices[i],
+                                     CL_DEVICE_VERSION))
+        assert(false);
+      if (!__teuthid_cl_device_param(__devs[j].driver_version_, __devices[i],
+                                     CL_DRIVER_VERSION))
+        assert(false);
+      if (!__teuthid_cl_device_param(__devs[j].c_version_, __devices[i],
+                                     CL_DEVICE_OPENCL_C_VERSION))
+        assert(false);
+      __result = clGetDeviceInfo(__devices[i], CL_DEVICE_MAX_COMPUTE_UNITS,
+                                 sizeof(__devs[j].max_compute_units_),
+                                 &(__devs[j].max_compute_units_), NULL);
+      assert(__result == CL_SUCCESS);
     }
-    // TO DO
   }
 #endif // defined(TEUTHID_WITH_OPENCL)
 }

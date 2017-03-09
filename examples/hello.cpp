@@ -47,7 +47,7 @@ int main() {
       std::cout << std::endl;
       std::cout << "  Platform Vendor: " << __platform.vendor();
       std::cout << std::endl;
-      std::cout << "  Platform Version: " << __platform.spec_version();
+      std::cout << "  Platform Version: " << __platform.version();
       std::cout << "  OpenCL version supported: " << __platform.major_version()
                 << "." << __platform.minor_version();
       std::cout << std::endl;
@@ -72,6 +72,14 @@ int main() {
       for (auto __device : __platform.devices()) {
         std::cout << "    Device Name: " << __device.name();
         std::cout << std::endl;
+        std::cout << "    Device Version: " << __device.version();
+        std::cout << std::endl;
+        std::cout << "    Driver Version: " << __device.driver_version();
+        std::cout << std::endl;
+        std::cout << "    OpenCL C Version: " << __device.c_version();
+        std::cout << std::endl;
+        std::cout << "    Parallel compute units: "
+                  << __device.max_compute_units() << std::endl;
       }
     }
     std::cout << std::endl;

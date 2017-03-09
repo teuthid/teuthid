@@ -56,14 +56,24 @@ class device_info {
   friend class platform_info;
 
 public:
-  device_info() : id_(NULL), name_("") {}
+  device_info()
+      : id_(NULL), name_(""), version_(""), driver_version_(""), c_version_(""),
+        max_compute_units_(0) {}
   ~device_info() {}
   const opencl_device_id_t &id() const { return id_; }
   const std::string &name() const { return name_; }
+  const std::string &version() const { return version_; }
+  const std::string &driver_version() const { return driver_version_; }
+  const std::string &c_version() const { return c_version_; }
+  uint32_t max_compute_units() const { return max_compute_units_; }
 
 private:
-  opencl_device_id_t id_; // device ID
-  std::string name_;      // CL_DEVICE_NAME
+  opencl_device_id_t id_;      // device ID
+  std::string name_;           // CL_DEVICE_NAME
+  std::string version_;        // CL_DEVICE_VERSION
+  std::string driver_version_; // CL_DRIVER_VERSION
+  std::string c_version_;      // CL_DEVICE_OPENCL_C_VERSION
+  uint32_t max_compute_units_; // CL_DEVICE_MAX_COMPUTE_UNITS
 };
 
 } // namespace cl
