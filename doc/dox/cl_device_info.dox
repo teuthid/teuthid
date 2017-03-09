@@ -43,12 +43,15 @@
 
 /*! \class teuthid::cl::device_info cl_device_info.hpp \ 
 <teuthid/cl_device_info.hpp>
- * \brief This class holds specific information about available the OpenCL
- * devices(s) for a particular OpenCL 
- * \ref teuthid::cl::platform_info "platform".
+ * \brief This class holds specific information about the OpenCL
+ * devices for a particular OpenCL \ref teuthid::cl::platform_info "platform".
  *
  * <a href="https://www.khronos.org/opencl/">OpenCL</a> is used as an interface 
- * for executing code on parallel devices such as GPUs and multi-core CPUs. 
+ * for executing code on parallel devices such as GPUs and multi-core CPUs.
+ * \note The Teuthid framework must be compiled with enabled 
+ * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
+ * devices.
+ * \see platform_info::devices().
  */
 
 /*! \fn device_info::device_info()
@@ -64,9 +67,19 @@
 
 
 /*! \fn const opencl_device_id_t &device_info::id() const
- * \brief Returns the identifier for this OpenCL device.
+ * \brief Returns the identifier for this device.
  *
- * The returned value is the equivalent of \c cl_device_id. If it is equal to
- * \c NULL, the OpenCL device is undetermined.
+ * \return the identifier for this OpenCL device. The returned value is the 
+ * equivalent of \c cl_device_id. If it is equal to \c NULL, this OpenCL device 
+ * is undetermined.
+ */
+
+
+/*! \fn const std::string &device_info::name() const
+ * \brief Return the name of this device.
+ *
+ * \return the name of this OpenCL device. The returned value is the 
+ * equivalent of \c CL_DEVICE_NAME. If it is an empty string, a name of this 
+ * OpenCL device is undetermined.
  */
 

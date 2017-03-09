@@ -79,10 +79,10 @@
 
 
 /*! \fn const opencl_platform_id_t &platform_info::id() const
- * \brief Returns the identifier for this OpenCL platform.
+ * \brief Returns the identifier for this platform.
  *
  * \return the identifier for this OpenCL platform. The returned value is the 
- * equivalent of \c cl_platform_id. If it is equal to \c NULL, the OpenCL 
+ * equivalent of \c cl_platform_id. If it is equal to \c NULL, this OpenCL 
  * platform is undetermined.
  */
    
@@ -134,85 +134,106 @@
 
 
 /*! \fn int platform_info::major_version() const
- * \brief Returns the OpenCL major version supported by the system.
- * 
+ * \brief Returns the OpenCL major version.
+ * \return the OpenCL major version supported by the system.
  * \see minor_version(), version().
  */
 
 
 /*! \fn int platform_info::minor_version() const
- * \brief Returns the OpenCL minor version supported by the system.
- * 
+ * \brief Returns the OpenCL minor version.
+ * \return the OpenCL minor version supported by the system.
  * \see major_version(), version().
  */
 
 
 /*! \fn const std::string &platform_info::spec_version() const
- * \brief Returns the platform-specific information about the OpenCL supported 
+ * \brief Returns the platform-specific information.
+ * \return Returns the platform-specific information about the OpenCL supported 
  * by the system.
- *
  * \see version().
  */
 
 
 /*! \fn bool platform_info::is_required_version(int major, int minor) const
- * \brief Checks whether the version of OpenCL supported by the system
- * is sufficient.
+ * \brief Checks whether the version is sufficient.
  *
- *Returns \c true if the version of OpenCL supported by the system
- * is sufficient. Otherwise return \c false.
- * @param[in] major The required minimum major version of OpenCL supported 
- * by the system.
- * @param[in] minor The required minimum minor version of OpenCL supported 
- * by the system (if the major version is the same as required \c major).
+ * \return \c true if the version of OpenCL supported by the system
+ * is a sufficient version. Otherwise return \c false.
+ * @param[in] major The required minimum major version of OpenCL.
+ * @param[in] minor The required minimum minor version of OpenCL (if the major 
+ * version is the same as required \c major).
  * \see major_version(), minor_version(), version().
  */
 
 
 /*! \fn const std::string &platform_info::name() const
- * \brief Returns the OpenCL platform's name.
+ * \brief Returns the platform's name.
  *
- * The returned value is the equivalent of \c CL_PLATFORM_NAME.
- * If it is an empty string, the OpenCL platform's name is undetermined.
+ * \return the name of this OpenCL platform's.The returned value is the 
+ * equivalent of \c CL_PLATFORM_NAME. If it is an empty string, this name 
+ * is undetermined.
  */
 
 
 /*! \fn const std::string &platform_info::vendor() const
- * \brief Returns the OpenCL platform's vendor.
+ * \brief Returns the platform's vendor.
  *
- * The returned value is the equivalent of \c CL_PLATFORM_VENDOR.
- * If it is an empty string, the OpenCL platform's vendor is undetermined.
+ * \return the vendor of this OpenCL platform.The returned value is the 
+ * equivalent of \c CL_PLATFORM_VENDOR. If it is an empty string, this vendor 
+ * is undetermined.
  */
 
 
 /*! \fn const std::string &platform_info::extensions() const
- * \brief Returns a space-separated list of extension names supported by the 
- * OpenCL platform. 
+ * \brief Returns the space-separated list of extension names. 
  *
- * The extension names themselves do not contain any spaces. \n
+ * \return the space-separated list of extension names supported by this 
+ * OpenCL platform. The extension names themselves do not contain any spaces. 
  * The returned value is the equivalent of \c CL_PLATFORM_EXTENSIONS.
  */
 
 
 /*! \fn uint64_t platform_info::host_timer_resolution() const
- * \brief Returns the resolution of the host timer in nanoseconds.
+ * \brief Returns the resolution of the host timer.
  *
- * The returned value is the equivalent of \c CL_PLATFORM_HOST_TIMER_RESOLUTION.
+ * \return the resolution of the host timer in nanoseconds. The returned value 
+ * is the equivalent of \c CL_PLATFORM_HOST_TIMER_RESOLUTION.
  */
 
 
 /*! \fn const std::string &platform_info::icd_suffix_khr() const
- * \brief Returns the function name suffix used to identify extension functions to be directed to this OpenCL platform by the ICD Loader.
+ * \brief Returns the function name suffix.
  *
- * The returned value is the equivalent of \c CL_PLATFORM_ICD_SUFFIX_KHR.
+ * \return the function name suffix used to identify extension functions to be directed to this OpenCL platform by the ICD Loader. The returned value is the 
+ * equivalent of \c CL_PLATFORM_ICD_SUFFIX_KHR.
+ */
+
+
+/*!
+ * \fn const opencl_devices_t &platform_info::devices() const
+ * \brief Returns the vector containing objects of class device_info.
+ * \return the vector of type 
+ * \ref teuthid::opencl_devices_t "opencl_devices_t" containing objects of 
+ * class device_info - the OpenCL devices assigned to this OpenCL platform.
+ * \see platform_info::platforms.
+ * \note The Teuthid framework must be compiled with enabled 
+ * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
+ * devices.
  */
 
 
 /*! \fn const opencl_platforms_t &platform_info::platforms(bool force_detection = false)
  * \brief Returns the vector containing objects of class platform_info.
+ * \return the vector of type 
+ * \ref teuthid::opencl_platforms_t "opencl_platforms_t" containing objects of 
+ * class platform_info
  * @param[in] force_detection If it is equal to \c true, a detection of the 
  * available OpenCL platforms and devices is performed. \n
  * Normally, it is unnecessary because such detection is performed 
  * automatically when you start an application that uses the framework.
+ * \note The Teuthid framework must be compiled with enabled 
+ * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
+ * devices.
  */
 
