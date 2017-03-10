@@ -20,15 +20,15 @@
 #define BOOST_TEST_DYN_LINK
 
 #include <boost/test/unit_test.hpp>
-#include <teuthid/cl_platform_info.hpp>
+#include <teuthid/compute_platform.hpp>
 #include <teuthid/library.hpp>
 
 using namespace teuthid;
 
-BOOST_AUTO_TEST_CASE(class_teuthid_CL_platform_info) {
-  CL_platform_info __info;
+BOOST_AUTO_TEST_CASE(class_teuthid_compute_platform) {
+  compute_platform __info;
   BOOST_TEST(!__info.id(), "id()");
-  BOOST_TEST(__info.profile() == CL_UNKNOWN_PROFILE, "profile()");
+  BOOST_TEST(__info.profile() == COMPUTE_UNKNOWN_PROFILE, "profile()");
   BOOST_TEST(__info.version().empty(), "version()");
   BOOST_TEST(__info.major_version() == 0, "major_version()");
   BOOST_TEST(__info.minor_version() == 0, "minor_version()");
@@ -39,12 +39,12 @@ BOOST_AUTO_TEST_CASE(class_teuthid_CL_platform_info) {
   BOOST_TEST(__info.host_timer_resolution() == 0, "host_timer_resolution()");
   BOOST_TEST(__info.icd_suffix_khr().empty(), "icd_suffix_khr.vendor()");
   BOOST_TEST(__info.devices().empty(), "devices()");
-  CL_platforms_t __platforms = library::CL_platforms();
+  compute_platforms_t __platforms = library::compute_platforms();
 #if defined(TEUTHID_WITH_OPENCL)
   BOOST_TEST(!__platforms.empty());
   for (auto __platform : __platforms) {
     BOOST_TEST(__platform.id(), "id()");
-    BOOST_TEST(__platform.profile() != CL_UNKNOWN_PROFILE, "profile()");
+    BOOST_TEST(__platform.profile() != COMPUTE_UNKNOWN_PROFILE, "profile()");
     BOOST_TEST(
         (__platform.is_full_profile() || __platform.is_embedded_profile()),
         "is_full_profile(), is_embedded_profile()");

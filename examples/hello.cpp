@@ -36,12 +36,12 @@ int main() {
   std::cout << std::endl << ruler << std::endl;
   std::cout << "Teuthid Version " << library::major_version() << "."
             << library::minor_version() << std::endl;
-  if (library::have_CL()) {
+  if (library::have_compute_kernel()) {
     std::cout << "Build with OpenCL (using " << cl_backend << " as a backend).";
     std::cout << std::endl;
     std::cout << "Available OpenCL platform(s): "
-              << library::CL_platforms().size() << std::endl;
-    for (auto __platform : library::CL_platforms()) {
+              << library::compute_platforms().size() << std::endl;
+    for (auto __platform : library::compute_platforms()) {
       std::cout << "  Platform Name: " << __platform.name();
       std::cout << std::endl;
       std::cout << "  Platform Vendor: " << __platform.vendor();

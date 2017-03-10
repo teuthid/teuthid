@@ -21,7 +21,7 @@
 
 #include <string>
 
-#include <teuthid/cl_platform_info.hpp>
+#include <teuthid/compute_platform.hpp>
 
 namespace teuthid {
 
@@ -37,19 +37,19 @@ public:
   static constexpr int soversion() { return TEUTHID_SOVERSION; }
   static const std::string &version() { return library::version_; }
   static bool is_required_version(int min_major, int min_minor);
-  static const CL_platforms_t &CL_platforms() {
-    return CL_platform_info::platforms();
+  static const compute_platforms_t &compute_platforms() {
+    return compute_platform::platforms();
   }
-  static bool have_CL() { return (library::CL_platforms().size() > 0); }
-  static bool use_CL() { return library::use_CL_; }
-  static bool use_CL(bool enabled);
+  static bool have_compute_kernel();
+  static bool use_compute_kernel() { return library::use_compute_kernel_; }
+  static bool use_compute_kernel(bool enabled);
 
 private:
   library() {}
   ~library() {}
 
   static std::string version_;
-  static thread_local bool use_CL_;
+  static thread_local bool use_compute_kernel_;
 }; // class library
 } // namespace teuthid
 

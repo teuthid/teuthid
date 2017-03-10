@@ -16,8 +16,8 @@
     along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef TEUTHID_CL_DEVICE_INFO_HPP
-#define TEUTHID_CL_DEVICE_INFO_HPP
+#ifndef TEUTHID_COMPUTE_DEVICE_HPP
+#define TEUTHID_COMPUTE_DEVICE_HPP
 
 #include <string>
 #include <vector>
@@ -36,28 +36,31 @@ namespace teuthid {
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 #if defined(TEUTHID_WITH_OPENCL)
-typedef cl_device_id CL_device_id_t;
+typedef cl_device_id compute_device_id_t;
 #else
-typedef int *CL_device_id_t;
+typedef int *compute_device_id_t;
 #endif // defined(TEUTHID_WITH_OPENCL)
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
-class CL_device_info;
-class CL_platform_info;
+class compute_device;
+class compute_platform;
+typedef std::vector<compute_device> compute_devices_t;
 
-typedef std::vector<CL_device_info> CL_devices_t;
+enum compute_profile_t {
+  COMPUTE_FULL_PROFILE,
+  COMPUTE_EMBEDDED_PROFILE,
+  COMPUTE_UNKNOWN_PROFILE
+};
 
-enum CL_profile_t { CL_FULL_PROFILE, CL_EMBEDDED_PROFILE, CL_UNKNOWN_PROFILE };
-
-class CL_device_info {
-  friend class CL_platform_info;
+class compute_device {
+  friend class compute_platform;
 
 public:
-  CL_device_info()
+  compute_device()
       : id_(NULL), name_(""), version_(""), driver_version_(""), c_version_(""),
         max_compute_units_(0) {}
-  ~CL_device_info() {}
-  const CL_device_id_t &id() const { return id_; }
+  ~compute_device() {}
+  const compute_device_id_t &id() const { return id_; }
   const std::string &name() const { return name_; }
   const std::string &version() const { return version_; }
   const std::string &driver_version() const { return driver_version_; }
@@ -65,7 +68,7 @@ public:
   uint32_t max_compute_units() const { return max_compute_units_; }
 
 private:
-  CL_device_id_t id_;          // device ID
+  compute_device_id_t id_;     // device ID
   std::string name_;           // CL_DEVICE_NAME
   std::string version_;        // CL_DEVICE_VERSION
   std::string driver_version_; // CL_DRIVER_VERSION
@@ -75,4 +78,4 @@ private:
 
 } // namespace teuthid
 
-#endif // TEUTHID_CL_DEVICE_INFO_HPP
+#endif // TEUTHID_COMPUTE_DEVICE_HPP

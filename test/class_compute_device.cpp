@@ -22,21 +22,21 @@
 #include <boost/test/unit_test.hpp>
 #include <teuthid/library.hpp>
 
-#include <teuthid/cl_device_info.hpp>
-#include <teuthid/cl_platform_info.hpp>
+#include <teuthid/compute_device.hpp>
+#include <teuthid/compute_platform.hpp>
 
 using namespace teuthid;
 
-BOOST_AUTO_TEST_CASE(class_teuthid_CL_device_info) {
-  CL_device_info __info;
+BOOST_AUTO_TEST_CASE(class_teuthid_compute_device) {
+  compute_device __info;
   BOOST_TEST(!__info.id(), "id()");
   BOOST_TEST(__info.name().empty(), "name()");
   BOOST_TEST(__info.version().empty(), "version()");
   BOOST_TEST(__info.driver_version().empty(), "driver_version()");
   BOOST_TEST(__info.c_version().empty(), "c_version()");
   BOOST_TEST(__info.max_compute_units() == 0, "max_compute_units()");
-  CL_platforms_t __platforms = library::CL_platforms();
-  CL_devices_t __devices;
+  compute_platforms_t __platforms = library::compute_platforms();
+  compute_devices_t __devices;
 #if defined(TEUTHID_WITH_OPENCL)
   BOOST_TEST(!__platforms.empty());
   for (auto __platform : __platforms) {

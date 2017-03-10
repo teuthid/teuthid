@@ -16,14 +16,14 @@
     along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef TEUTHID_CL_PLATFORM_INFO_HPP
-#define TEUTHID_CL_PLATFORM_INFO_HPP
+#ifndef TEUTHID_COMPUTE_PLATFORM_HPP
+#define TEUTHID_COMPUTE_PLATFORM_HPP
 
 #include <mutex>
 #include <string>
 #include <vector>
 
-#include <teuthid/cl_device_info.hpp>
+#include <teuthid/compute_device.hpp>
 
 #if defined(TEUTHID_WITH_OPENCL)
 #if defined(__APPLE__)
@@ -37,28 +37,29 @@ namespace teuthid {
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 #if defined(TEUTHID_WITH_OPENCL)
-typedef cl_platform_id CL_platform_id_t;
+typedef cl_platform_id compute_platform_id_t;
 #else
-typedef int *CL_platform_id_t;
+typedef int *compute_platform_id_t;
 #endif // defined(TEUTHID_WITH_OPENCL)
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
-class CL_platform_info;
+class compute_platform;
+typedef std::vector<compute_platform> compute_platforms_t;
 
-typedef std::vector<CL_platform_info> CL_platforms_t;
-
-class CL_platform_info {
+class compute_platform {
 public:
-  CL_platform_info()
-      : id_(NULL), profile_(CL_UNKNOWN_PROFILE), version_(""),
+  compute_platform()
+      : id_(NULL), profile_(COMPUTE_UNKNOWN_PROFILE), version_(""),
         major_version_(0), minor_version_(0), spec_version_(""), name_(""),
         vendor_(""), host_timer_resolution_(0), icd_suffix_khr_(""),
         extensions_("") {}
-  ~CL_platform_info() {}
-  const CL_platform_id_t &id() const { return id_; }
-  const CL_profile_t &profile() const { return profile_; }
-  bool is_full_profile() const { return (profile_ == CL_FULL_PROFILE); }
-  bool is_embedded_profile() const { return (profile_ == CL_EMBEDDED_PROFILE); }
+  ~compute_platform() {}
+  const compute_platform_id_t &id() const { return id_; }
+  const compute_profile_t &profile() const { return profile_; }
+  bool is_full_profile() const { return (profile_ == COMPUTE_FULL_PROFILE); }
+  bool is_embedded_profile() const {
+    return (profile_ == COMPUTE_EMBEDDED_PROFILE);
+  }
   const std::string &version() const { return version_; }
   int major_version() const { return major_version_; }
   int minor_version() const { return minor_version_; }
@@ -69,14 +70,14 @@ public:
   const std::string &extensions() const { return extensions_; }
   uint64_t host_timer_resolution() const { return host_timer_resolution_; }
   const std::string &icd_suffix_khr() const { return icd_suffix_khr_; }
-  const CL_devices_t &devices() const { return devices_; }
+  const compute_devices_t &devices() const { return devices_; }
 
-  static const CL_platforms_t &platforms(bool force_detection = false);
+  static const compute_platforms_t &platforms(bool force_detection = false);
 
 private:
-  CL_platform_id_t id_;  // platform ID
-  CL_profile_t profile_; // CL_PLATFORM_PROFILE
-  std::string version_;  // CL_PLATFORM_VERSION
+  compute_platform_id_t id_;  // platform ID
+  compute_profile_t profile_; // CL_PLATFORM_PROFILE
+  std::string version_;       // CL_PLATFORM_VERSION
   int major_version_;
   int minor_version_;
   std::string spec_version_;
@@ -85,14 +86,14 @@ private:
   std::string extensions_;         // CL_PLATFORM_EXTENSIONS
   uint64_t host_timer_resolution_; // CL_PLATFORM_HOST_TIMER_RESOLUTION
   std::string icd_suffix_khr_;     // CL_PLATFORM_ICD_SUFFIX_KHR
-  CL_devices_t devices_;           // devices of this platform
+  compute_devices_t devices_;      // devices of this platform
 
   static std::mutex mutex_;
   static bool platforms_detected_;
-  static CL_platforms_t platforms_;
+  static compute_platforms_t platforms_;
   static void detect_platforms_and_devices_();
 };
 
 } // namespace teuthid
 
-#endif // TEUTHID_CL_PLATFORM_INFO_HPP
+#endif // TEUTHID_COMPUTE_PLATFORM_HPP

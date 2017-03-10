@@ -1,7 +1,7 @@
 include(CTest)
 
 set(teuthid_tests
-  class_cl_device_info class_cl_platform_info
+  class_compute_device class_compute_platform
   class_library
 )
 if (BUILD_WITH_OPENCL)

@@ -18,8 +18,8 @@
 
 #include <cassert>
 
-#include <teuthid/cl_device_info.hpp>
-#include <teuthid/cl_platform_info.hpp>
+#include <teuthid/compute_device.hpp>
+#include <teuthid/compute_platform.hpp>
 
 using namespace teuthid;
 

@@ -20,7 +20,7 @@
 
 using namespace teuthid;
 
-thread_local bool library::use_CL_ = library::have_CL();
+thread_local bool library::use_compute_kernel_ = library::have_compute_kernel();
 std::string library::version_ = std::string(TEUTHID_VERSION);
 
 bool library::is_required_version(int min_major, int min_minor) {
@@ -29,8 +29,13 @@ bool library::is_required_version(int min_major, int min_minor) {
   return (!(__required > __actual));
 }
 
-bool library::use_CL(bool enabled) {
-  if (library::have_CL())
-    library::use_CL_ = enabled;
-  return library::use_CL_;
+bool library::have_compute_kernel() {
+  return (library::compute_platforms().size() > 0);
+  // TODO: check OpenCL devices as well
+}
+
+bool library::use_compute_kernel(bool enabled) {
+  if (library::have_compute_kernel())
+    library::use_compute_kernel_ = enabled;
+  return library::use_compute_kernel_;
 }
