@@ -17,17 +17,17 @@
 */
 
 
-/*! \typedef typedef std::vector<CL_platform_info> teuthid::CL_platforms_t
+/*! \typedef typedef std::vector<compute_platform> teuthid::compute_platforms_t
  * \brief This is a type alias for the vector containing objects of class
- * \ref teuthid::CL_platform_info "CL_platform_info".
+ * \ref teuthid::compute_platform "compute_platform".
  *
- * \see \ref teuthid::CL_platform_info::platforms() 
- * "CL_platform_info::platforms()".
+ * \see \ref teuthid::compute_platform::platforms() 
+ * "compute_platform::platforms()".
  */
 
 
-/*! \class teuthid::CL_platform_info cl_platform_info.hpp \ 
-<teuthid/cl_platform_info.hpp>
+/*! \class teuthid::compute_platform compute_platform.hpp \ 
+<teuthid/compute_platform.hpp>
  *  \brief This class holds information about the OpenCL platform.
  * 
  * <a href="https://www.khronos.org/opencl/">OpenCL</a> is used as an interface 
@@ -44,9 +44,9 @@
  * 
  * int main() {
  *   std::cout << "Available OpenCL platform(s): "
- *             << library::CL_platforms().size() << std::endl;
+ *             << library::compute_platforms().size() << std::endl;
  *
- *   for (auto __platform : library::CL_platforms()) {
+ *   for (auto __platform : library::compute_platforms()) {
  *
  *     std::cout << "Platform Name: " << __platform.name() << std::endl;
  *     std::cout << "Platform Vendor: " << __platform.vendor() << std::endl;
@@ -59,26 +59,27 @@
  *   return 0;
  * }
  * \endcode
- * See \ref teuthid::library::have_CL() "library::have_CL()" and
- * platforms() about checking if the running system has OpenCL-capable hardware 
+ * See \ref teuthid::library::have_compute_kernel() 
+ * "library::have_compute_kernel()" and platforms() about checking if the 
+ * running system has OpenCL-capable hardware 
  * and drivers.
  */
 
  
-/*! \fn platform_info::platform_info()
- * \brief Constructs a new object of class platform_info.
+/*! \fn compute_platform::compute_platform()
+ * \brief Constructs a new object of class compute_platform.
  *
  * The new object is empty and <b>does not</b> contain information about any
  * OpenCL platform.
  */
 
 
-/*! \fn platform_info::~platform_info()
- * \brief Destructs an object of class platform_info.
+/*! \fn compute_platform::~compute_platform()
+ * \brief Destructs an object of class compute_platform.
  */
 
 
-/*! \fn const opencl_platform_id_t &platform_info::id() const
+/*! \fn const compute_platform_id_t &compute_platform::id() const
  * \brief Returns the identifier for this platform.
  *
  * \return the identifier for this OpenCL platform. The returned value is the 
@@ -87,39 +88,41 @@
  */
    
 
-/*! \fn const opencl_profile_t &platform_info::profile() const
+/*! \fn const compute_profile_t &compute_platform::profile() const
  * \brief Returns the OpenCL platform's profile.
  *
  * \return the OpenCL platform's profile supported by the system. It can be one 
- * of the following: \ref teuthid::cl::FULL_PROFILE "FULL_PROFILE",
- * \ref teuthid::cl::EMBEDDED_PROFILE "EMBEDDED_PROFILE", or
- * \ref teuthid::cl::UNKNOWN_PROFILE "UNKNOWN_PROFILE".
+ * of the following: 
+ * \ref teuthid::COMPUTE_FULL_PROFILE "COMPUTE_FULL_PROFILE",
+ * \ref teuthid::COMPUTE_EMBEDDED_PROFILE "COMPUTE_EMBEDDED_PROFILE", or
+ * \ref teuthid::COMPUTE_UNKNOWN_PROFILE "COMPUTE_UNKNOWN_PROFILE".
  * \see is_full_profile(), is_embedded_profile().
  */
 
 
-/*! \fn bool platform_info::is_full_profile() const
+/*! \fn bool compute_platform::is_full_profile() const
  * \brief Returns \c true if this platform's profile is 
- * \ref teuthid::cl::FULL_PROFILE "FULL_PROFILE".
+ * \ref teuthid::COMPUTE_FULL_PROFILE "COMPUTE_FULL_PROFILE".
  * 
  * \return \c true if this OpenCL platform's profile is 
- * \ref teuthid::cl::FULL_PROFILE "FULL_PROFILE". Otherwise returns \c false.
+ * \ref teuthid::COMPUTE_FULL_PROFILE "COMPUTE_FULL_PROFILE". Otherwise returns 
+ * \c false.
  * \see profile().
  */
 
 
-/*! \fn bool platform_info::is_embedded_profile() const
+/*! \fn bool compute_platform::is_embedded_profile() const
  * \brief Returns \c true if the platform's profile is 
- * \ref teuthid::cl::EMBEDDED_PROFILE "EMBEDDED_PROFILE".
+ * \ref teuthid::COMPUTE_EMBEDDED_PROFILE "COMPUTE_EMBEDDED_PROFILE".
  * 
  * \return \c true if this OpenCL platform's profile is 
- * \ref teuthid::cl::EMBEDDED_PROFILE "EMBEDDED_PROFILE". Otherwise returns 
- * \c false.
+ * \ref teuthid::COMPUTE_EMBEDDED_PROFILE "COMPUTE_EMBEDDED_PROFILE". Otherwise 
+ * returns \c false.
  * \see profile().
  */
  
 
-/*! \fn const std::string &platform_info::version() const
+/*! \fn const std::string &compute_platform::version() const
  * \brief Returns the platform's version.
  *
  * \return the OpenCL platform's version supported by the system.\n
@@ -133,21 +136,21 @@
  */
 
 
-/*! \fn int platform_info::major_version() const
+/*! \fn int compute_platform::major_version() const
  * \brief Returns the OpenCL major version.
  * \return the OpenCL major version supported by the system.
  * \see minor_version(), version().
  */
 
 
-/*! \fn int platform_info::minor_version() const
+/*! \fn int compute_platform::minor_version() const
  * \brief Returns the OpenCL minor version.
  * \return the OpenCL minor version supported by the system.
  * \see major_version(), version().
  */
 
 
-/*! \fn const std::string &platform_info::spec_version() const
+/*! \fn const std::string &compute_platform::spec_version() const
  * \brief Returns the platform-specific information.
  * \return Returns the platform-specific information about the OpenCL supported 
  * by the system.
@@ -155,8 +158,8 @@
  */
 
 
-/*! \fn bool platform_info::is_required_version(int major, int minor) const
- * \brief Checks whether the version is sufficient.
+/*! \fn bool compute_platform::is_required_version(int major, int minor) const
+ * \brief Checks whether the version of OpenCL is sufficient.
  *
  * \return \c true if the version of OpenCL supported by the system
  * is a sufficient version. Otherwise return \c false.
@@ -167,7 +170,7 @@
  */
 
 
-/*! \fn const std::string &platform_info::name() const
+/*! \fn const std::string &compute_platform::name() const
  * \brief Returns the platform's name.
  *
  * \return the name of this OpenCL platform's.The returned value is the 
@@ -176,7 +179,7 @@
  */
 
 
-/*! \fn const std::string &platform_info::vendor() const
+/*! \fn const std::string &compute_platform::vendor() const
  * \brief Returns the platform's vendor.
  *
  * \return the vendor of this OpenCL platform.The returned value is the 
@@ -185,7 +188,7 @@
  */
 
 
-/*! \fn const std::string &platform_info::extensions() const
+/*! \fn const std::string &compute_platform::extensions() const
  * \brief Returns the space-separated list of extension names. 
  *
  * \return the space-separated list of extension names supported by this 
@@ -194,7 +197,7 @@
  */
 
 
-/*! \fn uint64_t platform_info::host_timer_resolution() const
+/*! \fn uint64_t compute_platform::host_timer_resolution() const
  * \brief Returns the resolution of the host timer.
  *
  * \return the resolution of the host timer in nanoseconds. The returned value 
@@ -202,7 +205,7 @@
  */
 
 
-/*! \fn const std::string &platform_info::icd_suffix_khr() const
+/*! \fn const std::string &compute_platform::icd_suffix_khr() const
  * \brief Returns the function name suffix.
  *
  * \return the function name suffix used to identify extension functions to be directed to this OpenCL platform by the ICD Loader. The returned value is the 
@@ -211,25 +214,26 @@
 
 
 /*!
- * \fn const opencl_devices_t &platform_info::devices() const
- * \brief Returns the vector containing objects of class device_info.
+ * \fn const compute_devices_t &compute_platform::devices() const
+ * \brief Returns the vector containing objects of class compute_device.
  * \return the vector of type 
- * \ref teuthid::opencl_devices_t "opencl_devices_t" containing objects of 
- * class device_info - the OpenCL devices assigned to this OpenCL platform.
- * \see platform_info::platforms.
+ * \ref teuthid::compute_devices_t "compute_devices_t" containing objects of 
+ * class compute_device - the OpenCL devices assigned to this OpenCL platform.
+ * \see platforms().
  * \note The Teuthid framework must be compiled with enabled 
  * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
  * devices.
  */
 
 
-/*! \fn const opencl_platforms_t &platform_info::platforms(bool force_detection = false)
- * \brief Returns the vector containing objects of class platform_info.
+/*! \fn const opencl_platforms_t &compute_platform::platforms(bool force_detection = false)
+ * \brief Returns the vector containing objects of class compute_platform.
  * \return the vector of type 
- * \ref teuthid::opencl_platforms_t "opencl_platforms_t" containing objects of 
- * class platform_info
+ * \ref teuthid::compute_platforms_t "compute_platforms_t" containing objects 
+ * of class compute_platform
  * @param[in] force_detection If it is equal to \c true, a detection of the 
- * available OpenCL platforms and devices is performed. \n
+ * available OpenCL platforms and devices is performed. The default value is
+ * \c false \n
  * Normally, it is unnecessary because such detection is performed 
  * automatically when you start an application that uses the framework.
  * \note The Teuthid framework must be compiled with enabled 
