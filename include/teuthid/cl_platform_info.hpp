@@ -50,14 +50,15 @@ typedef std::vector<CL_platform_info> CL_platforms_t;
 class CL_platform_info {
 public:
   CL_platform_info()
-      : id_(NULL), profile_(UNKNOWN_PROFILE), version_(""), major_version_(0),
-        minor_version_(0), spec_version_(""), name_(""), vendor_(""),
-        host_timer_resolution_(0), icd_suffix_khr_(""), extensions_("") {}
+      : id_(NULL), profile_(CL_UNKNOWN_PROFILE), version_(""),
+        major_version_(0), minor_version_(0), spec_version_(""), name_(""),
+        vendor_(""), host_timer_resolution_(0), icd_suffix_khr_(""),
+        extensions_("") {}
   ~CL_platform_info() {}
   const CL_platform_id_t &id() const { return id_; }
   const CL_profile_t &profile() const { return profile_; }
-  bool is_full_profile() const { return (profile_ == FULL_PROFILE); }
-  bool is_embedded_profile() const { return (profile_ == EMBEDDED_PROFILE); }
+  bool is_full_profile() const { return (profile_ == CL_FULL_PROFILE); }
+  bool is_embedded_profile() const { return (profile_ == CL_EMBEDDED_PROFILE); }
   const std::string &version() const { return version_; }
   int major_version() const { return major_version_; }
   int minor_version() const { return minor_version_; }

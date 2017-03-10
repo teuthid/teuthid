@@ -17,56 +17,56 @@
 */
 
 
-/*! \enum teuthid::cl::opencl_profile_t
+/*! \enum teuthid::CL_profile_t
  * \brief This enumeration includes named constants of OpenCL platform's 
  * or device's profile.
  *
- * \see platform_info::profile(), platform_info::is_full_profile(), 
- * platform_info::is_embedded_profile().
+ * \see CL_platform_info::profile(), CL_platform_info::is_full_profile(), 
+ * CL_platform_info::is_embedded_profile().
  */
-/*! \var teuthid::cl::platform_info::FULL_PROFILE
+/*! \var teuthid::CL_FULL_PROFILE
  * Identifies a platform or device which supports the OpenCL 
  * <a href="https://www.khronos.org/registry/OpenCL/">specification</a>
  * (functionality defined as part of the core specification and does not 
  * require any extensions to be supported).
  */
-/*! \var teuthid::cl::platform_info::EMBEDDED_PROFILE
+/*! \var teuthid::CL_EMBEDDED_PROFILE
  * Identifies a platform or device which supports the OpenCL embedded 
  * profile. The embedded profile is defined to be a subset for each version of 
  * OpenCL.
  */
 /*!
- * \var teuthid::cl::platform_info::UNKNOWN_PROFILE
+ * \var teuthid::CL_UNKNOWN_PROFILE
  * Unknown OpenCL platform's or device's profile (is undetermined).
  */
 
 
-/*! \class teuthid::cl::device_info cl_device_info.hpp \ 
+/*! \class teuthid::CL_device_info cl_device_info.hpp \ 
 <teuthid/cl_device_info.hpp>
  * \brief This class holds specific information about the OpenCL
- * devices for a particular OpenCL \ref teuthid::cl::platform_info "platform".
+ * devices for a particular OpenCL \ref teuthid::CL_platform_info "platform".
  *
  * <a href="https://www.khronos.org/opencl/">OpenCL</a> is used as an interface 
  * for executing code on parallel devices such as GPUs and multi-core CPUs.
  * \note The Teuthid framework must be compiled with enabled 
  * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
  * devices.
- * \see platform_info::devices().
+ * \see CL_platform_info::devices().
  */
 
-/*! \fn device_info::device_info()
- * \brief Constructs a new object of class device_info.
+/*! \fn CL_device_info::CL_device_info()
+ * \brief Constructs a new object of class CL_device_info.
  *
  * The new object is empty and <b>does not</b> contain information about any
  * OpenCL device.
  */
 
-/*! \fn device_info::~device_info()
- * \brief Destructs an object of class device_info.
+/*! \fn CL_device_info::~CL_device_info()
+ * \brief Destructs an object of class CL_device_info.
  */
 
 
-/*! \fn const opencl_device_id_t &device_info::id() const
+/*! \fn const CL_device_id_t &CL_device_info::id() const
  * \brief Returns the identifier for this device.
  *
  * \return the identifier for this OpenCL device. The returned value is the 
@@ -75,7 +75,7 @@
  */
 
 
-/*! \fn const std::string &device_info::name() const
+/*! \fn const std::string &CL_device_info::name() const
  * \brief Return the name of this device.
  *
  * \return the name of this OpenCL device. The returned value is the 

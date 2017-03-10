@@ -47,7 +47,7 @@ class CL_platform_info;
 
 typedef std::vector<CL_device_info> CL_devices_t;
 
-enum CL_profile_t { FULL_PROFILE, EMBEDDED_PROFILE, UNKNOWN_PROFILE };
+enum CL_profile_t { CL_FULL_PROFILE, CL_EMBEDDED_PROFILE, CL_UNKNOWN_PROFILE };
 
 class CL_device_info {
   friend class CL_platform_info;

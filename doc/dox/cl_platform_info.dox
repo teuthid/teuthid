@@ -17,16 +17,16 @@
 */
 
 
-/*! \typedef typedef std::vector<cl::platform_info> teuthid::opencl_platforms_t
+/*! \typedef typedef std::vector<CL_platform_info> teuthid::CL_platforms_t
  * \brief This is a type alias for the vector containing objects of class
- * \ref teuthid::cl::platform_info "platform_info".
+ * \ref teuthid::CL_platform_info "CL_platform_info".
  *
- * \see \ref teuthid::cl::platform_info::platforms() 
- * "platform_info::platforms()".
+ * \see \ref teuthid::CL_platform_info::platforms() 
+ * "CL_platform_info::platforms()".
  */
 
 
-/*! \class teuthid::cl::platform_info cl_platform_info.hpp \ 
+/*! \class teuthid::CL_platform_info cl_platform_info.hpp \ 
 <teuthid/cl_platform_info.hpp>
  *  \brief This class holds information about the OpenCL platform.
  * 
@@ -44,22 +44,22 @@
  * 
  * int main() {
  *   std::cout << "Available OpenCL platform(s): "
- *             << library::opencl_platforms().size() << std::endl;
+ *             << library::CL_platforms().size() << std::endl;
  *
- *   for (auto __platform : library::opencl_platforms()) {
+ *   for (auto __platform : library::CL_platforms()) {
  *
  *     std::cout << "Platform Name: " << __platform.name() << std::endl;
  *     std::cout << "Platform Vendor: " << __platform.vendor() << std::endl;
  *     std::cout << "Platform Version: " << __platform.version() << std::endl;
  *
  *     if (__platform.is_full_profile())
- *       std::cout << "  Platform Profile: FULL_PROFILE" << std::endl;
+ *       std::cout << "  Platform Profile: FULL PROFILE" << std::endl;
  *   }   
  *
  *   return 0;
  * }
  * \endcode
- * See \ref teuthid::library::have_opencl() "library::have_opencl()" and
+ * See \ref teuthid::library::have_CL() "library::have_CL()" and
  * platforms() about checking if the running system has OpenCL-capable hardware 
  * and drivers.
  */

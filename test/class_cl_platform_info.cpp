@@ -28,7 +28,7 @@ using namespace teuthid;
 BOOST_AUTO_TEST_CASE(class_teuthid_CL_platform_info) {
   CL_platform_info __info;
   BOOST_TEST(!__info.id(), "id()");
-  BOOST_TEST(__info.profile() == UNKNOWN_PROFILE, "profile()");
+  BOOST_TEST(__info.profile() == CL_UNKNOWN_PROFILE, "profile()");
   BOOST_TEST(__info.version().empty(), "version()");
   BOOST_TEST(__info.major_version() == 0, "major_version()");
   BOOST_TEST(__info.minor_version() == 0, "minor_version()");
@@ -44,7 +44,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_CL_platform_info) {
   BOOST_TEST(!__platforms.empty());
   for (auto __platform : __platforms) {
     BOOST_TEST(__platform.id(), "id()");
-    BOOST_TEST(__platform.profile() != UNKNOWN_PROFILE, "profile()");
+    BOOST_TEST(__platform.profile() != CL_UNKNOWN_PROFILE, "profile()");
     BOOST_TEST(
         (__platform.is_full_profile() || __platform.is_embedded_profile()),
         "is_full_profile(), is_embedded_profile()");

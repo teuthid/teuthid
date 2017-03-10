@@ -51,11 +51,11 @@ int main() {
                 << "." << __platform.minor_version();
       std::cout << std::endl;
       if (__platform.is_full_profile())
-        __str = std::string("FULL_PROFILE");
+        __str = std::string("FULL PROFILE");
       else if (__platform.is_embedded_profile())
-        __str = std::string("EMBEDDED_PROFILE");
+        __str = std::string("EMBEDDED PROFILE");
       else
-        __str = std::string("UNKNOWN_PROFILE");
+        __str = std::string("UNKNOWN PROFILE");
       std::cout << "  Platform Profile: " << __str;
       std::cout << std::endl;
       std::cout << "  Platform Extensions: " << __platform.extensions();
