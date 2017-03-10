@@ -36,31 +36,28 @@ namespace teuthid {
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 #if defined(TEUTHID_WITH_OPENCL)
-typedef cl_device_id opencl_device_id_t;
+typedef cl_device_id CL_device_id_t;
 #else
-typedef int *opencl_device_id_t;
+typedef int *CL_device_id_t;
 #endif // defined(TEUTHID_WITH_OPENCL)
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
-namespace cl {
-class device_info;
-class platform_info;
-}
-typedef std::vector<cl::device_info> opencl_devices_t;
+class CL_device_info;
+class CL_platform_info;
 
-namespace cl {
+typedef std::vector<CL_device_info> CL_devices_t;
 
-enum opencl_profile_t { FULL_PROFILE, EMBEDDED_PROFILE, UNKNOWN_PROFILE };
+enum CL_profile_t { FULL_PROFILE, EMBEDDED_PROFILE, UNKNOWN_PROFILE };
 
-class device_info {
-  friend class platform_info;
+class CL_device_info {
+  friend class CL_platform_info;
 
 public:
-  device_info()
+  CL_device_info()
       : id_(NULL), name_(""), version_(""), driver_version_(""), c_version_(""),
         max_compute_units_(0) {}
-  ~device_info() {}
-  const opencl_device_id_t &id() const { return id_; }
+  ~CL_device_info() {}
+  const CL_device_id_t &id() const { return id_; }
   const std::string &name() const { return name_; }
   const std::string &version() const { return version_; }
   const std::string &driver_version() const { return driver_version_; }
@@ -68,7 +65,7 @@ public:
   uint32_t max_compute_units() const { return max_compute_units_; }
 
 private:
-  opencl_device_id_t id_;      // device ID
+  CL_device_id_t id_;          // device ID
   std::string name_;           // CL_DEVICE_NAME
   std::string version_;        // CL_DEVICE_VERSION
   std::string driver_version_; // CL_DRIVER_VERSION
@@ -76,7 +73,6 @@ private:
   uint32_t max_compute_units_; // CL_DEVICE_MAX_COMPUTE_UNITS
 };
 
-} // namespace cl
 } // namespace teuthid
 
 #endif // TEUTHID_CL_DEVICE_INFO_HPP

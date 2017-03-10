@@ -20,7 +20,7 @@
 
 using namespace teuthid;
 
-thread_local bool library::use_opencl_ = library::have_opencl();
+thread_local bool library::use_CL_ = library::have_CL();
 std::string library::version_ = std::string(TEUTHID_VERSION);
 
 bool library::is_required_version(int min_major, int min_minor) {
@@ -29,8 +29,8 @@ bool library::is_required_version(int min_major, int min_minor) {
   return (!(__required > __actual));
 }
 
-bool library::use_opencl(bool enabled) {
-  if (library::have_opencl())
-    library::use_opencl_ = enabled;
-  return library::use_opencl_;
+bool library::use_CL(bool enabled) {
+  if (library::have_CL())
+    library::use_CL_ = enabled;
+  return library::use_CL_;
 }

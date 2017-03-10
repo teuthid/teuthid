@@ -22,9 +22,9 @@
 using namespace teuthid;
 
 #if defined(TEUTHID_USE_ARRAYFIRE)
-#define opencl_backend "ArrayFire"
+#define cl_backend "ArrayFire"
 #else
-#define opencl_backend "Boost.Compute"
+#define cl_backend "Boost.Compute"
 #endif
 
 #define ruler                                                                  \
@@ -36,13 +36,12 @@ int main() {
   std::cout << std::endl << ruler << std::endl;
   std::cout << "Teuthid Version " << library::major_version() << "."
             << library::minor_version() << std::endl;
-  if (library::have_opencl()) {
-    std::cout << "Build with OpenCL (using " << opencl_backend
-              << " as a backend).";
+  if (library::have_CL()) {
+    std::cout << "Build with OpenCL (using " << cl_backend << " as a backend).";
     std::cout << std::endl;
     std::cout << "Available OpenCL platform(s): "
-              << library::opencl_platforms().size() << std::endl;
-    for (auto __platform : library::opencl_platforms()) {
+              << library::CL_platforms().size() << std::endl;
+    for (auto __platform : library::CL_platforms()) {
       std::cout << "  Platform Name: " << __platform.name();
       std::cout << std::endl;
       std::cout << "  Platform Vendor: " << __platform.vendor();

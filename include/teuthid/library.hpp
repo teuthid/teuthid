@@ -27,27 +27,29 @@ namespace teuthid {
 
 class library final {
 public:
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
   library(library const &) = delete;
   void operator=(library const &) = delete;
+#endif // DOXYGEN_SHOULD_SKIP_THIS
   static constexpr int major_version() { return TEUTHID_MAJOR_VERSION; }
   static constexpr int minor_version() { return TEUTHID_MINOR_VERSION; }
   static constexpr int patch_version() { return TEUTHID_PATCH_VERSION; }
   static constexpr int soversion() { return TEUTHID_SOVERSION; }
   static const std::string &version() { return library::version_; }
   static bool is_required_version(int min_major, int min_minor);
-  static const opencl_platforms_t &opencl_platforms() {
-    return cl::platform_info::platforms();
+  static const CL_platforms_t &CL_platforms() {
+    return CL_platform_info::platforms();
   }
-  static bool have_opencl() { return (library::opencl_platforms().size() > 0); }
-  static bool use_opencl() { return library::use_opencl_; }
-  static bool use_opencl(bool enabled);
+  static bool have_CL() { return (library::CL_platforms().size() > 0); }
+  static bool use_CL() { return library::use_CL_; }
+  static bool use_CL(bool enabled);
 
 private:
   library() {}
   ~library() {}
 
   static std::string version_;
-  static thread_local bool use_opencl_;
+  static thread_local bool use_CL_;
 }; // class library
 } // namespace teuthid
 

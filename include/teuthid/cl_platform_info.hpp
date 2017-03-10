@@ -37,28 +37,25 @@ namespace teuthid {
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 #if defined(TEUTHID_WITH_OPENCL)
-typedef cl_platform_id opencl_platform_id_t;
+typedef cl_platform_id CL_platform_id_t;
 #else
-typedef int *opencl_platform_id_t;
+typedef int *CL_platform_id_t;
 #endif // defined(TEUTHID_WITH_OPENCL)
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
-namespace cl {
-class platform_info;
-}
-typedef std::vector<cl::platform_info> opencl_platforms_t;
+class CL_platform_info;
 
-namespace cl {
+typedef std::vector<CL_platform_info> CL_platforms_t;
 
-class platform_info {
+class CL_platform_info {
 public:
-  platform_info()
+  CL_platform_info()
       : id_(NULL), profile_(UNKNOWN_PROFILE), version_(""), major_version_(0),
         minor_version_(0), spec_version_(""), name_(""), vendor_(""),
         host_timer_resolution_(0), icd_suffix_khr_(""), extensions_("") {}
-  ~platform_info() {}
-  const opencl_platform_id_t &id() const { return id_; }
-  const opencl_profile_t &profile() const { return profile_; }
+  ~CL_platform_info() {}
+  const CL_platform_id_t &id() const { return id_; }
+  const CL_profile_t &profile() const { return profile_; }
   bool is_full_profile() const { return (profile_ == FULL_PROFILE); }
   bool is_embedded_profile() const { return (profile_ == EMBEDDED_PROFILE); }
   const std::string &version() const { return version_; }
@@ -71,14 +68,14 @@ public:
   const std::string &extensions() const { return extensions_; }
   uint64_t host_timer_resolution() const { return host_timer_resolution_; }
   const std::string &icd_suffix_khr() const { return icd_suffix_khr_; }
-  const opencl_devices_t &devices() const { return devices_; }
+  const CL_devices_t &devices() const { return devices_; }
 
-  static const opencl_platforms_t &platforms(bool force_detection = false);
+  static const CL_platforms_t &platforms(bool force_detection = false);
 
 private:
-  opencl_platform_id_t id_;  // platform ID
-  opencl_profile_t profile_; // CL_PLATFORM_PROFILE
-  std::string version_;      // CL_PLATFORM_VERSION
+  CL_platform_id_t id_;  // platform ID
+  CL_profile_t profile_; // CL_PLATFORM_PROFILE
+  std::string version_;  // CL_PLATFORM_VERSION
   int major_version_;
   int minor_version_;
   std::string spec_version_;
@@ -87,15 +84,14 @@ private:
   std::string extensions_;         // CL_PLATFORM_EXTENSIONS
   uint64_t host_timer_resolution_; // CL_PLATFORM_HOST_TIMER_RESOLUTION
   std::string icd_suffix_khr_;     // CL_PLATFORM_ICD_SUFFIX_KHR
-  opencl_devices_t devices_;       // devices of this platform
+  CL_devices_t devices_;           // devices of this platform
 
   static std::mutex mutex_;
   static bool platforms_detected_;
-  static opencl_platforms_t platforms_;
+  static CL_platforms_t platforms_;
   static void detect_platforms_and_devices_();
 };
 
-} // namespace cl
 } // namespace teuthid
 
 #endif // TEUTHID_CL_PLATFORM_INFO_HPP

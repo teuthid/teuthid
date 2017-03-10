@@ -23,25 +23,24 @@
 #include <teuthid/cl_platform_info.hpp>
 
 using namespace teuthid;
-using namespace teuthid::cl;
 
-std::mutex platform_info::mutex_;
-bool platform_info::platforms_detected_ = false;
-opencl_platforms_t platform_info::platforms_ = opencl_platforms_t();
+std::mutex CL_platform_info::mutex_;
+bool CL_platform_info::platforms_detected_ = false;
+CL_platforms_t CL_platform_info::platforms_ = CL_platforms_t();
 
-bool platform_info::is_required_version(int major, int minor) const {
+bool CL_platform_info::is_required_version(int major, int minor) const {
   int __required = major * 100 + minor;
   int __actual = major_version_ * 100 + minor_version_;
   return (!(__required > __actual));
 }
 
-const opencl_platforms_t &platform_info::platforms(bool force_detection) {
+const CL_platforms_t &CL_platform_info::platforms(bool force_detection) {
   std::lock_guard<std::mutex> __guard(mutex_);
-  if (!platform_info::platforms_detected_ || force_detection) {
-    platform_info::detect_platforms_and_devices_();
-    platform_info::platforms_detected_ = true;
+  if (!CL_platform_info::platforms_detected_ || force_detection) {
+    CL_platform_info::detect_platforms_and_devices_();
+    CL_platform_info::platforms_detected_ = true;
   }
-  return platform_info::platforms_;
+  return CL_platform_info::platforms_;
 }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -71,7 +70,7 @@ bool __teuthid_cl_device_param(std::string &param, cl_device_id device,
   return true;
 }
 
-opencl_profile_t __teuthid_cl_get_profile(std::string str_profile) {
+CL_profile_t __teuthid_cl_get_profile(std::string str_profile) {
   if (str_profile == std::string("FULL_PROFILE"))
     return FULL_PROFILE;
   else if (str_profile == std::string("EMBEDDED_PROFILE"))
@@ -80,8 +79,8 @@ opencl_profile_t __teuthid_cl_get_profile(std::string str_profile) {
 }
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
-void platform_info::detect_platforms_and_devices_() {
-  platform_info::platforms_.clear();
+void CL_platform_info::detect_platforms_and_devices_() {
+  CL_platform_info::platforms_.clear();
 #if defined(TEUTHID_WITH_OPENCL)
   cl_int __result;
   cl_uint __platform_count = 0;
@@ -104,7 +103,7 @@ void platform_info::detect_platforms_and_devices_() {
   // platforms queries
   for (cl_int i = 0; i < __platform_count; i++) {
     assert(__platforms[i]);
-    platforms_.push_back(platform_info());
+    platforms_.push_back(CL_platform_info());
     platforms_[i].id_ = __platforms[i];
 
     if (!__teuthid_cl_platform_param(__str, __platforms[i],
@@ -157,9 +156,9 @@ void platform_info::detect_platforms_and_devices_() {
                        __devices, NULL) != CL_SUCCESS) {
       continue; // unable to get device IDs for __platforms[i]
     }
-    opencl_devices_t &__devs = platforms_[i].devices_;
+    CL_devices_t &__devs = platforms_[i].devices_;
     for (cl_int j = 0; j < __device_count; j++) {
-      __devs.push_back(device_info());
+      __devs.push_back(CL_device_info());
       __devs[j].id_ = __devices[i];
       if (!__teuthid_cl_device_param(__devs[j].name_, __devices[i],
                                      CL_DEVICE_NAME))

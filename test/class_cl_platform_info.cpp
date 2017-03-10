@@ -24,55 +24,48 @@
 #include <teuthid/library.hpp>
 
 using namespace teuthid;
-using namespace teuthid::cl;
 
-BOOST_AUTO_TEST_CASE(class_teuthid_cl_platform_info) {
-  platform_info __info;
-  BOOST_TEST(!__info.id(), "cl::platform_info.id()");
-  BOOST_TEST(__info.profile() == UNKNOWN_PROFILE,
-             "cl::platform_info.profile()");
-  BOOST_TEST(__info.version().empty(), "cl::platform_info.version()");
-  BOOST_TEST(__info.major_version() == 0, "cl::platform_info.major_version()");
-  BOOST_TEST(__info.minor_version() == 0, "cl::platform_info.minor_version()");
-  BOOST_TEST(__info.spec_version().empty(), "cl::platform_info.spec_version()");
-  BOOST_TEST(__info.name().empty(), "cl::platform_info.name()");
-  BOOST_TEST(__info.vendor().empty(), "cl::platform_info.vendor()");
-  BOOST_TEST(__info.extensions().empty(), "cl::platform_info.extensions()");
-  BOOST_TEST(__info.host_timer_resolution() == 0,
-             "cl::platform_info.host_timer_resolution()");
-  BOOST_TEST(__info.icd_suffix_khr().empty(), "cl::icd_suffix_khr.vendor()");
-  BOOST_TEST(__info.devices().empty(), "cl::devices()");
-  opencl_platforms_t __platforms = library::opencl_platforms();
+BOOST_AUTO_TEST_CASE(class_teuthid_CL_platform_info) {
+  CL_platform_info __info;
+  BOOST_TEST(!__info.id(), "id()");
+  BOOST_TEST(__info.profile() == UNKNOWN_PROFILE, "profile()");
+  BOOST_TEST(__info.version().empty(), "version()");
+  BOOST_TEST(__info.major_version() == 0, "major_version()");
+  BOOST_TEST(__info.minor_version() == 0, "minor_version()");
+  BOOST_TEST(__info.spec_version().empty(), "spec_version()");
+  BOOST_TEST(__info.name().empty(), "name()");
+  BOOST_TEST(__info.vendor().empty(), "vendor()");
+  BOOST_TEST(__info.extensions().empty(), "extensions()");
+  BOOST_TEST(__info.host_timer_resolution() == 0, "host_timer_resolution()");
+  BOOST_TEST(__info.icd_suffix_khr().empty(), "icd_suffix_khr.vendor()");
+  BOOST_TEST(__info.devices().empty(), "devices()");
+  CL_platforms_t __platforms = library::CL_platforms();
 #if defined(TEUTHID_WITH_OPENCL)
   BOOST_TEST(!__platforms.empty());
   for (auto __platform : __platforms) {
-    BOOST_TEST(__platform.id(), "cl::platform_info.id()");
-    BOOST_TEST(__platform.profile() != UNKNOWN_PROFILE,
-               "cl::platform_info.profile()");
+    BOOST_TEST(__platform.id(), "id()");
+    BOOST_TEST(__platform.profile() != UNKNOWN_PROFILE, "profile()");
     BOOST_TEST(
         (__platform.is_full_profile() || __platform.is_embedded_profile()),
-        "cl::platform_info.is_full_profile()");
-    BOOST_TEST(!__platform.version().empty(), "cl::platform_info.version()");
-    BOOST_TEST(__platform.major_version() > 0,
-               "cl::platform_info.major_version()");
-    BOOST_TEST(!__platform.spec_version().empty(),
-               "cl::platform_info.spec_version()");
-    BOOST_TEST(!__platform.name().empty(), "cl::platform_info.name()");
-    BOOST_TEST(!__platform.vendor().empty(), "cl::platform_info.vendor()");
+        "is_full_profile(), is_embedded_profile()");
+    BOOST_TEST(!__platform.version().empty(), "version()");
+    BOOST_TEST(__platform.major_version() > 0, "major_version()");
+    BOOST_TEST(!__platform.spec_version().empty(), "spec_version()");
+    BOOST_TEST(!__platform.name().empty(), "name()");
+    BOOST_TEST(!__platform.vendor().empty(), "vendor()");
     BOOST_TEST(__platform.is_required_version(__platform.major_version(),
                                               __platform.minor_version()),
-               "cl::platform_info.is_required_version()");
-    BOOST_TEST(__platform.is_required_version(0, 0),
-               "cl::platform_info.is_required_version()");
+               "is_required_version()");
+    BOOST_TEST(__platform.is_required_version(0, 0), "is_required_version()");
     BOOST_TEST(
         !__platform.is_required_version(__platform.major_version() + 1, 0),
-        "cl::platform_info.is_required_version()");
+        "is_required_version()");
     BOOST_TEST(!__platform.is_required_version(__platform.major_version(),
                                                __platform.minor_version() + 1),
-               "cl::platform_info.is_required_version()");
-    BOOST_TEST(!__platform.devices().empty(), "cl::devices()");
+               "is_required_version()");
+    BOOST_TEST(!__platform.devices().empty(), "devices()");
     __info = __platform;
-    BOOST_TEST(__info.id(), "cl::platform_info.id()");
+    BOOST_TEST(__info.id(), "id()");
   }
 #else
   BOOST_TEST(__platforms.empty());

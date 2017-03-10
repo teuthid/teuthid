@@ -29,7 +29,7 @@ using namespace teuthid;
 
 class test_thread {
 public:
-  void test() { library::use_opencl(false); }
+  void test() { library::use_CL(false); }
 };
 
 class test {
@@ -68,22 +68,22 @@ BOOST_AUTO_TEST_CASE(class_teuthid_library) {
              "is_required_version()");
 
   test __test = test();
-  opencl_platforms_t __platforms = library::opencl_platforms();
+  CL_platforms_t __platforms = library::CL_platforms();
 #if defined(TEUTHID_WITH_OPENCL)
-  BOOST_TEST(library::have_opencl(), "have_opencl()");
-  BOOST_TEST(library::use_opencl(), "use_opencl()");
-  BOOST_TEST(!library::use_opencl(false), "use_opencl(bool)");
-  BOOST_TEST(!library::use_opencl(), "use_opencl()");
-  BOOST_TEST(library::use_opencl(true), "use_opencl(bool)");
+  BOOST_TEST(library::have_CL(), "have_CL()");
+  BOOST_TEST(library::use_CL(), "use_CL()");
+  BOOST_TEST(!library::use_CL(false), "use_CL(bool)");
+  BOOST_TEST(!library::use_CL(), "use_CL()");
+  BOOST_TEST(library::use_CL(true), "use_CL(bool)");
   __test.call_threads();
   std::this_thread::sleep_for(std::chrono::milliseconds(123));
-  BOOST_TEST(library::use_opencl(), "use_opencl()");
+  BOOST_TEST(library::use_CL(), "use_CL()");
   BOOST_TEST(__platforms.size() > 0);
 #else
-  BOOST_TEST(!library::have_opencl(), "have_opencl()");
-  BOOST_TEST(!library::use_opencl(), "use_opencl()");
-  BOOST_TEST(!library::use_opencl(true), "use_opencl(bool)");
-  BOOST_TEST(!library::use_opencl(false), "use_opencl(bool)");
+  BOOST_TEST(!library::have_CL(), "have_CL()");
+  BOOST_TEST(!library::use_CL(), "use_CL()");
+  BOOST_TEST(!library::use_CL(true), "use_CL(bool)");
+  BOOST_TEST(!library::use_CL(false), "use_CL(bool)");
   BOOST_TEST(__platforms.empty());
 #endif
 }

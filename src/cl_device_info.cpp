@@ -22,5 +22,5 @@
 #include <teuthid/cl_platform_info.hpp>
 
 using namespace teuthid;
-using namespace teuthid::cl;
+
 

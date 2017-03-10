@@ -26,35 +26,30 @@
 #include <teuthid/cl_platform_info.hpp>
 
 using namespace teuthid;
-using namespace teuthid::cl;
 
-BOOST_AUTO_TEST_CASE(class_teuthid_cl_device_info) {
-  device_info __info;
-  BOOST_TEST(!__info.id(), "cl::device_info.id()");
-  BOOST_TEST(__info.name().empty(), "cl::device_info.name()");
-  BOOST_TEST(__info.version().empty(), "cl::device_info.version()");
-  BOOST_TEST(__info.driver_version().empty(),
-             "cl::device_info.driver_version()");
-  BOOST_TEST(__info.c_version().empty(), "cl::device_info.c_version()");
-  BOOST_TEST(__info.max_compute_units() == 0,
-             "cl::device_info.max_compute_units()");
-  opencl_platforms_t __platforms = library::opencl_platforms();
-  opencl_devices_t __devices;
+BOOST_AUTO_TEST_CASE(class_teuthid_CL_device_info) {
+  CL_device_info __info;
+  BOOST_TEST(!__info.id(), "id()");
+  BOOST_TEST(__info.name().empty(), "name()");
+  BOOST_TEST(__info.version().empty(), "version()");
+  BOOST_TEST(__info.driver_version().empty(), "driver_version()");
+  BOOST_TEST(__info.c_version().empty(), "c_version()");
+  BOOST_TEST(__info.max_compute_units() == 0, "max_compute_units()");
+  CL_platforms_t __platforms = library::CL_platforms();
+  CL_devices_t __devices;
 #if defined(TEUTHID_WITH_OPENCL)
   BOOST_TEST(!__platforms.empty());
   for (auto __platform : __platforms) {
     __devices = __platform.devices();
     for (auto __device : __devices) {
-      BOOST_TEST(__device.id(), "cl::device_info.id()");
-      BOOST_TEST(!__device.name().empty(), "cl::device_info.name()");
-      BOOST_TEST(!__device.version().empty(), "cl::device_info.version()");
-      BOOST_TEST(!__device.driver_version().empty(),
-                 "cl::device_info.driver_version()");
-      BOOST_TEST(!__device.c_version().empty(), "cl::device_info.c_version()");
-      BOOST_TEST(__device.max_compute_units() > 0,
-                 "cl::device_info.max_compute_units()");
+      BOOST_TEST(__device.id(), "id()");
+      BOOST_TEST(!__device.name().empty(), "name()");
+      BOOST_TEST(!__device.version().empty(), "version()");
+      BOOST_TEST(!__device.driver_version().empty(), "driver_version()");
+      BOOST_TEST(!__device.c_version().empty(), "c_version()");
+      BOOST_TEST(__device.max_compute_units() > 0, "max_compute_units()");
       __info = __device;
-      BOOST_TEST(__info.id(), "cl::platform_info.id()");
+      BOOST_TEST(__info.id(), "id()");
     }
   }
 #else
