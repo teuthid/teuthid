@@ -49,10 +49,8 @@ typedef std::vector<compute_platform> compute_platforms_t;
 class compute_platform {
 public:
   compute_platform()
-      : id_(NULL), profile_(COMPUTE_UNKNOWN_PROFILE), version_(""),
-        major_version_(0), minor_version_(0), spec_version_(""), name_(""),
-        vendor_(""), host_timer_resolution_(0), icd_suffix_khr_(""),
-        extensions_("") {}
+      : id_(NULL), profile_(COMPUTE_UNKNOWN_PROFILE), major_version_(0),
+        minor_version_(0) {}
   ~compute_platform() {}
   const compute_platform_id_t &id() const { return id_; }
   const compute_profile_t &profile() const { return profile_; }
@@ -68,11 +66,10 @@ public:
   const std::string &name() const { return name_; }
   const std::string &vendor() const { return vendor_; }
   const std::string &extensions() const { return extensions_; }
-  uint64_t host_timer_resolution() const { return host_timer_resolution_; }
   const std::string &icd_suffix_khr() const { return icd_suffix_khr_; }
   const compute_devices_t &devices() const { return devices_; }
 
-  static const compute_platforms_t &platforms(bool force_detection = false);
+  static const compute_platforms_t &platforms();
 
 private:
   compute_platform_id_t id_;  // platform ID
@@ -81,17 +78,16 @@ private:
   int major_version_;
   int minor_version_;
   std::string spec_version_;
-  std::string name_;               // CL_PLATFORM_NAME
-  std::string vendor_;             // CL_PLATFORM_VENDOR
-  std::string extensions_;         // CL_PLATFORM_EXTENSIONS
-  uint64_t host_timer_resolution_; // CL_PLATFORM_HOST_TIMER_RESOLUTION
-  std::string icd_suffix_khr_;     // CL_PLATFORM_ICD_SUFFIX_KHR
-  compute_devices_t devices_;      // devices of this platform
+  std::string name_;           // CL_PLATFORM_NAME
+  std::string vendor_;         // CL_PLATFORM_VENDOR
+  std::string extensions_;     // CL_PLATFORM_EXTENSIONS
+  std::string icd_suffix_khr_; // CL_PLATFORM_ICD_SUFFIX_KHR
+  compute_devices_t devices_;  // devices of this platform
 
   static std::mutex mutex_;
   static bool platforms_detected_;
   static compute_platforms_t platforms_;
-  static void detect_platforms_and_devices_();
+  static void detect_platforms_();
 };
 
 } // namespace teuthid

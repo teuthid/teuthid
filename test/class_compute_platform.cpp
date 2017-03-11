@@ -36,7 +36,6 @@ BOOST_AUTO_TEST_CASE(class_teuthid_compute_platform) {
   BOOST_TEST(__info.name().empty(), "name()");
   BOOST_TEST(__info.vendor().empty(), "vendor()");
   BOOST_TEST(__info.extensions().empty(), "extensions()");
-  BOOST_TEST(__info.host_timer_resolution() == 0, "host_timer_resolution()");
   BOOST_TEST(__info.icd_suffix_khr().empty(), "icd_suffix_khr.vendor()");
   BOOST_TEST(__info.devices().empty(), "devices()");
   compute_platforms_t __platforms = library::compute_platforms();

@@ -47,8 +47,10 @@ int main() {
       std::cout << "  Platform Vendor: " << __platform.vendor();
       std::cout << std::endl;
       std::cout << "  Platform Version: " << __platform.version();
-      std::cout << "  OpenCL version supported: " << __platform.major_version()
-                << "." << __platform.minor_version();
+      std::cout << std::endl;
+      std::cout << "    OpenCL supported: " << __platform.major_version() << "."
+                << __platform.minor_version();
+      std::cout << "  Specific: " << __platform.spec_version();
       std::cout << std::endl;
       if (__platform.is_full_profile())
         __str = std::string("FULL PROFILE");
@@ -60,8 +62,6 @@ int main() {
       std::cout << std::endl;
       std::cout << "  Platform Extensions: " << __platform.extensions();
       std::cout << std::endl;
-      std::cout << "  Platform Host Timer Resolution: "
-                << __platform.host_timer_resolution() << std::endl;
       std::cout << "  Platform Extensions function suffix : "
                 << __platform.icd_suffix_khr() << std::endl;
 

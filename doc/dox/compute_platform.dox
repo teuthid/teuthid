@@ -197,14 +197,6 @@
  */
 
 
-/*! \fn uint64_t compute_platform::host_timer_resolution() const
- * \brief Returns the resolution of the host timer.
- *
- * \return the resolution of the host timer in nanoseconds. The returned value 
- * is the equivalent of \c CL_PLATFORM_HOST_TIMER_RESOLUTION.
- */
-
-
 /*! \fn const std::string &compute_platform::icd_suffix_khr() const
  * \brief Returns the function name suffix.
  *
@@ -226,16 +218,11 @@
  */
 
 
-/*! \fn const opencl_platforms_t &compute_platform::platforms(bool force_detection = false)
+/*! \fn const opencl_platforms_t &compute_platform::platforms()
  * \brief Returns the vector containing objects of class compute_platform.
  * \return the vector of type 
  * \ref teuthid::compute_platforms_t "compute_platforms_t" containing objects 
- * of class compute_platform
- * @param[in] force_detection If it is equal to \c true, a detection of the 
- * available OpenCL platforms and devices is performed. The default value is
- * \c false \n
- * Normally, it is unnecessary because such detection is performed 
- * automatically when you start an application that uses the framework.
+ * of class compute_platform.
  * \note The Teuthid framework must be compiled with enabled 
  * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
  * devices.

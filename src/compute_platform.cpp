@@ -22,11 +22,16 @@
 #include <teuthid/compute_device.hpp>
 #include <teuthid/compute_platform.hpp>
 
+#if defined(TEUTHID_WITH_OPENCL)
+#define CL_HPP_ENABLE_EXCEPTIONS
+#define CL_HPP_TARGET_OPENCL_VERSION 200
+#include "cl2.hpp"
+#endif // TEUTHID_WITH_OPENCL
+
 using namespace teuthid;
 
 std::mutex compute_platform::mutex_;
-bool compute_platform::platforms_detected_ = false;
-compute_platforms_t compute_platform::platforms_ = compute_platforms_t();
+compute_platforms_t compute_platform::platforms_;
 
 bool compute_platform::is_required_version(int major, int minor) const {
   int __required = major * 100 + minor;
@@ -34,16 +39,67 @@ bool compute_platform::is_required_version(int major, int minor) const {
   return (!(__required > __actual));
 }
 
-const compute_platforms_t &compute_platform::platforms(bool force_detection) {
+const compute_platforms_t &compute_platform::platforms() {
   std::lock_guard<std::mutex> __guard(mutex_);
-  if (!compute_platform::platforms_detected_ || force_detection) {
-    compute_platform::detect_platforms_and_devices_();
-    compute_platform::platforms_detected_ = true;
-  }
+  if (compute_platform::platforms_.empty())
+    compute_platform::detect_platforms_();
   return compute_platform::platforms_;
 }
 
+#if defined(TEUTHID_WITH_OPENCL)
+compute_profile_t __teuthid_get_cl_profile(const std::string &str_profile) {
+  if (str_profile == std::string("FULL_PROFILE"))
+    return COMPUTE_FULL_PROFILE;
+  else if (str_profile == std::string("EMBEDDED_PROFILE"))
+    return COMPUTE_EMBEDDED_PROFILE;
+  return COMPUTE_UNKNOWN_PROFILE;
+}
+
+void __teuthid_get_cl_version(const std::string &version, int &major,
+                              int &minor, std::string &spec) {
+  std::string __s = version.substr(7);
+  std::string::size_type __dot = __s.find('.');
+  assert(__dot != std::string::npos);
+  major = std::stoi(__s.substr(0, __dot));
+  assert(major != 0);
+  std::string::size_type __space = __s.find(' ');
+  assert(__space != std::string::npos);
+  minor = std::stoi(__s.substr(__dot + 1, __space));
+  spec = __s.substr(__space + 1);
+}
+#endif // TEUTHID_WITH_OPENCL
+
+void compute_platform::detect_platforms_() {
+#if defined(TEUTHID_WITH_OPENCL)
+  std::string __str;
+  std::vector<cl::Platform> __cl_platforms;
+  cl::Platform::get(&__cl_platforms);
+  assert(!__cl_platforms.empty());
+  for (std::size_t __i = 0; __i < __cl_platforms.size(); __i++) {
+    platforms_.push_back(compute_platform());
+    platforms_[__i].id_ = __cl_platforms[__i]();
+    assert(platforms_[__i].id_);
+    platforms_[__i].profile_ = __teuthid_get_cl_profile(
+        __cl_platforms[__i].getInfo<CL_PLATFORM_PROFILE>());
+    platforms_[__i].version_ =
+        __cl_platforms[__i].getInfo<CL_PLATFORM_VERSION>();
+    __teuthid_get_cl_version(
+        platforms_[__i].version_, platforms_[__i].major_version_,
+        platforms_[__i].minor_version_, platforms_[__i].spec_version_);
+    platforms_[__i].name_ = __cl_platforms[__i].getInfo<CL_PLATFORM_NAME>();
+    platforms_[__i].vendor_ = __cl_platforms[__i].getInfo<CL_PLATFORM_VENDOR>();
+    platforms_[__i].extensions_ =
+        __cl_platforms[__i].getInfo<CL_PLATFORM_EXTENSIONS>();
+
+    //
+  }
+
+#endif // TEUTHID_WITH_OPENCL
+}
+
+/*
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
+#if defined(TEUTHID_WITH_OPENCL)
 bool __teuthid_cl_platform_param(std::string &param, cl_platform_id platform,
                                  cl_platform_info param_name) {
   cl_int __result;
@@ -70,13 +126,7 @@ bool __teuthid_cl_device_param(std::string &param, cl_device_id device,
   return true;
 }
 
-compute_profile_t __teuthid_cl_get_profile(std::string str_profile) {
-  if (str_profile == std::string("FULL_PROFILE"))
-    return COMPUTE_FULL_PROFILE;
-  else if (str_profile == std::string("EMBEDDED_PROFILE"))
-    return COMPUTE_EMBEDDED_PROFILE;
-  return COMPUTE_UNKNOWN_PROFILE;
-}
+#endif // TEUTHID_WITH_OPENCL
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 void compute_platform::detect_platforms_and_devices_() {
@@ -180,3 +230,4 @@ void compute_platform::detect_platforms_and_devices_() {
   }
 #endif // defined(TEUTHID_WITH_OPENCL)
 }
+*/
