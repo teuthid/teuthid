@@ -36,32 +36,28 @@ int main() {
   std::cout << std::endl << ruler << std::endl;
   std::cout << "Teuthid Version " << library::major_version() << "."
             << library::minor_version() << std::endl;
+  std::cout << "  --" << std::endl;
   if (library::have_compute_kernel()) {
-    std::cout << "Build with OpenCL (using " << cl_backend << " as a backend).";
-    std::cout << std::endl;
+    std::cout << "Build with OpenCL (using " << cl_backend << " as a backend)."
+              << std::endl;
     std::cout << "Available OpenCL platform(s): "
               << library::compute_platforms().size() << std::endl;
     for (auto __platform : library::compute_platforms()) {
-      std::cout << "  Platform Name: " << __platform.name();
-      std::cout << std::endl;
-      std::cout << "  Platform Vendor: " << __platform.vendor();
-      std::cout << std::endl;
-      std::cout << "  Platform Version: " << __platform.version();
-      std::cout << std::endl;
+      std::cout << "  Platform Name: " << __platform.name() << std::endl;
+      std::cout << "  Platform Vendor: " << __platform.vendor() << std::endl;
+      std::cout << "  Platform Version: " << __platform.version() << std::endl;
       std::cout << "    OpenCL supported: " << __platform.major_version() << "."
                 << __platform.minor_version();
-      std::cout << "  Specific: " << __platform.spec_version();
-      std::cout << std::endl;
+      std::cout << "  Specific: " << __platform.spec_version() << std::endl;
       if (__platform.is_full_profile())
-        __str = std::string("FULL PROFILE");
+        __str = "FULL PROFILE";
       else if (__platform.is_embedded_profile())
-        __str = std::string("EMBEDDED PROFILE");
+        __str = "EMBEDDED PROFILE";
       else
-        __str = std::string("UNKNOWN PROFILE");
-      std::cout << "  Platform Profile: " << __str;
-      std::cout << std::endl;
-      std::cout << "  Platform Extensions: " << __platform.extensions();
-      std::cout << std::endl;
+        __str = "UNKNOWN PROFILE";
+      std::cout << "  Platform Profile: " << __str << std::endl;
+      std::cout << "  Platform Extensions: " << __platform.extensions()
+                << std::endl;
       std::cout << "  Platform Extensions function suffix : "
                 << __platform.icd_suffix_khr() << std::endl;
 
@@ -69,16 +65,32 @@ int main() {
       std::cout << "  Available OpenCL devices(s): "
                 << __platform.devices().size() << std::endl;
       for (auto __device : __platform.devices()) {
-        std::cout << "    Device Name: " << __device.name();
-        std::cout << std::endl;
-        std::cout << "    Device Version: " << __device.version();
-        std::cout << std::endl;
-        std::cout << "    Driver Version: " << __device.driver_version();
-        std::cout << std::endl;
-        std::cout << "    OpenCL C Version: " << __device.c_version();
-        std::cout << std::endl;
+        std::cout << "    Device Name: " << __device.name() << std::endl;
+        std::cout << "    Device Version: " << __device.version() << std::endl;
+        std::cout << "    Driver Version: " << __device.driver_version()
+                  << std::endl;
+        std::cout << "    OpenCL C Version: " << __device.c_version()
+                  << std::endl;
+        if (__device.is_full_profile())
+          __str = "FULL PROFILE";
+        else if (__device.is_embedded_profile())
+          __str = "EMBEDDED PROFILE";
+        else
+          __str = "UNKNOWN PROFILE";
+        std::cout << "    Device Profile: " << __str << std::endl;
+        if (__device.is_devtype_cpu())
+          __str = "CPU";
+        else if (__device.is_devtype_gpu())
+          __str = "GPU";
+        else if (__device.is_devtype_accelerator())
+          __str = "ACCELERATOR";
+        else
+          __str = "UNKNOWN PROFILE";
+        std::cout << "    Device Type: " << __str << std::endl;
         std::cout << "    Parallel compute units: "
                   << __device.max_compute_units() << std::endl;
+        std::cout << "    Device Extensions: " << __device.extensions()
+                  << std::endl;
       }
     }
     std::cout << std::endl;

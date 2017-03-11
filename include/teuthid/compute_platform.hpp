@@ -51,6 +51,7 @@ public:
   compute_platform()
       : id_(NULL), profile_(COMPUTE_UNKNOWN_PROFILE), major_version_(0),
         minor_version_(0) {}
+  compute_platform(const compute_platform &) = default;
   ~compute_platform() {}
   const compute_platform_id_t &id() const { return id_; }
   const compute_profile_t &profile() const { return profile_; }
@@ -88,6 +89,7 @@ private:
   static bool platforms_detected_;
   static compute_platforms_t platforms_;
   static void detect_platforms_();
+  static void detect_devices_(compute_platform &);
 };
 
 } // namespace teuthid

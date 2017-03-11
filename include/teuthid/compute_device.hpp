@@ -52,28 +52,51 @@ enum compute_profile_t {
   COMPUTE_UNKNOWN_PROFILE
 };
 
+enum compute_devtype_t {
+  COMPUTE_DEVICE_CPU,
+  COMPUTE_DEVICE_GPU,
+  COMPUTE_DEVICE_ACCELERATOR,
+  COMPUTE_DEVICE_UNKNOWN
+};
+
 class compute_device {
   friend class compute_platform;
 
 public:
   compute_device()
-      : id_(NULL), name_(""), version_(""), driver_version_(""), c_version_(""),
-        max_compute_units_(0) {}
+      : id_(NULL), profile_(COMPUTE_UNKNOWN_PROFILE),
+        devtype_(COMPUTE_DEVICE_UNKNOWN), max_compute_units_(0) {}
+  compute_device(const compute_device &) = default;
   ~compute_device() {}
   const compute_device_id_t &id() const { return id_; }
+  const compute_profile_t &profile() const { return profile_; }
+  bool is_full_profile() const { return (profile_ == COMPUTE_FULL_PROFILE); }
+  bool is_embedded_profile() const {
+    return (profile_ == COMPUTE_EMBEDDED_PROFILE);
+  }
+  const compute_devtype_t &devtype() { return devtype_; }
+  bool is_devtype_cpu() { return (devtype_ == COMPUTE_DEVICE_CPU); }
+  bool is_devtype_gpu() { return (devtype_ == COMPUTE_DEVICE_GPU); }
+  bool is_devtype_accelerator() {
+    return (devtype_ == COMPUTE_DEVICE_ACCELERATOR);
+  }
   const std::string &name() const { return name_; }
   const std::string &version() const { return version_; }
   const std::string &driver_version() const { return driver_version_; }
   const std::string &c_version() const { return c_version_; }
   uint32_t max_compute_units() const { return max_compute_units_; }
+  const std::string &extensions() const { return extensions_; }
 
 private:
   compute_device_id_t id_;     // device ID
+  compute_profile_t profile_;  // CL_DEVICE_PROFILE
+  compute_devtype_t devtype_;  // CL_DEVICE_TYPE
   std::string name_;           // CL_DEVICE_NAME
   std::string version_;        // CL_DEVICE_VERSION
   std::string driver_version_; // CL_DRIVER_VERSION
   std::string c_version_;      // CL_DEVICE_OPENCL_C_VERSION
   uint32_t max_compute_units_; // CL_DEVICE_MAX_COMPUTE_UNITS
+  std::string extensions_;     // CL_DEVICE_EXTENSIONS
 };
 
 } // namespace teuthid

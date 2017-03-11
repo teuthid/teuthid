@@ -30,11 +30,15 @@ using namespace teuthid;
 BOOST_AUTO_TEST_CASE(class_teuthid_compute_device) {
   compute_device __info;
   BOOST_TEST(!__info.id(), "id()");
+  BOOST_TEST(__info.profile() == COMPUTE_UNKNOWN_PROFILE, "profile()");
+  BOOST_TEST(__info.devtype() == COMPUTE_DEVICE_UNKNOWN, "devtype()");
   BOOST_TEST(__info.name().empty(), "name()");
   BOOST_TEST(__info.version().empty(), "version()");
   BOOST_TEST(__info.driver_version().empty(), "driver_version()");
   BOOST_TEST(__info.c_version().empty(), "c_version()");
+  BOOST_TEST(__info.devtype() == COMPUTE_DEVICE_UNKNOWN, "devtype()");
   BOOST_TEST(__info.max_compute_units() == 0, "max_compute_units()");
+  BOOST_TEST(__info.extensions().empty(), "extensions()");
   compute_platforms_t __platforms = library::compute_platforms();
   compute_devices_t __devices;
 #if defined(TEUTHID_WITH_OPENCL)
@@ -43,13 +47,17 @@ BOOST_AUTO_TEST_CASE(class_teuthid_compute_device) {
     __devices = __platform.devices();
     for (auto __device : __devices) {
       BOOST_TEST(__device.id(), "id()");
+      BOOST_TEST(__device.profile() != COMPUTE_UNKNOWN_PROFILE, "profile()");
+      BOOST_TEST(__device.devtype() != COMPUTE_DEVICE_UNKNOWN, "devtype()");
       BOOST_TEST(!__device.name().empty(), "name()");
       BOOST_TEST(!__device.version().empty(), "version()");
       BOOST_TEST(!__device.driver_version().empty(), "driver_version()");
       BOOST_TEST(!__device.c_version().empty(), "c_version()");
       BOOST_TEST(__device.max_compute_units() > 0, "max_compute_units()");
+      BOOST_TEST(!__device.extensions().empty(), "extensions()");
       __info = __device;
       BOOST_TEST(__info.id(), "id()");
+      BOOST_TEST(__info.id() == __device.id(), "id()");
     }
   }
 #else
