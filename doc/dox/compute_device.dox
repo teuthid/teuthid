@@ -233,6 +233,7 @@
  * If it is equal to \c 0, a number of units is undetermined.
  */
 
+
 /*! \fn const std::string &compute_device::extensions() const
  * \brief Returns the space-separated list of extension names.
  *

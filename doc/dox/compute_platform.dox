@@ -216,10 +216,18 @@
  * \return the vector of type 
  * \ref teuthid::compute_devices_t "compute_devices_t" containing objects of 
  * class compute_device - the OpenCL devices assigned to this OpenCL platform.
- * \see platforms().
+ * \see platforms(), num_devices().
  * \note The Teuthid framework must be compiled with enabled 
  * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
  * devices.
+ */
+
+
+/*! \fn std::size_t compute_platform::num_devices()
+ * \brief Returns the number of devices.
+ *
+ * \return the number of OpenCL devices assigned to this OpenCL platform.
+ * \see devices().
  */
 
 

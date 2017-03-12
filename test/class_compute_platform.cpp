@@ -38,6 +38,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_compute_platform) {
   BOOST_TEST(__info.extensions().empty(), "extensions()");
   BOOST_TEST(__info.icd_suffix_khr().empty(), "icd_suffix_khr.vendor()");
   BOOST_TEST(__info.devices().empty(), "devices()");
+  BOOST_TEST(__info.num_devices() == 0, "num_devices()");
   compute_platforms_t __platforms = library::compute_platforms();
 #if defined(TEUTHID_WITH_OPENCL)
   BOOST_TEST(!__platforms.empty());
@@ -63,6 +64,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_compute_platform) {
                                                __platform.minor_version() + 1),
                "is_required_version()");
     BOOST_TEST(!__platform.devices().empty(), "devices()");
+    BOOST_TEST(__platform.num_devices() > 0, "num_devices()");
     __info = __platform;
     BOOST_TEST(__info.id(), "id()");
   }

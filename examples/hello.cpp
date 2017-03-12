@@ -63,7 +63,7 @@ int main() {
 
       // ... and devices:
       std::cout << "  Available OpenCL devices(s): "
-                << __platform.devices().size() << std::endl;
+                << __platform.num_devices() << std::endl;
       for (auto __device : __platform.devices()) {
         std::cout << "    Device Name: " << __device.name() << std::endl;
         std::cout << "    Device Version: " << __device.version() << std::endl;

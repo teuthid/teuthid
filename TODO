@@ -7,8 +7,7 @@
 + teuthid::compute_platform
  	- constructor compute_platform(number)
 	- constructor compute_platform(id)
-	- std::sizet num_devices()
-	
+		
 + teuthid::compute_device
  	- constructor compute_device(platform, number)
 	- constructor compute_device(id)

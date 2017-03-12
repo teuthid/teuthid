@@ -70,6 +70,7 @@ public:
   const std::string &extensions() const { return extensions_; }
   const std::string &icd_suffix_khr() const { return icd_suffix_khr_; }
   const compute_devices_t &devices() const { return devices_; }
+  std::size_t num_devices() const { return devices_.size(); }
 
   static const compute_platforms_t &platforms();
 
