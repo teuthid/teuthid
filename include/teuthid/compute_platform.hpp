@@ -48,29 +48,32 @@ typedef std::vector<compute_platform> compute_platforms_t;
 
 class compute_platform {
 public:
-  compute_platform()
-      : id_(NULL), profile_(COMPUTE_UNKNOWN_PROFILE), major_version_(0),
-        minor_version_(0) {}
+  compute_platform() noexcept : id_(NULL),
+                                profile_(COMPUTE_UNKNOWN_PROFILE),
+                                major_version_(0),
+                                minor_version_(0) {}
   compute_platform(const compute_platform &) = default;
   ~compute_platform() {}
   compute_platform &operator=(const compute_platform &) = default;
-  const compute_platform_id_t &id() const { return id_; }
-  const compute_profile_t &profile() const { return profile_; }
-  bool is_full_profile() const { return (profile_ == COMPUTE_FULL_PROFILE); }
-  bool is_embedded_profile() const {
+  const compute_platform_id_t &id() const noexcept { return id_; }
+  const compute_profile_t &profile() const noexcept { return profile_; }
+  bool is_full_profile() const noexcept {
+    return (profile_ == COMPUTE_FULL_PROFILE);
+  }
+  bool is_embedded_profile() const noexcept {
     return (profile_ == COMPUTE_EMBEDDED_PROFILE);
   }
-  const std::string &version() const { return version_; }
-  int major_version() const { return major_version_; }
-  int minor_version() const { return minor_version_; }
-  const std::string &spec_version() const { return spec_version_; }
-  bool is_required_version(int major, int minor) const;
-  const std::string &name() const { return name_; }
-  const std::string &vendor() const { return vendor_; }
-  const std::string &extensions() const { return extensions_; }
-  const std::string &icd_suffix_khr() const { return icd_suffix_khr_; }
-  const compute_devices_t &devices() const { return devices_; }
-  std::size_t num_devices() const { return devices_.size(); }
+  const std::string &version() const noexcept { return version_; }
+  int major_version() const noexcept { return major_version_; }
+  int minor_version() const noexcept { return minor_version_; }
+  const std::string &spec_version() const noexcept { return spec_version_; }
+  bool is_required_version(int major, int minor) const noexcept;
+  const std::string &name() const noexcept { return name_; }
+  const std::string &vendor() const noexcept { return vendor_; }
+  const std::string &extensions() const noexcept { return extensions_; }
+  const std::string &icd_suffix_khr() const noexcept { return icd_suffix_khr_; }
+  const compute_devices_t &devices() const noexcept { return devices_; }
+  std::size_t num_devices() const noexcept { return devices_.size(); }
 
   static const compute_platforms_t &platforms();
 

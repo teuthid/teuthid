@@ -32,7 +32,8 @@ using namespace teuthid;
 std::mutex compute_platform::mutex_;
 compute_platforms_t compute_platform::platforms_;
 
-bool compute_platform::is_required_version(int major, int minor) const {
+bool compute_platform::is_required_version(int major, int minor) const
+    noexcept {
   int __required = major * 100 + minor;
   int __actual = major_version_ * 100 + minor_version_;
   return (!(__required > __actual));
