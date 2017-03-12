@@ -161,7 +161,7 @@
 
 
 /*! \fn bool compute_platform::is_required_version(int major, int minor) const
- * \brief Checks whether the version of OpenCL is sufficient.
+ * \brief Checks whether a version of OpenCL is sufficient.
  *
  * \return \c true if the version of OpenCL supported by this OpenCL platform
  * is a sufficient version. Otherwise return \c false.
@@ -233,7 +233,7 @@
 
 /*! \fn const opencl_platforms_t &compute_platform::platforms()
  * \brief Returns the vector containing objects of class compute_platform.
- * \return the vector of type 
+ * \return a reference to the vector of type 
  * \ref teuthid::compute_platforms_t "compute_platforms_t" containing objects 
  * of class compute_platform.
  * \note The Teuthid framework must be compiled with enabled 

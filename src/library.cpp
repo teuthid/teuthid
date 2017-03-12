@@ -23,9 +23,9 @@ using namespace teuthid;
 thread_local bool library::use_compute_kernel_ = library::have_compute_kernel();
 std::string library::version_ = std::string(TEUTHID_VERSION);
 
-bool library::is_required_version(int min_major, int min_minor) {
-  int __required = min_major * 1000 + min_minor;
-  int __actual = TEUTHID_MAJOR_VERSION * 1000 + TEUTHID_MINOR_VERSION;
+bool library::is_required_version(uint8_t major, uint8_t minor) noexcept {
+  uint32_t __required = major * 1000 + minor;
+  uint32_t __actual = TEUTHID_MAJOR_VERSION * 1000 + TEUTHID_MINOR_VERSION;
   return (!(__required > __actual));
 }
 

@@ -62,8 +62,6 @@ BOOST_AUTO_TEST_CASE(class_teuthid_library) {
              "is_required_version()");
   BOOST_TEST(!library::is_required_version(major_ver, minor_ver + 1),
              "is_required_version()");
-  BOOST_TEST(library::is_required_version(major_ver - 1, minor_ver),
-             "is_required_version()");
   BOOST_TEST(library::is_required_version(major_ver, minor_ver - 1),
              "is_required_version()");
 
