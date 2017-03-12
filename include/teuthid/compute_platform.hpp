@@ -53,6 +53,7 @@ public:
         minor_version_(0) {}
   compute_platform(const compute_platform &) = default;
   ~compute_platform() {}
+  compute_platform &operator=(const compute_platform &) = default;
   const compute_platform_id_t &id() const { return id_; }
   const compute_profile_t &profile() const { return profile_; }
   bool is_full_profile() const { return (profile_ == COMPUTE_FULL_PROFILE); }

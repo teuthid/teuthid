@@ -30,8 +30,10 @@ bool library::is_required_version(int min_major, int min_minor) {
 }
 
 bool library::have_compute_kernel() {
-  return (library::compute_platforms().size() > 0);
-  // TODO: check OpenCL devices as well
+  for (auto __platform : compute_platform::platforms())
+    if (__platform.devices().size() > 0)
+      return true;
+  return false;
 }
 
 bool library::use_compute_kernel(bool enabled) {
