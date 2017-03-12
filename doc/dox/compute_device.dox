@@ -81,7 +81,7 @@
  * \see compute_platform::devices().
  */
 
-/*! \fn compute_device::compute_device()
+/*! \fn teuthid::compute_device::compute_device()
  * \brief Constructs a new object of class compute_device.
  *
  * The new object is empty and <b>does not</b> contain information about any

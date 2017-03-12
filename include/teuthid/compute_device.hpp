@@ -63,30 +63,37 @@ class compute_device {
   friend class compute_platform;
 
 public:
-  compute_device()
-      : id_(NULL), profile_(COMPUTE_UNKNOWN_PROFILE),
-        devtype_(COMPUTE_DEVICE_UNKNOWN), max_compute_units_(0) {}
+  compute_device() noexcept : id_(NULL),
+                              profile_(COMPUTE_UNKNOWN_PROFILE),
+                              devtype_(COMPUTE_DEVICE_UNKNOWN),
+                              max_compute_units_(0) {}
   compute_device(const compute_device &) = default;
   ~compute_device() {}
   compute_device &operator=(const compute_device &) = default;
-  const compute_device_id_t &id() const { return id_; }
-  const compute_profile_t &profile() const { return profile_; }
-  bool is_full_profile() const { return (profile_ == COMPUTE_FULL_PROFILE); }
-  bool is_embedded_profile() const {
+  const compute_device_id_t &id() const noexcept { return id_; }
+  const compute_profile_t &profile() const noexcept { return profile_; }
+  bool is_full_profile() const noexcept {
+    return (profile_ == COMPUTE_FULL_PROFILE);
+  }
+  bool is_embedded_profile() const noexcept {
     return (profile_ == COMPUTE_EMBEDDED_PROFILE);
   }
-  const compute_devtype_t &devtype() const { return devtype_; }
-  bool is_devtype_cpu() const { return (devtype_ == COMPUTE_DEVICE_CPU); }
-  bool is_devtype_gpu() const { return (devtype_ == COMPUTE_DEVICE_GPU); }
-  bool is_devtype_accelerator() {
+  const compute_devtype_t &devtype() const noexcept { return devtype_; }
+  bool is_devtype_cpu() const noexcept {
+    return (devtype_ == COMPUTE_DEVICE_CPU);
+  }
+  bool is_devtype_gpu() const noexcept {
+    return (devtype_ == COMPUTE_DEVICE_GPU);
+  }
+  bool is_devtype_accelerator() const noexcept {
     return (devtype_ == COMPUTE_DEVICE_ACCELERATOR);
   }
-  const std::string &name() const { return name_; }
-  const std::string &version() const { return version_; }
-  const std::string &driver_version() const { return driver_version_; }
-  const std::string &c_version() const { return c_version_; }
-  uint32_t max_compute_units() const { return max_compute_units_; }
-  const std::string &extensions() const { return extensions_; }
+  const std::string &name() const noexcept { return name_; }
+  const std::string &version() const noexcept { return version_; }
+  const std::string &driver_version() const noexcept { return driver_version_; }
+  const std::string &c_version() const noexcept { return c_version_; }
+  uint32_t max_compute_units() const noexcept { return max_compute_units_; }
+  const std::string &extensions() const noexcept { return extensions_; }
 
 private:
   compute_device_id_t id_;     // device ID
