@@ -91,12 +91,13 @@
 /*! \fn const compute_profile_t &compute_platform::profile() const
  * \brief Returns the OpenCL platform's profile.
  *
- * \return the OpenCL platform's profile supported by the system. It can be one 
+ * \return the OpenCL profile supported by this OpenCL platform. It can be one 
  * of the following: 
  * \ref teuthid::COMPUTE_FULL_PROFILE "COMPUTE_FULL_PROFILE",
  * \ref teuthid::COMPUTE_EMBEDDED_PROFILE "COMPUTE_EMBEDDED_PROFILE", or
  * \ref teuthid::COMPUTE_UNKNOWN_PROFILE "COMPUTE_UNKNOWN_PROFILE".
  * \see is_full_profile(), is_embedded_profile().
+* The returned value is the equivalent of \c CL_PLATFORM_PROFILE.
  */
 
 
@@ -125,27 +126,28 @@
 /*! \fn const std::string &compute_platform::version() const
  * \brief Returns the platform's version.
  *
- * \return the OpenCL platform's version supported by the system.\n
+ * \return the OpenCL version supported by this platform.\n
  * The returned value has the following format:
- * \e "<major_version.minor_version><space><platform-specific information>".\n
- * The \e "major_version.minor_version" determines version of OpenCL supported 
- * by the system.\n
+ * \e "OpenCL<space><major_version.minor_version><space><platform-specific information>".\n
+ * The \e "major_version.minor_version" determines a version of OpenCL 
+ * supported by this OpenCL platform.\n
  * The returned value is the equivalent of \c CL_PLATFORM_VERSION.
- * If it is an empty string, a version of this OpenCL platform is undetermined.
+ * If it is an empty string, a version supported by this OpenCL platform is 
+ * undetermined.
  * \see major_version(), minor_version(), spec_version().
  */
 
 
 /*! \fn int compute_platform::major_version() const
  * \brief Returns the OpenCL major version.
- * \return the OpenCL major version supported by the system.
+ * \return the OpenCL major version supported by this OpenCL platform.
  * \see minor_version(), version().
  */
 
 
 /*! \fn int compute_platform::minor_version() const
  * \brief Returns the OpenCL minor version.
- * \return the OpenCL minor version supported by the system.
+ * \return the OpenCL minor version supported by this OpenCL platform.
  * \see major_version(), version().
  */
 
@@ -153,7 +155,7 @@
 /*! \fn const std::string &compute_platform::spec_version() const
  * \brief Returns the platform-specific information.
  * \return Returns the platform-specific information about the OpenCL supported 
- * by the system.
+ * by this OpenCL platform.
  * \see version().
  */
 
@@ -161,7 +163,7 @@
 /*! \fn bool compute_platform::is_required_version(int major, int minor) const
  * \brief Checks whether the version of OpenCL is sufficient.
  *
- * \return \c true if the version of OpenCL supported by the system
+ * \return \c true if the version of OpenCL supported by this OpenCL platform
  * is a sufficient version. Otherwise return \c false.
  * @param[in] major The required minimum major version of OpenCL.
  * @param[in] minor The required minimum minor version of OpenCL (if the major 
@@ -192,16 +194,19 @@
  * \brief Returns the space-separated list of extension names. 
  *
  * \return the space-separated list of extension names supported by this 
- * OpenCL platform. The extension names themselves do not contain any spaces. 
+ * OpenCL platform. The extension names themselves do not contain any spaces.\n 
  * The returned value is the equivalent of \c CL_PLATFORM_EXTENSIONS.
+ * If it is an empty string, these extensions are undetermined.
  */
 
 
 /*! \fn const std::string &compute_platform::icd_suffix_khr() const
  * \brief Returns the function name suffix.
  *
- * \return the function name suffix used to identify extension functions to be directed to this OpenCL platform by the ICD Loader. The returned value is the 
- * equivalent of \c CL_PLATFORM_ICD_SUFFIX_KHR.
+ * \return the function name suffix used to identify extension functions to be 
+ * directed to this OpenCL platform by the ICD Loader. The returned value is 
+ * the equivalent of \c CL_PLATFORM_ICD_SUFFIX_KHR.
+ * If it is an empty string, this suffix is undetermined.
  */
 
 

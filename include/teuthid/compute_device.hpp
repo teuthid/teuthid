@@ -75,9 +75,9 @@ public:
   bool is_embedded_profile() const {
     return (profile_ == COMPUTE_EMBEDDED_PROFILE);
   }
-  const compute_devtype_t &devtype() { return devtype_; }
-  bool is_devtype_cpu() { return (devtype_ == COMPUTE_DEVICE_CPU); }
-  bool is_devtype_gpu() { return (devtype_ == COMPUTE_DEVICE_GPU); }
+  const compute_devtype_t &devtype() const { return devtype_; }
+  bool is_devtype_cpu() const { return (devtype_ == COMPUTE_DEVICE_CPU); }
+  bool is_devtype_gpu() const { return (devtype_ == COMPUTE_DEVICE_GPU); }
   bool is_devtype_accelerator() {
     return (devtype_ == COMPUTE_DEVICE_ACCELERATOR);
   }

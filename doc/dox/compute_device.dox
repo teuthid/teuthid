@@ -41,6 +41,33 @@
  */
 
 
+/*! \enum teuthid::compute_devtype_t
+ * \brief This enumeration includes named constants of OpenCL device's type.
+ *
+ * Currently supported values are: 
+ * \ref teuthid::COMPUTE_DEVICE_CPU "COMPUTE_DEVICE_CPU",
+ * \ref teuthid::COMPUTE_DEVICE_GPU "COMPUTE_DEVICE_GPU",
+ * \ref teuthid::COMPUTE_DEVICE_ACCELERATOR "COMPUTE_DEVICE_ACCELERATOR".
+ * \see compute_device::devtype(), compute_device::is_devtype_cpu(), 
+ * compute_device::is_devtype_gpu(), compute_device::is_devtype_accelerator().
+ */
+/*! \var teuthid::COMPUTE_DEVICE_CPU
+ * Identifies an OpenCL device that is the host processor. The host processor 
+ * runs the OpenCL implementations and is a single or multi-core CPU.
+ */
+/*! \var teuthid::COMPUTE_DEVICE_GPU
+ * Identifies an OpenCL device that is a GPU - a device that can also be used 
+ * to accelerate a 3D API such as OpenGL or DirectX.
+ */
+/*! \var teuthid::COMPUTE_DEVICE_ACCELERATOR
+ * Identifies dedicated OpenCL accelerators. These devices communicate with the 
+ * host processor using a peripheral interconnect such as PCIe.
+ */
+/*! \var teuthid::COMPUTE_DEVICE_UNKNOWN
+ * Unknown OpenCL device's type (is undetermined).
+ */
+
+
 /*! \class teuthid::compute_device compute_device.hpp \ 
 <teuthid/compute_device.hpp>
  * \brief This class holds specific information about the OpenCL
@@ -75,6 +102,81 @@
  */
 
 
+/*! \fn const compute_profile_t &compute_device::profile() const
+ * \brief Returns the OpenCL device's profile.
+ *
+ * \return the OpenCL profile supported by this OpenCL device. It can be one 
+ * of the following: 
+ * \ref teuthid::COMPUTE_FULL_PROFILE "COMPUTE_FULL_PROFILE",
+ * \ref teuthid::COMPUTE_EMBEDDED_PROFILE "COMPUTE_EMBEDDED_PROFILE", or
+ * \ref teuthid::COMPUTE_UNKNOWN_PROFILE "COMPUTE_UNKNOWN_PROFILE".
+ * The returned value is the equivalent of \c CL_DEVICE_PROFILE.
+ * \see is_full_profile(), is_embedded_profile().
+ */
+
+/*! \fn bool compute_device::is_full_profile() const
+ * \brief Returns \c true if this device's profile is 
+ * \ref teuthid::COMPUTE_FULL_PROFILE "COMPUTE_FULL_PROFILE".
+ * 
+ * \return \c true if this OpenCL device's profile is 
+ * \ref teuthid::COMPUTE_FULL_PROFILE "COMPUTE_FULL_PROFILE". Otherwise returns 
+ * \c false.
+ * \see profile().
+ */
+
+
+/*! \fn bool compute_device::is_embedded_profile() const
+ * \brief Returns \c true if the device's profile is 
+ * \ref teuthid::COMPUTE_EMBEDDED_PROFILE "COMPUTE_EMBEDDED_PROFILE".
+ * 
+ * \return \c true if this OpenCL device's profile is 
+ * \ref teuthid::COMPUTE_EMBEDDED_PROFILE "COMPUTE_EMBEDDED_PROFILE". Otherwise 
+ * returns \c false.
+ * \see profile().
+ */
+
+
+/*! \fn const compute_devtype_t &compute_device::devtype() const
+ * \brief Returns a type of this device.
+ * \return a type of this OpenCL device. It can be one of the following:
+ * \ref teuthid::COMPUTE_DEVICE_CPU "COMPUTE_DEVICE_CPU",
+ * \ref teuthid::COMPUTE_DEVICE_GPU "COMPUTE_DEVICE_GPU",
+ * \ref teuthid::COMPUTE_DEVICE_ACCELERATOR "COMPUTE_DEVICE_ACCELERATOR",
+ * \ref teuthid::COMPUTE_DEVICE_CPU "COMPUTE_DEVICE_UNKNOWN". 
+ * \see is_devtype_cpu(), is_devtype_gpu(), is_devtype_accelerator().
+ */
+
+
+/*! \fn bool compute_device::is_devtype_cpu() const
+ * \brief Returns \c true if this device's type is 
+ * \ref teuthid::COMPUTE_DEVICE_CPU "COMPUTE_DEVICE_CPU".
+ * \return \c true if this OpenCL device's type is 
+ * \ref teuthid::COMPUTE_DEVICE_CPU "COMPUTE_DEVICE_CPU". Otherwise returns
+ * \c false.
+ * \see devtype().
+ */
+
+
+/*! \fn bool compute_device::is_devtype_gpu() const
+ * \brief Returns \c true if this device's type is 
+ * \ref teuthid::COMPUTE_DEVICE_GPU "COMPUTE_DEVICE_GPU".
+ * \return \c true if this OpenCL device's type is 
+ * \ref teuthid::COMPUTE_DEVICE_GPU "COMPUTE_DEVICE_GPU". Otherwise returns
+ * \c false.
+ * \see devtype().
+ */
+
+
+/*! \fn bool compute_device::is_devtype_accelerator() const
+ * \brief Returns \c true if this device's type is 
+ * \ref teuthid::COMPUTE_DEVICE_ACCELERATOR "COMPUTE_DEVICE_ACCELERATOR".
+ * \return \c true if this OpenCL device's type is 
+ * \ref teuthid::COMPUTE_DEVICE_ACCELERATOR "COMPUTE_DEVICE_ACCELERATOR". 
+ * Otherwise returns \c false.
+ * \see devtype().
+ */
+
+
 /*! \fn const std::string &compute_device::name() const
  * \brief Return the name of this device.
  *
@@ -82,4 +184,64 @@
  * equivalent of \c CL_DEVICE_NAME. If it is an empty string, a name of this 
  * OpenCL device is undetermined.
  */
+
+
+/*! \fn const std::string &compute_device::version() const
+ * \brief Returns the device's version.
+ *
+ * \return the OpenCL version supported by this OpenCL device.\n
+ * The returned value has the following format:
+ * \e "OpenCL<space><major_version.minor_version><space><platform-specific information>".\n
+ * The \e "major_version.minor_version" determines a version of OpenCL 
+ * supported by this OpenCL device.\n
+ * The returned value is the equivalent of \c CL_DEVICE_VERSION.
+ * If it is an empty string, an OpenCL version supported by this OpenCL device 
+ * is undetermined.
+ * \see driver_version(), c_version().
+ */
+
+
+/*! \fn const std::string &compute_device::driver_version() const
+ * \brief Returns the software driver version of this device.
+ *
+ * \return the OpenCL software driver version of this OpenCL device.
+ * The returned value is the equivalent of \c CL_DRIVER_VERSION.
+ * If it is an empty string, a version is undetermined.
+ * \see version().
+ */
+
+
+/*! \fn const std::string &compute_device::c_version() const
+ * \brief Returns the OpenCL C version string.
+ *
+ * \return the highest OpenCL C version supported by the compiler for this 
+ * device that is not of type \c CL_DEVICE_TYPE_CUSTOM. \n
+ * This version string has the following format:
+ * \e "OpenCL<space>C<space><major_version.minor_version><space><vendor-specific information>".\n
+ * The returned value is the equivalent of \c CL_DEVICE_OPENCL_C_VERSION.
+ * If it is an empty string, a version is undetermined.
+ * \see version().
+ */
+
+
+/*! \fn uint32_t compute_device::max_compute_units() const
+ * \brief Returns the number of parallel compute units.
+ *
+ * \return the number of parallel compute units on this OpenCL device. 
+ * A work-group executes on a single compute unit. The minimum value is \c 1.\n
+ * The returned value is the equivalent of \c CL_DEVICE_MAX_COMPUTE_UNITS.
+ * If it is equal to \c 0, a number of units is undetermined.
+ */
+
+/*! \fn const std::string &compute_device::extensions() const
+ * \brief Returns the space-separated list of extension names.
+ *
+ * \return the space separated list of extension names (the extension names 
+ * themselves do not contain any spaces) supported by this device. The list of 
+ * extension names returned can be vendor supported extension names and one or 
+ * more of the Khronos approved extension names. \n
+ * The returned value is the equivalent of \c CL_DEVICE_EXTENSIONS.
+ * If it is an empty string, these extensions are undetermined.
+ */
+
 
