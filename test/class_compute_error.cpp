@@ -33,7 +33,7 @@ void some_invalid_compute_platform() {
 }
 
 void some_invalid_compute_device() {
-  throw invalid_compute_device("invalid_compute_device");
+  throw invalid_compute_device("some_invalid_compute_device");
 }
 
 BOOST_AUTO_TEST_CASE(class_teuthid_compute_error) {
