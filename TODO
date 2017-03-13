@@ -1,9 +1,3 @@
-+ implement classes: 
-  - teuthid::exception
-  - teuthid::compute_exception
-  - teuthid::invalid_compute_platform
-  - teuthid::invalid_compute_device
-
 + teuthid::compute_platform
  	- constructor compute_platform(number)
 	- constructor compute_platform(id)
