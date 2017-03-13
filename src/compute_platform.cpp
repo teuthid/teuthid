@@ -18,7 +18,7 @@
 
 #include <cassert>
 
-#include <teuthid/compute_device.hpp>
+#include <teuthid/compute_error.hpp>
 #include <teuthid/compute_platform.hpp>
 
 #if defined(TEUTHID_WITH_OPENCL)

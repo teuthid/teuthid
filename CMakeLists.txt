@@ -38,7 +38,7 @@ SET(CMAKE_COLOR_MAKEFILE ON)
 set(CMAKE_VERBOSE_MAKEFILE ON) # to comment out
 
 set(Boost_REQUIRED_VERSION "1.61.0")
-set(Boost_REQUIRED_COMPONENTS random)
+set(Boost_REQUIRED_COMPONENTS filesystem)
 set(GMP_REQUIRED_VERSION "6.1.1")
 set(MPFR_REQUIRED_VERSION "3.1.5")
 set(ArrayFire_REQUIRED_VERSION "3.3.2")
@@ -66,6 +66,7 @@ option(BUILD_EXAMPLES "Build examples" ON)
 include(TeuthidHelpers)
 include(TeuthidCheckBoost)
 include(TeuthidCheckMPFR)
+list(REMOVE_DUPLICATES teuthid_link_libraries)
 
 if (BUILD_WITH_OPENCL)
   include(TeuthidCheckOpenCL)

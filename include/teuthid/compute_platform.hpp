@@ -53,8 +53,10 @@ public:
                                 major_version_(0),
                                 minor_version_(0) {}
   compute_platform(const compute_platform &) = default;
+  compute_platform(compute_platform &&) = default;
   virtual ~compute_platform() {}
   compute_platform &operator=(const compute_platform &) = default;
+  compute_platform &operator=(compute_platform &&) = default;
   const compute_platform_id_t &id() const noexcept { return id_; }
   const compute_profile_t &profile() const noexcept { return profile_; }
   bool is_full_profile() const noexcept {

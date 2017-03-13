@@ -68,8 +68,10 @@ public:
                               devtype_(COMPUTE_DEVICE_UNKNOWN),
                               max_compute_units_(0) {}
   compute_device(const compute_device &) = default;
+  compute_device(compute_device &&) = default;
   virtual ~compute_device() {}
   compute_device &operator=(const compute_device &) = default;
+  compute_device &operator=(compute_device &&) = default;
   const compute_device_id_t &id() const noexcept { return id_; }
   const compute_profile_t &profile() const noexcept { return profile_; }
   bool is_full_profile() const noexcept {
