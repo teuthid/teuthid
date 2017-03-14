@@ -76,26 +76,30 @@ void __teuthid_get_cl_version(const std::string &version, int &major,
 
 void compute_platform::detect_platforms_() {
 #if defined(TEUTHID_WITH_OPENCL)
-  std::vector<cl::Platform> __cl_platforms;
-  cl::Platform::get(&__cl_platforms);
-  assert(!__cl_platforms.empty());
-  for (std::size_t __i = 0; __i < __cl_platforms.size(); __i++) {
-    platforms_.push_back(compute_platform());
-    platforms_[__i].id_ = __cl_platforms[__i]();
-    assert(platforms_[__i].id_);
-    platforms_[__i].profile_ = __teuthid_get_cl_profile(
-        __cl_platforms[__i].getInfo<CL_PLATFORM_PROFILE>());
-    platforms_[__i].version_ =
-        __cl_platforms[__i].getInfo<CL_PLATFORM_VERSION>();
-    __teuthid_get_cl_version(
-        platforms_[__i].version_, platforms_[__i].major_version_,
-        platforms_[__i].minor_version_, platforms_[__i].spec_version_);
-    platforms_[__i].name_ = __cl_platforms[__i].getInfo<CL_PLATFORM_NAME>();
-    platforms_[__i].vendor_ = __cl_platforms[__i].getInfo<CL_PLATFORM_VENDOR>();
-    platforms_[__i].extensions_ =
-        __cl_platforms[__i].getInfo<CL_PLATFORM_EXTENSIONS>();
-    platforms_[__i].icd_suffix_khr_ =
-        __cl_platforms[__i].getInfo<CL_PLATFORM_ICD_SUFFIX_KHR>();
+  try {
+    std::vector<cl::Platform> __cl_platforms;
+    cl::Platform::get(&__cl_platforms);
+    for (std::size_t __i = 0; __i < __cl_platforms.size(); __i++) {
+      platforms_.push_back(compute_platform());
+      platforms_[__i].id_ = __cl_platforms[__i]();
+      assert(platforms_[__i].id_);
+      platforms_[__i].profile_ = __teuthid_get_cl_profile(
+          __cl_platforms[__i].getInfo<CL_PLATFORM_PROFILE>());
+      platforms_[__i].version_ =
+          __cl_platforms[__i].getInfo<CL_PLATFORM_VERSION>();
+      __teuthid_get_cl_version(
+          platforms_[__i].version_, platforms_[__i].major_version_,
+          platforms_[__i].minor_version_, platforms_[__i].spec_version_);
+      platforms_[__i].name_ = __cl_platforms[__i].getInfo<CL_PLATFORM_NAME>();
+      platforms_[__i].vendor_ =
+          __cl_platforms[__i].getInfo<CL_PLATFORM_VENDOR>();
+      platforms_[__i].extensions_ =
+          __cl_platforms[__i].getInfo<CL_PLATFORM_EXTENSIONS>();
+      platforms_[__i].icd_suffix_khr_ =
+          __cl_platforms[__i].getInfo<CL_PLATFORM_ICD_SUFFIX_KHR>();
+    }
+  } catch (const cl::Error &__e) {
+    throw invalid_compute_platform(__e.err());
   }
 #endif // TEUTHID_WITH_OPENCL
 }
@@ -114,28 +118,32 @@ const compute_devtype_t __teuthid_get_cl_devtype(cl_device_type devtype) {
 
 void compute_platform::detect_devices_(compute_platform &platform) {
 #if defined(TEUTHID_WITH_OPENCL)
-  cl::Platform __cl_platform(platform.id_);
-  std::vector<cl::Device> __cl_devices;
-  __cl_platform.getDevices(CL_DEVICE_TYPE_ALL, &__cl_devices);
-  assert(!__cl_devices.empty());
-  for (std::size_t __i = 0; __i < __cl_devices.size(); __i++) {
-    platform.devices_.push_back(compute_device());
-    platform.devices_[__i].id_ = __cl_devices[__i]();
-    platform.devices_[__i].profile_ = __teuthid_get_cl_profile(
-        __cl_devices[__i].getInfo<CL_DEVICE_PROFILE>());
-    platform.devices_[__i].name_ = __cl_devices[__i].getInfo<CL_DEVICE_NAME>();
-    platform.devices_[__i].version_ =
-        __cl_devices[__i].getInfo<CL_DEVICE_VERSION>();
-    platform.devices_[__i].driver_version_ =
-        __cl_devices[__i].getInfo<CL_DRIVER_VERSION>();
-    platform.devices_[__i].c_version_ =
-        __cl_devices[__i].getInfo<CL_DEVICE_OPENCL_C_VERSION>();
-    platform.devices_[__i].max_compute_units_ =
-        __cl_devices[__i].getInfo<CL_DEVICE_MAX_COMPUTE_UNITS>();
-    platform.devices_[__i].devtype_ =
-        __teuthid_get_cl_devtype(__cl_devices[__i].getInfo<CL_DEVICE_TYPE>());
-    platform.devices_[__i].extensions_ =
-        __cl_devices[__i].getInfo<CL_DEVICE_EXTENSIONS>();
+  try {
+    cl::Platform __cl_platform(platform.id_);
+    std::vector<cl::Device> __cl_devices;
+    __cl_platform.getDevices(CL_DEVICE_TYPE_ALL, &__cl_devices);
+    for (std::size_t __i = 0; __i < __cl_devices.size(); __i++) {
+      platform.devices_.push_back(compute_device());
+      platform.devices_[__i].id_ = __cl_devices[__i]();
+      platform.devices_[__i].profile_ = __teuthid_get_cl_profile(
+          __cl_devices[__i].getInfo<CL_DEVICE_PROFILE>());
+      platform.devices_[__i].name_ =
+          __cl_devices[__i].getInfo<CL_DEVICE_NAME>();
+      platform.devices_[__i].version_ =
+          __cl_devices[__i].getInfo<CL_DEVICE_VERSION>();
+      platform.devices_[__i].driver_version_ =
+          __cl_devices[__i].getInfo<CL_DRIVER_VERSION>();
+      platform.devices_[__i].c_version_ =
+          __cl_devices[__i].getInfo<CL_DEVICE_OPENCL_C_VERSION>();
+      platform.devices_[__i].max_compute_units_ =
+          __cl_devices[__i].getInfo<CL_DEVICE_MAX_COMPUTE_UNITS>();
+      platform.devices_[__i].devtype_ =
+          __teuthid_get_cl_devtype(__cl_devices[__i].getInfo<CL_DEVICE_TYPE>());
+      platform.devices_[__i].extensions_ =
+          __cl_devices[__i].getInfo<CL_DEVICE_EXTENSIONS>();
+    }
+  } catch (const cl::Error &__e) {
+    throw invalid_compute_device(__e.err());
   }
 #endif // TEUTHID_WITH_OPENCL
 }

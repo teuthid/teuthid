@@ -32,14 +32,41 @@ void some_invalid_compute_platform() {
   throw invalid_compute_platform("some_invalid_compute_platform");
 }
 
+void some_invalid_compute_platform(int error) {
+  throw invalid_compute_platform(error);
+}
+
 void some_invalid_compute_device() {
   throw invalid_compute_device("some_invalid_compute_device");
+}
+
+void some_invalid_compute_device(int error) {
+  throw invalid_compute_device(error);
 }
 
 BOOST_AUTO_TEST_CASE(class_teuthid_compute_error) {
   BOOST_CHECK_EXCEPTION(some_compute_error(), compute_error, is_critical);
   BOOST_CHECK_EXCEPTION(some_invalid_compute_platform(),
                         invalid_compute_platform, is_critical);
-  BOOST_CHECK_EXCEPTION(some_invalid_compute_device(),
-                        invalid_compute_device, is_critical);
+  BOOST_CHECK_EXCEPTION(some_invalid_compute_platform(13),
+                        invalid_compute_platform, is_critical);
+  BOOST_CHECK_EXCEPTION(some_invalid_compute_device(), invalid_compute_device,
+                        is_critical);
+  BOOST_CHECK_EXCEPTION(some_invalid_compute_device(13), invalid_compute_device,
+                        is_critical);
+  try {
+    some_invalid_compute_platform(13);
+  } catch (const compute_error &__e) {
+    BOOST_TEST(__e.cl_error() == 13, "cl_error()");
+  }
+  try {
+    some_invalid_compute_platform(13);
+  } catch (const invalid_compute_platform &__e) {
+    BOOST_TEST(__e.cl_error() == 13, "cl_error()");
+  }
+  try {
+    some_invalid_compute_device(13);
+  } catch (const invalid_compute_device &__e) {
+    BOOST_TEST(__e.cl_error() == 13, "cl_error()");
+  }
 }
