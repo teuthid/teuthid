@@ -84,9 +84,9 @@
 
 /*! \fn static bool library::have_compute_kernel()
  * \brief Checks whether the framework can use OpenCL compute kernels.
- * \return \c true if the framework can use OpenCL compute kernels (the system 
- * must have at least one OpenCL platform with one OpenCL device).
- * Otherwise return \c false.
+ * \return \c true if the framework can use OpenCL compute kernels - the system 
+ * must have at least one properly working OpenCL platform with one properly 
+ * working OpenCL device. Otherwise return \c false.
  * \note The Teuthid framework must be compiled with enabled 
  * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
  * devices.

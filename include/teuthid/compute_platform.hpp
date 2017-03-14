@@ -48,11 +48,11 @@ typedef std::vector<compute_platform> compute_platforms_t;
 
 class compute_platform {
 public:
-  compute_platform() noexcept : id_(NULL),
+  compute_platform() noexcept : id_(nullptr),
                                 profile_(COMPUTE_UNKNOWN_PROFILE),
                                 major_version_(0),
                                 minor_version_(0) {}
-  
+  explicit compute_platform(compute_platform_id_t id);
   compute_platform(const compute_platform &) = default;
   compute_platform(compute_platform &&) = default;
   virtual ~compute_platform() {}

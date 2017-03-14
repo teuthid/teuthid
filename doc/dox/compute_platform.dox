@@ -236,8 +236,10 @@
  * \return a reference to the vector of type 
  * \ref teuthid::compute_platforms_t "compute_platforms_t" containing objects 
  * of class compute_platform.
- * \throw invalid_compute_platform if cannot detect OpenCL platform(s).
- * \throw invalid_compute_device if cannot detect OpenCL device(s).
+ * \throw invalid_compute_platform if there is a problem with the proper 
+ * diagnosis of the available OpenCL platform(s) on the system.
+ * \throw invalid_compute_device if there is a problem with the proper 
+ * diagnosis of the available OpenCL device(s) on the system.
  * \note The Teuthid framework must be compiled with enabled 
  * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
  * devices.

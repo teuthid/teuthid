@@ -16,6 +16,7 @@
     along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <teuthid/compute_error.hpp>
 #include <teuthid/library.hpp>
 
 using namespace teuthid;
@@ -30,9 +31,13 @@ bool library::is_required_version(uint8_t major, uint8_t minor) noexcept {
 }
 
 bool library::have_compute_kernel() {
-  for (auto __platform : compute_platform::platforms())
-    if (__platform.devices().size() > 0)
-      return true;
+  try {
+    for (auto __platform : compute_platform::platforms())
+      if (__platform.devices().size() > 0)
+        return true;
+  } catch (const compute_error &) {
+    // some problems with the compute kernel - it wil be disabled
+  }
   return false;
 }
 

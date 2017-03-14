@@ -32,6 +32,24 @@ using namespace teuthid;
 std::mutex compute_platform::mutex_;
 compute_platforms_t compute_platform::platforms_;
 
+compute_platform::compute_platform(compute_platform_id_t id) {
+  assert(id);
+  bool __found = false;
+  try {
+  if (id && !compute_platform::platforms().empty())
+    for (auto __platform : compute_platform::platforms_)
+      if (id == __platform.id()) {
+        *this = compute_platform(__platform);
+        __found = true;
+        break;
+      }
+  } catch (const compute_error&) {
+    // something wrong with OpenCL, so a new object will be empty
+  }
+  if (!__found)
+    *this = compute_platform();
+}
+
 bool compute_platform::is_required_version(int major, int minor) const
     noexcept {
   int __required = major * 100 + minor;

@@ -26,21 +26,27 @@
 using namespace teuthid;
 
 BOOST_AUTO_TEST_CASE(class_teuthid_compute_platform) {
-  compute_platform __info;
-  BOOST_TEST(!__info.id(), "id()");
-  BOOST_TEST(__info.profile() == COMPUTE_UNKNOWN_PROFILE, "profile()");
-  BOOST_TEST(__info.version().empty(), "version()");
-  BOOST_TEST(__info.major_version() == 0, "major_version()");
-  BOOST_TEST(__info.minor_version() == 0, "minor_version()");
-  BOOST_TEST(__info.spec_version().empty(), "spec_version()");
-  BOOST_TEST(__info.name().empty(), "name()");
-  BOOST_TEST(__info.vendor().empty(), "vendor()");
-  BOOST_TEST(__info.extensions().empty(), "extensions()");
-  BOOST_TEST(__info.icd_suffix_khr().empty(), "icd_suffix_khr.vendor()");
-  BOOST_TEST(__info.devices().empty(), "devices()");
-  BOOST_TEST(__info.num_devices() == 0, "num_devices()");
-  compute_platforms_t __platforms = library::compute_platforms();
+  compute_platform __empty;
+  BOOST_TEST(!__empty.id(), "id()");
+  BOOST_TEST(__empty.profile() == COMPUTE_UNKNOWN_PROFILE, "profile()");
+  BOOST_TEST(__empty.version().empty(), "version()");
+  BOOST_TEST(__empty.major_version() == 0, "major_version()");
+  BOOST_TEST(__empty.minor_version() == 0, "minor_version()");
+  BOOST_TEST(__empty.spec_version().empty(), "spec_version()");
+  BOOST_TEST(__empty.name().empty(), "name()");
+  BOOST_TEST(__empty.vendor().empty(), "vendor()");
+  BOOST_TEST(__empty.extensions().empty(), "extensions()");
+  BOOST_TEST(__empty.icd_suffix_khr().empty(), "icd_suffix_khr.vendor()");
+  BOOST_TEST(__empty.devices().empty(), "devices()");
+  BOOST_TEST(__empty.num_devices() == 0, "num_devices()");
+
+  compute_platform_id_t *fake_id_ptr_ = new compute_platform_id_t;
+  __empty = compute_platform(*fake_id_ptr_);
+  BOOST_TEST(__empty.profile() == COMPUTE_UNKNOWN_PROFILE, "profile()");
+  BOOST_TEST(__empty.version().empty(), "version()");
+
 #if defined(TEUTHID_WITH_OPENCL)
+  compute_platforms_t __platforms = library::compute_platforms();
   BOOST_TEST(!__platforms.empty());
   for (auto __platform : __platforms) {
     BOOST_TEST(__platform.id(), "id()");
@@ -65,8 +71,10 @@ BOOST_AUTO_TEST_CASE(class_teuthid_compute_platform) {
                "is_required_version()");
     BOOST_TEST(!__platform.devices().empty(), "devices()");
     BOOST_TEST(__platform.num_devices() > 0, "num_devices()");
-    __info = __platform;
-    BOOST_TEST(__info.id(), "id()");
+    compute_platform __p2 = __platform;
+    BOOST_TEST(__p2.id(), "id()");
+    __p2 = compute_platform(__platform.id());
+    BOOST_TEST(__p2.id(), "id()");
   }
 #else
   BOOST_TEST(__platforms.empty());
