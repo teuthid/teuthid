@@ -36,6 +36,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_compute_platform) {
   BOOST_TEST(__empty.name().empty(), "name()");
   BOOST_TEST(__empty.vendor().empty(), "vendor()");
   BOOST_TEST(__empty.extensions().empty(), "extensions()");
+  BOOST_TEST(!__empty.have_extension(""), "have_extension()");
+  BOOST_TEST(!__empty.have_extension("xxx"), "have_extension()");
   BOOST_TEST(__empty.icd_suffix_khr().empty(), "icd_suffix_khr.vendor()");
   BOOST_TEST(__empty.devices().empty(), "devices()");
   BOOST_TEST(__empty.num_devices() == 0, "num_devices()");
@@ -45,8 +47,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_compute_platform) {
   BOOST_TEST(__empty.profile() == COMPUTE_UNKNOWN_PROFILE, "profile()");
   BOOST_TEST(__empty.version().empty(), "version()");
 
-#if defined(TEUTHID_WITH_OPENCL)
   compute_platforms_t __platforms = library::compute_platforms();
+#if defined(TEUTHID_WITH_OPENCL)
   BOOST_TEST(!__platforms.empty());
   for (auto __platform : __platforms) {
     BOOST_TEST(__platform.id(), "id()");
@@ -59,6 +61,12 @@ BOOST_AUTO_TEST_CASE(class_teuthid_compute_platform) {
     BOOST_TEST(!__platform.spec_version().empty(), "spec_version()");
     BOOST_TEST(!__platform.name().empty(), "name()");
     BOOST_TEST(!__platform.vendor().empty(), "vendor()");
+    for (auto __ext : __platform.extensions()) {
+      BOOST_TEST(!__ext.empty(), "extensions()");
+      BOOST_TEST(__platform.have_extension(__ext), "have_extension()");
+    }
+    BOOST_TEST(!__platform.have_extension(" "), "have_extension()");
+    BOOST_TEST(!__platform.have_extension("xxx"), "have_extension()");
     BOOST_TEST(__platform.is_required_version(__platform.major_version(),
                                               __platform.minor_version()),
                "is_required_version()");

@@ -73,7 +73,10 @@ public:
   bool is_required_version(int major, int minor) const noexcept;
   const std::string &name() const noexcept { return name_; }
   const std::string &vendor() const noexcept { return vendor_; }
-  const std::string &extensions() const noexcept { return extensions_; }
+  const compute_extensions_t &extensions() const noexcept {
+    return extensions_;
+  }
+  bool have_extension(const std::string &name) const;
   const std::string &icd_suffix_khr() const noexcept { return icd_suffix_khr_; }
   const compute_devices_t &devices() const noexcept { return devices_; }
   std::size_t num_devices() const noexcept { return devices_.size(); }
@@ -87,11 +90,11 @@ private:
   int major_version_;
   int minor_version_;
   std::string spec_version_;
-  std::string name_;           // CL_PLATFORM_NAME
-  std::string vendor_;         // CL_PLATFORM_VENDOR
-  std::string extensions_;     // CL_PLATFORM_EXTENSIONS
-  std::string icd_suffix_khr_; // CL_PLATFORM_ICD_SUFFIX_KHR
-  compute_devices_t devices_;  // devices of this platform
+  std::string name_;                // CL_PLATFORM_NAME
+  std::string vendor_;              // CL_PLATFORM_VENDOR
+  compute_extensions_t extensions_; // CL_PLATFORM_EXTENSIONS
+  std::string icd_suffix_khr_;      // CL_PLATFORM_ICD_SUFFIX_KHR
+  compute_devices_t devices_;       // devices of this platform
 
   static std::mutex mutex_;
   static bool platforms_detected_;

@@ -34,8 +34,8 @@ std::string __str;
 
 int main() {
   std::cout << std::endl << ruler << std::endl;
-  std::cout << "Teuthid Version " << library::major_version() << "."
-            << library::minor_version() << std::endl;
+  std::cout << "Teuthid Version " << std::to_string(library::major_version())
+            << "." << std::to_string(library::minor_version()) << std::endl;
   std::cout << "  --" << std::endl;
   if (library::have_compute_kernel()) {
     std::cout << "Build with OpenCL (using " << cl_backend << " as a backend)."
@@ -56,14 +56,16 @@ int main() {
       else
         __str = "UNKNOWN PROFILE";
       std::cout << "  Platform Profile: " << __str << std::endl;
-      std::cout << "  Platform Extensions: " << __platform.extensions()
-                << std::endl;
+      std::cout << "  Platform Extensions: ";
+      for (auto __ext : __platform.extensions())
+        std::cout << __ext << "  ";
+      std::cout << std::endl;
       std::cout << "  Platform Extensions function suffix : "
                 << __platform.icd_suffix_khr() << std::endl;
 
       // ... and devices:
-      std::cout << "  Available OpenCL devices(s): "
-                << __platform.num_devices() << std::endl;
+      std::cout << "  Available OpenCL devices(s): " << __platform.num_devices()
+                << std::endl;
       for (auto __device : __platform.devices()) {
         std::cout << "    Device Name: " << __device.name() << std::endl;
         std::cout << "    Device Version: " << __device.version() << std::endl;

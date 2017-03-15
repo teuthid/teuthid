@@ -42,10 +42,10 @@ typedef int *compute_device_id_t;
 #endif // defined(TEUTHID_WITH_OPENCL)
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
-typedef std::vector<std::string> compute_extensions_t;
-
 class compute_device;
 class compute_platform;
+
+typedef std::vector<std::string> compute_extensions_t;
 typedef std::vector<compute_device> compute_devices_t;
 
 enum compute_profile_t {

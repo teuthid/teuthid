@@ -16,6 +16,7 @@
     along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <algorithm>
 #include <cassert>
 
 #include <teuthid/compute_error.hpp>
@@ -36,14 +37,14 @@ compute_platform::compute_platform(compute_platform_id_t id) {
   assert(id);
   bool __found = false;
   try {
-  if (id && !compute_platform::platforms().empty())
-    for (auto __platform : compute_platform::platforms_)
-      if (id == __platform.id()) {
-        *this = compute_platform(__platform);
-        __found = true;
-        break;
-      }
-  } catch (const compute_error&) {
+    if (id && !compute_platform::platforms().empty())
+      for (auto __platform : compute_platform::platforms_)
+        if (id == __platform.id()) {
+          *this = compute_platform(__platform);
+          __found = true;
+          break;
+        }
+  } catch (const compute_error &) {
     // something wrong with OpenCL, so a new object will be empty
   }
   if (!__found)
@@ -55,6 +56,13 @@ bool compute_platform::is_required_version(int major, int minor) const
   int __required = major * 100 + minor;
   int __actual = major_version_ * 100 + minor_version_;
   return (!(__required > __actual));
+}
+
+bool compute_platform::have_extension(const std::string &name) const {
+  if (!name.empty())
+    return std::find(extensions_.begin(), extensions_.end(), name) !=
+           extensions_.end();
+  return false;
 }
 
 const compute_platforms_t &compute_platform::platforms() {
@@ -86,8 +94,30 @@ void __teuthid_get_cl_version(const std::string &version, int &major,
   assert(major != 0);
   std::string::size_type __space = __s.find(' ');
   assert(__space != std::string::npos);
-  minor = std::stoi(__s.substr(__dot + 1, __space));
+  minor = std::stoi(__s.substr(__dot + 1, __space - __dot));
   spec = __s.substr(__space + 1);
+}
+
+void __teuthid__get_cl_extensions(const std::string &str,
+                                  compute_extensions_t &extensions) {
+  if (str.empty())
+    return; // no extensions
+  std::string __ex;
+  std::string __s = str;
+  std::string::size_type __space = __s.find(' ');
+  if (__space == std::string::npos) // just one extension
+    extensions.push_back(str);
+  else {
+    while (__space != std::string::npos) {
+      __ex = __s.substr(0, __space);
+      extensions.push_back(__ex);
+      __s.erase(0, __ex.size() + 1);
+      __space = __s.find(' ');
+    }
+    if (!__s.empty()) // last extension
+      extensions.push_back(__s);
+  }
+  extensions.shrink_to_fit();
 }
 #endif // TEUTHID_WITH_OPENCL
 #endif // DOXYGEN_SHOULD_SKIP_THIS
@@ -111,14 +141,16 @@ void compute_platform::detect_platforms_() {
       platforms_[__i].name_ = __cl_platforms[__i].getInfo<CL_PLATFORM_NAME>();
       platforms_[__i].vendor_ =
           __cl_platforms[__i].getInfo<CL_PLATFORM_VENDOR>();
-      platforms_[__i].extensions_ =
-          __cl_platforms[__i].getInfo<CL_PLATFORM_EXTENSIONS>();
+      __teuthid__get_cl_extensions(
+          __cl_platforms[__i].getInfo<CL_PLATFORM_EXTENSIONS>(),
+          platforms_[__i].extensions_);
       platforms_[__i].icd_suffix_khr_ =
           __cl_platforms[__i].getInfo<CL_PLATFORM_ICD_SUFFIX_KHR>();
     }
   } catch (const cl::Error &__e) {
     throw invalid_compute_platform(__e.err());
   }
+  platforms_.shrink_to_fit();
 #endif // TEUTHID_WITH_OPENCL
 }
 
