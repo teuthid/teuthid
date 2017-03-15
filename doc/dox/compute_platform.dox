@@ -73,6 +73,14 @@
  * OpenCL platform.
  */
 
+/*! \fn teuthid::compute_platform::compute_platform(compute_platform_id_t id)
+ * \brief Constructs a new object of class compute_platform.
+ * @param[in] id the ID (\c cl_platform_id) for a OpenCL platform.
+ * 
+ * If \c id is invalid and points to a non-existent OpenCL platform or is equal * to \c nullptr, the new object is empty.
+ * \see id(), platforms().
+ */
+
 
 /*! \fn compute_platform::~compute_platform()
  * \brief Destructs an object of class compute_platform.

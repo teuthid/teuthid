@@ -75,6 +75,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_compute_platform) {
     BOOST_TEST(__p2.id(), "id()");
     __p2 = compute_platform(__platform.id());
     BOOST_TEST(__p2.id(), "id()");
+    BOOST_TEST(__p2.profile() != COMPUTE_UNKNOWN_PROFILE, "profile()");
+    BOOST_TEST(!__p2.version().empty(), "version()");
   }
 #else
   BOOST_TEST(__platforms.empty());
