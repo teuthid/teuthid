@@ -32,6 +32,7 @@ distclean:
 	@- $(RM) ./doc/api
 	@- $(RM) ./doc/doxyfile
 	@- $(RM) ./include/teuthid/config.hpp
+	@- $(RM) ./install
 	@- $(RM) ./README
 	
 ifeq ($(findstring distclean,$(MAKECMDGOALS)),)
