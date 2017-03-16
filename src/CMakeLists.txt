@@ -1,5 +1,5 @@
 set(teuthid_library_sources
-  cl2.hpp compute_device.cpp compute_platform.cpp
+  compute/cl2.hpp compute/compute_device.cpp compute/compute_platform.cpp
   library.cpp
 )
 
