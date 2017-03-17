@@ -18,7 +18,7 @@
 
 #include <iostream>
 
-#include <teuthid/library.hpp>
+#include <teuthid/system.hpp>
 using namespace teuthid;
 
 #if defined(TEUTHID_USE_ARRAYFIRE)
@@ -34,10 +34,11 @@ std::string __str;
 
 int main() {
   std::cout << std::endl << ruler << std::endl;
-  std::cout << "Teuthid Version " << std::to_string(library::major_version())
-            << "." << std::to_string(library::minor_version()) << std::endl;
+  std::cout << "Teuthid Version " << std::to_string(system::major_version())
+            << "." << std::to_string(system::minor_version()) << std::endl;
   std::cout << "  --" << std::endl;
-  if (library::have_compute_kernel()) {
+  if (system::have_clb()) {
+#if defined(TEUTHID_WITH_OPENCL)    
     std::cout << "Build with OpenCL (using " << cl_backend << " as a backend)."
               << std::endl;
     std::cout << "Available OpenCL platform(s): "
@@ -96,6 +97,7 @@ int main() {
       }
     }
     std::cout << std::endl;
+#endif // TEUTHID_WITH_OPENCL
   } else
     std::cout << "Build without OpenCL." << std::endl;
 

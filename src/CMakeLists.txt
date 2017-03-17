@@ -1,7 +1,13 @@
 set(teuthid_library_sources
-  compute/cl2.hpp compute/compute_device.cpp compute/compute_platform.cpp
-  library.cpp
+  system.cpp
 )
+
+if (BUILD_WITH_OPENCL)
+  set(teuthid_clb_library_sources
+  clb/cl2.hpp clb/device.cpp clb/platform.cpp
+  )
+  list(APPEND teuthid_library_sources ${teuthid_clb_library_sources})
+endif(BUILD_WITH_OPENCL)
 
 set(compiler_options_ "${AVX_SSE_compiler_options}")
 separate_arguments(compiler_options_)

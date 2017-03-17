@@ -1,11 +1,14 @@
 include(CTest)
 
 set(teuthid_tests
-  class_compute_error class_compute_device class_compute_platform
-  class_library
+  class_system
 )
+
 if (BUILD_WITH_OPENCL)
-  list_prepend(teuthid_tests opencl)
+  set(teuthid_clb_tests
+    class_clb_error class_clb_device class_clb_platform
+  )
+  list_prepend(teuthid_tests ${teuthid_clb_tests})
 endif()
 
 set(compiler_options_ "${AVX_SSE_compiler_options}")

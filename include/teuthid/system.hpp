@@ -16,20 +16,19 @@
     along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef TEUTHID_LIBRARY_HPP
-#define TEUTHID_LIBRARY_HPP
+#ifndef TEUTHID_SYSTEM_HPP
+#define TEUTHID_SYSTEM_HPP
 
 #include <string>
-
-#include <teuthid/compute_platform.hpp>
+#include <teuthid/config.hpp>
 
 namespace teuthid {
 
-class library final {
+class system final {
 public:
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-  library(library const &) = delete;
-  void operator=(library const &) = delete;
+  system(system const &) = delete;
+  void operator=(system const &) = delete;
 #endif // DOXYGEN_SHOULD_SKIP_THIS
   static constexpr uint8_t major_version() noexcept {
     return TEUTHID_MAJOR_VERSION;
@@ -41,22 +40,19 @@ public:
     return TEUTHID_PATCH_VERSION;
   }
   static constexpr uint8_t soversion() noexcept { return TEUTHID_SOVERSION; }
-  static const std::string &version() noexcept { return library::version_; }
+  static const std::string &version() noexcept { return system::version_; }
   static bool is_required_version(uint8_t major, uint8_t minor) noexcept;
-  static const compute_platforms_t &compute_platforms() {
-    return compute_platform::platforms();
-  }
-  static bool have_compute_kernel();
-  static bool use_compute_kernel() { return library::use_compute_kernel_; }
-  static bool use_compute_kernel(bool enabled);
+  static bool have_clb();
+  static bool use_clb() { return system::use_clb_; }
+  static bool use_clb(bool enabled);
 
 private:
-  library() {}
-  ~library() {}
+  system() {}
+  ~system() {}
 
   static std::string version_;
-  static thread_local bool use_compute_kernel_;
-}; // class library
+  static thread_local bool use_clb_;
+};
 } // namespace teuthid
 
-#endif // TEUTHID_LIBRARY_HPP
+#endif // TEUTHID_SYSTEM_HPP

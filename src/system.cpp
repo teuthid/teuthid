@@ -16,21 +16,26 @@
     along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <teuthid/compute_error.hpp>
-#include <teuthid/library.hpp>
+#include <teuthid/system.hpp>
 
 using namespace teuthid;
 
-thread_local bool library::use_compute_kernel_ = library::have_compute_kernel();
-std::string library::version_ = std::string(TEUTHID_VERSION);
+#if defined(TEUTHID_WITH_OPENCL)
+thread_local bool system::use_clb_ = system::have_clb();
+#else
+thread_local bool system::use_clb_ = false;
+#endif
 
-bool library::is_required_version(uint8_t major, uint8_t minor) noexcept {
+std::string system::version_ = std::string(TEUTHID_VERSION);
+
+bool system::is_required_version(uint8_t major, uint8_t minor) noexcept {
   uint32_t __required = major * 1000 + minor;
   uint32_t __actual = TEUTHID_MAJOR_VERSION * 1000 + TEUTHID_MINOR_VERSION;
   return (!(__required > __actual));
 }
 
-bool library::have_compute_kernel() {
+bool system::have_clb() {
+#if defined(TEUTHID_WITH_OPENCL)
   try {
     for (auto __platform : compute_platform::platforms())
       if (__platform.devices().size() > 0)
@@ -38,11 +43,12 @@ bool library::have_compute_kernel() {
   } catch (const compute_error &) {
     // some problems with the compute kernel - it wil be disabled
   }
+#endif // TEUTHID_WITH_OPENCL
   return false;
 }
 
-bool library::use_compute_kernel(bool enabled) {
-  if (library::have_compute_kernel())
-    library::use_compute_kernel_ = enabled;
-  return library::use_compute_kernel_;
+bool system::use_clb(bool enabled) {
+  if (system::have_clb())
+    system::use_clb_ = enabled;
+  return system::use_clb_;
 }

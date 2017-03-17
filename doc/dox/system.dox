@@ -17,39 +17,39 @@
 */
 
 
-/*! \class teuthid::library library.hpp <teuthid/library.hpp>
+/*! \class teuthid::system system.hpp <teuthid/system.hpp>
  * \brief This class includes a number of functions that control the framework
  * and provide information about its settings.
  *
- *  All functions that provides class teuthid::library are static.
+ *  All functions that provides class teuthid::system are static.
  * 
  */
 
 
-/*! \fn static constexpr uint8_t library::major_version()
+/*! \fn static constexpr uint8_t system::major_version()
  * \brief Returns the major version of the framework.
  * \see version().
  */
 
 
-/*! \fn static constexpr uint8_t library::minor_version()
+/*! \fn static constexpr uint8_t system::minor_version()
  * \brief Returns the minor version of the framework.
  * \see version().
  */
 
 
-/*! \fn static constexpr uint8_t library::patch_version()
+/*! \fn static constexpr uint8_t system::patch_version()
  * \brief Returns the patch version of the framework.
  * \see version().
  */
 
-/*! \fn static constexpr uint8_t library::soversion()
+/*! \fn static constexpr uint8_t system::soversion()
  * \brief Returns the soversion of the framework shared libraries.
  * \see version().
  */
 
 
-/*! \fn static const std::string &library::version()
+/*! \fn static const std::string &system::version()
  * \brief Returns the version of the framework.
  *
  * \return the version of the framework as a string that has the following 
@@ -58,7 +58,7 @@
  */
 
 
-/*! \fn static bool library::is_required_version(uint8_t major, uint8_t minor)
+/*! \fn static bool system::is_required_version(uint8_t major, uint8_t minor)
  * \brief Checks whether a version of the framework is sufficient. 
  * \return \c true if a version of the framewrok is a sufficient version. 
  * Otherwise return \c false. 
@@ -69,20 +69,7 @@
  */ 
 
 
-/*! \fn static const compute_platforms_t &library::compute_platforms()
- * \brief Returns the vector containing objects of class compute_platform.
- * \return a reference to the vector of type 
- * \ref teuthid::compute_platforms_t "compute_platforms_t" containing objects 
- * of class compute_platform.
- * \note The Teuthid framework must be compiled with enabled 
- * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
- * devices.
- * \see have_compute_kernel(), compute_platform::platforms(), 
- * compute_platform::devices().
- */
-
-
-/*! \fn static bool library::have_compute_kernel()
+/*! \fn static bool system::have_clb()
  * \brief Checks whether the framework can use OpenCL compute kernels.
  * \return \c true if the framework can use OpenCL compute kernels - the system 
  * must have at least one properly working OpenCL platform with one properly 
@@ -90,12 +77,11 @@
  * \note The Teuthid framework must be compiled with enabled 
  * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
  * devices.
- * \see use_compute_kernel(), compute_platform::platforms(), 
- * compute_platform::devices().
+ * \see use_clb(), clb::platform::platforms(), clb::platform::devices().
  */
 
 
-/*! \fn static bool library::use_compute_kernel()
+/*! \fn static bool system::use_clb()
  * \brief Checks whether a given thread can use OpenCL compute kernels.
  * \return \c true if a given thread (a thread that call this function) can use 
  * OpenCL compute kernels in a multithreading environment. 
@@ -103,16 +89,16 @@
  * \note The Teuthid framework must be compiled with enabled 
  * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
  * devices.
- * \see use_compute_kernel(bool), have_compute_kernel().
+ * \see use_clb(bool), have_clb().
  */
 
 
-/*! \fn static bool library::use_compute_kernel(bool enabled)
+/*! \fn static bool system::use_clb(bool enabled)
  * \brief Enables or disables the possibility to use OpenCL compute kernels
  * by a given thread.
  *
- * Enables (if \c enabled is equal to \c true) or disables (\c enabled is equal 
- * to \c false) the possibility to use OpenCL compute kernels by a given
+ * @param[in] enabled enables (if it is equal to \c true) or disables (if it is 
+ * equal to \c false) the possibility to use OpenCL compute kernels by a given
  * thread (a thread that call this function).
  * \return \c true if a given thread (a thread that call this function) can use 
  * OpenCL compute kernels in a multithreading environment. 
@@ -120,6 +106,6 @@
  * \note The Teuthid framework must be compiled with enabled 
  * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
  * devices.
- * \see have_compute_kernel().
+ * \see have_clb().
  */
 
