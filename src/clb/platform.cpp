@@ -33,14 +33,14 @@ platform::platform(platform_id_t id) {
   assert(id);
   bool __found = false;
   try {
-    if (id && !platform::platforms().empty())
-      // will rewrite using std::find_if
+    if (id && !platform::platforms().empty()) {
       for (auto __platform : platform::platforms_)
         if (id == __platform.id()) {
           *this = platform(__platform);
           __found = true;
           break;
         }
+    }
   } catch (const error &) {
     // something wrong with OpenCL, so a new object will be empty
   }
