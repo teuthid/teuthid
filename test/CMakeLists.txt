@@ -8,7 +8,7 @@ if (BUILD_WITH_OPENCL)
   set(teuthid_clb_tests
     class_clb_error class_clb_device class_clb_platform
   )
-  list_prepend(teuthid_tests ${teuthid_clb_tests})
+  list(APPEND teuthid_tests ${teuthid_clb_tests})
 endif()
 
 set(compiler_options_ "${AVX_SSE_compiler_options}")

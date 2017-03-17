@@ -18,6 +18,11 @@
 
 #include <teuthid/system.hpp>
 
+#if defined(TEUTHID_WITH_OPENCL)
+#include <teuthid/clb/error.hpp>
+#include <teuthid/clb/platform.hpp>
+#endif
+
 using namespace teuthid;
 
 #if defined(TEUTHID_WITH_OPENCL)
@@ -37,10 +42,10 @@ bool system::is_required_version(uint8_t major, uint8_t minor) noexcept {
 bool system::have_clb() {
 #if defined(TEUTHID_WITH_OPENCL)
   try {
-    for (auto __platform : compute_platform::platforms())
+    for (auto __platform : clb::platform::platforms())
       if (__platform.devices().size() > 0)
         return true;
-  } catch (const compute_error &) {
+  } catch (const clb::error &) {
     // some problems with the compute kernel - it wil be disabled
   }
 #endif // TEUTHID_WITH_OPENCL

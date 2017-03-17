@@ -27,6 +27,10 @@ using namespace teuthid;
 #define cl_backend "Boost.Compute"
 #endif
 
+#if defined(TEUTHID_WITH_OPENCL)
+#include <teuthid/clb/platform.hpp>
+#endif
+
 #define ruler                                                                  \
   "------------------------------------------------------------------------"
 
@@ -38,12 +42,14 @@ int main() {
             << "." << std::to_string(system::minor_version()) << std::endl;
   std::cout << "  --" << std::endl;
   if (system::have_clb()) {
-#if defined(TEUTHID_WITH_OPENCL)    
+#if defined(TEUTHID_WITH_OPENCL)
     std::cout << "Build with OpenCL (using " << cl_backend << " as a backend)."
               << std::endl;
+
+    // OpenCL platforms ...
     std::cout << "Available OpenCL platform(s): "
-              << library::compute_platforms().size() << std::endl;
-    for (auto __platform : library::compute_platforms()) {
+              << clb::platform::platforms().size() << std::endl;
+    for (auto __platform : clb::platform::platforms()) {
       std::cout << "  Platform Name: " << __platform.name() << std::endl;
       std::cout << "  Platform Vendor: " << __platform.vendor() << std::endl;
       std::cout << "  Platform Version: " << __platform.version() << std::endl;
@@ -57,16 +63,16 @@ int main() {
       else
         __str = "UNKNOWN PROFILE";
       std::cout << "  Platform Profile: " << __str << std::endl;
-      std::cout << "  Platform Extensions: ";
+      std::cout << "  Platform Extensions: | ";
       for (auto __ext : __platform.extensions())
-        std::cout << __ext << "  ";
+        std::cout << __ext << " | ";
       std::cout << std::endl;
       std::cout << "  Platform Extensions function suffix : "
                 << __platform.icd_suffix_khr() << std::endl;
 
       // ... and devices:
-      std::cout << "  Available OpenCL devices(s): " << __platform.num_devices()
-                << std::endl;
+      std::cout << "  Available OpenCL devices(s): "
+                << __platform.device_count() << std::endl;
       for (auto __device : __platform.devices()) {
         std::cout << "    Device Name: " << __device.name() << std::endl;
         std::cout << "    Device Version: " << __device.version() << std::endl;
@@ -92,8 +98,10 @@ int main() {
         std::cout << "    Device Type: " << __str << std::endl;
         std::cout << "    Parallel compute units: "
                   << __device.max_compute_units() << std::endl;
-        std::cout << "    Device Extensions: " << __device.extensions()
-                  << std::endl;
+        std::cout << "    Device Extensions: | ";
+        for (auto __ext : __device.extensions())
+          std::cout << __ext << " | ";
+        std::cout << std::endl;
       }
     }
     std::cout << std::endl;

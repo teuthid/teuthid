@@ -16,43 +16,42 @@
     along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define BOOST_TEST_MODULE teuthid
+#define BOOST_TEST_MODULE teuthid_clb
 #define BOOST_TEST_DYN_LINK
 
 #include <boost/test/unit_test.hpp>
-#include <teuthid/compute_platform.hpp>
-#include <teuthid/library.hpp>
+#include <teuthid/clb/platform.hpp>
 
-using namespace teuthid;
+using namespace teuthid::clb;
 
-BOOST_AUTO_TEST_CASE(class_teuthid_compute_platform) {
-  compute_platform __empty;
-  BOOST_TEST(!__empty.id(), "id()");
-  BOOST_TEST(__empty.profile() == COMPUTE_UNKNOWN_PROFILE, "profile()");
-  BOOST_TEST(__empty.version().empty(), "version()");
-  BOOST_TEST(__empty.major_version() == 0, "major_version()");
-  BOOST_TEST(__empty.minor_version() == 0, "minor_version()");
-  BOOST_TEST(__empty.spec_version().empty(), "spec_version()");
-  BOOST_TEST(__empty.name().empty(), "name()");
-  BOOST_TEST(__empty.vendor().empty(), "vendor()");
-  BOOST_TEST(__empty.extensions().empty(), "extensions()");
-  BOOST_TEST(!__empty.have_extension(""), "have_extension()");
-  BOOST_TEST(!__empty.have_extension("xxx"), "have_extension()");
-  BOOST_TEST(__empty.icd_suffix_khr().empty(), "icd_suffix_khr.vendor()");
-  BOOST_TEST(__empty.devices().empty(), "devices()");
-  BOOST_TEST(__empty.num_devices() == 0, "num_devices()");
+BOOST_AUTO_TEST_CASE(class_teuthid_clb_platform) {
+  platform __plat;
+  BOOST_TEST(!__plat.id(), "id()");
+  BOOST_TEST(__plat.profile() == UNKNOWN_PROFILE, "profile()");
+  BOOST_TEST(__plat.version().empty(), "version()");
+  BOOST_TEST(__plat.major_version() == 0, "major_version()");
+  BOOST_TEST(__plat.minor_version() == 0, "minor_version()");
+  BOOST_TEST(__plat.spec_version().empty(), "spec_version()");
+  BOOST_TEST(__plat.name().empty(), "name()");
+  BOOST_TEST(__plat.vendor().empty(), "vendor()");
+  BOOST_TEST(__plat.extensions().empty(), "extensions()");
+  BOOST_TEST(!__plat.have_extension(""), "have_extension()");
+  BOOST_TEST(!__plat.have_extension("xxx"), "have_extension()");
+  BOOST_TEST(__plat.icd_suffix_khr().empty(), "icd_suffix_khr.vendor()");
+  BOOST_TEST(__plat.devices().empty(), "devices()");
+  BOOST_TEST(__plat.device_count() == 0, "device_count()");
 
-  compute_platform_id_t *fake_id_ptr_ = new compute_platform_id_t;
-  __empty = compute_platform(*fake_id_ptr_);
-  BOOST_TEST(__empty.profile() == COMPUTE_UNKNOWN_PROFILE, "profile()");
-  BOOST_TEST(__empty.version().empty(), "version()");
+  platform_id_t *fake_id_ptr_ = new platform_id_t;
+  __plat = platform(*fake_id_ptr_);
+  BOOST_TEST(__plat.profile() == UNKNOWN_PROFILE, "profile()");
+  BOOST_TEST(__plat.version().empty(), "version()");
 
-  compute_platforms_t __platforms = library::compute_platforms();
-#if defined(TEUTHID_WITH_OPENCL)
+  const platforms_t &__platforms = platform::platforms();
   BOOST_TEST(!__platforms.empty());
+
   for (auto __platform : __platforms) {
     BOOST_TEST(__platform.id(), "id()");
-    BOOST_TEST(__platform.profile() != COMPUTE_UNKNOWN_PROFILE, "profile()");
+    BOOST_TEST(__platform.profile() != UNKNOWN_PROFILE, "profile()");
     BOOST_TEST(
         (__platform.is_full_profile() || __platform.is_embedded_profile()),
         "is_full_profile(), is_embedded_profile()");
@@ -78,15 +77,13 @@ BOOST_AUTO_TEST_CASE(class_teuthid_compute_platform) {
                                                __platform.minor_version() + 1),
                "is_required_version()");
     BOOST_TEST(!__platform.devices().empty(), "devices()");
-    BOOST_TEST(__platform.num_devices() > 0, "num_devices()");
-    compute_platform __p2 = __platform;
-    BOOST_TEST(__p2.id(), "id()");
-    __p2 = compute_platform(__platform.id());
-    BOOST_TEST(__p2.id(), "id()");
-    BOOST_TEST(__p2.profile() != COMPUTE_UNKNOWN_PROFILE, "profile()");
-    BOOST_TEST(!__p2.version().empty(), "version()");
+    BOOST_TEST(__platform.device_count() > 0, "device_count()");
+    
+    __plat = __platform;
+    BOOST_TEST(__plat.id(), "id()");
+    __plat = platform(__platform.id());
+    BOOST_TEST(__plat.id(), "id()");
+    BOOST_TEST(__plat.profile() != UNKNOWN_PROFILE, "profile()");
+    BOOST_TEST(!__plat.version().empty(), "version()");
   }
-#else
-  BOOST_TEST(__platforms.empty());
-#endif // defined(TEUTHID_WITH_OPENCL)
 }

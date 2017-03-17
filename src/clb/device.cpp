@@ -18,9 +18,9 @@
 
 #include <cassert>
 
-#include <teuthid/compute_device.hpp>
-#include <teuthid/compute_platform.hpp>
+#include <teuthid/clb/error.hpp>
+#include <teuthid/clb/platform.hpp>
 
-using namespace teuthid;
+using namespace teuthid::clb;
 
 
