@@ -30,10 +30,9 @@ std::mutex platform::mutex_;
 platforms_t platform::platforms_;
 
 platform::platform(platform_id_t id) {
-  assert(id);
   bool __found = false;
   try {
-    if (id && !platform::platforms().empty()) {
+    if (platform::platform_count() > 0) {
       for (auto __platform : platform::platforms_)
         if (id == __platform.id()) {
           *this = platform(__platform);
@@ -41,11 +40,11 @@ platform::platform(platform_id_t id) {
           break;
         }
     }
-  } catch (const error &) {
-    // something wrong with OpenCL, so a new object will be empty
+  } catch (const error &__e) {
+    throw invalid_platform(__e.cl_error());
   }
   if (!__found)
-    *this = platform();
+    throw invalid_platform("unknown platform_id_t");
 }
 
 bool platform::is_required_version(int major, int minor) const noexcept {
@@ -185,4 +184,10 @@ void platform::detect_devices_(platform &plat) {
     throw invalid_device(__e.err());
   }
   plat.devices_.shrink_to_fit();
+}
+
+bool platform::unload_compiler() {
+  cl::Platform __cl_platform(id_);
+  cl_int __result = __cl_platform.unloadCompiler();
+  return (__result == CL_SUCCESS); 
 }

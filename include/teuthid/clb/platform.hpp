@@ -35,10 +35,6 @@ typedef std::vector<platform> platforms_t;
 
 class platform {
 public:
-  platform() noexcept : id_(nullptr),
-                        profile_(UNKNOWN_PROFILE),
-                        major_version_(0),
-                        minor_version_(0) {}
   explicit platform(platform_id_t id);
   platform(const platform &) = default;
   platform(platform &&) = default;
@@ -63,10 +59,14 @@ public:
   const std::string &icd_suffix_khr() const noexcept { return icd_suffix_khr_; }
   const devices_t &devices() const noexcept { return devices_; }
   std::size_t device_count() const noexcept { return devices_.size(); }
+  bool unload_compiler();
 
   static const platforms_t &platforms();
+  static std::size_t platform_count() { return platforms().size(); }
 
 private:
+  platform() {}
+
   platform_id_t id_;    // platform ID
   profile_t profile_;   // CL_PLATFORM_PROFILE
   std::string version_; // CL_PLATFORM_VERSION

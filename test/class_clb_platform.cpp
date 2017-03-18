@@ -25,29 +25,9 @@
 using namespace teuthid::clb;
 
 BOOST_AUTO_TEST_CASE(class_teuthid_clb_platform) {
-  platform __plat;
-  BOOST_TEST(!__plat.id(), "id()");
-  BOOST_TEST(__plat.profile() == UNKNOWN_PROFILE, "profile()");
-  BOOST_TEST(__plat.version().empty(), "version()");
-  BOOST_TEST(__plat.major_version() == 0, "major_version()");
-  BOOST_TEST(__plat.minor_version() == 0, "minor_version()");
-  BOOST_TEST(__plat.spec_version().empty(), "spec_version()");
-  BOOST_TEST(__plat.name().empty(), "name()");
-  BOOST_TEST(__plat.vendor().empty(), "vendor()");
-  BOOST_TEST(__plat.extensions().empty(), "extensions()");
-  BOOST_TEST(!__plat.have_extension(""), "have_extension()");
-  BOOST_TEST(!__plat.have_extension("xxx"), "have_extension()");
-  BOOST_TEST(__plat.icd_suffix_khr().empty(), "icd_suffix_khr.vendor()");
-  BOOST_TEST(__plat.devices().empty(), "devices()");
-  BOOST_TEST(__plat.device_count() == 0, "device_count()");
-
-  platform_id_t *fake_id_ptr_ = new platform_id_t;
-  __plat = platform(*fake_id_ptr_);
-  BOOST_TEST(__plat.profile() == UNKNOWN_PROFILE, "profile()");
-  BOOST_TEST(__plat.version().empty(), "version()");
-
   const platforms_t &__platforms = platform::platforms();
   BOOST_TEST(!__platforms.empty());
+  BOOST_TEST(platform::platform_count() > 0);
 
   for (auto __platform : __platforms) {
     BOOST_TEST(__platform.id(), "id()");
@@ -79,7 +59,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_platform) {
     BOOST_TEST(!__platform.devices().empty(), "devices()");
     BOOST_TEST(__platform.device_count() > 0, "device_count()");
     
-    __plat = __platform;
+    platform __plat = __platform;
     BOOST_TEST(__plat.id(), "id()");
     __plat = platform(__platform.id());
     BOOST_TEST(__plat.id(), "id()");

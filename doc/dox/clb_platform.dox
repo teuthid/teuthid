@@ -17,17 +17,22 @@
 */
 
 
-/*! \typedef typedef std::vector<compute_platform> teuthid::compute_platforms_t
- * \brief This is a type alias for the vector containing objects of class
- * \ref teuthid::compute_platform "compute_platform".
+/*! \typedef typedef cl_platform_id teuthid::clb::platform_id_t
+ * \brief This is a type alias for \c cl_platform_id.
  *
- * \see \ref teuthid::compute_platform::platforms() 
- * "compute_platform::platforms()".
+ * \see \ref teuthid::clb::platform::id() "platform::id()".
  */
 
 
-/*! \class teuthid::compute_platform compute_platform.hpp \ 
-<teuthid/compute_platform.hpp>
+/*! \typedef typedef std::vector<platform> teuthid::clb::platforms_t
+ * \brief This is a type alias for the vector containing objects of class
+ * \ref teuthid::clb::platform "platform".
+ *
+ * \see \ref teuthid::clb::platform::platforms() "platform::platforms()".
+ */
+
+
+/*! \class teuthid::clb::platform platform.hpp <teuthid/clb/platform.hpp>
  *  \brief This class holds information about the OpenCL platform.
  * 
  * <a href="https://www.khronos.org/opencl/">OpenCL</a> is used as an interface 
@@ -39,14 +44,14 @@
  * \b Example:
  * \code
  * #include <iostream>
- * #include <teuthid/library.hpp>
+ * #include <teuthid/clb/platform.hpp>
  * using namespace teuthid;
  * 
  * int main() {
  *   std::cout << "Available OpenCL platform(s): "
- *             << library::compute_platforms().size() << std::endl;
+ *             << clb::platform::platform_count() << std::endl;
  *
- *   for (auto __platform : library::compute_platforms()) {
+ *   for (auto __platform : clb::platform::platforms()) {
  *
  *     std::cout << "Platform Name: " << __platform.name() << std::endl;
  *     std::cout << "Platform Vendor: " << __platform.vendor() << std::endl;
@@ -59,26 +64,17 @@
  *   return 0;
  * }
  * \endcode
- * See \ref teuthid::library::have_compute_kernel() 
- * "library::have_compute_kernel()" and platforms() about checking if the 
- * running system has OpenCL-capable hardware 
+ * See \ref teuthid::system::have_clb() "system::have_clb()" and platforms()
+ * about checking if the running system has OpenCL-capable hardware 
  * and drivers.
  */
 
  
-/*! \fn teuthid::compute_platform::compute_platform() noexcept
- * \brief Constructs a new object of class compute_platform.
- *
- * The new object is empty and <b>does not</b> contain information about any
- * OpenCL platform.
- */
-
-/*! \fn teuthid::compute_platform::compute_platform(compute_platform_id_t id)
- * \brief Constructs a new object of class compute_platform.
+/*! \fn teuthid::clb::platform::platform(platform_id_t id)
+ * \brief Constructs a new object of class platform.
  * @param[in] id the ID (\c cl_platform_id) for a OpenCL platform.
- * 
- * If \c id is invalid and points to a non-existent OpenCL platform or is equal 
- * to \c nullptr, the new object is empty.
+ * \throw invalid_platform if \c id is invalid and points to a non-existent 
+ * OpenCL platform or is equal to \c nullptr.
  * \note The Teuthid framework must be compiled with enabled 
  * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
  * devices.
@@ -86,17 +82,11 @@
  */
 
 
-/*! \fn compute_platform::~compute_platform()
- * \brief Destructs an object of class compute_platform.
- */
-
-
-/*! \fn const compute_platform_id_t &compute_platform::id() const
+/*! \fn const platform_id_t &platform::id() const
  * \brief Returns the identifier for this platform.
  *
- * \return the identifier for this OpenCL platform. \n
- * The returned value is the equivalent of \c cl_platform_id. 
- * If it is equal to \c NULL, this OpenCL platform is undetermined.
+ * \return the identifier for this OpenCL platform.
+ * The returned value is the equivalent of \c cl_platform_id.
  */
    
 
