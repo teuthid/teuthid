@@ -40,8 +40,13 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
       BOOST_TEST(!__device.c_version().empty(), "c_version()");
       BOOST_TEST(__device.max_compute_units() > 0, "max_compute_units()");
       BOOST_TEST(!__device.extensions().empty(), "extensions()");
-      for (auto __ext : __device.extensions())
+      for (auto __ext : __device.extensions()) {
         BOOST_TEST(!__ext.empty(), "extensions()");
+        BOOST_TEST(__device.have_extension(__ext), "have_extension");
+      }
+      BOOST_TEST(((__device.address_bits() == 32) ||
+                 (__device.address_bits() == 64)), "address_bits()");
+      BOOST_TEST(__device.global_memory_size() > 0, "global_memory_size()");
       BOOST_TEST(__device.get_platform().id() == __platform.id(),
                  "get_platform()");
       BOOST_TEST((device::get_platform(__device.id()) == __platform),

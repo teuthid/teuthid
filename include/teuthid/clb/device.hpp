@@ -76,22 +76,27 @@ public:
   const std::string &c_version() const noexcept { return c_version_; }
   uint32_t max_compute_units() const noexcept { return max_compute_units_; }
   const extensions_t &extensions() const noexcept { return extensions_; }
-  
+  bool have_extension(const std::string &ext_name) const;
+  uint8_t address_bits() const noexcept { return address_bits_; }
+  uint64_t global_memory_size() const noexcept { return global_memory_size_; }
+
   static const platform &get_platform(device_id_t device_id);
 
 private:
   device() {}
 
-  device_id_t id_;             // device ID
-  platform_id_t platform_id_;  // platform ID
-  profile_t profile_;          // CL_DEVICE_PROFILE
-  devtype_t devtype_;          // CL_DEVICE_TYPE
-  std::string name_;           // CL_DEVICE_NAME
-  std::string version_;        // CL_DEVICE_VERSION
-  std::string driver_version_; // CL_DRIVER_VERSION
-  std::string c_version_;      // CL_DEVICE_OPENCL_C_VERSION
-  uint32_t max_compute_units_; // CL_DEVICE_MAX_COMPUTE_UNITS
-  extensions_t extensions_;    // CL_DEVICE_EXTENSIONS
+  device_id_t id_;              // device ID
+  platform_id_t platform_id_;   // platform ID
+  profile_t profile_;           // CL_DEVICE_PROFILE
+  devtype_t devtype_;           // CL_DEVICE_TYPE
+  std::string name_;            // CL_DEVICE_NAME
+  std::string version_;         // CL_DEVICE_VERSION
+  std::string driver_version_;  // CL_DRIVER_VERSION
+  std::string c_version_;       // CL_DEVICE_OPENCL_C_VERSION
+  uint32_t max_compute_units_;  // CL_DEVICE_MAX_COMPUTE_UNITS
+  extensions_t extensions_;     // CL_DEVICE_EXTENSIONS
+  uint8_t address_bits_;        // CL_DEVICE_ADDRESS_BITS
+  uint64_t global_memory_size_; // CL_DEVICE_GLOBAL_MEM_SIZE
 };
 
 } // namespace clb

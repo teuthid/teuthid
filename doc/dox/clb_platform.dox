@@ -70,11 +70,11 @@
  */
 
  
-/*! \fn teuthid::clb::platform::platform(platform_id_t id)
+/*! \fn teuthid::clb::platform::platform(platform_id_t platform_id)
  * \brief Constructs a new object of class platform.
- * @param[in] id the ID (\c cl_platform_id) for a OpenCL platform.
- * \throw invalid_platform if \c id is invalid and points to a non-existent 
- * OpenCL platform or is equal to \c nullptr.
+ * @param[in] platform_id the ID (\c cl_platform_id) for a OpenCL platform.
+ * \throw invalid_platform if \c platform_id is invalid and points to a 
+ * non-existent OpenCL platform or is equal to \c nullptr.
  * \note The Teuthid framework must be compiled with enabled 
  * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
  * devices.

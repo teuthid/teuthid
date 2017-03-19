@@ -16,6 +16,7 @@
     along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <algorithm>
 #include <cassert>
 
 #include <teuthid/clb/error.hpp>
@@ -50,6 +51,13 @@ const platform &device::get_platform() const {
     throw invalid_platform(__e.cl_error());
   }
   throw invalid_platform("cannot find a platform");
+}
+
+bool device::have_extension(const std::string &ext_name) const {
+  if (!ext_name.empty())
+    return std::find(extensions_.begin(), extensions_.end(), ext_name) !=
+           extensions_.end();
+  return false;
 }
 
 const platform &device::get_platform(device_id_t device_id) {

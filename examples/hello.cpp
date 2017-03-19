@@ -102,6 +102,10 @@ int main() {
         for (auto __ext : __device.extensions())
           std::cout << __ext << " | ";
         std::cout << std::endl;
+        std::cout << "    Address bits: "
+                  << std::to_string(__device.address_bits()) << std::endl;
+        std::cout << "    Global memory size: "
+                  << std::to_string(__device.global_memory_size()) << std::endl;
       }
     }
     std::cout << std::endl;
