@@ -61,6 +61,9 @@ public:
   std::size_t device_count() const noexcept { return devices_.size(); }
   bool unload_compiler();
 
+  bool operator==(const platform &other) const { return id_ == other.id_; }
+  bool operator!=(const platform &other) const { return id_ != other.id_; }
+
   static const platforms_t &platforms();
   static std::size_t platform_count() { return platforms().size(); }
 

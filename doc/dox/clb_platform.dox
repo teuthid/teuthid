@@ -254,6 +254,26 @@
  */
 
 
+/*! \fn bool platform::operator==(const platform &other) const
+ * \brief Returns \c true if this platform is the same as \c other.
+ * 
+ * \return \c true if this OpenCL platform is the same as \c other.
+ * Otheriwse, it returns \c false.
+ * @param[in] other an object of class \ref teuthid::clb::platform "platform".
+ * \see id().
+ */
+
+
+/*! \fn bool platform::operator!=(const platform &other) const
+ * \brief Returns \c true if this platform is different from \c other.
+ * 
+ * \return \c true if this OpenCL platform is different from \c other.
+ * Otheriwse, it returns \c false.
+ * @param[in] other an object of class \ref teuthid::clb::platform "platform".
+ * \see id().
+ */
+
+
 /*! \fn const platforms_t &platform::platforms()
  * \brief Returns the vector containing objects of class 
  * \ref teuthid::clb::platform "platform".

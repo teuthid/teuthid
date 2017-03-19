@@ -60,6 +60,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_platform) {
     BOOST_TEST(__platform.device_count() > 0, "device_count()");
     
     platform __plat = __platform;
+    BOOST_TEST((__plat == __platform));
+    BOOST_TEST(!(__plat != __platform));
     BOOST_TEST(__plat.id(), "id()");
     __plat = platform(__platform.id());
     BOOST_TEST(__plat.id(), "id()");
