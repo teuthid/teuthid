@@ -28,14 +28,9 @@
 namespace teuthid {
 namespace clb {
 
-class platform;
-
-typedef cl_platform_id platform_id_t;
-typedef std::vector<platform> platforms_t;
-
 class platform {
 public:
-  explicit platform(platform_id_t id);
+  explicit platform(platform_id_t platform_id);
   platform(const platform &) = default;
   platform(platform &&) = default;
   virtual ~platform() {}

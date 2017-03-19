@@ -25,22 +25,6 @@
 using namespace teuthid::clb;
 
 BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
-  device __dev;
-  BOOST_TEST(!__dev.id(), "id()");
-  BOOST_TEST(__dev.profile() == UNKNOWN_PROFILE, "profile()");
-  BOOST_TEST(__dev.devtype() == DEVICE_UNKNOWN, "devtype()");
-  BOOST_TEST(__dev.name().empty(), "name()");
-  BOOST_TEST(__dev.version().empty(), "version()");
-  BOOST_TEST(__dev.driver_version().empty(), "driver_version()");
-  BOOST_TEST(__dev.c_version().empty(), "c_version()");
-  BOOST_TEST(__dev.max_compute_units() == 0, "max_compute_units()");
-  BOOST_TEST(__dev.extensions().empty(), "extensions()");
-
-  //device_id_t *fake_id_ptr_ = new device_id_t;
-  //__dev = device(*fake_id_ptr_);
-  //BOOST_TEST(__dev.profile() == UNKNOWN_PROFILE, "profile()");
-  //BOOST_TEST(__dev.version().empty(), "version()");
-
   const platforms_t &__platforms = platform::platforms();
   BOOST_TEST(!__platforms.empty());
 
@@ -58,13 +42,18 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
       BOOST_TEST(!__device.extensions().empty(), "extensions()");
       for (auto __ext : __device.extensions())
         BOOST_TEST(!__ext.empty(), "extensions()");
-        
-      __dev = __device;
+      BOOST_TEST(__device.get_platform().id() == __platform.id(),
+                 "get_platform()");
+      BOOST_TEST((device::get_platform(__device.id()) == __platform),
+                 "device::get_platform()");
+      device __dev = __device;
       BOOST_TEST(__dev.id(), "id()");
       BOOST_TEST(__dev.id() == __device.id(), "id()");
-      //__dev = device(__device.id());
-      // BOOST_TEST(__dev.id(), "id()");
-      // BOOST_TEST(__dev.id() == __device.id(), "id()");
+      __dev = device(__device.id());
+      BOOST_TEST(__dev.id(), "id()");
+      BOOST_TEST(__dev.id() == __device.id(), "id()");
+      BOOST_TEST(__dev.get_platform().id() == __platform.id(),
+                 "get_platform()");
     }
   }
 }

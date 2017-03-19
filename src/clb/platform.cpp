@@ -29,12 +29,13 @@ using namespace teuthid::clb;
 std::mutex platform::mutex_;
 platforms_t platform::platforms_;
 
-platform::platform(platform_id_t id) {
+platform::platform(platform_id_t platform_id) {
+  assert(platform_id);
   bool __found = false;
   try {
     if (platform::platform_count() > 0) {
       for (auto __platform : platform::platforms_)
-        if (id == __platform.id()) {
+        if (platform_id == __platform.id()) {
           *this = platform(__platform);
           __found = true;
           break;
@@ -163,6 +164,8 @@ void platform::detect_devices_(platform &plat) {
     for (std::size_t __i = 0; __i < __cl_devices.size(); __i++) {
       plat.devices_.push_back(device());
       plat.devices_[__i].id_ = __cl_devices[__i]();
+      plat.devices_[__i].platform_id_ =
+          __cl_devices[__i].getInfo<CL_DEVICE_PLATFORM>();
       plat.devices_[__i].profile_ = __teuthid_get_cl_profile(
           __cl_devices[__i].getInfo<CL_DEVICE_PROFILE>());
       plat.devices_[__i].name_ = __cl_devices[__i].getInfo<CL_DEVICE_NAME>();

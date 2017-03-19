@@ -39,8 +39,10 @@ class device;
 class platform;
 
 typedef cl_device_id device_id_t;
+typedef cl_platform_id platform_id_t;
 typedef std::vector<std::string> extensions_t;
 typedef std::vector<device> devices_t;
+typedef std::vector<platform> platforms_t;
 
 enum profile_t { FULL_PROFILE, EMBEDDED_PROFILE, UNKNOWN_PROFILE };
 enum devtype_t { DEVICE_CPU, DEVICE_GPU, DEVICE_ACCELERATOR, DEVICE_UNKNOWN };
@@ -49,16 +51,14 @@ class device {
   friend class platform;
 
 public:
-  device() noexcept : id_(NULL),
-                      profile_(UNKNOWN_PROFILE),
-                      devtype_(DEVICE_UNKNOWN),
-                      max_compute_units_(0) {}
+  explicit device(device_id_t device_id);
   device(const device &) = default;
   device(device &&) = default;
   virtual ~device() {}
   device &operator=(const device &) = default;
   device &operator=(device &&) = default;
   const device_id_t &id() const noexcept { return id_; }
+  const platform &get_platform() const;
   const profile_t &profile() const noexcept { return profile_; }
   bool is_full_profile() const noexcept { return (profile_ == FULL_PROFILE); }
   bool is_embedded_profile() const noexcept {
@@ -76,9 +76,14 @@ public:
   const std::string &c_version() const noexcept { return c_version_; }
   uint32_t max_compute_units() const noexcept { return max_compute_units_; }
   const extensions_t &extensions() const noexcept { return extensions_; }
+  
+  static const platform &get_platform(device_id_t device_id);
 
 private:
+  device() {}
+
   device_id_t id_;             // device ID
+  platform_id_t platform_id_;  // platform ID
   profile_t profile_;          // CL_DEVICE_PROFILE
   devtype_t devtype_;          // CL_DEVICE_TYPE
   std::string name_;           // CL_DEVICE_NAME

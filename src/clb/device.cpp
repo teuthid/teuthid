@@ -23,4 +23,46 @@
 
 using namespace teuthid::clb;
 
+device::device(device_id_t device_id) {
+  assert(device_id);
+  bool __found = false;
+  try {
+    const platform &__platform = device::get_platform(device_id);
+    for (auto __device : __platform.devices())
+      if (device_id == __device.id()) {
+        *this = device(__device);
+        __found = true;
+      }
+  } catch (const error &__e) {
+    throw invalid_device(__e.cl_error());
+  }
+  if (!__found)
+    throw invalid_device("unknown device_id_t");
+}
 
+const platform &device::get_platform() const {
+  try {
+    const platforms_t &__platforms = platform::platforms();
+    for (std::size_t __i = 0; __i < __platforms.size(); __i++)
+      if (platform_id_ == __platforms[__i].id())
+        return __platforms[__i];
+  } catch (const error &__e) {
+    throw invalid_platform(__e.cl_error());
+  }
+  throw invalid_platform("cannot find a platform");
+}
+
+const platform &device::get_platform(device_id_t device_id) {
+  try {
+    const platforms_t &__platforms = platform::platforms();
+    for (std::size_t __i = 0; __i < __platforms.size(); __i++) {
+      const devices_t __devices = __platforms[__i].devices();
+      for (std::size_t __j = 0; __j < __devices.size(); __j++)
+        if (device_id == __devices[__j].id())
+          return __platforms[__i];
+    }
+  } catch (const error &__e) {
+    throw invalid_platform(__e.cl_error());
+  }
+  throw invalid_platform("cannot find a platform");
+}
