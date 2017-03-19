@@ -53,9 +53,9 @@ bool platform::is_required_version(int major, int minor) const noexcept {
   return (!(__required > __actual));
 }
 
-bool platform::have_extension(const std::string &name) const {
-  if (!name.empty())
-    return std::find(extensions_.begin(), extensions_.end(), name) !=
+bool platform::have_extension(const std::string &ext_name) const {
+  if (!ext_name.empty())
+    return std::find(extensions_.begin(), extensions_.end(), ext_name) !=
            extensions_.end();
   return false;
 }
@@ -189,5 +189,5 @@ void platform::detect_devices_(platform &plat) {
 bool platform::unload_compiler() {
   cl::Platform __cl_platform(id_);
   cl_int __result = __cl_platform.unloadCompiler();
-  return (__result == CL_SUCCESS); 
+  return (__result == CL_SUCCESS);
 }

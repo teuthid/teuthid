@@ -90,47 +90,47 @@
  */
    
 
-/*! \fn const compute_profile_t &compute_platform::profile() const
+/*! \fn const profile_t &platform::profile() const
  * \brief Returns the OpenCL platform's profile.
  *
  * \return the OpenCL profile supported by this OpenCL platform. It can be one 
  * of the following: 
- * \ref teuthid::COMPUTE_FULL_PROFILE "COMPUTE_FULL_PROFILE",
- * \ref teuthid::COMPUTE_EMBEDDED_PROFILE "COMPUTE_EMBEDDED_PROFILE", or
- * \ref teuthid::COMPUTE_UNKNOWN_PROFILE "COMPUTE_UNKNOWN_PROFILE". \n
+ * \ref teuthid::clb::FULL_PROFILE "FULL_PROFILE",
+ * \ref teuthid::clb::EMBEDDED_PROFILE "EMBEDDED_PROFILE", or
+ * \ref teuthid::clb::UNKNOWN_PROFILE "UNKNOWN_PROFILE". \n
  * The returned value is the equivalent of \c CL_PLATFORM_PROFILE.
  * \see is_full_profile(), is_embedded_profile().
  */
 
 
-/*! \fn bool compute_platform::is_full_profile() const
+/*! \fn bool platform::is_full_profile() const
  * \brief Returns \c true if this platform's profile is 
- * \ref teuthid::COMPUTE_FULL_PROFILE "COMPUTE_FULL_PROFILE".
+ * \ref teuthid::clb::FULL_PROFILE "FULL_PROFILE".
  * 
  * \return \c true if this OpenCL platform's profile is 
- * \ref teuthid::COMPUTE_FULL_PROFILE "COMPUTE_FULL_PROFILE". Otherwise returns 
- * \c false.
+ * \ref teuthid::clb::FULL_PROFILE "FULL_PROFILE". 
+ * Otherwise, it returns \c false.
  * \see profile().
  */
 
 
-/*! \fn bool compute_platform::is_embedded_profile() const
+/*! \fn bool platform::is_embedded_profile() const
  * \brief Returns \c true if the platform's profile is 
- * \ref teuthid::COMPUTE_EMBEDDED_PROFILE "COMPUTE_EMBEDDED_PROFILE".
+ * \ref teuthid::clb::EMBEDDED_PROFILE "EMBEDDED_PROFILE".
  * 
  * \return \c true if this OpenCL platform's profile is 
- * \ref teuthid::COMPUTE_EMBEDDED_PROFILE "COMPUTE_EMBEDDED_PROFILE". Otherwise 
- * returns \c false.
+ * \ref teuthid::clb::EMBEDDED_PROFILE "EMBEDDED_PROFILE". 
+ * Otherwise, it returns \c false.
  * \see profile().
  */
  
 
-/*! \fn const std::string &compute_platform::version() const
+/*! \fn const std::string &platform::version() const
  * \brief Returns the platform's version.
  *
- * \return the OpenCL version supported by this platform.\n
+ * \return the OpenCL version supported by this platform.
  * The returned value has the following format:
- * \e "OpenCL<space><major_version.minor_version><space><platform-specific information>".\n
+ * \e "OpenCL<space><major_version.minor_version><space><platform-specific information>".
  * The \e "major_version.minor_version" determines a version of OpenCL 
  * supported by this OpenCL platform.\n
  * The returned value is the equivalent of \c CL_PLATFORM_VERSION.
@@ -140,21 +140,21 @@
  */
 
 
-/*! \fn int compute_platform::major_version() const
+/*! \fn int platform::major_version() const
  * \brief Returns the OpenCL major version.
  * \return the OpenCL major version supported by this OpenCL platform.
  * \see minor_version(), version().
  */
 
 
-/*! \fn int compute_platform::minor_version() const
+/*! \fn int platform::minor_version() const
  * \brief Returns the OpenCL minor version.
  * \return the OpenCL minor version supported by this OpenCL platform.
  * \see major_version(), version().
  */
 
 
-/*! \fn const std::string &compute_platform::spec_version() const
+/*! \fn const std::string &platform::spec_version() const
  * \brief Returns the platform-specific information.
  * \return Returns the platform-specific information about the OpenCL supported 
  * by this OpenCL platform.
@@ -162,11 +162,11 @@
  */
 
 
-/*! \fn bool compute_platform::is_required_version(int major, int minor) const
+/*! \fn bool platform::is_required_version(int major, int minor) const
  * \brief Checks whether a version of OpenCL is sufficient.
  *
  * \return \c true if the version of OpenCL supported by this OpenCL platform
- * is a sufficient version. Otherwise return \c false.
+ * is a sufficient version. Otherwise, it returns \c false.
  * @param[in] major The required minimum major version of OpenCL.
  * @param[in] minor The required minimum minor version of OpenCL (if the major 
  * version is the same as required \c major).
@@ -174,29 +174,29 @@
  */
 
 
-/*! \fn const std::string &compute_platform::name() const
+/*! \fn const std::string &platform::name() const
  * \brief Returns the platform's name.
  *
- * \return the name of this OpenCL platform's.\n
+ * \return the name of this OpenCL platform's.
  * The returned value is the equivalent of \c CL_PLATFORM_NAME. 
  * If it is an empty string, this name is undetermined.
  */
 
 
-/*! \fn const std::string &compute_platform::vendor() const
+/*! \fn const std::string &platform::vendor() const
  * \brief Returns the platform's vendor.
  *
- * \return the vendor of this OpenCL platform.\n
+ * \return the vendor of this OpenCL platform.
  * The returned value is the equivalent of \c CL_PLATFORM_VENDOR. 
  * If it is an empty string, this vendor is undetermined.
  */
 
 
-/*! \fn const compute_extensions_t &compute_platform::extensions() const
+/*! \fn const extensions_t &platform::extensions() const
  * \brief Returns a reference to the vector of extension names. 
  *
  * \return a reference to the vector of extension names supported by this 
- * OpenCL platform. \n 
+ * OpenCL platform.
  * The returned value is the equivalent of \c CL_PLATFORM_EXTENSIONS. 
  * If it is an empty vector, these extensions are undetermined.
  *
@@ -205,39 +205,40 @@
  */
 
 
-/*! \fn bool compute_platform::have_extension(const std::string &name) const
- * \brief Return \c true if this platform supports the extension \c name.
+/*! \fn bool platform::have_extension(const std::string &ext_name) const
+ * \brief Return \c true if this platform supports the extension \c ext_name.
  * 
- * \return \c true if this platform supports the extension named \c name.
- * Otherwise return \c false.
- * @param[in] name a name of OpenCL extension.
+ * \return \c true if this platform supports the extension \c ext_name.
+ * Otherwise, it returns \c false.
+ * @param[in] ext_name a name of OpenCL extension.
  */
 
 
-/*! \fn const std::string &compute_platform::icd_suffix_khr() const
+/*! \fn const std::string &platform::icd_suffix_khr() const
  * \brief Returns the function name suffix.
  *
  * \return the function name suffix used to identify extension functions to be 
- * directed to this OpenCL platform by the ICD Loader. \n
+ * directed to this OpenCL platform by the ICD Loader.
  * The returned value is the equivalent of \c CL_PLATFORM_ICD_SUFFIX_KHR.
  * If it is an empty string, this suffix is undetermined.
  */
 
 
-/*!
- * \fn const compute_devices_t &compute_platform::devices() const
- * \brief Returns the vector containing objects of class compute_device.
+/*! \fn const devices_t &platform::devices() const
+ * \brief Returns the vector containing objects of class 
+ * \ref teuthid::clb::device "device".
  * \return the vector of type 
- * \ref teuthid::compute_devices_t "compute_devices_t" containing objects of 
- * class compute_device - the OpenCL devices assigned to this OpenCL platform.
- * \see platforms(), num_devices().
+ * \ref teuthid::clb::devices_t "devices_t" containing objects of 
+ * class \ref teuthid::clb::device "device" - the OpenCL devices assigned to 
+ * this OpenCL platform.
+ * \see platforms(), device_count().
  * \note The Teuthid framework must be compiled with enabled 
  * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
  * devices.
  */
 
 
-/*! \fn std::size_t compute_platform::num_devices()
+/*! \fn std::size_t platform::device_count()
  * \brief Returns the number of devices.
  *
  * \return the number of OpenCL devices assigned to this OpenCL platform.
@@ -245,17 +246,33 @@
  */
 
 
-/*! \fn const opencl_platforms_t &compute_platform::platforms()
- * \brief Returns the vector containing objects of class compute_platform.
+/*! \fn bool platform::unload_compiler()
+ * \brief Allows the implementation to release the resources allocated by the 
+ * OpenCL compiler for this platform.
+ * \return \c true if the function is executed successfully.
+ * Otherwise, it returns \c false.
+ */
+
+
+/*! \fn const platforms_t &platform::platforms()
+ * \brief Returns the vector containing objects of class 
+ * \ref teuthid::clb::platform "platform".
  * \return a reference to the vector of type 
- * \ref teuthid::compute_platforms_t "compute_platforms_t" containing objects 
- * of class compute_platform.
- * \throw invalid_compute_platform if there is a problem with the proper 
+ * \ref teuthid::clb::platforms_t "platforms_t" containing objects 
+ * of class \ref teuthid::clb::platform "platform".
+ * \throw invalid_platform if there is a problem with the proper 
  * diagnosis of the available OpenCL platform(s) on the system.
- * \throw invalid_compute_device if there is a problem with the proper 
+ * \throw invalid_device if there is a problem with the proper 
  * diagnosis of the available OpenCL device(s) on the system.
  * \note The Teuthid framework must be compiled with enabled 
  * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
  * devices.
  */
 
+
+/*! \fn std::size_t platform::platform_count()
+ * \brief Returns the number of platforms.
+ *
+ * \return the number of OpenCL platforms supported by the system.
+ * \see platforms().
+ */

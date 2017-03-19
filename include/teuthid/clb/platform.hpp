@@ -55,7 +55,7 @@ public:
   const std::string &name() const noexcept { return name_; }
   const std::string &vendor() const noexcept { return vendor_; }
   const extensions_t &extensions() const noexcept { return extensions_; }
-  bool have_extension(const std::string &name) const;
+  bool have_extension(const std::string &ext_name) const;
   const std::string &icd_suffix_khr() const noexcept { return icd_suffix_khr_; }
   const devices_t &devices() const noexcept { return devices_; }
   std::size_t device_count() const noexcept { return devices_.size(); }

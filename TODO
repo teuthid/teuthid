@@ -1,20 +1,3 @@
-+ class compute_platform
- 	- constructor compute_platform(number)
-	- constructor compute_platform(id)
-		
-+ class compute_device
- 	- constructor compute_device(platform, number)
-	- constructor compute_device(id)
-	- const compute_platform& platform()
-
-+ class library
-  - std::size_t num_compute_platforms()
-  - std::size_t num_compute_devices(const compute_platform&)
-  - const compute_platform& default_compute_platform()
-  - void default_compute_platform(const compute_platform&)
-  - const compute_device& default_compute_device()
-  - void default_compute_device(const compute_device&)
-  
 + implement class mutable_array<T value_t> 
 
 + implement class scalar<T value_t, const T& default_value> 
