@@ -81,4 +81,17 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(!system::use_clb(true), "use_clb(bool)");
   BOOST_TEST(!system::use_clb(false), "use_clb(bool)");
 #endif
+
+  int x = 13;
+  BOOST_TEST((system::to_string(x) == "13"), "to_string(int)");
+
+  bool __false = false;
+  bool __true = true;
+  bool &__ref_true = __true;
+  const bool &__const_ref_true = __true;
+  BOOST_TEST((system::to_string(__false) == "false"), "to_string(bool)");
+  BOOST_TEST((system::to_string(__true) == "true"), "to_string(bool)");
+  BOOST_TEST((system::to_string(__ref_true) == "true"), "to_string(bool)");
+  BOOST_TEST((system::to_string(__const_ref_true) == "true"),
+             "to_string(bool)");
 }

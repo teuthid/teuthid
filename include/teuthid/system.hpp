@@ -20,6 +20,7 @@
 #define TEUTHID_SYSTEM_HPP
 
 #include <string>
+
 #include <teuthid/config.hpp>
 
 namespace teuthid {
@@ -46,6 +47,10 @@ public:
   static bool use_clb() { return system::use_clb_; }
   static bool use_clb(bool enabled);
 
+  template <typename T> static std::string to_string(T value) {
+    return std::to_string(value);
+  }
+
 private:
   system() {}
   ~system() {}
@@ -53,6 +58,16 @@ private:
   static std::string version_;
   static thread_local bool use_clb_;
 };
+
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+
+// specializations of system::to_string<T>()
+template <> std::string system::to_string(bool value) {
+  return (value ? std::string("true") : std::string("false"));
+}
+
+#endif // DOXYGEN_SHOULD_SKIP_THIS
+
 } // namespace teuthid
 
 #endif // TEUTHID_SYSTEM_HPP
