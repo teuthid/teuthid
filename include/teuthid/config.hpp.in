@@ -39,14 +39,78 @@
 #cmakedefine ARRAYFIRE_OPENCL_BACKEND
 #cmakedefine ARRAYFIRE_CPU_BACKEND
 
+#include <cstdint>
+
+#cmakedefine TEUTHID_HAVE_INT8_T  @int8_t@
+#cmakedefine TEUTHID_HAVE_INT16_T @int16_t@
+#cmakedefine TEUTHID_HAVE_INT32_T @int32_t@
+#cmakedefine TEUTHID_HAVE_INT64_T @int64_t@
+
+#cmakedefine TEUTHID_HAVE_UINT8_T  @uint8_t@
+#cmakedefine TEUTHID_HAVE_UINT16_T @uint16_t@
+#cmakedefine TEUTHID_HAVE_UINT32_T @uint32_t@
+#cmakedefine TEUTHID_HAVE_UINT64_T @uint64_t@
+
+#cmakedefine TEUTHID_HAVE_INTPTR_T   @intptr_t@
+#cmakedefine TEUTHID_HAVE_UINTPTR_T  @uintptr_t@
+
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-#include <boost/cstdint.hpp>
 namespace teuthid {
-typedef ::boost::uint8_t uint8_t;
-typedef ::boost::uint16_t uint16_t;
-typedef ::boost::uint32_t uint32_t;
-typedef ::boost::uint64_t uint64_t;
-}
+
+#if defined(TEUTHID_HAVE_INT8_T)
+typedef std::int8_t int8_t;
+#else
+typedef std::int_least8_t int8_t;
+#endif
+#if defined(TEUTHID_HAVE_INT16_T)
+typedef std::int16_t int16_t;
+#else
+typedef std::int_least16_t int16_t;
+#endif
+#if defined(TEUTHID_HAVE_INT32_T)
+typedef std::int32_t int32_t;
+#else
+typedef std::int_least32_t int32_t;
+#endif
+#if defined(TEUTHID_HAVE_INT64_T)
+typedef std::int64_t int64_t;
+#else
+typedef std::int_least64_t int64_t;
+#endif 
+
+#if defined(TEUTHID_HAVE_UINT8_T)
+typedef std::uint8_t uint8_t;
+#else
+typedef std::uint_least8_t uint8_t;
+#endif
+#if defined(TEUTHID_HAVE_UINT16_T)
+typedef std::uint16_t uint16_t;
+#else
+typedef std::uint_least16_t uint16_t;
+#endif
+#if defined(TEUTHID_HAVE_UINT32_T)
+typedef std::uint32_t uint32_t;
+#else
+typedef std::uint_least32_t uint32_t;
+#endif
+#if defined(TEUTHID_HAVE_UINT64_T)
+typedef std::uint64_t uint64_t;
+#else
+typedef std::uint_least64_t uint64_t;
+#endif
+
+#if defined(TEUTHID_HAVE_INTPTR_T)
+typedef std::intptr_t intptr_t;
+#else
+typedef std::int_least64_t intptr_t;
+#endif
+#if defined(TEUTHID_HAVE_UINTPTR_T)
+typedef std::uintptr_t uintptr_t;
+#else
+typedef std::uint_least64_t uintptr_t;
+#endif
+
+} // namespace teuthid
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 #endif // TEUTHID_CONFIG_HPP

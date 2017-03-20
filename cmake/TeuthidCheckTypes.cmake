@@ -1,0 +1,25 @@
+
+include(CheckTypeSize)
+
+check_type_size("int8_t" int8_t LANGUAGE CXX)
+set(TEUTHID_HAVE_INT8_T ${int8_t})
+check_type_size("int16_t" int16_t LANGUAGE CXX)
+set(TEUTHID_HAVE_INT16_T ${int16_t})
+check_type_size("int32_t" int32_t LANGUAGE CXX)
+set(TEUTHID_HAVE_INT32_T ${int32_t})
+check_type_size("int64_t" int64_t LANGUAGE CXX)
+set(TEUTHID_HAVE_INT64_T ${int64_t})
+
+check_type_size("uint8_t" uint8_t LANGUAGE CXX)
+set(TEUTHID_HAVE_UINT8_T ${uint8_t})
+check_type_size("uint16_t" uint16_t LANGUAGE CXX)
+set(TEUTHID_HAVE_UINT16_T ${uint16_t})
+check_type_size("uint32_t" uint32_t LANGUAGE CXX)
+set(TEUTHID_HAVE_UINT32_T ${uint32_t})
+check_type_size("uint64_t" uint64_t LANGUAGE CXX)
+set(TEUTHID_HAVE_UINT64_T ${uint64_t})
+
+check_type_size("intptr_t" intptr_t LANGUAGE CXX)
+set(TEUTHID_HAVE_INTPTR_T ${intptr_t})
+check_type_size("uintptr_t" uintptr_t LANGUAGE CXX)
+set(TEUTHID_HAVE_UINTPTR_T ${uintptr_t})

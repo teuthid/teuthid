@@ -34,7 +34,7 @@ platform::platform(platform_id_t platform_id) {
   bool __found = false;
   try {
     if (platform::platform_count() > 0) {
-      for (auto __platform : platform::platforms_)
+      for (const platform &__platform : platform::platforms_)
         if (platform_id == __platform.id()) {
           *this = platform(__platform);
           __found = true;

@@ -37,6 +37,8 @@ set(CMAKE_CXX_EXTENSIONS False)
 SET(CMAKE_COLOR_MAKEFILE ON)
 set(CMAKE_VERBOSE_MAKEFILE ON) # to comment out
 
+include(TeuthidCheckTypes)
+
 set(Boost_REQUIRED_VERSION "1.61.0")
 set(Boost_REQUIRED_COMPONENTS filesystem)
 set(GMP_REQUIRED_VERSION "6.1.1")

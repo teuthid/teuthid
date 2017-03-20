@@ -29,7 +29,7 @@ device::device(device_id_t device_id) {
   bool __found = false;
   try {
     const platform &__platform = device::get_platform(device_id);
-    for (auto __device : __platform.devices())
+    for (const device& __device : __platform.devices())
       if (device_id == __device.id()) {
         *this = device(__device);
         __found = true;
@@ -64,7 +64,7 @@ const platform &device::get_platform(device_id_t device_id) {
   try {
     const platforms_t &__platforms = platform::platforms();
     for (std::size_t __i = 0; __i < __platforms.size(); __i++) {
-      const devices_t __devices = __platforms[__i].devices();
+      const devices_t &__devices = __platforms[__i].devices();
       for (std::size_t __j = 0; __j < __devices.size(); __j++)
         if (device_id == __devices[__j].id())
           return __platforms[__i];
