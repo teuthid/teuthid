@@ -20,6 +20,8 @@
 #define TEUTHID_SYSTEM_HPP
 
 #include <string>
+#include <type_traits>
+#include <vector>
 
 #include <teuthid/config.hpp>
 
@@ -47,25 +49,46 @@ public:
   static bool use_clb() { return system::use_clb_; }
   static bool use_clb(bool enabled);
 
-  template <typename T> static std::string to_string(T value) {
+  template <typename T> static std::string to_string(const T &value) {
+    static_assert(!std::is_pointer<T>::value);
+    static_assert(!std::is_array<T>::value);
     return std::to_string(value);
   }
 
 private:
   system() {}
   ~system() {}
-
   static std::string version_;
   static thread_local bool use_clb_;
 };
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-
 // specializations of system::to_string<T>()
-template <> std::string system::to_string(bool value) {
+template <> std::string system::to_string(const bool &value) {
   return (value ? std::string("true") : std::string("false"));
 }
-
+template <> std::string system::to_string(const char &value) {
+  return std::string(1, value);
+}
+template <> std::string system::to_string(const char *const &value) {
+  return std::string(value);
+}
+template <> std::string system::to_string(const std::string &value) {
+  return std::string(value);
+}
+template <>
+std::string system::to_string(const std::vector<std::string> &value) {
+  std::string __str;
+  for (std::size_t __i = 0; __i < value.size(); __i++) {
+    __str += value[__i];
+    if ((__i + 1) < value.size())
+      __str += " ";
+  }
+  return std::string(__str);
+}
+template <> std::string system::to_string(void *const &value) {
+  return std::to_string(reinterpret_cast<uintptr_t>(value));
+}
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 } // namespace teuthid

@@ -82,9 +82,12 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(!system::use_clb(false), "use_clb(bool)");
 #endif
 
-  int x = 13;
-  BOOST_TEST((system::to_string(x) == "13"), "to_string(int)");
-
+  int __x = 13;
+  BOOST_TEST((system::to_string(__x) == "13"), "to_string(int)");
+  size_t __size = 13;
+  BOOST_TEST((system::to_string(__size) == "13"), "to_string(size_t)");
+  intptr_t __intptr = -13;
+  BOOST_TEST((system::to_string(__intptr) == "-13"), "to_string(intptr_t)");
   bool __false = false;
   bool __true = true;
   bool &__ref_true = __true;
@@ -94,4 +97,15 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST((system::to_string(__ref_true) == "true"), "to_string(bool)");
   BOOST_TEST((system::to_string(__const_ref_true) == "true"),
              "to_string(bool)");
+  char __char = 'Q';
+  BOOST_TEST((system::to_string(__char)) == "Q", "to_string(char)");
+  char __chars[] = {'t', 'e', 's', 't', '\0'};
+  //BOOST_TEST((system::to_string(__chars)) == "test", "to_string(char[])");
+  const char *__str = "test";
+  BOOST_TEST((system::to_string(__str)) == "test", "to_string(const char*)");
+  std::vector<std::string> __vector = {"1", "2", "3", "4"};
+  BOOST_TEST((system::to_string(__vector)) == "1 2 3 4",
+             "to_string(const std::vector<std::string> &");
+  void *__void = reinterpret_cast<void*>(13);
+  BOOST_TEST((system::to_string(__void)) == "13", "to_string(void*)");
 }
