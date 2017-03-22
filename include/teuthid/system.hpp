@@ -49,11 +49,7 @@ public:
   static bool use_clb() { return system::use_clb_; }
   static bool use_clb(bool enabled);
 
-  template <typename T> static std::string to_string(const T &value) {
-    static_assert(!std::is_pointer<T>::value);
-    static_assert(!std::is_array<T>::value);
-    return std::to_string(value);
-  }
+  template <typename T> static std::string to_string(const T &value);
 
 private:
   system() {}
@@ -61,6 +57,12 @@ private:
   static std::string version_;
   static thread_local bool use_clb_;
 };
+
+template <typename T> std::string system::to_string(const T &value) {
+  static_assert(!std::is_pointer<T>::value, "requires non-pointer type");
+  static_assert(!std::is_array<T>::value, "requires non-array type");
+  return std::to_string(value);
+}
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 // specializations of system::to_string<T>()
