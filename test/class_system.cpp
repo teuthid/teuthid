@@ -19,11 +19,11 @@
 #define BOOST_TEST_MODULE teuthid
 #define BOOST_TEST_DYN_LINK
 
-#include <chrono>
-#include <thread>
-
 #include <boost/test/unit_test.hpp>
+#include <chrono>
+
 #include <teuthid/system.hpp>
+#include <thread>
 
 using namespace teuthid;
 
@@ -100,12 +100,16 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   char __char = 'Q';
   BOOST_TEST((system::to_string(__char)) == "Q", "to_string(char)");
   char __chars[] = {'t', 'e', 's', 't', '\0'};
-  //BOOST_TEST((system::to_string(__chars)) == "test", "to_string(char[])");
+  // BOOST_TEST((system::to_string(__chars)) == "test", "to_string(char[])");
   const char *__str = "test";
   BOOST_TEST((system::to_string(__str)) == "test", "to_string(const char*)");
   std::vector<std::string> __vector = {"1", "2", "3", "4"};
   BOOST_TEST((system::to_string(__vector)) == "1 2 3 4",
              "to_string(const std::vector<std::string> &");
-  void *__void = reinterpret_cast<void*>(13);
+  void *__void = reinterpret_cast<void *>(13);
   BOOST_TEST((system::to_string(__void)) == "13", "to_string(void*)");
+
+  mpfr_t __mpfr;
+  mpfr_init_set_d(__mpfr, 0.123456789, mpfr_get_default_rounding_mode());
+  BOOST_TEST(!system::to_string(__mpfr).empty());
 }

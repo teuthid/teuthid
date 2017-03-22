@@ -19,6 +19,8 @@
 #ifndef TEUTHID_SYSTEM_HPP
 #define TEUTHID_SYSTEM_HPP
 
+#include <ios>
+#include <sstream>
 #include <string>
 #include <type_traits>
 #include <vector>
@@ -61,7 +63,9 @@ private:
 template <typename T> std::string system::to_string(const T &value) {
   static_assert(!std::is_pointer<T>::value, "requires non-pointer type");
   static_assert(!std::is_array<T>::value, "requires non-array type");
-  return std::to_string(value);
+  std::ostringstream __os;
+  __os << std::scientific << value;
+  return __os.str();
 }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -89,7 +93,12 @@ std::string system::to_string(const std::vector<std::string> &value) {
   return std::string(__str);
 }
 template <> std::string system::to_string(void *const &value) {
-  return std::to_string(reinterpret_cast<uintptr_t>(value));
+  return system::to_string(reinterpret_cast<uintptr_t>(value));
+}
+template <> std::string system::to_string(const mpfr_t &value) {
+  char __str[64];
+  mpfr_sprintf(__str, "%.6Re", value);
+  return std::string(__str);
 }
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 

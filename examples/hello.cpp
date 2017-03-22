@@ -115,5 +115,18 @@ int main() {
 
   // ...
   std::cout << std::endl << ruler << std::endl;
+  
+  int __int = 123;
+  float32_t __float32 = static_cast<float32_t>(0.1234567);
+  float64_t __float64 = static_cast<float64_t>(0.1234567);
+  float128_t __float128 = static_cast<float128_t>(0.1234567);
+  mpfr_t __mpfr;
+  mpfr_init_set_ld(__mpfr, __float128, mpfr_get_default_rounding_mode());
+  
+  std::cout << "int       : " << system::to_string(__int) << std::endl;
+  std::cout << "float32_t : " << system::to_string(__float32) << std::endl;
+  std::cout << "float64_t : " << system::to_string(__float64) << std::endl;
+  std::cout << "float128_t: " << system::to_string(__float128) << std::endl;
+  std::cout << "mpfr_t    : " << system::to_string(__mpfr) << std::endl;
   return 0;
 }
