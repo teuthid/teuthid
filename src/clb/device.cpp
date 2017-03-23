@@ -29,7 +29,7 @@ device::device(device_id_t device_id) {
   bool __found = false;
   try {
     const platform &__platform = device::get_platform(device_id);
-    for (const device& __device : __platform.devices())
+    for (const device &__device : __platform.devices())
       if (device_id == __device.id()) {
         *this = device(__device);
         __found = true;
@@ -55,8 +55,8 @@ const platform &device::get_platform() const {
 
 bool device::have_extension(const std::string &ext_name) const {
   if (!ext_name.empty())
-    return std::find(extensions_.begin(), extensions_.end(), ext_name) !=
-           extensions_.end();
+    return std::find(device::extensions_.begin(), device::extensions_.end(),
+                     ext_name) != device::extensions_.end();
   return false;
 }
 

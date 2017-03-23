@@ -20,6 +20,7 @@
 #define TEUTHID_SYSTEM_HPP
 
 #include <ios>
+#include <mutex>
 #include <sstream>
 #include <string>
 #include <type_traits>
@@ -48,22 +49,27 @@ public:
   static const std::string &version() noexcept { return system::version_; }
   static bool is_required_version(uint8_t major, uint8_t minor) noexcept;
   static bool have_clb();
-  static bool use_clb() { return system::use_clb_; }
+  static bool use_clb() noexcept { return system::use_clb_; }
   static bool use_clb(bool enabled);
 
   template <typename T> static std::string to_string(const T &value);
+  static std::streamsize float_precision() noexcept { return float_precision_; }
+  static std::streamsize float_precision(std::streamsize precision);
 
 private:
   system() {}
   ~system() {}
   static std::string version_;
   static thread_local bool use_clb_;
+  static std::mutex mutex_;
+  static std::streamsize float_precision_;
 };
 
 template <typename T> std::string system::to_string(const T &value) {
   static_assert(!std::is_pointer<T>::value, "requires non-pointer type");
   static_assert(!std::is_array<T>::value, "requires non-array type");
   std::ostringstream __os;
+  __os.precision(system::float_precision());
   __os << std::scientific << value;
   return __os.str();
 }
@@ -83,23 +89,11 @@ template <> std::string system::to_string(const std::string &value) {
   return std::string(value);
 }
 template <>
-std::string system::to_string(const std::vector<std::string> &value) {
-  std::string __str;
-  for (std::size_t __i = 0; __i < value.size(); __i++) {
-    __str += value[__i];
-    if ((__i + 1) < value.size())
-      __str += " ";
-  }
-  return std::string(__str);
-}
+std::string system::to_string(const std::vector<std::string> &value);
 template <> std::string system::to_string(void *const &value) {
   return system::to_string(reinterpret_cast<uintptr_t>(value));
 }
-template <> std::string system::to_string(const mpfr_t &value) {
-  char __str[64];
-  mpfr_sprintf(__str, "%.6Re", value);
-  return std::string(__str);
-}
+template <> std::string system::to_string(const mpfr_t &value);
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 } // namespace teuthid

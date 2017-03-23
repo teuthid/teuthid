@@ -16,6 +16,8 @@
     along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <cassert>
+
 #include <teuthid/system.hpp>
 
 #if defined(TEUTHID_WITH_OPENCL)
@@ -32,6 +34,8 @@ thread_local bool system::use_clb_ = false;
 #endif
 
 std::string system::version_ = std::string(TEUTHID_VERSION);
+std::mutex system::mutex_;
+std::streamsize system::float_precision_ = 10;
 
 bool system::is_required_version(uint8_t major, uint8_t minor) noexcept {
   uint32_t __required = major * 1000 + minor;
@@ -43,7 +47,7 @@ bool system::have_clb() {
 #if defined(TEUTHID_WITH_OPENCL)
   try {
     for (auto __platform : clb::platform::platforms())
-      if (__platform.devices().size() > 0)
+      if (__platform.device_count() > 0)
         return true;
   } catch (const clb::error &) {
     // some problems with the compute kernel - it wil be disabled
@@ -56,4 +60,31 @@ bool system::use_clb(bool enabled) {
   if (system::have_clb())
     system::use_clb_ = enabled;
   return system::use_clb_;
+}
+
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+template <>
+std::string system::to_string(const std::vector<std::string> &value) {
+  std::string __str;
+  for (std::size_t __i = 0; __i < value.size(); __i++) {
+    __str += value[__i];
+    if ((__i + 1) < value.size())
+      __str += " ";
+  }
+  return std::string(__str);
+}
+
+template <> std::string system::to_string(const mpfr_t &value) {
+  char __str[256], __precision[64];
+  sprintf(__precision, "%%.%ldRe", system::float_precision());
+  mpfr_sprintf(__str, __precision, value);
+  return std::string(__str);
+}
+#endif // DOXYGEN_SHOULD_SKIP_THIS
+
+std::streamsize system::float_precision(std::streamsize precision) {
+  assert(precision >= 0);
+  std::lock_guard<std::mutex> __guard(system::mutex_);
+  system::float_precision_ = precision;
+  return system::float_precision_;
 }

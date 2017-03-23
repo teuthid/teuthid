@@ -50,19 +50,19 @@ platform::platform(platform_id_t platform_id) {
 
 bool platform::is_required_version(int major, int minor) const noexcept {
   int __required = major * 100 + minor;
-  int __actual = major_version_ * 100 + minor_version_;
+  int __actual = platform::major_version_ * 100 + platform::minor_version_;
   return (!(__required > __actual));
 }
 
 bool platform::have_extension(const std::string &ext_name) const {
   if (!ext_name.empty())
-    return std::find(extensions_.begin(), extensions_.end(), ext_name) !=
-           extensions_.end();
+    return std::find(platform::extensions_.begin(), platform::extensions_.end(),
+                     ext_name) != platform::extensions_.end();
   return false;
 }
 
 const platforms_t &platform::platforms() {
-  std::lock_guard<std::mutex> __guard(mutex_);
+  std::lock_guard<std::mutex> __guard(platform::mutex_);
   if (platform::platforms_.empty()) {
     platform::detect_platforms_();
     for (std::size_t __i = 0; __i < platform::platforms_.size(); __i++)
@@ -121,23 +121,25 @@ void platform::detect_platforms_() {
     std::vector<cl::Platform> __cl_platforms;
     cl::Platform::get(&__cl_platforms);
     for (std::size_t __i = 0; __i < __cl_platforms.size(); __i++) {
-      platforms_.push_back(platform());
-      platforms_[__i].id_ = __cl_platforms[__i]();
-      assert(platforms_[__i].id_);
-      platforms_[__i].profile_ = __teuthid_get_cl_profile(
+      platform::platforms_.push_back(platform());
+      platform::platforms_[__i].id_ = __cl_platforms[__i]();
+      assert(platform::platforms_[__i].id_);
+      platform::platforms_[__i].profile_ = __teuthid_get_cl_profile(
           __cl_platforms[__i].getInfo<CL_PLATFORM_PROFILE>());
-      platforms_[__i].version_ =
+      platform::platforms_[__i].version_ =
           __cl_platforms[__i].getInfo<CL_PLATFORM_VERSION>();
-      __teuthid_get_cl_version(
-          platforms_[__i].version_, platforms_[__i].major_version_,
-          platforms_[__i].minor_version_, platforms_[__i].spec_version_);
-      platforms_[__i].name_ = __cl_platforms[__i].getInfo<CL_PLATFORM_NAME>();
-      platforms_[__i].vendor_ =
+      __teuthid_get_cl_version(platform::platforms_[__i].version_,
+                               platform::platforms_[__i].major_version_,
+                               platform::platforms_[__i].minor_version_,
+                               platform::platforms_[__i].spec_version_);
+      platform::platforms_[__i].name_ =
+          __cl_platforms[__i].getInfo<CL_PLATFORM_NAME>();
+      platform::platforms_[__i].vendor_ =
           __cl_platforms[__i].getInfo<CL_PLATFORM_VENDOR>();
       __teuthid__get_cl_extensions(
           __cl_platforms[__i].getInfo<CL_PLATFORM_EXTENSIONS>(),
-          platforms_[__i].extensions_);
-      platforms_[__i].icd_suffix_khr_ =
+          platform::platforms_[__i].extensions_);
+      platform::platforms_[__i].icd_suffix_khr_ =
           __cl_platforms[__i].getInfo<CL_PLATFORM_ICD_SUFFIX_KHR>();
     }
   } catch (const cl::Error &__e) {

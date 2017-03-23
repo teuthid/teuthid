@@ -110,6 +110,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST((system::to_string(__void)) == "13", "to_string(void*)");
 
   mpfr_t __mpfr;
-  mpfr_init_set_d(__mpfr, 0.123456789, mpfr_get_default_rounding_mode());
+  mpfr_init_set_ld(__mpfr, 1.2345, mpfr_get_default_rounding_mode());
   BOOST_TEST(!system::to_string(__mpfr).empty());
+  system::float_precision(10);
+  BOOST_TEST((system::to_string(__mpfr) == "1.2345000000e+00"));
 }
