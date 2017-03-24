@@ -16,7 +16,9 @@
     along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <algorithm>
 #include <cassert>
+#include <cctype>
 
 #include <teuthid/system.hpp>
 
@@ -36,6 +38,7 @@ thread_local bool system::use_clb_ = false;
 std::string system::version_ = std::string(TEUTHID_VERSION);
 std::mutex system::mutex_;
 std::streamsize system::float_precision_ = 10;
+bool system::float_scientific_format_ = false;
 
 bool system::is_required_version(uint8_t major, uint8_t minor) noexcept {
   uint32_t __required = major * 1000 + minor;
@@ -76,15 +79,39 @@ std::string system::to_string(const std::vector<std::string> &value) {
 
 template <> std::string system::to_string(const mpfr_t &value) {
   char __str[256], __precision[64];
-  sprintf(__precision, "%%.%ldRe", system::float_precision());
+  std::string __format =
+      (system::float_scientific_format_ ? "%%.%ldRe" : "%%.%ldRf");
+  sprintf(__precision, __format.c_str(), system::float_precision_);
   mpfr_sprintf(__str, __precision, value);
   return std::string(__str);
 }
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
-std::streamsize system::float_precision(std::streamsize precision) {
+void system::format_float_output(std::streamsize precision, bool scientific) {
   assert(precision >= 0);
   std::lock_guard<std::mutex> __guard(system::mutex_);
   system::float_precision_ = precision;
-  return system::float_precision_;
+  system::float_scientific_format_ = scientific;
 }
+
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+std::string __teuthid_system_validate_string(const std::string &str) {
+  std::string __s = str;
+  if (!__s.empty()) {
+    std::transform(__s.begin(), __s.end(), __s.begin(), ::tolower);
+    __s.erase(std::remove_if(__s.begin(), __s.end(), ::isspace), __s.end());
+  }
+  return std::string(__s);
+}
+
+template <>
+bool system::from_string(const std::string &str_value, bool &value) {
+  std::string __s = __teuthid_system_validate_string(str_value);
+  if (!__s.empty())
+    if ((__s == "false") || (__s == "true")) {
+      value = (__s == "true");
+      return true;
+    }
+  return false;
+}
+#endif // DOXYGEN_SHOULD_SKIP_THIS

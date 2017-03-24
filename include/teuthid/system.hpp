@@ -53,8 +53,12 @@ public:
   static bool use_clb(bool enabled);
 
   template <typename T> static std::string to_string(const T &value);
-  static std::streamsize float_precision() noexcept { return float_precision_; }
-  static std::streamsize float_precision(std::streamsize precision);
+  static void format_float_output(std::streamsize precision,
+                                  bool scientific = false);
+  template <typename T>
+  static bool from_string(const std::string &str_value, T &value) {
+    return false;
+  }
 
 private:
   system() {}
@@ -63,14 +67,16 @@ private:
   static thread_local bool use_clb_;
   static std::mutex mutex_;
   static std::streamsize float_precision_;
+  static bool float_scientific_format_;
 };
 
 template <typename T> std::string system::to_string(const T &value) {
   static_assert(!std::is_pointer<T>::value, "requires non-pointer type");
   static_assert(!std::is_array<T>::value, "requires non-array type");
   std::ostringstream __os;
-  __os.precision(system::float_precision());
-  __os << std::scientific << value;
+  __os.precision(system::float_precision_);
+  __os << (system::float_scientific_format_ ? std::scientific : std::fixed);
+  __os << value;
   return __os.str();
 }
 
@@ -95,6 +101,9 @@ template <> std::string system::to_string(void *const &value) {
 }
 template <> std::string system::to_string(const mpfr_t &value);
 #endif // DOXYGEN_SHOULD_SKIP_THIS
+
+// specializations of system::from_string<T>()
+template <> bool system::from_string(const std::string &str_value, bool &value);
 
 } // namespace teuthid
 
