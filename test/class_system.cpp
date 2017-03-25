@@ -88,6 +88,10 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST((system::to_string(__size) == "13"), "to_string(size_t)");
   intptr_t __intptr = -13;
   BOOST_TEST((system::to_string(__intptr) == "-13"), "to_string(intptr_t)");
+  int8_t __int8 = -13;
+  BOOST_TEST((system::to_string(__int8) == "-13"), "to_string(int8_t)");
+  uint8_t __uint8 = 13;
+  BOOST_TEST((system::to_string(__uint8) == "13"), "to_string(uint8_t)");
   bool __false = false;
   bool __true = true;
   bool &__ref_true = __true;
@@ -119,14 +123,36 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST((system::to_string(__mpfr) == "1.2345000000e+00"),
              "system::format_float_output(10, true)");
 
-  std::string __bool_str = "F A L S E";
   bool __boolval;
-  system::from_string(__bool_str, __boolval);
-  BOOST_TEST(!__boolval, "system::from_string(, bool)");
-  __bool_str = "true";
-  system::from_string(__bool_str, __boolval);
-  BOOST_TEST(__boolval, "system::from_string(, bool)");
-  __bool_str = "";
-  BOOST_TEST(!system::from_string(__bool_str, __boolval),
-             "system::from_string()");
+  BOOST_TEST(!system::from_string("F A L S E", __boolval),
+             "system::from_string(, bool)");
+  BOOST_TEST(system::from_string("true", __boolval),
+             "system::from_string(, bool)");
+  int __int_val;
+  BOOST_TEST(system::from_string("-1234", __int_val) == -1234,
+             "system::from_string(, int)");
+  long __long_val;
+  BOOST_TEST(system::from_string("-12345", __long_val) == -12345,
+             "system::from_string(, long)");
+  long long __long_long_val;
+  BOOST_TEST(system::from_string("-123456", __long_long_val) == -123456,
+             "system::from_string(,long long)");
+  unsigned int __uint_val;
+  BOOST_TEST(system::from_string("1234", __uint_val) == 1234,
+             "system::from_string(, unsigned int)");
+  unsigned long __ulong_val;
+  BOOST_TEST(system::from_string("12345", __ulong_val) == 12345,
+             "system::from_string(, unsigned long)");
+  unsigned long long __ulong_long_val;
+  BOOST_TEST(system::from_string("123456", __ulong_long_val) == 123456,
+             "system::from_string(,unsigned long long)");
+  float __float_val;
+  BOOST_TEST(system::from_string("1", __float_val) == (float)1,
+             "system::from_string(, float)");
+  double __double_val;
+  BOOST_TEST(system::from_string("1", __double_val) == (double)1,
+             "system::from_string(, double)");
+  long double __ldouble_val;
+  BOOST_TEST(system::from_string("1", __ldouble_val) == (long double)1,
+             "system::from_string(, long double)");
 }

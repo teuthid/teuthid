@@ -19,6 +19,7 @@
 #include <algorithm>
 #include <cassert>
 #include <cctype>
+#include <stdexcept>
 
 #include <teuthid/system.hpp>
 
@@ -105,13 +106,110 @@ std::string __teuthid_system_validate_string(const std::string &str) {
 }
 
 template <>
-bool system::from_string(const std::string &str_value, bool &value) {
+bool &system::from_string(const std::string &str_value, bool &value) {
   std::string __s = __teuthid_system_validate_string(str_value);
   if (!__s.empty())
     if ((__s == "false") || (__s == "true")) {
       value = (__s == "true");
-      return true;
+      return value;
     }
-  return false;
+  throw std::invalid_argument("system::from_string(,bool)");
+}
+
+template <> int &system::from_string(const std::string &str_value, int &value) {
+  std::string __s = __teuthid_system_validate_string(str_value);
+  if (!__s.empty()) {
+    value = std::stoi(__s);
+    return value;
+  }
+  throw std::invalid_argument("system::from_string(,int)");
+}
+
+template <>
+long &system::from_string(const std::string &str_value, long &value) {
+  std::string __s = __teuthid_system_validate_string(str_value);
+  if (!__s.empty()) {
+    value = std::stol(__s);
+    return value;
+  }
+  throw std::invalid_argument("system::from_string(,long)");
+}
+
+template <>
+long long &system::from_string(const std::string &str_value, long long &value) {
+  std::string __s = __teuthid_system_validate_string(str_value);
+  if (!__s.empty()) {
+    value = std::stoll(__s);
+    return value;
+  }
+  throw std::invalid_argument("system::from_string(,long long)");
+}
+
+template <>
+unsigned int &system::from_string(const std::string &str_value,
+                                  unsigned int &value) {
+  std::string __s = __teuthid_system_validate_string(str_value);
+  if (!__s.empty()) {
+    unsigned long __long = std::stoul(__s);
+    unsigned int __val = __long;
+    if (__long != __val)
+      throw std::out_of_range("system::from_string(,unsigned int)");
+    value = __val;
+    return value;
+  }
+  throw std::invalid_argument("system::from_string(,unsigned int)");
+}
+
+template <>
+unsigned long &system::from_string(const std::string &str_value,
+                                   unsigned long &value) {
+  std::string __s = __teuthid_system_validate_string(str_value);
+  if (!__s.empty()) {
+    value = std::stoul(__s);
+    return value;
+  }
+  throw std::invalid_argument("system::from_string(,unsigned long)");
+}
+
+template <>
+unsigned long long &system::from_string(const std::string &str_value,
+                                        unsigned long long &value) {
+  std::string __s = __teuthid_system_validate_string(str_value);
+  if (!__s.empty()) {
+    value = std::stoull(__s);
+    return value;
+  }
+  throw std::invalid_argument("system::from_string(,unsigned long long)");
+}
+
+template <>
+float &system::from_string(const std::string &str_value, float &value) {
+  std::string __s = __teuthid_system_validate_string(str_value);
+  if (!__s.empty()) {
+    value = std::stof(__s);
+    return value;
+  }
+  throw std::invalid_argument("system::from_string(,float)");
+}
+
+template <>
+double &system::from_string(const std::string &str_value, double &value) {
+  std::string __s = __teuthid_system_validate_string(str_value);
+  if (!__s.empty()) {
+    value = std::stod(__s);
+    return value;
+  }
+  throw std::invalid_argument("system::from_string(,double)");
+}
+
+template <>
+long double &system::from_string(const std::string &str_value,
+                                 long double &value) {
+  std::string __s = __teuthid_system_validate_string(str_value);
+  if (!__s.empty()) {
+    value = std::stold(__s);
+    return value;
+  }
+  throw std::invalid_argument("system::from_string(,long double)");
 }
 #endif // DOXYGEN_SHOULD_SKIP_THIS

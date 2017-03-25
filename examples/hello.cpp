@@ -38,8 +38,8 @@ std::string __str;
 
 int main() {
   std::cout << std::endl << ruler << std::endl;
-  std::cout << "Teuthid Version " << std::to_string(system::major_version())
-            << "." << std::to_string(system::minor_version()) << std::endl;
+  std::cout << "Teuthid Version " << system::to_string(system::major_version())
+            << "." << system::to_string(system::minor_version()) << std::endl;
   std::cout << "  --" << std::endl;
   if (system::have_clb()) {
 #if defined(TEUTHID_WITH_OPENCL)
@@ -103,17 +103,18 @@ int main() {
           std::cout << __ext << " | ";
         std::cout << std::endl;
         std::cout << "    Address bits: "
-                  << std::to_string(__device.address_bits()) << std::endl;
+                  << system::to_string(__device.address_bits()) << std::endl;
         std::cout << "    Global memory size: "
-                  << std::to_string(__device.global_memory_size()) << std::endl;
+                  << system::to_string(__device.global_memory_size()) << std::endl;
       }
     }
-    std::cout << std::endl;
 #endif // TEUTHID_WITH_OPENCL
   } else
     std::cout << "Build without OpenCL." << std::endl;
 
   // ...
-  std::cout << std::endl << ruler << std::endl;
+  std::cout << ruler << std::endl;
+  
+  std::cout << std::endl;
   return 0;
 }

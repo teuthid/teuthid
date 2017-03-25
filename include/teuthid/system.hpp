@@ -56,9 +56,7 @@ public:
   static void format_float_output(std::streamsize precision,
                                   bool scientific = false);
   template <typename T>
-  static bool from_string(const std::string &str_value, T &value) {
-    return false;
-  }
+  static T &from_string(const std::string &str_value, T &value);
 
 private:
   system() {}
@@ -85,6 +83,12 @@ template <typename T> std::string system::to_string(const T &value) {
 template <> std::string system::to_string(const bool &value) {
   return (value ? std::string("true") : std::string("false"));
 }
+template <> std::string system::to_string(const int8_t &value) {
+  return system::to_string(static_cast<int>(value));
+}
+template <> std::string system::to_string(const uint8_t &value) {
+  return system::to_string(static_cast<unsigned int>(value));
+}
 template <> std::string system::to_string(const char &value) {
   return std::string(1, value);
 }
@@ -100,10 +104,33 @@ template <> std::string system::to_string(void *const &value) {
   return system::to_string(reinterpret_cast<uintptr_t>(value));
 }
 template <> std::string system::to_string(const mpfr_t &value);
-#endif // DOXYGEN_SHOULD_SKIP_THIS
 
 // specializations of system::from_string<T>()
-template <> bool system::from_string(const std::string &str_value, bool &value);
+// may throw: std::invalid_argument, std::out_of_range
+template <>
+bool &system::from_string(const std::string &str_value, bool &value);
+template <> int &system::from_string(const std::string &str_value, int &value);
+template <>
+long &system::from_string(const std::string &str_value, long &value);
+template <>
+long long &system::from_string(const std::string &str_value, long long &value);
+template <>
+unsigned int &system::from_string(const std::string &str_value,
+                                  unsigned int &value);
+template <>
+unsigned long &system::from_string(const std::string &str_value,
+                                   unsigned long &value);
+template <>
+unsigned long long &system::from_string(const std::string &str_value,
+                                        unsigned long long &value);
+template <>
+float &system::from_string(const std::string &str_value, float &value);
+template <>
+double &system::from_string(const std::string &str_value, double &value);
+template <>
+long double &system::from_string(const std::string &str_value,
+                                 long double &value);
+#endif // DOXYGEN_SHOULD_SKIP_THIS
 
 } // namespace teuthid
 
