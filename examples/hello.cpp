@@ -105,13 +105,14 @@ int main() {
         std::cout << "    Address bits: "
                   << system::to_string(__device.address_bits()) << std::endl;
         std::cout << "    Global memory size: "
-                  << system::to_string(__device.global_memory_size()) << std::endl;
+                  << system::to_string(__device.global_memory_size())
+                  << std::endl;
       }
     }
 #endif // TEUTHID_WITH_OPENCL
   } else
     std::cout << "Build without OpenCL." << std::endl;
-
+    
   // ...
   std::cout << ruler << std::endl;
   

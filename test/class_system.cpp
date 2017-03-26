@@ -128,24 +128,33 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
              "system::from_string(, bool)");
   BOOST_TEST(system::from_string("true", __boolval),
              "system::from_string(, bool)");
-  int __int_val;
-  BOOST_TEST(system::from_string("-1234", __int_val) == -1234,
-             "system::from_string(, int)");
-  long __long_val;
-  BOOST_TEST(system::from_string("-12345", __long_val) == -12345,
-             "system::from_string(, long)");
-  long long __long_long_val;
-  BOOST_TEST(system::from_string("-123456", __long_long_val) == -123456,
-             "system::from_string(,long long)");
-  unsigned int __uint_val;
-  BOOST_TEST(system::from_string("1234", __uint_val) == 1234,
-             "system::from_string(, unsigned int)");
-  unsigned long __ulong_val;
-  BOOST_TEST(system::from_string("12345", __ulong_val) == 12345,
-             "system::from_string(, unsigned long)");
-  unsigned long long __ulong_long_val;
-  BOOST_TEST(system::from_string("123456", __ulong_long_val) == 123456,
-             "system::from_string(,unsigned long long)");
+  int8_t __int8_val;
+  BOOST_TEST(system::from_string("-127", __int8_val) == -127,
+             "system::from_string(, int8_t)");
+  int16_t __int16_val;
+  BOOST_TEST(system::from_string("-32768", __int16_val) == -32768,
+             "system::from_string(, int16_t)");
+  int32_t __int32_val;
+  BOOST_TEST(system::from_string("-2147483648", __int32_val) == -2147483648,
+             "system::from_string(, int32_t)");
+  int64_t __int64_val;
+  BOOST_TEST(system::from_string("-9223372036854775807", __int64_val) ==
+                 -9223372036854775807,
+             "system::from_string(, int64_t)");
+
+  uint8_t __uint8_val;
+  BOOST_TEST(system::from_string("255", __uint8_val) == 255,
+             "system::from_string(, uint8_t)");
+  uint16_t __uint16_val;
+  BOOST_TEST(system::from_string("65535", __uint16_val) == 65535,
+             "system::from_string(, uint16_t)");
+  uint32_t __uint32_val;
+  BOOST_TEST(system::from_string("4294967295", __uint32_val) == 4294967295,
+             "system::from_string(, uint32_t)");
+  uint64_t __uint64_val;
+  BOOST_TEST(system::from_string("4294967295", __uint64_val) == 4294967295,
+             "system::from_string(, uint64_t)");
+
   float __float_val;
   BOOST_TEST(system::from_string("1", __float_val) == (float)1,
              "system::from_string(, float)");

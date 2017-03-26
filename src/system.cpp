@@ -78,6 +78,21 @@ std::string system::to_string(const std::vector<std::string> &value) {
   return std::string(__str);
 }
 
+#define __TEUTHID_STRING_FROM_INTEGER(TYPE, CAST_TYPE)                         \
+  template <> std::string system::to_string(const TYPE &value) {               \
+    return std::to_string(static_cast<CAST_TYPE>(value));                      \
+  }
+
+__TEUTHID_STRING_FROM_INTEGER(int8_t, long long);
+__TEUTHID_STRING_FROM_INTEGER(int16_t, long long);
+__TEUTHID_STRING_FROM_INTEGER(int32_t, long long);
+__TEUTHID_STRING_FROM_INTEGER(int64_t, long long);
+__TEUTHID_STRING_FROM_INTEGER(uint8_t, unsigned long long);
+__TEUTHID_STRING_FROM_INTEGER(uint16_t, unsigned long long);
+__TEUTHID_STRING_FROM_INTEGER(uint32_t, unsigned long long);
+__TEUTHID_STRING_FROM_INTEGER(uint64_t, unsigned long long);
+#undef __TEUTHID_STRING_FROM_INTEGER
+
 template <> std::string system::to_string(const mpfr_t &value) {
   char __str[256], __precision[64];
   std::string __format =
@@ -116,71 +131,47 @@ bool &system::from_string(const std::string &str_value, bool &value) {
   throw std::invalid_argument("system::from_string(,bool)");
 }
 
-template <> int &system::from_string(const std::string &str_value, int &value) {
-  std::string __s = __teuthid_system_validate_string(str_value);
-  if (!__s.empty()) {
-    value = std::stoi(__s);
-    return value;
+#define __TEUTHID_SIGNED_INTEGER_FROM_STRING(TYPE)                             \
+  template <>                                                                  \
+  TYPE &system::from_string(const std::string &str_value, TYPE &value) {       \
+    std::string __s = __teuthid_system_validate_string(str_value);             \
+    if (!__s.empty()) {                                                        \
+      long long __long = std::stoll(__s);                                      \
+      TYPE __val = __long;                                                     \
+      if (__long != __val)                                                     \
+        throw std::out_of_range("system::from_string()");                      \
+      value = __val;                                                           \
+      return value;                                                            \
+    }                                                                          \
+    throw std::invalid_argument("system::from_string()");                      \
   }
-  throw std::invalid_argument("system::from_string(,int)");
-}
 
-template <>
-long &system::from_string(const std::string &str_value, long &value) {
-  std::string __s = __teuthid_system_validate_string(str_value);
-  if (!__s.empty()) {
-    value = std::stol(__s);
-    return value;
-  }
-  throw std::invalid_argument("system::from_string(,long)");
-}
+__TEUTHID_SIGNED_INTEGER_FROM_STRING(int8_t);
+__TEUTHID_SIGNED_INTEGER_FROM_STRING(int16_t);
+__TEUTHID_SIGNED_INTEGER_FROM_STRING(int32_t);
+__TEUTHID_SIGNED_INTEGER_FROM_STRING(int64_t);
+#undef __TEUTHID_SIGNED_INTEGER_FROM_STRING
 
-template <>
-long long &system::from_string(const std::string &str_value, long long &value) {
-  std::string __s = __teuthid_system_validate_string(str_value);
-  if (!__s.empty()) {
-    value = std::stoll(__s);
-    return value;
+#define __TEUTHID_UNSIGNED_INTEGER_FROM_STRING(TYPE)                           \
+  template <>                                                                  \
+  TYPE &system::from_string(const std::string &str_value, TYPE &value) {       \
+    std::string __s = __teuthid_system_validate_string(str_value);             \
+    if (!__s.empty()) {                                                        \
+      unsigned long long __long = std::stoull(__s);                            \
+      TYPE __val = __long;                                                     \
+      if (__long != __val)                                                     \
+        throw std::out_of_range("system::from_string(,unsigned int)");         \
+      value = __val;                                                           \
+      return value;                                                            \
+    }                                                                          \
+    throw std::invalid_argument("system::from_string(,unsigned int)");         \
   }
-  throw std::invalid_argument("system::from_string(,long long)");
-}
 
-template <>
-unsigned int &system::from_string(const std::string &str_value,
-                                  unsigned int &value) {
-  std::string __s = __teuthid_system_validate_string(str_value);
-  if (!__s.empty()) {
-    unsigned long __long = std::stoul(__s);
-    unsigned int __val = __long;
-    if (__long != __val)
-      throw std::out_of_range("system::from_string(,unsigned int)");
-    value = __val;
-    return value;
-  }
-  throw std::invalid_argument("system::from_string(,unsigned int)");
-}
-
-template <>
-unsigned long &system::from_string(const std::string &str_value,
-                                   unsigned long &value) {
-  std::string __s = __teuthid_system_validate_string(str_value);
-  if (!__s.empty()) {
-    value = std::stoul(__s);
-    return value;
-  }
-  throw std::invalid_argument("system::from_string(,unsigned long)");
-}
-
-template <>
-unsigned long long &system::from_string(const std::string &str_value,
-                                        unsigned long long &value) {
-  std::string __s = __teuthid_system_validate_string(str_value);
-  if (!__s.empty()) {
-    value = std::stoull(__s);
-    return value;
-  }
-  throw std::invalid_argument("system::from_string(,unsigned long long)");
-}
+__TEUTHID_UNSIGNED_INTEGER_FROM_STRING(uint8_t);
+__TEUTHID_UNSIGNED_INTEGER_FROM_STRING(uint16_t);
+__TEUTHID_UNSIGNED_INTEGER_FROM_STRING(uint32_t);
+__TEUTHID_UNSIGNED_INTEGER_FROM_STRING(uint64_t);
+#undef __TEUTHID_UNSIGNED_INTEGER_FROM_STRING
 
 template <>
 float &system::from_string(const std::string &str_value, float &value) {

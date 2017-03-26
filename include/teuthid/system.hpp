@@ -83,12 +83,14 @@ template <typename T> std::string system::to_string(const T &value) {
 template <> std::string system::to_string(const bool &value) {
   return (value ? std::string("true") : std::string("false"));
 }
-template <> std::string system::to_string(const int8_t &value) {
-  return system::to_string(static_cast<int>(value));
-}
-template <> std::string system::to_string(const uint8_t &value) {
-  return system::to_string(static_cast<unsigned int>(value));
-}
+template <> std::string system::to_string(const int8_t &value);
+template <> std::string system::to_string(const int16_t &value);
+template <> std::string system::to_string(const int32_t &value);
+template <> std::string system::to_string(const int64_t &value);
+template <> std::string system::to_string(const uint8_t &value);
+template <> std::string system::to_string(const uint16_t &value);
+template <> std::string system::to_string(const uint32_t &value);
+template <> std::string system::to_string(const uint64_t &value);
 template <> std::string system::to_string(const char &value) {
   return std::string(1, value);
 }
@@ -109,20 +111,23 @@ template <> std::string system::to_string(const mpfr_t &value);
 // may throw: std::invalid_argument, std::out_of_range
 template <>
 bool &system::from_string(const std::string &str_value, bool &value);
-template <> int &system::from_string(const std::string &str_value, int &value);
 template <>
-long &system::from_string(const std::string &str_value, long &value);
+int8_t &system::from_string(const std::string &str_value, int8_t &value);
 template <>
-long long &system::from_string(const std::string &str_value, long long &value);
+int16_t &system::from_string(const std::string &str_value, int16_t &value);
 template <>
-unsigned int &system::from_string(const std::string &str_value,
-                                  unsigned int &value);
+int32_t &system::from_string(const std::string &str_value, int32_t &value);
 template <>
-unsigned long &system::from_string(const std::string &str_value,
-                                   unsigned long &value);
+int64_t &system::from_string(const std::string &str_value, int64_t &value);
 template <>
-unsigned long long &system::from_string(const std::string &str_value,
-                                        unsigned long long &value);
+uint8_t &system::from_string(const std::string &str_value, uint8_t &value);
+template <>
+uint16_t &system::from_string(const std::string &str_value, uint16_t &value);
+template <>
+uint32_t &system::from_string(const std::string &str_value, uint32_t &value);
+template <>
+uint64_t &system::from_string(const std::string &str_value, uint64_t &value);
+
 template <>
 float &system::from_string(const std::string &str_value, float &value);
 template <>

@@ -42,19 +42,7 @@
 #include <cstdint>
 #include <mpfr.h>
 
-#cmakedefine TEUTHID_HAVE_INT8_T
-#cmakedefine TEUTHID_HAVE_INT16_T
-#cmakedefine TEUTHID_HAVE_INT32_T
-#cmakedefine TEUTHID_HAVE_INT64_T
-
-#cmakedefine TEUTHID_HAVE_UINT8_T
-#cmakedefine TEUTHID_HAVE_UINT16_T
-#cmakedefine TEUTHID_HAVE_UINT32_T
-#cmakedefine TEUTHID_HAVE_UINT64_T
-
-#cmakedefine TEUTHID_HAVE_INTPTR_T
-#cmakedefine TEUTHID_HAVE_UINTPTR_T
-
+#cmakedefine TEUTHID_HAVE_INT_128
 #cmakedefine TEUTHID_HAVE_NATIVE_FLOAT_16
 #cmakedefine TEUTHID_HAVE_NATIVE_FLOAT_32
 #cmakedefine TEUTHID_HAVE_NATIVE_FLOAT_64
@@ -68,11 +56,12 @@ namespace teuthid {
 @typedef_int16_t@
 @typedef_int32_t@
 @typedef_int64_t@
-
+@typedef_int128_t@
 @typedef_uint8_t@
 @typedef_uint16_t@
 @typedef_uint32_t@
 @typedef_uint64_t@
+@typedef_uint128_t@
 
 @typedef_intptr_t@
 @typedef_uintptr_t@
