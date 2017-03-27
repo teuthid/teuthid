@@ -88,10 +88,26 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST((system::to_string(__size) == "13"), "to_string(size_t)");
   intptr_t __intptr = -13;
   BOOST_TEST((system::to_string(__intptr) == "-13"), "to_string(intptr_t)");
-  int8_t __int8 = -13;
-  BOOST_TEST((system::to_string(__int8) == "-13"), "to_string(int8_t)");
-  uint8_t __uint8 = 13;
-  BOOST_TEST((system::to_string(__uint8) == "13"), "to_string(uint8_t)");
+  int8_t __int8 = -128;
+  BOOST_TEST((system::to_string(__int8) == "-128"), "to_string(int8_t)");
+  uint8_t __uint8 = 255;
+  BOOST_TEST((system::to_string(__uint8) == "255"), "to_string(uint8_t)");
+  int64_t __int64 = -9223372036854775807;
+  BOOST_TEST((system::to_string(__int64) == "-9223372036854775807"),
+             "to_string(int64_t)");
+  uint64_t __uint64 = (uint64_t)9223372036854775807;
+  BOOST_TEST((system::to_string(__uint64) == "9223372036854775807"),
+             "to_string(uint64_t)");
+#ifdef TEUTHID_HAVE_INT_128
+  int128_t __int_128 = INT64_MIN;
+  BOOST_TEST(!system::to_string(__int_128).empty());
+  __int_128 = INT64_MAX;
+  BOOST_TEST(!system::to_string(__int_128).empty());
+  __int_128 = (int128_t)INT64_MIN - 1;
+  BOOST_TEST(!system::to_string(__int_128).empty());
+  __int_128 = (int128_t)INT64_MAX + 1;
+  BOOST_TEST(!system::to_string(__int_128).empty());
+#endif
   bool __false = false;
   bool __true = true;
   bool &__ref_true = __true;
@@ -152,7 +168,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(system::from_string("4294967295", __uint32_val) == 4294967295,
              "system::from_string(, uint32_t)");
   uint64_t __uint64_val;
-  BOOST_TEST(system::from_string("4294967295", __uint64_val) == 4294967295,
+  BOOST_TEST(system::from_string("9223372036854775807", __uint64_val) ==
+                 9223372036854775807,
              "system::from_string(, uint64_t)");
 
   float __float_val;

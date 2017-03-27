@@ -93,6 +93,27 @@ __TEUTHID_STRING_FROM_INTEGER(uint32_t, unsigned long long);
 __TEUTHID_STRING_FROM_INTEGER(uint64_t, unsigned long long);
 #undef __TEUTHID_STRING_FROM_INTEGER
 
+#ifdef TEUTHID_HAVE_INT_128
+template <> std::string system::to_string(const int128_t &value) {
+  if ((value < INT64_MIN) || (value > INT64_MAX)) {
+    bool __minus = (value < 0);
+    unsigned __mod;
+    int128_t __div, __value = (value >= 0) ? value : -value;
+    std::string __s;
+    do {
+      __div = __value / 10;
+      __mod = __value % 10;
+      __s += std::to_string(__mod);
+      __value = __div;
+    } while (__div > 0);
+    __s = __minus ? (__s + "-") : __s;
+    std::reverse(__s.begin(), __s.end());
+    return std::string(__s);
+  } else
+    return std::to_string(static_cast<long long>(value));
+}
+#endif // TEUTHID_HAVE_INT_128
+
 template <> std::string system::to_string(const mpfr_t &value) {
   char __str[256], __precision[64];
   std::string __format =
