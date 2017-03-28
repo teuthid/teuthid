@@ -94,23 +94,36 @@ __TEUTHID_STRING_FROM_INTEGER(uint64_t, unsigned long long);
 #undef __TEUTHID_STRING_FROM_INTEGER
 
 #ifdef TEUTHID_HAVE_INT_128
+std::string __teuthid_system_uint128_to_string(const uint128_t &value) {
+  unsigned __mod;
+  uint128_t __div, __value = value;
+  std::string __s;
+  do {
+    __div = __value / 10;
+    __mod = __value % 10;
+    __s += std::to_string(__mod);
+    __value = __div;
+  } while (__div > 0);
+  std::reverse(__s.begin(), __s.end());
+  return std::string(__s);
+}
+
 template <> std::string system::to_string(const int128_t &value) {
   if ((value < INT64_MIN) || (value > INT64_MAX)) {
     bool __minus = (value < 0);
-    unsigned __mod;
-    int128_t __div, __value = (value >= 0) ? value : -value;
-    std::string __s;
-    do {
-      __div = __value / 10;
-      __mod = __value % 10;
-      __s += std::to_string(__mod);
-      __value = __div;
-    } while (__div > 0);
-    __s = __minus ? (__s + "-") : __s;
-    std::reverse(__s.begin(), __s.end());
+    uint128_t __value = (value >= 0) ? value : -value;
+    std::string __s = __teuthid_system_uint128_to_string(__value);
+    __s = __minus ? ("-" + __s) : __s;
     return std::string(__s);
   } else
     return std::to_string(static_cast<long long>(value));
+}
+
+template <> std::string system::to_string(const uint128_t &value) {
+  if (value > UINT64_MAX)
+    return __teuthid_system_uint128_to_string(value);
+  else
+    return std::to_string(static_cast<unsigned long long>(value));
 }
 #endif // TEUTHID_HAVE_INT_128
 
@@ -194,34 +207,19 @@ __TEUTHID_UNSIGNED_INTEGER_FROM_STRING(uint32_t);
 __TEUTHID_UNSIGNED_INTEGER_FROM_STRING(uint64_t);
 #undef __TEUTHID_UNSIGNED_INTEGER_FROM_STRING
 
-template <>
-float &system::from_string(const std::string &str_value, float &value) {
-  std::string __s = __teuthid_system_validate_string(str_value);
-  if (!__s.empty()) {
-    value = std::stof(__s);
-    return value;
+#define __TEUTHID_FLOAT_FROM_STRING(TYPE, FUN)                                 \
+  template <>                                                                  \
+  TYPE &system::from_string(const std::string &str_value, TYPE &value) {       \
+    std::string __s = __teuthid_system_validate_string(str_value);             \
+    if (!__s.empty()) {                                                        \
+      value = std::FUN(__s);                                                   \
+      return value;                                                            \
+    }                                                                          \
+    throw std::invalid_argument("system::from_string(floating point)");        \
   }
-  throw std::invalid_argument("system::from_string(,float)");
-}
 
-template <>
-double &system::from_string(const std::string &str_value, double &value) {
-  std::string __s = __teuthid_system_validate_string(str_value);
-  if (!__s.empty()) {
-    value = std::stod(__s);
-    return value;
-  }
-  throw std::invalid_argument("system::from_string(,double)");
-}
-
-template <>
-long double &system::from_string(const std::string &str_value,
-                                 long double &value) {
-  std::string __s = __teuthid_system_validate_string(str_value);
-  if (!__s.empty()) {
-    value = std::stold(__s);
-    return value;
-  }
-  throw std::invalid_argument("system::from_string(,long double)");
-}
+__TEUTHID_FLOAT_FROM_STRING(float, stof);
+__TEUTHID_FLOAT_FROM_STRING(double, stod);
+__TEUTHID_FLOAT_FROM_STRING(long double, stold);
+#undef __TEUTHID_FLOAT_FROM_STRING
 #endif // DOXYGEN_SHOULD_SKIP_THIS

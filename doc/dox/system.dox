@@ -19,9 +19,13 @@
 
 /*! \class teuthid::system system.hpp <teuthid/system.hpp>
  * \brief This class includes a number of functions that control the framework
- * and provide information about its settings.
- *
- *  All functions that provides class teuthid::system are static.
+ * and provide information about its settings. 
+ * 
+ * In addition, this class also includes a set of general-purpose functions 
+ * such as functions for converting numeric values to strings and vice versa. 
+ * (system::to_string(), system::from_string()).
+ * 
+ * All functions that provides class teuthid::system are static.
  * 
  */
 
@@ -81,7 +85,7 @@
  */
 
 
-/*! \fn static bool system::use_clb()
+/*! \fn static bool teuthid::system::use_clb()
  * \brief Checks whether a given thread can use OpenCL compute kernels.
  * \return \c true if a given thread (a thread that call this function) can use 
  * OpenCL compute kernels in a multithreading environment. 
@@ -109,3 +113,24 @@
  * \see have_clb().
  */
 
+
+/*! \fn template <typename T> static std::string system::to_string(const T &value)
+ * \brief Converts a valuf of type \c T to a string.
+ *
+ * @param[in] value a value of any type except of the array type 
+ * (like \c char[]) or the pointer type (like \c int*, but \c void* is allowed).
+ * \return a string holding the converted value of type \c T.
+ * \see from_string(), format_float_output().
+ */
+
+
+/*! \fn static void system::format_float_output(std::streamsize precision, bool scientific);
+ * \brief Sets the output format for floating point numbers.
+ *
+ * @param[in] precision the precision (i.e. how many digits are generated) of 
+ * floating point output performed by system::to_string().
+ * @param[in] scientific if it is equal to \c true, generates floating point 
+ * output using a scientific notation (for example \c 6.022e+23). Otherwise 
+ * using a fixed notation.
+ * \see to_string().
+ */

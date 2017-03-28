@@ -93,6 +93,7 @@ template <> std::string system::to_string(const uint32_t &value);
 template <> std::string system::to_string(const uint64_t &value);
 #ifdef TEUTHID_HAVE_INT_128
 template <> std::string system::to_string(const int128_t &value);
+template <> std::string system::to_string(const uint128_t &value);
 #endif // TEUTHID_HAVE_INT_128
 template <> std::string system::to_string(const char &value) {
   return std::string(1, value);

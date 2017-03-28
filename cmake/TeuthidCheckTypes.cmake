@@ -89,6 +89,21 @@ elseif ("${long_double_t}" STREQUAL "16")
   set(float128_native "long double")
 endif()
 
+# additional floating types
+if ("${float80_native}" STREQUAL "")
+  check_type_size("__float80" __float80_t LANGUAGE CXX)
+  if ("${__float80_t}" STREQUAL "10")
+    set(float80_native "__float80")
+  endif()
+endif()
+
+if ("${float128_native}" STREQUAL "")
+  check_type_size("__float128" __float128_t LANGUAGE CXX)
+  if ("${__float128_t}" STREQUAL "16")
+    set(float128_native "__float128")
+  endif()
+endif()
+
 # definitions of floating point types
 set(TEUTHID_HAVE_NATIVE_FLOAT_16 OFF)
 set(TEUTHID_HAVE_NATIVE_FLOAT_32 OFF)
