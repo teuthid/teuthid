@@ -130,13 +130,13 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   std::vector<std::string> __vector = {"1", "2", "3", "4"};
   BOOST_TEST((system::to_string(__vector)) == "1 2 3 4",
              "to_string(const std::vector<std::string> &");
-  void *__void = reinterpret_cast<void *>(13);
-  BOOST_TEST((system::to_string(__void)) == "13", "to_string(void*)");
+  void *__ptr_void = reinterpret_cast<void *>(13);
+  BOOST_TEST((system::to_string(__ptr_void)) == "13", "to_string(void*)");
 
   mpfr_t __mpfr;
   mpfr_init_set_ld(__mpfr, 1.2345, mpfr_get_default_rounding_mode());
   BOOST_TEST(!system::to_string(__mpfr).empty());
-  system::format_float_output(10);
+  system::format_float_output();
   BOOST_TEST((system::to_string(__mpfr) == "1.2345000000"),
              "system::format_float_output(10, false)");
   system::format_float_output(10, true);
@@ -185,4 +185,6 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   long double __ldouble_val;
   BOOST_TEST(system::from_string("1.0", __ldouble_val) == (long double)1,
              "system::from_string(, long double)");
+  system::from_string("1", __mpfr);
+  BOOST_TEST(mpfr_cmp_ui(__mpfr, 1) == 0);
 }

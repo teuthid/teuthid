@@ -124,6 +124,15 @@
  */
 
 
+/*! \fn static std::streamsize system::default_format_float_precision()
+ * \brief Return the default precision of floating point output.
+ * 
+ * \return the default precision (i.e. how many digits are generated) of 
+ * floating point output performed by system::to_string().
+ * \see format_float_precision(), format_float_output().
+ */
+
+
 /*! \fn static void system::format_float_output(std::streamsize precision, bool scientific);
  * \brief Sets the output format for floating point numbers.
  *
@@ -132,5 +141,30 @@
  * @param[in] scientific if it is equal to \c true, generates floating point 
  * output using a scientific notation (for example \c 6.022e+23). Otherwise 
  * using a fixed notation.
- * \see to_string().
+ * \see to_string(), default_format_float_precision(), format_float_precision(),
+ * format_float_scientific().
  */
+
+
+/*! \fn static std::streamsize system::format_float_precision(std::streamsize precision)
+ * \brief Sets the output precision for floating point numbers.
+ * 
+ * @param[in] precision the precision (i.e. how many digits are generated) of 
+ * floating point output performed by system::to_string().
+ * \return the previous value of output precision for floating point 
+ * numbers.
+ * \see format_float_output(), default_format_float_precision().
+ */
+
+
+/*! \fn static bool system::format_float_scientific(bool scientific)
+ * \brief Set the output notation for floating point numbers.
+ *
+ * @param[in] scientific if it is equal to \c true, generates floating point 
+ * output using a scientific notation (for example \c 6.022e+23). Otherwise 
+ * using a fixed notation.
+ * \return the previous valut of output notation for floating point 
+ * numbers.
+ * \see format_float_output().
+ */
+

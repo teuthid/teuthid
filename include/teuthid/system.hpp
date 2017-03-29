@@ -53,10 +53,20 @@ public:
   static bool use_clb(bool enabled);
 
   template <typename T> static std::string to_string(const T &value);
-  static void format_float_output(std::streamsize precision,
-                                  bool scientific = false);
+  static std::streamsize default_format_float_precision() noexcept {
+    return default_float_precision_;
+  }
+  static void format_float_output(
+      std::streamsize precision = system::default_format_float_precision(),
+      bool scientific = false);
+  static std::streamsize format_float_precision(std::streamsize precision);
+  static bool format_float_scientific(bool scientific);
   template <typename T>
   static T &from_string(const std::string &str_value, T &value);
+
+  template <typename T> static bool equal_to(const T &x, const T &y) {
+    return (x == y);
+  }
 
 private:
   system() {}
@@ -64,6 +74,7 @@ private:
   static std::string version_;
   static thread_local bool use_clb_;
   static std::mutex mutex_;
+  static constexpr std::streamsize default_float_precision_ = 10;
   static std::streamsize float_precision_;
   static bool float_scientific_format_;
 };
@@ -139,6 +150,8 @@ double &system::from_string(const std::string &str_value, double &value);
 template <>
 long double &system::from_string(const std::string &str_value,
                                  long double &value);
+template <>
+mpfr_t &system::from_string(const std::string &str_value, mpfr_t &value);
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 } // namespace teuthid

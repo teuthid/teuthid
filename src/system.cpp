@@ -38,7 +38,7 @@ thread_local bool system::use_clb_ = false;
 
 std::string system::version_ = std::string(TEUTHID_VERSION);
 std::mutex system::mutex_;
-std::streamsize system::float_precision_ = 10;
+std::streamsize system::float_precision_ = default_float_precision_;
 bool system::float_scientific_format_ = false;
 
 bool system::is_required_version(uint8_t major, uint8_t minor) noexcept {
@@ -138,10 +138,25 @@ template <> std::string system::to_string(const mpfr_t &value) {
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 void system::format_float_output(std::streamsize precision, bool scientific) {
-  assert(precision >= 0);
+  assert(precision > 0);
   std::lock_guard<std::mutex> __guard(system::mutex_);
   system::float_precision_ = precision;
   system::float_scientific_format_ = scientific;
+}
+
+std::streamsize system::format_float_precision(std::streamsize precision) {
+  assert(precision > 0);
+  std::lock_guard<std::mutex> __guard(system::mutex_);
+  std::streamsize __prev = system::float_precision_;
+  system::float_precision_ = precision;
+  return __prev;
+}
+
+bool system::format_float_scientific(bool scientific) {
+  std::lock_guard<std::mutex> __guard(system::mutex_);
+  bool __prev = system::float_scientific_format_;
+  system::float_scientific_format_ = scientific;
+  return __prev;
 }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -162,7 +177,7 @@ bool &system::from_string(const std::string &str_value, bool &value) {
       value = (__s == "true");
       return value;
     }
-  throw std::invalid_argument("system::from_string(,bool)");
+  throw std::invalid_argument("empty or invalid string");
 }
 
 #define __TEUTHID_SIGNED_INTEGER_FROM_STRING(TYPE)                             \
@@ -177,7 +192,7 @@ bool &system::from_string(const std::string &str_value, bool &value) {
       value = __val;                                                           \
       return value;                                                            \
     }                                                                          \
-    throw std::invalid_argument("system::from_string()");                      \
+    throw std::invalid_argument("empty or invalid string");                    \
   }
 
 __TEUTHID_SIGNED_INTEGER_FROM_STRING(int8_t);
@@ -194,11 +209,11 @@ __TEUTHID_SIGNED_INTEGER_FROM_STRING(int64_t);
       unsigned long long __long = std::stoull(__s);                            \
       TYPE __val = __long;                                                     \
       if (__long != __val)                                                     \
-        throw std::out_of_range("system::from_string(,unsigned int)");         \
+        throw std::out_of_range("system::from_string()");                      \
       value = __val;                                                           \
       return value;                                                            \
     }                                                                          \
-    throw std::invalid_argument("system::from_string(,unsigned int)");         \
+    throw std::invalid_argument("empty or invalid string");                    \
   }
 
 __TEUTHID_UNSIGNED_INTEGER_FROM_STRING(uint8_t);
@@ -215,11 +230,21 @@ __TEUTHID_UNSIGNED_INTEGER_FROM_STRING(uint64_t);
       value = std::FUN(__s);                                                   \
       return value;                                                            \
     }                                                                          \
-    throw std::invalid_argument("system::from_string(floating point)");        \
+    throw std::invalid_argument("empty or invalid string");                    \
   }
 
 __TEUTHID_FLOAT_FROM_STRING(float, stof);
 __TEUTHID_FLOAT_FROM_STRING(double, stod);
 __TEUTHID_FLOAT_FROM_STRING(long double, stold);
 #undef __TEUTHID_FLOAT_FROM_STRING
+
+template <>
+mpfr_t &system::from_string(const std::string &str_value, mpfr_t &value) {
+  std::string __s = __teuthid_system_validate_string(str_value);
+  if (!__s.empty())
+    if (mpfr_set_str(value, __s.c_str(), 10,
+                     mpfr_get_default_rounding_mode()) == 0)
+      return value;
+  throw std::invalid_argument("empty or invalid string");
+}
 #endif // DOXYGEN_SHOULD_SKIP_THIS
