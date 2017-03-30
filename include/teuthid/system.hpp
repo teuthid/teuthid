@@ -67,6 +67,12 @@ public:
   template <typename T> static bool equal_to(const T &x, const T &y) {
     return (x == y);
   }
+  template <typename T> static bool not_equal_to(const T &x, const T &y) {
+    return !system::equal_to(x, y);
+  }
+  template <typename T> static bool greater(const T &x, const T &y) {
+    return (x > y);
+  }
 
 private:
   system() {}
@@ -142,7 +148,6 @@ template <>
 uint32_t &system::from_string(const std::string &str_value, uint32_t &value);
 template <>
 uint64_t &system::from_string(const std::string &str_value, uint64_t &value);
-
 template <>
 float &system::from_string(const std::string &str_value, float &value);
 template <>
@@ -152,8 +157,19 @@ long double &system::from_string(const std::string &str_value,
                                  long double &value);
 template <>
 mpfr_t &system::from_string(const std::string &str_value, mpfr_t &value);
-#endif // DOXYGEN_SHOULD_SKIP_THIS
 
+// specializations of system::equal_to<T>()
+template <> bool system::equal_to(const float &x, const float &y);
+template <> bool system::equal_to(const double &x, const double &y);
+template <> bool system::equal_to(const long double &x, const long double &y);
+template <> bool system::equal_to(const mpfr_t &x, const mpfr_t &y);
+
+// specializations of system::greater<T>()
+template <> bool system::greater(const float &x, const float &y);
+template <> bool system::greater(const double &x, const double &y);
+template <> bool system::greater(const long double &x, const long double &y);
+template <> bool system::greater(const mpfr_t &x, const mpfr_t &y);
+#endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace teuthid
 
 #endif // TEUTHID_SYSTEM_HPP

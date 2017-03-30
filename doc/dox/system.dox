@@ -158,7 +158,7 @@
 
 
 /*! \fn static bool system::format_float_scientific(bool scientific)
- * \brief Set the output notation for floating point numbers.
+ * \brief Sets the output notation for floating point numbers.
  *
  * @param[in] scientific if it is equal to \c true, generates floating point 
  * output using a scientific notation (for example \c 6.022e+23). Otherwise 
@@ -166,5 +166,21 @@
  * \return the previous valut of output notation for floating point 
  * numbers.
  * \see format_float_output().
+ */
+
+
+/*! \fn template <typename T> static T &system::from_string(const std::string &str_value, T &value)
+ * \brief Interprets a value in a string.
+ *
+ * Discards any whitespace characters (as identified by calling 
+ * \c std::isspace()) and converts all characters to lower case.
+ * @param[in] str_value the string to convert.
+ * @param[in,out] value the string converted to the specified value of 
+ * type \c T.
+ * \exception std::invalid_argument if no conversion could be performed.
+ * \exception std::out_of_range if the converted string would fall out of the 
+ * range of the result type \c T.
+ * \return  the string converted to the specified value of type \c T.
+ * \see to_string().
  */
 

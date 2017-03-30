@@ -115,7 +115,7 @@ int main() {
     
   // ...
   std::cout << ruler << std::endl;
-  
+  //std::cout << ;
   std::cout << std::endl;
   return 0;
 }

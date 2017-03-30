@@ -177,14 +177,22 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
              "system::from_string(, uint64_t)");
 
   float __float_val;
-  BOOST_TEST(system::from_string("1.0", __float_val) == (float)1,
-             "system::from_string(, float)");
+  system::from_string("1.2345", __float_val);
+  BOOST_TEST(system::equal_to(__float_val, __float_val));
+  BOOST_TEST(system::equal_to(__float_val, (float)1.2345));
+  BOOST_TEST(system::greater(__float_val + 1, __float_val));
   double __double_val;
-  BOOST_TEST(system::from_string("1.0", __double_val) == (double)1,
-             "system::from_string(, double)");
+  system::from_string("1.23456", __double_val);
+  BOOST_TEST(system::equal_to(__double_val, (double)1.23456));
+  BOOST_TEST(system::equal_to(__double_val, __double_val));
+  BOOST_TEST(system::greater(__double_val + 1, __double_val));
   long double __ldouble_val;
-  BOOST_TEST(system::from_string("1.0", __ldouble_val) == (long double)1,
-             "system::from_string(, long double)");
-  system::from_string("1", __mpfr);
-  BOOST_TEST(mpfr_cmp_ui(__mpfr, 1) == 0);
+  system::from_string("1.234567", __ldouble_val);
+  BOOST_TEST(system::equal_to(__ldouble_val, (long double)1.234567));
+  BOOST_TEST(system::equal_to(__ldouble_val, __ldouble_val));
+  BOOST_TEST(system::greater(__ldouble_val + 1, __ldouble_val));
+  system::from_string("1.2345", __mpfr);
+  BOOST_TEST(mpfr_cmp_ld(__mpfr, (long double)1.2345) == 0);
+  BOOST_TEST(system::equal_to(__mpfr, __mpfr));
+  BOOST_TEST(!system::not_equal_to(__mpfr, __mpfr));
 }

@@ -241,10 +241,43 @@ __TEUTHID_FLOAT_FROM_STRING(long double, stold);
 template <>
 mpfr_t &system::from_string(const std::string &str_value, mpfr_t &value) {
   std::string __s = __teuthid_system_validate_string(str_value);
-  if (!__s.empty())
+  if (!__s.empty()) {
+    mpfr_clear(value);
+    mpfr_init2(value, mpfr_get_default_prec());
     if (mpfr_set_str(value, __s.c_str(), 10,
                      mpfr_get_default_rounding_mode()) == 0)
       return value;
+  }
   throw std::invalid_argument("empty or invalid string");
 }
+
+#define __TEUTHID_FLOAT_COMPARE(NAME, TYPE, ASSIGN_FUN, COMP_FUN)              \
+  template <> bool system::NAME(const TYPE &x, const TYPE &y) {                \
+    int __result;                                                              \
+    mpfr_t __x, __y;                                                           \
+    mpfr_inits2(mpfr_get_default_prec(), __x, __y, nullptr);                   \
+    ASSIGN_FUN(__x, x, mpfr_get_default_rounding_mode());                      \
+    ASSIGN_FUN(__y, y, mpfr_get_default_rounding_mode());                      \
+    __result = COMP_FUN(__x, __y);                                             \
+    mpfr_clears(__x, __y, nullptr);                                            \
+    return (__result != 0);                                                    \
+  }
+
+__TEUTHID_FLOAT_COMPARE(equal_to, float, mpfr_set_flt, mpfr_equal_p);
+__TEUTHID_FLOAT_COMPARE(equal_to, double, mpfr_set_d, mpfr_equal_p);
+__TEUTHID_FLOAT_COMPARE(equal_to, long double, mpfr_set_ld, mpfr_equal_p);
+__TEUTHID_FLOAT_COMPARE(greater, float, mpfr_set_flt, mpfr_greater_p);
+__TEUTHID_FLOAT_COMPARE(greater, double, mpfr_set_d, mpfr_greater_p);
+__TEUTHID_FLOAT_COMPARE(greater, long double, mpfr_set_ld, mpfr_greater_p);
+#undef __TEUTHID_FLOAT_COMPARE
+
+#define __TEUTHID_MPFR_COMPARE(NAME, COMP_FUN)                                 \
+  template <> bool system::NAME(const mpfr_t &x, const mpfr_t &y) {            \
+    return (COMP_FUN(x, y) != 0);                                              \
+  }
+
+__TEUTHID_MPFR_COMPARE(equal_to, mpfr_equal_p);
+__TEUTHID_MPFR_COMPARE(greater, mpfr_greater_p);
+#undef __TEUTHID_MPFR_COMPARE
+
 #endif // DOXYGEN_SHOULD_SKIP_THIS
