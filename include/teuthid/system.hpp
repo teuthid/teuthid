@@ -54,7 +54,7 @@ public:
 
   template <typename T> static std::string to_string(const T &value);
   static std::streamsize default_format_float_precision() noexcept {
-    return default_float_precision_;
+    return default_format_float_precision_;
   }
   static void format_float_output(
       std::streamsize precision = system::default_format_float_precision(),
@@ -67,12 +67,6 @@ public:
   template <typename T> static bool equal_to(const T &x, const T &y) {
     return (x == y);
   }
-  template <typename T> static bool not_equal_to(const T &x, const T &y) {
-    return !system::equal_to(x, y);
-  }
-  template <typename T> static bool greater(const T &x, const T &y) {
-    return (x > y);
-  }
 
 private:
   system() {}
@@ -80,17 +74,17 @@ private:
   static std::string version_;
   static thread_local bool use_clb_;
   static std::mutex mutex_;
-  static constexpr std::streamsize default_float_precision_ = 10;
-  static std::streamsize float_precision_;
-  static bool float_scientific_format_;
+  static constexpr std::streamsize default_format_float_precision_ = 10;
+  static std::streamsize format_float_precision_;
+  static bool format_float_scientific_;
 };
 
 template <typename T> std::string system::to_string(const T &value) {
   static_assert(!std::is_pointer<T>::value, "requires non-pointer type");
   static_assert(!std::is_array<T>::value, "requires non-array type");
   std::ostringstream __os;
-  __os.precision(system::float_precision_);
-  __os << (system::float_scientific_format_ ? std::scientific : std::fixed);
+  __os.precision(system::format_float_precision_);
+  __os << (system::format_float_scientific_ ? std::scientific : std::fixed);
   __os << value;
   return __os.str();
 }
@@ -163,12 +157,6 @@ template <> bool system::equal_to(const float &x, const float &y);
 template <> bool system::equal_to(const double &x, const double &y);
 template <> bool system::equal_to(const long double &x, const long double &y);
 template <> bool system::equal_to(const mpfr_t &x, const mpfr_t &y);
-
-// specializations of system::greater<T>()
-template <> bool system::greater(const float &x, const float &y);
-template <> bool system::greater(const double &x, const double &y);
-template <> bool system::greater(const long double &x, const long double &y);
-template <> bool system::greater(const mpfr_t &x, const mpfr_t &y);
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace teuthid
 

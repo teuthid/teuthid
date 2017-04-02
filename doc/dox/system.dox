@@ -184,3 +184,14 @@
  * \see to_string().
  */
 
+
+/*! \fn template <typename T> static bool system::equal_to(const T &x, const T &y)
+ * \brief Checks whether \c x is equal to \c y.
+ *
+ * @param[in] x a value of type \c T to compare.
+ * @param[in] y a value of type \c T to compare.
+ * \return \c true if \c x == \c y, \c false otherwise.
+ * \note To compare floating point types, this function converts numbers to 
+ * strings according to the current format settings for to_string().
+ * \see format_float_output(), format_float_precision().
+ */

@@ -52,6 +52,13 @@
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 namespace teuthid {
 
+constexpr unsigned float16_prec = 11;
+constexpr unsigned float32_prec = 24;
+constexpr unsigned float64_prec = 53;
+constexpr unsigned float80_prec = 64;
+constexpr unsigned float128_prec = 113;
+constexpr unsigned float256_prec = 237;
+
 @typedef_int8_t@
 @typedef_int16_t@
 @typedef_int32_t@
@@ -71,6 +78,7 @@ namespace teuthid {
 @typedef_float_64_t@
 @typedef_float_80_t@
 @typedef_float_128_t@
+typedef mpfr_t float256_t;
 
 } // namespace teuthid
 #endif // DOXYGEN_SHOULD_SKIP_THIS

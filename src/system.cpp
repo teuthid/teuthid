@@ -19,6 +19,7 @@
 #include <algorithm>
 #include <cassert>
 #include <cctype>
+#include <cmath>
 #include <stdexcept>
 
 #include <teuthid/system.hpp>
@@ -38,8 +39,9 @@ thread_local bool system::use_clb_ = false;
 
 std::string system::version_ = std::string(TEUTHID_VERSION);
 std::mutex system::mutex_;
-std::streamsize system::float_precision_ = default_float_precision_;
-bool system::float_scientific_format_ = false;
+std::streamsize system::format_float_precision_ =
+    system::default_format_float_precision_;
+bool system::format_float_scientific_ = false;
 
 bool system::is_required_version(uint8_t major, uint8_t minor) noexcept {
   uint32_t __required = major * 1000 + minor;
@@ -130,8 +132,8 @@ template <> std::string system::to_string(const uint128_t &value) {
 template <> std::string system::to_string(const mpfr_t &value) {
   char __str[256], __precision[64];
   std::string __format =
-      (system::float_scientific_format_ ? "%%.%ldRe" : "%%.%ldRf");
-  sprintf(__precision, __format.c_str(), system::float_precision_);
+      (system::format_float_scientific_ ? "%%.%ldRe" : "%%.%ldRf");
+  sprintf(__precision, __format.c_str(), system::format_float_precision_);
   mpfr_sprintf(__str, __precision, value);
   return std::string(__str);
 }
@@ -140,22 +142,22 @@ template <> std::string system::to_string(const mpfr_t &value) {
 void system::format_float_output(std::streamsize precision, bool scientific) {
   assert(precision > 0);
   std::lock_guard<std::mutex> __guard(system::mutex_);
-  system::float_precision_ = precision;
-  system::float_scientific_format_ = scientific;
+  system::format_float_precision_ = precision;
+  system::format_float_scientific_ = scientific;
 }
 
 std::streamsize system::format_float_precision(std::streamsize precision) {
   assert(precision > 0);
   std::lock_guard<std::mutex> __guard(system::mutex_);
-  std::streamsize __prev = system::float_precision_;
-  system::float_precision_ = precision;
+  std::streamsize __prev = system::format_float_precision_;
+  system::format_float_precision_ = precision;
   return __prev;
 }
 
 bool system::format_float_scientific(bool scientific) {
   std::lock_guard<std::mutex> __guard(system::mutex_);
-  bool __prev = system::float_scientific_format_;
-  system::float_scientific_format_ = scientific;
+  bool __prev = system::format_float_scientific_;
+  system::format_float_scientific_ = scientific;
   return __prev;
 }
 
@@ -227,7 +229,7 @@ __TEUTHID_UNSIGNED_INTEGER_FROM_STRING(uint64_t);
   TYPE &system::from_string(const std::string &str_value, TYPE &value) {       \
     std::string __s = __teuthid_system_validate_string(str_value);             \
     if (!__s.empty()) {                                                        \
-      value = std::FUN(__s);                                                   \
+      value = FUN(__s);                                                        \
       return value;                                                            \
     }                                                                          \
     throw std::invalid_argument("empty or invalid string");                    \
@@ -251,33 +253,24 @@ mpfr_t &system::from_string(const std::string &str_value, mpfr_t &value) {
   throw std::invalid_argument("empty or invalid string");
 }
 
-#define __TEUTHID_FLOAT_COMPARE(NAME, TYPE, ASSIGN_FUN, COMP_FUN)              \
-  template <> bool system::NAME(const TYPE &x, const TYPE &y) {                \
-    int __result;                                                              \
-    mpfr_t __x, __y;                                                           \
-    mpfr_inits2(mpfr_get_default_prec(), __x, __y, nullptr);                   \
-    ASSIGN_FUN(__x, x, mpfr_get_default_rounding_mode());                      \
-    ASSIGN_FUN(__y, y, mpfr_get_default_rounding_mode());                      \
-    __result = COMP_FUN(__x, __y);                                             \
-    mpfr_clears(__x, __y, nullptr);                                            \
-    return (__result != 0);                                                    \
+#define __TEUTHID_FLOAT_EQUAL_TO(TYPE)                                         \
+  template <> bool system::equal_to(const TYPE &x, const TYPE &y) {            \
+    if (std::isfinite(x) && std::isfinite(y))                                  \
+      return (system::to_string(x).compare(system::to_string(y)) == 0);        \
+    else                                                                       \
+      return false;                                                            \
   }
 
-__TEUTHID_FLOAT_COMPARE(equal_to, float, mpfr_set_flt, mpfr_equal_p);
-__TEUTHID_FLOAT_COMPARE(equal_to, double, mpfr_set_d, mpfr_equal_p);
-__TEUTHID_FLOAT_COMPARE(equal_to, long double, mpfr_set_ld, mpfr_equal_p);
-__TEUTHID_FLOAT_COMPARE(greater, float, mpfr_set_flt, mpfr_greater_p);
-__TEUTHID_FLOAT_COMPARE(greater, double, mpfr_set_d, mpfr_greater_p);
-__TEUTHID_FLOAT_COMPARE(greater, long double, mpfr_set_ld, mpfr_greater_p);
-#undef __TEUTHID_FLOAT_COMPARE
+__TEUTHID_FLOAT_EQUAL_TO(float);
+__TEUTHID_FLOAT_EQUAL_TO(double);
+__TEUTHID_FLOAT_EQUAL_TO(long double);
+#undef __TEUTHID_FLOAT_EQUAL_TO
 
-#define __TEUTHID_MPFR_COMPARE(NAME, COMP_FUN)                                 \
-  template <> bool system::NAME(const mpfr_t &x, const mpfr_t &y) {            \
-    return (COMP_FUN(x, y) != 0);                                              \
-  }
-
-__TEUTHID_MPFR_COMPARE(equal_to, mpfr_equal_p);
-__TEUTHID_MPFR_COMPARE(greater, mpfr_greater_p);
-#undef __TEUTHID_MPFR_COMPARE
+template <> bool system::equal_to(const mpfr_t &x, const mpfr_t &y) {
+  if ((mpfr_number_p(x) == 0) || (mpfr_number_p(y) == 0))
+    return false;
+  else
+    return (system::to_string(x).compare(system::to_string(y)) == 0);
+}
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
