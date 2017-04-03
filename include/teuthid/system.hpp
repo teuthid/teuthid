@@ -53,6 +53,9 @@ public:
   static bool use_clb(bool enabled);
 
   template <typename T> static std::string to_string(const T &value);
+  static std::size_t split_string(const std::string &str,
+                                  std::vector<std::string> &vec,
+                                  char sep = ' ');
   static std::streamsize default_format_float_precision() noexcept {
     return default_format_float_precision_;
   }
@@ -63,7 +66,6 @@ public:
   static bool format_float_scientific(bool scientific);
   template <typename T>
   static T &from_string(const std::string &str_value, T &value);
-
   template <typename T> static bool equal_to(const T &x, const T &y) {
     return (x == y);
   }

@@ -19,11 +19,11 @@
 #define BOOST_TEST_MODULE teuthid
 #define BOOST_TEST_DYN_LINK
 
-#include <boost/test/unit_test.hpp>
 #include <chrono>
-
-#include <teuthid/system.hpp>
 #include <thread>
+
+#include <boost/test/unit_test.hpp>
+#include <teuthid/system.hpp>
 
 using namespace teuthid;
 
@@ -212,4 +212,26 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(mpfr_cmp_ld(__mpfr, (long double)1.2345) == 0,
              "system::from_string(mpfr_t)");
   BOOST_TEST(system::equal_to(__mpfr, __mpfr), "system::from_string(mpfr_t)");
+
+  std::string __text = "";
+  std::vector<std::string> __strvector;
+  system::split_string(__text, __strvector);
+  BOOST_TEST(system::split_string(__text, __strvector) == 0);
+  __text = " ";
+  BOOST_TEST(system::split_string(__text, __strvector) == 1);
+  __text = "  ";
+  BOOST_TEST(system::split_string(__text, __strvector) == 1);
+  __text = "x";
+  BOOST_TEST(system::split_string(__text, __strvector) == 1);
+  __text = "x ";
+  //BOOST_TEST(system::split_string(__text, __strvector) == 1);
+  __text = " x";
+  BOOST_TEST(system::split_string(__text, __strvector) == 1);
+  __text = "x x";
+  BOOST_TEST(system::split_string(__text, __strvector) == 2);
+  __text = "x  x";
+  BOOST_TEST(system::split_string(__text, __strvector) == 2);
+  __text = "x xy 123";
+  BOOST_TEST(system::split_string(__text, __strvector) == 3);
+  
 }
