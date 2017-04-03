@@ -175,8 +175,8 @@ template <>
 bool &system::from_string(const std::string &str_value, bool &value) {
   std::string __s = __teuthid_system_validate_string(str_value);
   if (!__s.empty())
-    if ((__s == "false") || (__s == "true")) {
-      value = (__s == "true");
+    if ((__s == "false") || (__s == "true") || (__s == "1") || (__s == "0")) {
+      value = ((__s == "true") || (__s == "1"));
       return value;
     }
   throw std::invalid_argument("empty or invalid string");
