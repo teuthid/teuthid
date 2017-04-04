@@ -115,12 +115,30 @@
 
 
 /*! \fn template <typename T> static std::string system::to_string(const T &value)
- * \brief Converts a valuf of type \c T to a string.
+ * \brief Converts a value of type \c T to a string.
  *
  * @param[in] value a value of any type except of the array type 
  * (like \c char[]) or the pointer type (like \c int*, but \c void* is allowed).
  * \return a string holding the converted value of type \c T.
- * \see from_string(), format_float_output().
+ * \note The function has specializations for the following types:
+ * \c bool, \c int8_t, \c int16_t, \c int32_t, \c int64_t, \c int128_t,
+ * \c uint8_t, \c uint16_t, \c uint32_t, \c uint64_t, \c uint128_t,
+ * \c char, \c char*, \c void*, <tt>std::vector<std::string></tt>, \c mpfr_t. 
+ * \n For floating point types, the resulted string is formatted according to 
+ * the settings given by the function format_float_output().
+ * \see from_string().
+ */
+
+
+/*! \fn std::size_t system::split_string(const std::string &str, std::vector<std::string> &vec, char delim);
+ * \brief Splits a string by a delimiter.
+ * 
+ * @param[in] str a string to be split.
+ * @param[in,out] vec the result of splitting as a vector of strings.
+ * @param[in] delim the delimiter (default is <tt>' '</tt> - a space).
+ * \return a size of vector containing separated strings.
+ * \note The function ignores empty delimited substrings.
+ * \see from_string().
  */
 
 
@@ -181,6 +199,10 @@
  * \exception std::out_of_range if the converted string would fall out of the 
  * range of the result type \c T.
  * \return  the string converted to the specified value of type \c T.
+ * \note The function has specializations for the following types:
+ * \c bool, \c int8_t, \c int16_t, \c int32_t, \c int64_t, \c int128_t,
+ * \c uint8_t, \c uint16_t, \c uint32_t, \c uint64_t, \c uint128_t,
+ * \c float, \c double, <tt>long double</tt>, \c mpfr_t.
  * \see to_string().
  */
 
@@ -191,7 +213,12 @@
  * @param[in] x a value of type \c T to compare.
  * @param[in] y a value of type \c T to compare.
  * \return \c true if \c x == \c y, \c false otherwise.
- * \note To compare floating point types, this function converts numbers to 
+ * 
+ * To compare floating point types, this function converts numbers to 
  * strings according to the current format settings for to_string().
+ * \note The function has specializations for the following types:
+ * \c float, \c double, <tt>long double</tt>, \c mpfr_t.
+ * For other types, the function behaves just like the \c operator== 
+ * (for those types for which this operator is already defined).
  * \see format_float_output(), format_float_precision().
  */

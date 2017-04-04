@@ -55,7 +55,7 @@ public:
   template <typename T> static std::string to_string(const T &value);
   static std::size_t split_string(const std::string &str,
                                   std::vector<std::string> &vec,
-                                  char sep = ' ');
+                                  char delim = ' ');
   static std::streamsize default_format_float_precision() noexcept {
     return default_format_float_precision_;
   }

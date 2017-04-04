@@ -140,17 +140,24 @@ template <> std::string system::to_string(const mpfr_t &value) {
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 std::size_t system::split_string(const std::string &str,
-                                 std::vector<std::string> &vec, char sep) {
+                                 std::vector<std::string> &vec, char delim) {
   vec.clear();
   if (!str.empty()) {
     std::size_t __start = 0, __end = 0;
-    while ((__end = str.find(sep, __start)) != std::string::npos) {
-      if (__end != __start)
-        vec.push_back(str.substr(__start, __end - __start));
+    std::string __sub;
+    while ((__end = str.find(delim, __start)) != std::string::npos) {
+      if (__end != __start) {
+        __sub = str.substr(__start, __end - __start);
+        if (!__sub.empty())
+          vec.push_back(__sub);
+      }
       __start = __end + 1;
     }
-    if (__end != __start)
-      vec.push_back(str.substr(__start));
+    if (__end != __start) {
+      __sub = str.substr(__start);
+      if (!__sub.empty())
+        vec.push_back(__sub);
+    }
     vec.shrink_to_fit();
   }
   return vec.size();

@@ -218,20 +218,20 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   system::split_string(__text, __strvector);
   BOOST_TEST(system::split_string(__text, __strvector) == 0);
   __text = " ";
-  BOOST_TEST(system::split_string(__text, __strvector) == 1);
+  BOOST_TEST(system::split_string(__text, __strvector) == 0);
   __text = "  ";
-  BOOST_TEST(system::split_string(__text, __strvector) == 1);
+  BOOST_TEST(system::split_string(__text, __strvector) == 0);
   __text = "x";
   BOOST_TEST(system::split_string(__text, __strvector) == 1);
   __text = "x ";
-  //BOOST_TEST(system::split_string(__text, __strvector) == 1);
+  BOOST_TEST(system::split_string(__text, __strvector) == 1);
   __text = " x";
   BOOST_TEST(system::split_string(__text, __strvector) == 1);
   __text = "x x";
   BOOST_TEST(system::split_string(__text, __strvector) == 2);
   __text = "x  x";
   BOOST_TEST(system::split_string(__text, __strvector) == 2);
-  __text = "x xy 123";
-  BOOST_TEST(system::split_string(__text, __strvector) == 3);
+  __text = "x xy 123   4";
+  BOOST_TEST(system::split_string(__text, __strvector) == 4);
   
 }
