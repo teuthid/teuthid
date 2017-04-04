@@ -214,10 +214,10 @@
  * @param[in] y a value of type \c T to compare.
  * \return \c true if \c x == \c y, \c false otherwise.
  * 
- * To compare floating point types, this function converts numbers to 
- * strings according to the current format settings for to_string().
  * \note The function has specializations for the following types:
  * \c float, \c double, <tt>long double</tt>, \c mpfr_t.
+ * To compare floating point types, this function converts numbers to 
+ * strings according to the current format settings for to_string(). \n
  * For other types, the function behaves just like the \c operator== 
  * (for those types for which this operator is already defined).
  * \see format_float_output(), format_float_precision().
