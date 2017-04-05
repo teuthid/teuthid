@@ -69,15 +69,9 @@ bool system::use_clb(bool enabled) {
 }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-template <>
-std::string system::to_string(const std::vector<std::string> &value) {
-  std::string __str;
-  for (std::size_t __i = 0; __i < value.size(); __i++) {
-    __str += value[__i];
-    if ((__i + 1) < value.size())
-      __str += " ";
-  }
-  return std::string(__str);
+
+template <> std::string system::to_string(const bool &value) {
+  return (value ? std::string("true") : std::string("false"));
 }
 
 #define __TEUTHID_STRING_FROM_INTEGER(TYPE, CAST_TYPE)                         \
@@ -129,12 +123,39 @@ template <> std::string system::to_string(const uint128_t &value) {
 }
 #endif // TEUTHID_HAVE_INT_128
 
+template <> std::string system::to_string(const char &value) {
+  return std::string(1, value);
+}
+
+template <> std::string system::to_string(const char *const &value) {
+  return std::string(value);
+}
+
+template <> std::string system::to_string(const std::string &value) {
+  return std::string(value);
+}
+
+template <> std::string system::to_string(void *const &value) {
+  return system::to_string(reinterpret_cast<uintptr_t>(value));
+}
+
 template <> std::string system::to_string(const mpfr_t &value) {
   char __str[256], __precision[64];
   std::string __format =
       (system::format_float_scientific_ ? "%%.%ldRe" : "%%.%ldRf");
   sprintf(__precision, __format.c_str(), system::format_float_precision_);
   mpfr_sprintf(__str, __precision, value);
+  return std::string(__str);
+}
+
+template <>
+std::string system::to_string(const std::vector<std::string> &value) {
+  std::string __str;
+  for (std::size_t __i = 0; __i < value.size(); __i++) {
+    __str += value[__i];
+    if ((__i + 1) < value.size())
+      __str += " ";
+  }
   return std::string(__str);
 }
 #endif // DOXYGEN_SHOULD_SKIP_THIS

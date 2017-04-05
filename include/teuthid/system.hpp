@@ -93,9 +93,7 @@ template <typename T> std::string system::to_string(const T &value) {
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 // specializations of system::to_string<T>()
-template <> std::string system::to_string(const bool &value) {
-  return (value ? std::string("true") : std::string("false"));
-}
+template <> std::string system::to_string(const bool &value);
 template <> std::string system::to_string(const int8_t &value);
 template <> std::string system::to_string(const int16_t &value);
 template <> std::string system::to_string(const int32_t &value);
@@ -108,21 +106,13 @@ template <> std::string system::to_string(const uint64_t &value);
 template <> std::string system::to_string(const int128_t &value);
 template <> std::string system::to_string(const uint128_t &value);
 #endif // TEUTHID_HAVE_INT_128
-template <> std::string system::to_string(const char &value) {
-  return std::string(1, value);
-}
-template <> std::string system::to_string(const char *const &value) {
-  return std::string(value);
-}
-template <> std::string system::to_string(const std::string &value) {
-  return std::string(value);
-}
+template <> std::string system::to_string(const char &value);
+template <> std::string system::to_string(const char *const &value);
+template <> std::string system::to_string(const std::string &value);
+template <> std::string system::to_string(void *const &value);
+template <> std::string system::to_string(const mpfr_t &value);
 template <>
 std::string system::to_string(const std::vector<std::string> &value);
-template <> std::string system::to_string(void *const &value) {
-  return system::to_string(reinterpret_cast<uintptr_t>(value));
-}
-template <> std::string system::to_string(const mpfr_t &value);
 
 // specializations of system::from_string<T>()
 // may throw: std::invalid_argument, std::out_of_range

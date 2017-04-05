@@ -21,9 +21,11 @@
 
 #include <teuthid/clb/error.hpp>
 #include <teuthid/clb/platform.hpp>
+#include <teuthid/system.hpp>
 
 #include "cl_bindings.hpp"
 
+using namespace teuthid;
 using namespace teuthid::clb;
 
 std::mutex platform::mutex_;
@@ -92,28 +94,6 @@ void __teuthid_get_cl_version(const std::string &version, int &major,
   minor = std::stoi(__s.substr(__dot + 1, __space - __dot));
   spec = __s.substr(__space + 1);
 }
-
-void __teuthid__get_cl_extensions(const std::string &str,
-                                  extensions_t &extensions) {
-  if (str.empty())
-    return; // no extensions
-  std::string __ex;
-  std::string __s = str;
-  std::string::size_type __space = __s.find(' ');
-  if (__space == std::string::npos) // just one extension
-    extensions.push_back(str);
-  else {
-    while (__space != std::string::npos) {
-      __ex = __s.substr(0, __space);
-      extensions.push_back(__ex);
-      __s.erase(0, __ex.size() + 1);
-      __space = __s.find(' ');
-    }
-    if (!__s.empty()) // last extension
-      extensions.push_back(__s);
-  }
-  extensions.shrink_to_fit();
-}
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 void platform::detect_platforms_() {
@@ -136,7 +116,7 @@ void platform::detect_platforms_() {
           __cl_platforms[__i].getInfo<CL_PLATFORM_NAME>();
       platform::platforms_[__i].vendor_ =
           __cl_platforms[__i].getInfo<CL_PLATFORM_VENDOR>();
-      __teuthid__get_cl_extensions(
+      system::split_string(
           __cl_platforms[__i].getInfo<CL_PLATFORM_EXTENSIONS>(),
           platform::platforms_[__i].extensions_);
       platform::platforms_[__i].icd_suffix_khr_ =
@@ -181,9 +161,8 @@ void platform::detect_devices_(platform &plat) {
           __cl_devices[__i].getInfo<CL_DEVICE_MAX_COMPUTE_UNITS>();
       plat.devices_[__i].devtype_ =
           __teuthid_get_cl_devtype(__cl_devices[__i].getInfo<CL_DEVICE_TYPE>());
-      __teuthid__get_cl_extensions(
-          __cl_devices[__i].getInfo<CL_DEVICE_EXTENSIONS>(),
-          plat.devices_[__i].extensions_);
+      system::split_string(__cl_devices[__i].getInfo<CL_DEVICE_EXTENSIONS>(),
+                           plat.devices_[__i].extensions_);
       plat.devices_[__i].address_bits_ =
           __cl_devices[__i].getInfo<CL_DEVICE_ADDRESS_BITS>();
       plat.devices_[__i].global_memory_size_ =
