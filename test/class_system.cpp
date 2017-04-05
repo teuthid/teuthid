@@ -216,22 +216,30 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   std::string __text = "";
   std::vector<std::string> __strvector;
   system::split_string(__text, __strvector);
-  BOOST_TEST(system::split_string(__text, __strvector) == 0);
+  BOOST_TEST(system::split_string(__text, __strvector) == 0,
+             "system::split_string()");
   __text = " ";
-  BOOST_TEST(system::split_string(__text, __strvector) == 0);
+  BOOST_TEST(system::split_string(__text, __strvector) == 0,
+             "system::split_string()");
   __text = "  ";
-  BOOST_TEST(system::split_string(__text, __strvector) == 0);
+  BOOST_TEST(system::split_string(__text, __strvector) == 0,
+             "system::split_string()");
   __text = "x";
-  BOOST_TEST(system::split_string(__text, __strvector) == 1);
+  BOOST_TEST(system::split_string(__text, __strvector) == 1,
+             "system::split_string()");
   __text = "x ";
-  BOOST_TEST(system::split_string(__text, __strvector) == 1);
+  BOOST_TEST(system::split_string(__text, __strvector) == 1,
+             "system::split_string()");
   __text = " x";
-  BOOST_TEST(system::split_string(__text, __strvector) == 1);
+  BOOST_TEST(system::split_string(__text, __strvector) == 1,
+             "system::split_string()");
   __text = "x x";
-  BOOST_TEST(system::split_string(__text, __strvector) == 2);
+  BOOST_TEST(system::split_string(__text, __strvector) == 2,
+             "system::split_string()");
   __text = "x  x";
-  BOOST_TEST(system::split_string(__text, __strvector) == 2);
+  BOOST_TEST(system::split_string(__text, __strvector) == 2,
+             "system::split_string()");
   __text = "x xy 123   4";
-  BOOST_TEST(system::split_string(__text, __strvector) == 4);
-  
+  BOOST_TEST(system::split_string(__text, __strvector) == 4,
+             "system::split_string()");
 }
