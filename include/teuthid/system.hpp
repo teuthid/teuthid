@@ -114,6 +114,13 @@ template <> std::string system::to_string(const mpfr_t &value);
 template <>
 std::string system::to_string(const std::vector<std::string> &value);
 
+namespace clb {
+class device;
+class platform;
+}
+template <> std::string system::to_string(const clb::device &value);
+template <> std::string system::to_string(const clb::platform &value);
+
 // specializations of system::from_string<T>()
 // may throw: std::invalid_argument, std::out_of_range
 template <>

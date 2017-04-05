@@ -50,7 +50,8 @@ int main() {
     std::cout << "Available OpenCL platform(s): "
               << clb::platform::platforms().size() << std::endl;
     for (auto __platform : clb::platform::platforms()) {
-      std::cout << "  Platform Name: " << __platform.name() << std::endl;
+      std::cout << "  Platform Name: " << system::to_string(__platform)
+                << std::endl;
       std::cout << "  Platform Vendor: " << __platform.vendor() << std::endl;
       std::cout << "  Platform Version: " << __platform.version() << std::endl;
       std::cout << "    OpenCL supported: " << __platform.major_version() << "."
@@ -74,7 +75,8 @@ int main() {
       std::cout << "  Available OpenCL devices(s): "
                 << __platform.device_count() << std::endl;
       for (auto __device : __platform.devices()) {
-        std::cout << "    Device Name: " << __device.name() << std::endl;
+        std::cout << "    Device Name: " << system::to_string(__device)
+                  << std::endl;
         std::cout << "    Device Version: " << __device.version() << std::endl;
         std::cout << "    Driver Version: " << __device.driver_version()
                   << std::endl;
@@ -105,7 +107,9 @@ int main() {
         std::cout << "    Address bits: "
                   << system::to_string(__device.address_bits()) << std::endl;
         std::cout << "    Global memory size: "
-                  << system::to_string(__device.global_memory_size())
+                  << system::to_string(__device.global_memory_size()) << "  ";
+        std::cout << "    Local memory size: "
+                  << system::to_string(__device.local_memory_size())
                   << std::endl;
       }
     }

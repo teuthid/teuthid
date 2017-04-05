@@ -167,6 +167,8 @@ void platform::detect_devices_(platform &plat) {
           __cl_devices[__i].getInfo<CL_DEVICE_ADDRESS_BITS>();
       plat.devices_[__i].global_memory_size_ =
           __cl_devices[__i].getInfo<CL_DEVICE_GLOBAL_MEM_SIZE>();
+      plat.devices_[__i].local_memory_size_ =
+          __cl_devices[__i].getInfo<CL_DEVICE_LOCAL_MEM_SIZE>();
     }
   } catch (const cl::Error &__e) {
     throw invalid_device(__e.err());

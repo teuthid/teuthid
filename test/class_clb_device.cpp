@@ -44,8 +44,9 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
         BOOST_TEST(!__ext.empty(), "extensions()");
         BOOST_TEST(__device.have_extension(__ext), "have_extension");
       }
-      BOOST_TEST(((__device.address_bits() == 32) ||
-                 (__device.address_bits() == 64)), "address_bits()");
+      BOOST_TEST(
+          ((__device.address_bits() == 32) || (__device.address_bits() == 64)),
+          "address_bits()");
       BOOST_TEST(__device.global_memory_size() > 0, "global_memory_size()");
       BOOST_TEST(__device.get_platform().id() == __platform.id(),
                  "get_platform()");
@@ -54,6 +55,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
       device __dev = __device;
       BOOST_TEST(__dev.id(), "id()");
       BOOST_TEST(__dev.id() == __device.id(), "id()");
+      BOOST_TEST((__dev == __device), "operator==");
+      BOOST_TEST(!(__dev != __device), "operator!=");
       __dev = device(__device.id());
       BOOST_TEST(__dev.id(), "id()");
       BOOST_TEST(__dev.id() == __device.id(), "id()");

@@ -79,7 +79,11 @@ public:
   bool have_extension(const std::string &ext_name) const;
   uint8_t address_bits() const noexcept { return address_bits_; }
   uint64_t global_memory_size() const noexcept { return global_memory_size_; }
-
+  uint64_t local_memory_size() const noexcept { return local_memory_size_; }
+  
+  bool operator==(const device &other) const { return id_ == other.id_; }
+  bool operator!=(const device &other) const { return id_ != other.id_; }
+ 
   static const platform &get_platform(device_id_t device_id);
 
 private:
@@ -97,6 +101,7 @@ private:
   extensions_t extensions_;     // CL_DEVICE_EXTENSIONS
   uint8_t address_bits_;        // CL_DEVICE_ADDRESS_BITS
   uint64_t global_memory_size_; // CL_DEVICE_GLOBAL_MEM_SIZE
+  uint64_t local_memory_size_;  // CL_DEVICE_LOCAL_MEM_SIZE
 };
 
 } // namespace clb
