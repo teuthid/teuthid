@@ -33,7 +33,6 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
     for (auto __device : __devices) {
       BOOST_TEST(__device.id(), "id()");
       BOOST_TEST(__device.profile() != UNKNOWN_PROFILE, "profile()");
-      BOOST_TEST(__device.devtype() != DEVICE_UNKNOWN, "devtype()");
       BOOST_TEST(!__device.name().empty(), "name()");
       BOOST_TEST(!__device.version().empty(), "version()");
       BOOST_TEST(!__device.driver_version().empty(), "driver_version()");

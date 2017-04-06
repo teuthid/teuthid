@@ -128,16 +128,6 @@ void platform::detect_platforms_() {
   platforms_.shrink_to_fit();
 }
 
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-const devtype_t __teuthid_get_cl_devtype(cl_device_type devtype) {
-  if (devtype == CL_DEVICE_TYPE_CPU)
-    return DEVICE_CPU;
-  else if (devtype == CL_DEVICE_TYPE_GPU)
-    return DEVICE_GPU;
-  return DEVICE_UNKNOWN;
-}
-#endif // DOXYGEN_SHOULD_SKIP_THIS
-
 void platform::detect_devices_(platform &plat) {
   try {
     cl::Platform __cl_platform(plat.id_);
@@ -160,7 +150,7 @@ void platform::detect_devices_(platform &plat) {
       plat.devices_[__i].max_compute_units_ =
           __cl_devices[__i].getInfo<CL_DEVICE_MAX_COMPUTE_UNITS>();
       plat.devices_[__i].devtype_ =
-          __teuthid_get_cl_devtype(__cl_devices[__i].getInfo<CL_DEVICE_TYPE>());
+          static_cast<devtype_t>(__cl_devices[__i].getInfo<CL_DEVICE_TYPE>());
       system::split_string(__cl_devices[__i].getInfo<CL_DEVICE_EXTENSIONS>(),
                            plat.devices_[__i].extensions_);
       plat.devices_[__i].address_bits_ =

@@ -35,6 +35,15 @@
 namespace teuthid {
 namespace clb {
 
+enum profile_t { FULL_PROFILE, EMBEDDED_PROFILE, UNKNOWN_PROFILE };
+
+enum devtype_t {
+  DEVICE_CPU = CL_DEVICE_TYPE_CPU,
+  DEVICE_GPU = CL_DEVICE_TYPE_GPU,
+  DEVICE_ACCELERATOR = CL_DEVICE_TYPE_ACCELERATOR,
+  DEVICE_CUSTOM = CL_DEVICE_TYPE_CUSTOM
+};
+
 class device;
 class platform;
 
@@ -43,9 +52,6 @@ typedef cl_platform_id platform_id_t;
 typedef std::vector<std::string> extensions_t;
 typedef std::vector<device> devices_t;
 typedef std::vector<platform> platforms_t;
-
-enum profile_t { FULL_PROFILE, EMBEDDED_PROFILE, UNKNOWN_PROFILE };
-enum devtype_t { DEVICE_CPU, DEVICE_GPU, DEVICE_ACCELERATOR, DEVICE_UNKNOWN };
 
 class device {
   friend class platform;
@@ -80,10 +86,10 @@ public:
   uint8_t address_bits() const noexcept { return address_bits_; }
   uint64_t global_memory_size() const noexcept { return global_memory_size_; }
   uint64_t local_memory_size() const noexcept { return local_memory_size_; }
-  
+
   bool operator==(const device &other) const { return id_ == other.id_; }
   bool operator!=(const device &other) const { return id_ != other.id_; }
- 
+
   static const platform &get_platform(device_id_t device_id);
 
 private:
