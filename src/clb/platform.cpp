@@ -76,10 +76,10 @@ const platforms_t &platform::platforms() {
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 profile_t __teuthid_get_cl_profile(const std::string &str_profile) {
   if (str_profile == std::string("FULL_PROFILE"))
-    return FULL_PROFILE;
+    return profile_t::FULL_PROFILE;
   else if (str_profile == std::string("EMBEDDED_PROFILE"))
-    return EMBEDDED_PROFILE;
-  return UNKNOWN_PROFILE;
+    return profile_t::EMBEDDED_PROFILE;
+  return profile_t::UNKNOWN_PROFILE;
 }
 
 void __teuthid_get_cl_version(const std::string &version, int &major,

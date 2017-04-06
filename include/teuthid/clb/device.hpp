@@ -37,12 +37,19 @@ namespace clb {
 
 enum profile_t { FULL_PROFILE, EMBEDDED_PROFILE, UNKNOWN_PROFILE };
 
+enum devparam_t {
+  ADDRESS_BITS = CL_DEVICE_ADDRESS_BITS,
+  AVAILABLE = CL_DEVICE_AVAILABLE
+};
+
 enum devtype_t {
   DEVICE_CPU = CL_DEVICE_TYPE_CPU,
   DEVICE_GPU = CL_DEVICE_TYPE_GPU,
   DEVICE_ACCELERATOR = CL_DEVICE_TYPE_ACCELERATOR,
   DEVICE_CUSTOM = CL_DEVICE_TYPE_CUSTOM
 };
+
+template <devparam_t> struct device_param { typedef std::string value_type; };
 
 class device;
 class platform;
@@ -66,15 +73,21 @@ public:
   const device_id_t &id() const noexcept { return id_; }
   const platform &get_platform() const;
   const profile_t &profile() const noexcept { return profile_; }
-  bool is_full_profile() const noexcept { return (profile_ == FULL_PROFILE); }
+  bool is_full_profile() const noexcept {
+    return (profile_ == profile_t::FULL_PROFILE);
+  }
   bool is_embedded_profile() const noexcept {
-    return (profile_ == EMBEDDED_PROFILE);
+    return (profile_ == profile_t::EMBEDDED_PROFILE);
   }
   const devtype_t &devtype() const noexcept { return devtype_; }
-  bool is_devtype_cpu() const noexcept { return (devtype_ == DEVICE_CPU); }
-  bool is_devtype_gpu() const noexcept { return (devtype_ == DEVICE_GPU); }
+  bool is_devtype_cpu() const noexcept {
+    return (devtype_ == devtype_t::DEVICE_CPU);
+  }
+  bool is_devtype_gpu() const noexcept {
+    return (devtype_ == devtype_t::DEVICE_GPU);
+  }
   bool is_devtype_accelerator() const noexcept {
-    return (devtype_ == DEVICE_ACCELERATOR);
+    return (devtype_ == devtype_t::DEVICE_ACCELERATOR);
   }
   const std::string &name() const noexcept { return name_; }
   const std::string &version() const noexcept { return version_; }
@@ -86,6 +99,8 @@ public:
   uint8_t address_bits() const noexcept { return address_bits_; }
   uint64_t global_memory_size() const noexcept { return global_memory_size_; }
   uint64_t local_memory_size() const noexcept { return local_memory_size_; }
+
+  template <devparam_t value> typename device_param<value>::value_type info();
 
   bool operator==(const device &other) const { return id_ == other.id_; }
   bool operator!=(const device &other) const { return id_ != other.id_; }
@@ -110,6 +125,23 @@ private:
   uint64_t local_memory_size_;  // CL_DEVICE_LOCAL_MEM_SIZE
 };
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+// specialization of device_param<>::value_type info()
+template <> struct device_param<devparam_t::ADDRESS_BITS> {
+  typedef uint32_t value_type;
+};
+template <>
+device_param<devparam_t::ADDRESS_BITS>::value_type
+device::info<devparam_t::ADDRESS_BITS>();
+
+template <> struct device_param<devparam_t::AVAILABLE> {
+  typedef bool value_type;
+};
+template <>
+device_param<devparam_t::AVAILABLE>::value_type
+device::info<devparam_t::AVAILABLE>();
+
+#endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb
 } // namespace teuthid
 

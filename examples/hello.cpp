@@ -97,7 +97,8 @@ int main() {
           __str = "ACCELERATOR";
         else
           __str = "UNKNOWN PROFILE";
-        std::cout << "    Device Type: " << __str << std::endl;
+        std::cout << "    Device Type: " << __str << " ("
+                  << __device.info<clb::devparam_t::AVAILABLE>() << ")  ";
         std::cout << "    Parallel compute units: "
                   << __device.max_compute_units() << std::endl;
         std::cout << "    Device Extensions: | ";

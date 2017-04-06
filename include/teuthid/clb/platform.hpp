@@ -38,9 +38,11 @@ public:
   platform &operator=(platform &&) = default;
   const platform_id_t &id() const noexcept { return id_; }
   const profile_t &profile() const noexcept { return profile_; }
-  bool is_full_profile() const noexcept { return (profile_ == FULL_PROFILE); }
+  bool is_full_profile() const noexcept {
+    return (profile_ == profile_t::FULL_PROFILE);
+  }
   bool is_embedded_profile() const noexcept {
-    return (profile_ == EMBEDDED_PROFILE);
+    return (profile_ == profile_t::EMBEDDED_PROFILE);
   }
   const std::string &version() const noexcept { return version_; }
   int major_version() const noexcept { return major_version_; }

@@ -22,6 +22,8 @@
 #include <teuthid/clb/error.hpp>
 #include <teuthid/clb/platform.hpp>
 
+#include "cl_bindings.hpp"
+
 using namespace teuthid::clb;
 
 device::device(device_id_t device_id) {
@@ -74,3 +76,23 @@ const platform &device::get_platform(device_id_t device_id) {
   }
   throw invalid_platform("cannot find a platform");
 }
+
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+
+#define __TEUTHID_CLB_DEVICE_INFO(PARAM)                                       \
+  template <>                                                                  \
+  device_param<devparam_t::PARAM>::value_type                                  \
+  device::info<devparam_t::PARAM>() {                                          \
+    try {                                                                      \
+      cl::Device __cl_device(id_);                                             \
+      return __cl_device.getInfo<devparam_t::PARAM>();                         \
+    } catch (const cl::Error &__e) {                                           \
+      throw invalid_device("unknown device parameter");                        \
+    }                                                                          \
+  }
+
+__TEUTHID_CLB_DEVICE_INFO(ADDRESS_BITS);
+__TEUTHID_CLB_DEVICE_INFO(AVAILABLE);
+#undef __TEUTHID_CLB_DEVICE_INFO
+
+#endif // DOXYGEN_SHOULD_SKIP_THIS
