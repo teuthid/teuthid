@@ -153,8 +153,6 @@ void platform::detect_devices_(platform &plat) {
           static_cast<devtype_t>(__cl_devices[__i].getInfo<CL_DEVICE_TYPE>());
       system::split_string(__cl_devices[__i].getInfo<CL_DEVICE_EXTENSIONS>(),
                            plat.devices_[__i].extensions_);
-      plat.devices_[__i].address_bits_ =
-          __cl_devices[__i].getInfo<CL_DEVICE_ADDRESS_BITS>();
       plat.devices_[__i].global_memory_size_ =
           __cl_devices[__i].getInfo<CL_DEVICE_GLOBAL_MEM_SIZE>();
       plat.devices_[__i].local_memory_size_ =

@@ -39,7 +39,8 @@ enum profile_t { FULL_PROFILE, EMBEDDED_PROFILE, UNKNOWN_PROFILE };
 
 enum devparam_t {
   ADDRESS_BITS = CL_DEVICE_ADDRESS_BITS,
-  AVAILABLE = CL_DEVICE_AVAILABLE
+  AVAILABLE = CL_DEVICE_AVAILABLE,
+  BUILT_IN_KERNELS = CL_DEVICE_BUILT_IN_KERNELS,
 };
 
 enum devtype_t {
@@ -57,6 +58,7 @@ class platform;
 typedef cl_device_id device_id_t;
 typedef cl_platform_id platform_id_t;
 typedef std::vector<std::string> extensions_t;
+typedef std::vector<std::string> built_in_kernels_t;
 typedef std::vector<device> devices_t;
 typedef std::vector<platform> platforms_t;
 
@@ -70,6 +72,10 @@ public:
   virtual ~device() {}
   device &operator=(const device &) = default;
   device &operator=(device &&) = default;
+
+  template <devparam_t value>
+  typename device_param<value>::value_type info() const;
+
   const device_id_t &id() const noexcept { return id_; }
   const platform &get_platform() const;
   const profile_t &profile() const noexcept { return profile_; }
@@ -96,11 +102,11 @@ public:
   uint32_t max_compute_units() const noexcept { return max_compute_units_; }
   const extensions_t &extensions() const noexcept { return extensions_; }
   bool have_extension(const std::string &ext_name) const;
-  uint8_t address_bits() const noexcept { return address_bits_; }
+  uint32_t address_bits() const;
+  bool is_available() const;
+  built_in_kernels_t built_in_kernels() const;
   uint64_t global_memory_size() const noexcept { return global_memory_size_; }
   uint64_t local_memory_size() const noexcept { return local_memory_size_; }
-
-  template <devparam_t value> typename device_param<value>::value_type info();
 
   bool operator==(const device &other) const { return id_ == other.id_; }
   bool operator!=(const device &other) const { return id_ != other.id_; }
@@ -120,7 +126,6 @@ private:
   std::string c_version_;       // CL_DEVICE_OPENCL_C_VERSION
   uint32_t max_compute_units_;  // CL_DEVICE_MAX_COMPUTE_UNITS
   extensions_t extensions_;     // CL_DEVICE_EXTENSIONS
-  uint8_t address_bits_;        // CL_DEVICE_ADDRESS_BITS
   uint64_t global_memory_size_; // CL_DEVICE_GLOBAL_MEM_SIZE
   uint64_t local_memory_size_;  // CL_DEVICE_LOCAL_MEM_SIZE
 };
@@ -132,14 +137,18 @@ template <> struct device_param<devparam_t::ADDRESS_BITS> {
 };
 template <>
 device_param<devparam_t::ADDRESS_BITS>::value_type
-device::info<devparam_t::ADDRESS_BITS>();
+device::info<devparam_t::ADDRESS_BITS>() const;
 
 template <> struct device_param<devparam_t::AVAILABLE> {
   typedef bool value_type;
 };
 template <>
 device_param<devparam_t::AVAILABLE>::value_type
-device::info<devparam_t::AVAILABLE>();
+device::info<devparam_t::AVAILABLE>() const;
+
+template <>
+device_param<devparam_t::BUILT_IN_KERNELS>::value_type
+device::info<devparam_t::BUILT_IN_KERNELS>() const;
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb

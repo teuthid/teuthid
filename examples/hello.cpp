@@ -36,6 +36,10 @@ using namespace teuthid;
 
 std::string __str;
 
+std::string yesno(bool value) {
+  return (value ? std::string("Yes") : std::string("No"));
+}
+
 int main() {
   std::cout << std::endl << ruler << std::endl;
   std::cout << "Teuthid Version " << system::to_string(system::major_version())
@@ -64,9 +68,8 @@ int main() {
       else
         __str = "UNKNOWN PROFILE";
       std::cout << "  Platform Profile: " << __str << std::endl;
-      std::cout << "  Platform Extensions: | ";
-      for (auto __ext : __platform.extensions())
-        std::cout << __ext << " | ";
+      std::cout << "  Platform Extensions: "
+                << system::to_string(__platform.extensions());
       std::cout << std::endl;
       std::cout << "  Platform Extensions function suffix : "
                 << __platform.icd_suffix_khr() << std::endl;
@@ -98,13 +101,15 @@ int main() {
         else
           __str = "UNKNOWN PROFILE";
         std::cout << "    Device Type: " << __str << " ("
-                  << __device.info<clb::devparam_t::AVAILABLE>() << ")  ";
+                  << yesno(__device.is_available()) << ")  ";
         std::cout << "    Parallel compute units: "
                   << __device.max_compute_units() << std::endl;
-        std::cout << "    Device Extensions: | ";
-        for (auto __ext : __device.extensions())
-          std::cout << __ext << " | ";
+        std::cout << "    Device Extensions: "
+                  << system::to_string(__device.extensions());
         std::cout << std::endl;
+        std::cout << "    Built-in kernels: "
+                  << system::to_string(__device.built_in_kernels());
+        std::cout << std::endl;      
         std::cout << "    Address bits: "
                   << system::to_string(__device.address_bits()) << std::endl;
         std::cout << "    Global memory size: "

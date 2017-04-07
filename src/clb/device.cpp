@@ -21,6 +21,7 @@
 
 #include <teuthid/clb/error.hpp>
 #include <teuthid/clb/platform.hpp>
+#include <teuthid/system.hpp>
 
 #include "cl_bindings.hpp"
 
@@ -82,7 +83,7 @@ const platform &device::get_platform(device_id_t device_id) {
 #define __TEUTHID_CLB_DEVICE_INFO(PARAM)                                       \
   template <>                                                                  \
   device_param<devparam_t::PARAM>::value_type                                  \
-  device::info<devparam_t::PARAM>() {                                          \
+  device::info<devparam_t::PARAM>() const {                                    \
     try {                                                                      \
       cl::Device __cl_device(id_);                                             \
       return __cl_device.getInfo<devparam_t::PARAM>();                         \
@@ -93,6 +94,18 @@ const platform &device::get_platform(device_id_t device_id) {
 
 __TEUTHID_CLB_DEVICE_INFO(ADDRESS_BITS);
 __TEUTHID_CLB_DEVICE_INFO(AVAILABLE);
+__TEUTHID_CLB_DEVICE_INFO(BUILT_IN_KERNELS);
 #undef __TEUTHID_CLB_DEVICE_INFO
-
 #endif // DOXYGEN_SHOULD_SKIP_THIS
+
+uint32_t device::address_bits() const {
+  return info<devparam_t::ADDRESS_BITS>();
+}
+
+bool device::is_available() const { return info<devparam_t::AVAILABLE>(); }
+
+built_in_kernels_t device::built_in_kernels() const {
+  built_in_kernels_t __v;
+  system::split_string(info<BUILT_IN_KERNELS>(), __v, ';');
+  return __v;
+}
