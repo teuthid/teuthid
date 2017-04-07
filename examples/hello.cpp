@@ -100,8 +100,8 @@ int main() {
           __str = "ACCELERATOR";
         else
           __str = "UNKNOWN PROFILE";
-        std::cout << "    Device Type: " << __str << " ("
-                  << yesno(__device.is_available()) << ")  ";
+        std::cout << "    Device Type: " << __str
+                  << "  Compiler: " << yesno(__device.is_compiler_available());
         std::cout << "    Parallel compute units: "
                   << __device.max_compute_units() << std::endl;
         std::cout << "    Device Extensions: "
@@ -109,7 +109,7 @@ int main() {
         std::cout << std::endl;
         std::cout << "    Built-in kernels: "
                   << system::to_string(__device.built_in_kernels());
-        std::cout << std::endl;      
+        std::cout << std::endl;
         std::cout << "    Address bits: "
                   << system::to_string(__device.address_bits()) << std::endl;
         std::cout << "    Global memory size: "

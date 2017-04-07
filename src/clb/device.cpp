@@ -95,6 +95,7 @@ const platform &device::get_platform(device_id_t device_id) {
 __TEUTHID_CLB_DEVICE_INFO(ADDRESS_BITS);
 __TEUTHID_CLB_DEVICE_INFO(AVAILABLE);
 __TEUTHID_CLB_DEVICE_INFO(BUILT_IN_KERNELS);
+__TEUTHID_CLB_DEVICE_INFO(COMPILER_AVAILABLE);
 #undef __TEUTHID_CLB_DEVICE_INFO
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -108,4 +109,8 @@ built_in_kernels_t device::built_in_kernels() const {
   built_in_kernels_t __v;
   system::split_string(info<BUILT_IN_KERNELS>(), __v, ';');
   return __v;
+}
+
+bool device::is_compiler_available() const {
+  return info<devparam_t::COMPILER_AVAILABLE>();
 }

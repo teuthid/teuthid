@@ -41,6 +41,7 @@ enum devparam_t {
   ADDRESS_BITS = CL_DEVICE_ADDRESS_BITS,
   AVAILABLE = CL_DEVICE_AVAILABLE,
   BUILT_IN_KERNELS = CL_DEVICE_BUILT_IN_KERNELS,
+  COMPILER_AVAILABLE = CL_DEVICE_COMPILER_AVAILABLE,
 };
 
 enum devtype_t {
@@ -105,6 +106,7 @@ public:
   uint32_t address_bits() const;
   bool is_available() const;
   built_in_kernels_t built_in_kernels() const;
+  bool is_compiler_available() const;
   uint64_t global_memory_size() const noexcept { return global_memory_size_; }
   uint64_t local_memory_size() const noexcept { return local_memory_size_; }
 
@@ -149,6 +151,13 @@ device::info<devparam_t::AVAILABLE>() const;
 template <>
 device_param<devparam_t::BUILT_IN_KERNELS>::value_type
 device::info<devparam_t::BUILT_IN_KERNELS>() const;
+
+template <> struct device_param<devparam_t::COMPILER_AVAILABLE> {
+  typedef bool value_type;
+};
+template <>
+device_param<devparam_t::COMPILER_AVAILABLE>::value_type
+device::info<devparam_t::COMPILER_AVAILABLE>() const;
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb
