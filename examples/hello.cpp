@@ -75,8 +75,8 @@ int main() {
                 << __platform.icd_suffix_khr() << std::endl;
 
       // ... and devices:
-      std::cout << "  Available OpenCL devices(s): "
-                << __platform.device_count() << std::endl;
+      std::cout << "  Available OpenCL device(s): " << __platform.device_count()
+                << std::endl;
       for (auto __device : __platform.devices()) {
         std::cout << "    Device Name: " << system::to_string(__device)
                   << std::endl;
@@ -100,10 +100,13 @@ int main() {
           __str = "ACCELERATOR";
         else
           __str = "UNKNOWN PROFILE";
-        std::cout << "    Device Type: " << __str
-                  << "  Compiler: " << yesno(__device.is_compiler_available());
+        std::cout << "    Device Type: " << __str << "    Compiler: "
+                  << yesno(__device.is_compiler_available());
         std::cout << "    Parallel compute units: "
                   << __device.max_compute_units() << std::endl;
+        std::cout << "    Double precision: "
+                  << yesno(__device.have_double_precision());
+        std::cout << std::endl;
         std::cout << "    Device Extensions: "
                   << system::to_string(__device.extensions());
         std::cout << std::endl;

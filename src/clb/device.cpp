@@ -116,3 +116,13 @@ built_in_kernels_t device::built_in_kernels() const {
 bool device::is_compiler_available() const {
   return info<devparam_t::COMPILER_AVAILABLE>();
 }
+
+devfp_config_t device::double_fp_config() const {
+  return info<devparam_t::DOUBLE_FP_CONFIG>();
+}
+
+bool device::have_double_precision() const {
+  int __dp = devfp_config_t::FMA | devfp_config_t::ROUND_TO_NEAREST |
+             devfp_config_t::INF_NAN | devfp_config_t::DENORM;
+  return (static_cast<int>(double_fp_config()) & __dp) > 0;
+}

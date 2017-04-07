@@ -115,6 +115,8 @@ public:
   bool is_available() const;
   built_in_kernels_t built_in_kernels() const;
   bool is_compiler_available() const;
+  devfp_config_t double_fp_config() const;
+  bool have_double_precision() const;
   uint64_t global_memory_size() const noexcept { return global_memory_size_; }
   uint64_t local_memory_size() const noexcept { return local_memory_size_; }
 
