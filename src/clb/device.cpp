@@ -86,7 +86,8 @@ const platform &device::get_platform(device_id_t device_id) {
   device::info<devparam_t::PARAM>() const {                                    \
     try {                                                                      \
       cl::Device __cl_device(id_);                                             \
-      return __cl_device.getInfo<devparam_t::PARAM>();                         \
+      return static_cast<device_param<devparam_t::PARAM>::value_type>(         \
+          __cl_device.getInfo<devparam_t::PARAM>());                           \
     } catch (const cl::Error &__e) {                                           \
       throw invalid_device("unknown device parameter");                        \
     }                                                                          \
@@ -96,6 +97,7 @@ __TEUTHID_CLB_DEVICE_INFO(ADDRESS_BITS);
 __TEUTHID_CLB_DEVICE_INFO(AVAILABLE);
 __TEUTHID_CLB_DEVICE_INFO(BUILT_IN_KERNELS);
 __TEUTHID_CLB_DEVICE_INFO(COMPILER_AVAILABLE);
+__TEUTHID_CLB_DEVICE_INFO(DOUBLE_FP_CONFIG);
 #undef __TEUTHID_CLB_DEVICE_INFO
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 

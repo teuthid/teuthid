@@ -42,13 +42,25 @@ enum devparam_t {
   AVAILABLE = CL_DEVICE_AVAILABLE,
   BUILT_IN_KERNELS = CL_DEVICE_BUILT_IN_KERNELS,
   COMPILER_AVAILABLE = CL_DEVICE_COMPILER_AVAILABLE,
+  DOUBLE_FP_CONFIG = CL_DEVICE_DOUBLE_FP_CONFIG
+};
+
+enum devfp_config_t {
+  DENORM = CL_FP_DENORM,
+  INF_NAN = CL_FP_INF_NAN,
+  ROUND_TO_NEAREST = CL_FP_ROUND_TO_NEAREST,
+  ROUND_TO_ZERO = CL_FP_ROUND_TO_ZERO,
+  ROUND_TO_INF = CL_FP_ROUND_TO_INF,
+  FMA = CL_FP_FMA,
+  SOFT_FLOAT = CL_FP_SOFT_FLOAT,
+  CORRECTLY_ROUNDED_DIVIDE_SQRT = CL_FP_CORRECTLY_ROUNDED_DIVIDE_SQRT
 };
 
 enum devtype_t {
-  DEVICE_CPU = CL_DEVICE_TYPE_CPU,
-  DEVICE_GPU = CL_DEVICE_TYPE_GPU,
-  DEVICE_ACCELERATOR = CL_DEVICE_TYPE_ACCELERATOR,
-  DEVICE_CUSTOM = CL_DEVICE_TYPE_CUSTOM
+  CPU = CL_DEVICE_TYPE_CPU,
+  GPU = CL_DEVICE_TYPE_GPU,
+  ACCELERATOR = CL_DEVICE_TYPE_ACCELERATOR,
+  CUSTOM = CL_DEVICE_TYPE_CUSTOM
 };
 
 template <devparam_t> struct device_param { typedef std::string value_type; };
@@ -87,14 +99,10 @@ public:
     return (profile_ == profile_t::EMBEDDED_PROFILE);
   }
   const devtype_t &devtype() const noexcept { return devtype_; }
-  bool is_devtype_cpu() const noexcept {
-    return (devtype_ == devtype_t::DEVICE_CPU);
-  }
-  bool is_devtype_gpu() const noexcept {
-    return (devtype_ == devtype_t::DEVICE_GPU);
-  }
+  bool is_devtype_cpu() const noexcept { return (devtype_ == devtype_t::CPU); }
+  bool is_devtype_gpu() const noexcept { return (devtype_ == devtype_t::GPU); }
   bool is_devtype_accelerator() const noexcept {
-    return (devtype_ == devtype_t::DEVICE_ACCELERATOR);
+    return (devtype_ == devtype_t::ACCELERATOR);
   }
   const std::string &name() const noexcept { return name_; }
   const std::string &version() const noexcept { return version_; }
@@ -158,6 +166,13 @@ template <> struct device_param<devparam_t::COMPILER_AVAILABLE> {
 template <>
 device_param<devparam_t::COMPILER_AVAILABLE>::value_type
 device::info<devparam_t::COMPILER_AVAILABLE>() const;
+
+template <> struct device_param<devparam_t::DOUBLE_FP_CONFIG> {
+  typedef devfp_config_t value_type;
+};
+template <>
+device_param<devparam_t::DOUBLE_FP_CONFIG>::value_type
+device::info<devparam_t::DOUBLE_FP_CONFIG>() const;
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb
