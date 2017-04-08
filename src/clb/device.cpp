@@ -56,13 +56,6 @@ const platform &device::get_platform() const {
   throw invalid_platform("cannot find a platform");
 }
 
-bool device::have_extension(const std::string &ext_name) const {
-  if (!ext_name.empty())
-    return std::find(device::extensions_.begin(), device::extensions_.end(),
-                     ext_name) != device::extensions_.end();
-  return false;
-}
-
 const platform &device::get_platform(device_id_t device_id) {
   try {
     const platforms_t &__platforms = platform::platforms();
@@ -101,6 +94,7 @@ __TEUTHID_CLB_DEVICE_INFO(DOUBLE_FP_CONFIG);
 __TEUTHID_CLB_DEVICE_INFO(ENDIAN_LITTLE);
 __TEUTHID_CLB_DEVICE_INFO(ERROR_CORRECTION_SUPPORT);
 __TEUTHID_CLB_DEVICE_INFO(EXECUTION_CAPABILITIES);
+__TEUTHID_CLB_DEVICE_INFO(EXTENSIONS);
 #undef __TEUTHID_CLB_DEVICE_INFO
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -128,4 +122,15 @@ bool device::have_double_precision() const {
   int __dp = devfp_config_t::FMA | devfp_config_t::ROUND_TO_NEAREST |
              devfp_config_t::INF_NAN | devfp_config_t::DENORM;
   return (static_cast<int>(double_fp_config()) & __dp) > 0;
+}
+
+extensions_t device::extensions() const {
+  extensions_t __v;
+  system::split_string(info<EXTENSIONS>(), __v);
+  return __v;
+}
+
+bool device::have_extension(const std::string &ext_name) const {
+  std::string __s = info<EXTENSIONS>();
+  return (__s.find(ext_name) != std::string::npos);
 }

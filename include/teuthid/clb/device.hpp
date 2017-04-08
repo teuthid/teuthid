@@ -45,7 +45,8 @@ enum devparam_t {
   DOUBLE_FP_CONFIG = CL_DEVICE_DOUBLE_FP_CONFIG,
   ENDIAN_LITTLE = CL_DEVICE_ENDIAN_LITTLE,
   ERROR_CORRECTION_SUPPORT = CL_DEVICE_ERROR_CORRECTION_SUPPORT,
-  EXECUTION_CAPABILITIES = CL_DEVICE_EXECUTION_CAPABILITIES
+  EXECUTION_CAPABILITIES = CL_DEVICE_EXECUTION_CAPABILITIES,
+  EXTENSIONS = CL_DEVICE_EXTENSIONS
 };
 
 enum devfp_config_t {
@@ -117,14 +118,16 @@ public:
   const std::string &driver_version() const noexcept { return driver_version_; }
   const std::string &c_version() const noexcept { return c_version_; }
   uint32_t max_compute_units() const noexcept { return max_compute_units_; }
-  const extensions_t &extensions() const noexcept { return extensions_; }
-  bool have_extension(const std::string &ext_name) const;
+
   uint32_t address_bits() const;
   bool is_available() const;
   built_in_kernels_t built_in_kernels() const;
   bool is_compiler_available() const;
   devfp_config_t double_fp_config() const;
   bool have_double_precision() const;
+  extensions_t extensions() const;
+  bool have_extension(const std::string &ext_name) const;
+
   uint64_t global_memory_size() const noexcept { return global_memory_size_; }
   uint64_t local_memory_size() const noexcept { return local_memory_size_; }
 
@@ -145,7 +148,6 @@ private:
   std::string driver_version_;  // CL_DRIVER_VERSION
   std::string c_version_;       // CL_DEVICE_OPENCL_C_VERSION
   uint32_t max_compute_units_;  // CL_DEVICE_MAX_COMPUTE_UNITS
-  extensions_t extensions_;     // CL_DEVICE_EXTENSIONS
   uint64_t global_memory_size_; // CL_DEVICE_GLOBAL_MEM_SIZE
   uint64_t local_memory_size_;  // CL_DEVICE_LOCAL_MEM_SIZE
 };
@@ -204,6 +206,10 @@ template <> struct device_param<devparam_t::EXECUTION_CAPABILITIES> {
 template <>
 device_param<devparam_t::EXECUTION_CAPABILITIES>::value_type
 device::info<devparam_t::EXECUTION_CAPABILITIES>() const;
+
+template <>
+device_param<devparam_t::EXTENSIONS>::value_type
+device::info<devparam_t::EXTENSIONS>() const;
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb
