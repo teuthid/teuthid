@@ -42,7 +42,8 @@ enum devparam_t {
   AVAILABLE = CL_DEVICE_AVAILABLE,
   BUILT_IN_KERNELS = CL_DEVICE_BUILT_IN_KERNELS,
   COMPILER_AVAILABLE = CL_DEVICE_COMPILER_AVAILABLE,
-  DOUBLE_FP_CONFIG = CL_DEVICE_DOUBLE_FP_CONFIG
+  DOUBLE_FP_CONFIG = CL_DEVICE_DOUBLE_FP_CONFIG,
+  ENDIAN_LITTLE = CL_DEVICE_ENDIAN_LITTLE
 };
 
 enum devfp_config_t {
@@ -175,6 +176,13 @@ template <> struct device_param<devparam_t::DOUBLE_FP_CONFIG> {
 template <>
 device_param<devparam_t::DOUBLE_FP_CONFIG>::value_type
 device::info<devparam_t::DOUBLE_FP_CONFIG>() const;
+
+template <> struct device_param<devparam_t::ENDIAN_LITTLE> {
+  typedef bool value_type;
+};
+template <>
+device_param<devparam_t::ENDIAN_LITTLE>::value_type
+device::info<devparam_t::ENDIAN_LITTLE>() const;
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb
