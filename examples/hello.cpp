@@ -115,11 +115,14 @@ int main() {
         std::cout << std::endl;
         std::cout << "    Address bits: "
                   << system::to_string(__device.address_bits()) << std::endl;
-        std::cout << "    Global memory size: "
+        std::cout << "    Global memory: "
                   << system::to_string(__device.global_memory_size()) << "  ";
-        std::cout << "    Local memory size: "
+        std::cout << "    Local memory: "
                   << system::to_string(__device.local_memory_size())
                   << std::endl;
+        std::cout << "    Global memory cache: "
+                  << system::to_string(__device.global_mem_cache_size());
+        std::cout << std::endl;
       }
     }
 #endif // TEUTHID_WITH_OPENCL

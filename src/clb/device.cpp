@@ -95,6 +95,7 @@ __TEUTHID_CLB_DEVICE_INFO(ENDIAN_LITTLE);
 __TEUTHID_CLB_DEVICE_INFO(ERROR_CORRECTION_SUPPORT);
 __TEUTHID_CLB_DEVICE_INFO(EXECUTION_CAPABILITIES);
 __TEUTHID_CLB_DEVICE_INFO(EXTENSIONS);
+__TEUTHID_CLB_DEVICE_INFO(GLOBAL_MEM_CACHE_SIZE);
 #undef __TEUTHID_CLB_DEVICE_INFO
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -133,4 +134,8 @@ extensions_t device::extensions() const {
 bool device::have_extension(const std::string &ext_name) const {
   std::string __s = info<EXTENSIONS>();
   return (__s.find(ext_name) != std::string::npos);
+}
+
+uint64_t device::global_mem_cache_size() const {
+  return info<devparam_t::GLOBAL_MEM_CACHE_SIZE>();
 }

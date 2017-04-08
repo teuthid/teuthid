@@ -46,7 +46,8 @@ enum devparam_t {
   ENDIAN_LITTLE = CL_DEVICE_ENDIAN_LITTLE,
   ERROR_CORRECTION_SUPPORT = CL_DEVICE_ERROR_CORRECTION_SUPPORT,
   EXECUTION_CAPABILITIES = CL_DEVICE_EXECUTION_CAPABILITIES,
-  EXTENSIONS = CL_DEVICE_EXTENSIONS
+  EXTENSIONS = CL_DEVICE_EXTENSIONS,
+  GLOBAL_MEM_CACHE_SIZE = CL_DEVICE_GLOBAL_MEM_CACHE_SIZE
 };
 
 enum devfp_config_t {
@@ -127,6 +128,7 @@ public:
   bool have_double_precision() const;
   extensions_t extensions() const;
   bool have_extension(const std::string &ext_name) const;
+  uint64_t global_mem_cache_size() const;
 
   uint64_t global_memory_size() const noexcept { return global_memory_size_; }
   uint64_t local_memory_size() const noexcept { return local_memory_size_; }
@@ -210,6 +212,13 @@ device::info<devparam_t::EXECUTION_CAPABILITIES>() const;
 template <>
 device_param<devparam_t::EXTENSIONS>::value_type
 device::info<devparam_t::EXTENSIONS>() const;
+
+template <> struct device_param<devparam_t::GLOBAL_MEM_CACHE_SIZE> {
+  typedef uint64_t value_type;
+};
+template <>
+device_param<devparam_t::GLOBAL_MEM_CACHE_SIZE>::value_type
+device::info<devparam_t::GLOBAL_MEM_CACHE_SIZE>() const;
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb
