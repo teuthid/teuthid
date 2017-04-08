@@ -53,7 +53,9 @@ enum devparam_t {
   GLOBAL_MEM_SIZE = CL_DEVICE_GLOBAL_MEM_SIZE,
   IMAGE2D_MAX_HEIGHT = CL_DEVICE_IMAGE2D_MAX_HEIGHT,
   IMAGE2D_MAX_WIDTH = CL_DEVICE_IMAGE2D_MAX_WIDTH,
-  IMAGE3D_MAX_DEPTH = CL_DEVICE_IMAGE3D_MAX_DEPTH
+  IMAGE3D_MAX_DEPTH = CL_DEVICE_IMAGE3D_MAX_DEPTH,
+  IMAGE3D_MAX_HEIGHT = CL_DEVICE_IMAGE3D_MAX_HEIGHT,
+  IMAGE3D_MAX_WIDTH = CL_DEVICE_IMAGE3D_MAX_WIDTH
 
   /* Not in cl2.hpp:
   GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE =
@@ -259,29 +261,40 @@ template <>
 device_param<devparam_t::GLOBAL_MEM_SIZE>::value_type
 device::info<devparam_t::GLOBAL_MEM_SIZE>() const;
 
-template <>
-struct device_param<devparam_t::IMAGE2D_MAX_HEIGHT> {
+template <> struct device_param<devparam_t::IMAGE2D_MAX_HEIGHT> {
   typedef std::size_t value_type;
 };
 template <>
 device_param<devparam_t::IMAGE2D_MAX_HEIGHT>::value_type
 device::info<devparam_t::IMAGE2D_MAX_HEIGHT>() const;
 
-template <>
-struct device_param<devparam_t::IMAGE2D_MAX_WIDTH> {
+template <> struct device_param<devparam_t::IMAGE2D_MAX_WIDTH> {
   typedef std::size_t value_type;
 };
 template <>
 device_param<devparam_t::IMAGE2D_MAX_WIDTH>::value_type
 device::info<devparam_t::IMAGE2D_MAX_WIDTH>() const;
 
-template <>
-struct device_param<devparam_t::IMAGE3D_MAX_DEPTH> {
+template <> struct device_param<devparam_t::IMAGE3D_MAX_DEPTH> {
   typedef std::size_t value_type;
 };
 template <>
 device_param<devparam_t::IMAGE3D_MAX_DEPTH>::value_type
 device::info<devparam_t::IMAGE3D_MAX_DEPTH>() const;
+
+template <> struct device_param<devparam_t::IMAGE3D_MAX_HEIGHT> {
+  typedef std::size_t value_type;
+};
+template <>
+device_param<devparam_t::IMAGE3D_MAX_HEIGHT>::value_type
+device::info<devparam_t::IMAGE3D_MAX_HEIGHT>() const;
+
+template <> struct device_param<devparam_t::IMAGE3D_MAX_WIDTH> {
+  typedef std::size_t value_type;
+};
+template <>
+device_param<devparam_t::IMAGE3D_MAX_WIDTH>::value_type
+device::info<devparam_t::IMAGE3D_MAX_WIDTH>() const;
 
 /* Not in cl2.hpp:
 template <>
