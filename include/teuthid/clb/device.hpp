@@ -37,7 +37,7 @@ namespace clb {
 
 enum profile_t { FULL_PROFILE, EMBEDDED_PROFILE, UNKNOWN_PROFILE };
 
-enum devparam_t {
+enum class devparam_t {
   ADDRESS_BITS = CL_DEVICE_ADDRESS_BITS,
   AVAILABLE = CL_DEVICE_AVAILABLE,
   BUILT_IN_KERNELS = CL_DEVICE_BUILT_IN_KERNELS,
@@ -57,7 +57,8 @@ enum devparam_t {
   IMAGE3D_MAX_HEIGHT = CL_DEVICE_IMAGE3D_MAX_HEIGHT,
   IMAGE3D_MAX_WIDTH = CL_DEVICE_IMAGE3D_MAX_WIDTH,
   IMAGE_SUPPORT = CL_DEVICE_IMAGE_SUPPORT,
-  LOCAL_MEM_SIZE = CL_DEVICE_LOCAL_MEM_SIZE
+  LOCAL_MEM_SIZE = CL_DEVICE_LOCAL_MEM_SIZE,
+  LOCAL_MEM_TYPE = CL_DEVICE_LOCAL_MEM_TYPE
 
   /* Not in cl2.hpp:
   CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE
@@ -70,7 +71,7 @@ enum devparam_t {
   */
 };
 
-enum devfp_config_t {
+enum class devfp_config_t {
   DENORM = CL_FP_DENORM,
   INF_NAN = CL_FP_INF_NAN,
   ROUND_TO_NEAREST = CL_FP_ROUND_TO_NEAREST,
@@ -81,18 +82,24 @@ enum devfp_config_t {
   CORRECTLY_ROUNDED_DIVIDE_SQRT = CL_FP_CORRECTLY_ROUNDED_DIVIDE_SQRT
 };
 
-enum devexec_caps_t {
+enum class devexec_caps_t {
   KERNEL = CL_EXEC_KERNEL,
   NATIVE_KERNEL = CL_EXEC_NATIVE_KERNEL
 };
 
-enum devmem_cache_t {
+enum class devlocal_mem_t {
+  LOCAL = CL_LOCAL,
+  GLOBAL = CL_GLOBAL,
+  NONE = CL_NONE
+};
+
+enum class devmem_cache_t {
   NONE = CL_NONE,
   READ_ONLY_CACHE = CL_READ_ONLY_CACHE,
   READ_WRITE_CACHE = CL_READ_WRITE_CACHE
 };
 
-enum devtype_t {
+enum class devtype_t {
   CPU = CL_DEVICE_TYPE_CPU,
   GPU = CL_DEVICE_TYPE_GPU,
   ACCELERATOR = CL_DEVICE_TYPE_ACCELERATOR,
@@ -176,7 +183,6 @@ private:
   std::string driver_version_; // CL_DRIVER_VERSION
   std::string c_version_;      // CL_DEVICE_OPENCL_C_VERSION
   uint32_t max_compute_units_; // CL_DEVICE_MAX_COMPUTE_UNITS
-  uint64_t local_memory_size_; // CL_DEVICE_LOCAL_MEM_SIZE
 };
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -314,6 +320,13 @@ template <> struct device_param<devparam_t::LOCAL_MEM_SIZE> {
 template <>
 device_param<devparam_t::LOCAL_MEM_SIZE>::value_type
 device::info<devparam_t::LOCAL_MEM_SIZE>() const;
+
+template <> struct device_param<devparam_t::LOCAL_MEM_TYPE> {
+  typedef devlocal_mem_t value_type;
+};
+template <>
+device_param<devparam_t::LOCAL_MEM_TYPE>::value_type
+device::info<devparam_t::LOCAL_MEM_TYPE>() const;
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb

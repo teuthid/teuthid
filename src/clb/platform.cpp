@@ -151,8 +151,6 @@ void platform::detect_devices_(platform &plat) {
           __cl_devices[__i].getInfo<CL_DEVICE_MAX_COMPUTE_UNITS>();
       plat.devices_[__i].devtype_ =
           static_cast<devtype_t>(__cl_devices[__i].getInfo<CL_DEVICE_TYPE>());
-      plat.devices_[__i].local_memory_size_ =
-          __cl_devices[__i].getInfo<CL_DEVICE_LOCAL_MEM_SIZE>();
     }
   } catch (const cl::Error &__e) {
     throw invalid_device(__e.err());

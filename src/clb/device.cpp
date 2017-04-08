@@ -80,7 +80,7 @@ const platform &device::get_platform(device_id_t device_id) {
     try {                                                                      \
       cl::Device __cl_device(id_);                                             \
       return static_cast<device_param<devparam_t::PARAM>::value_type>(         \
-          __cl_device.getInfo<devparam_t::PARAM>());                           \
+          __cl_device.getInfo<static_cast<int>(devparam_t::PARAM)>());         \
     } catch (const cl::Error &__e) {                                           \
       throw invalid_device("unknown device parameter");                        \
     }                                                                          \
@@ -106,6 +106,7 @@ __TEUTHID_CLB_DEVICE_INFO(IMAGE3D_MAX_HEIGHT);
 __TEUTHID_CLB_DEVICE_INFO(IMAGE3D_MAX_WIDTH);
 __TEUTHID_CLB_DEVICE_INFO(IMAGE_SUPPORT);
 __TEUTHID_CLB_DEVICE_INFO(LOCAL_MEM_SIZE);
+__TEUTHID_CLB_DEVICE_INFO(LOCAL_MEM_TYPE);
 #undef __TEUTHID_CLB_DEVICE_INFO
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -117,7 +118,7 @@ bool device::is_available() const { return info<devparam_t::AVAILABLE>(); }
 
 built_in_kernels_t device::built_in_kernels() const {
   built_in_kernels_t __v;
-  system::split_string(info<BUILT_IN_KERNELS>(), __v, ';');
+  system::split_string(info<devparam_t::BUILT_IN_KERNELS>(), __v, ';');
   return __v;
 }
 
@@ -130,19 +131,18 @@ devfp_config_t device::double_fp_config() const {
 }
 
 bool device::have_double_precision() const {
-  int __dp = devfp_config_t::FMA | devfp_config_t::ROUND_TO_NEAREST |
-             devfp_config_t::INF_NAN | devfp_config_t::DENORM;
+  int __dp = CL_FP_FMA | CL_FP_ROUND_TO_NEAREST | CL_FP_INF_NAN | CL_FP_DENORM;
   return (static_cast<int>(double_fp_config()) & __dp) > 0;
 }
 
 extensions_t device::extensions() const {
   extensions_t __v;
-  system::split_string(info<EXTENSIONS>(), __v);
+  system::split_string(info<devparam_t::EXTENSIONS>(), __v);
   return __v;
 }
 
 bool device::have_extension(const std::string &ext_name) const {
-  std::string __s = info<EXTENSIONS>();
+  std::string __s = info<devparam_t::EXTENSIONS>();
   return (__s.find(ext_name) != std::string::npos);
 }
 
