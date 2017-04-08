@@ -51,6 +51,10 @@ enum devparam_t {
   GLOBAL_MEM_CACHE_TYPE = CL_DEVICE_GLOBAL_MEM_CACHE_TYPE,
   GLOBAL_MEM_CACHELINE_SIZE = CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE,
   GLOBAL_MEM_SIZE = CL_DEVICE_GLOBAL_MEM_SIZE
+  /* No CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE in cl2.hpp
+  GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE =
+      CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE
+  */
 };
 
 enum devfp_config_t {
@@ -249,6 +253,16 @@ template <> struct device_param<devparam_t::GLOBAL_MEM_SIZE> {
 template <>
 device_param<devparam_t::GLOBAL_MEM_SIZE>::value_type
 device::info<devparam_t::GLOBAL_MEM_SIZE>() const;
+
+/* No CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE in cl2.hpp
+template <>
+struct device_param<devparam_t::GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE> {
+  typedef std::size_t value_type;
+};
+template <>
+device_param<devparam_t::GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE>::value_type
+device::info<devparam_t::GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE>() const;
+*/
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb
