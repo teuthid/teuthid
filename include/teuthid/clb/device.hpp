@@ -43,7 +43,9 @@ enum devparam_t {
   BUILT_IN_KERNELS = CL_DEVICE_BUILT_IN_KERNELS,
   COMPILER_AVAILABLE = CL_DEVICE_COMPILER_AVAILABLE,
   DOUBLE_FP_CONFIG = CL_DEVICE_DOUBLE_FP_CONFIG,
-  ENDIAN_LITTLE = CL_DEVICE_ENDIAN_LITTLE
+  ENDIAN_LITTLE = CL_DEVICE_ENDIAN_LITTLE,
+  ERROR_CORRECTION_SUPPORT = CL_DEVICE_ERROR_CORRECTION_SUPPORT,
+  EXECUTION_CAPABILITIES = CL_DEVICE_EXECUTION_CAPABILITIES
 };
 
 enum devfp_config_t {
@@ -55,6 +57,11 @@ enum devfp_config_t {
   FMA = CL_FP_FMA,
   SOFT_FLOAT = CL_FP_SOFT_FLOAT,
   CORRECTLY_ROUNDED_DIVIDE_SQRT = CL_FP_CORRECTLY_ROUNDED_DIVIDE_SQRT
+};
+
+enum devexec_caps_t {
+  KERNEL = CL_EXEC_KERNEL,
+  NATIVE_KERNEL = CL_EXEC_NATIVE_KERNEL
 };
 
 enum devtype_t {
@@ -183,6 +190,20 @@ template <> struct device_param<devparam_t::ENDIAN_LITTLE> {
 template <>
 device_param<devparam_t::ENDIAN_LITTLE>::value_type
 device::info<devparam_t::ENDIAN_LITTLE>() const;
+
+template <> struct device_param<devparam_t::ERROR_CORRECTION_SUPPORT> {
+  typedef bool value_type;
+};
+template <>
+device_param<devparam_t::ERROR_CORRECTION_SUPPORT>::value_type
+device::info<devparam_t::ERROR_CORRECTION_SUPPORT>() const;
+
+template <> struct device_param<devparam_t::EXECUTION_CAPABILITIES> {
+  typedef devexec_caps_t value_type;
+};
+template <>
+device_param<devparam_t::EXECUTION_CAPABILITIES>::value_type
+device::info<devparam_t::EXECUTION_CAPABILITIES>() const;
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb
