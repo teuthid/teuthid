@@ -55,12 +55,16 @@ enum devparam_t {
   IMAGE2D_MAX_WIDTH = CL_DEVICE_IMAGE2D_MAX_WIDTH,
   IMAGE3D_MAX_DEPTH = CL_DEVICE_IMAGE3D_MAX_DEPTH,
   IMAGE3D_MAX_HEIGHT = CL_DEVICE_IMAGE3D_MAX_HEIGHT,
-  IMAGE3D_MAX_WIDTH = CL_DEVICE_IMAGE3D_MAX_WIDTH
+  IMAGE3D_MAX_WIDTH = CL_DEVICE_IMAGE3D_MAX_WIDTH,
+  IMAGE_SUPPORT = CL_DEVICE_IMAGE_SUPPORT
 
   /* Not in cl2.hpp:
-  GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE =
-      CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE,
-  IL_VERSION = CL_DEVICE_IL_VERSION
+  CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE
+  CL_DEVICE_IL_VERSION
+  CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT
+  CL_DEVICE_IMAGE_MAX_ARRAY_SIZE
+  CL_DEVICE_IMAGE_MAX_BUFFER_SIZE
+  CL_DEVICE_IMAGE_PITCH_ALIGNMENT
   */
 };
 
@@ -296,19 +300,13 @@ template <>
 device_param<devparam_t::IMAGE3D_MAX_WIDTH>::value_type
 device::info<devparam_t::IMAGE3D_MAX_WIDTH>() const;
 
-/* Not in cl2.hpp:
-template <>
-struct device_param<devparam_t::GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE> {
-  typedef std::size_t value_type;
+template <> struct device_param<devparam_t::IMAGE_SUPPORT> {
+  typedef bool value_type;
 };
 template <>
-device_param<devparam_t::GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE>::value_type
-device::info<devparam_t::GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE>() const;
+device_param<devparam_t::IMAGE_SUPPORT>::value_type
+device::info<devparam_t::IMAGE_SUPPORT>() const;
 
-template <>
-device_param<devparam_t::IL_VERSION>::value_type
-device::info<devparam_t::IL_VERSION>() const;
-*/
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb
 } // namespace teuthid

@@ -125,6 +125,9 @@ int main() {
         std::cout << "    Global memory cache line: "
                   << system::to_string(__device.global_mem_cache_line_size());
         std::cout << std::endl;
+        std::cout << "    Image support: "
+                  << yesno(__device.info<clb::devparam_t::IMAGE_SUPPORT>());
+        std::cout << std::endl;
       }
     }
 #endif // TEUTHID_WITH_OPENCL
