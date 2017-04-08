@@ -98,6 +98,7 @@ __TEUTHID_CLB_DEVICE_INFO(EXTENSIONS);
 __TEUTHID_CLB_DEVICE_INFO(GLOBAL_MEM_CACHE_SIZE);
 __TEUTHID_CLB_DEVICE_INFO(GLOBAL_MEM_CACHE_TYPE);
 __TEUTHID_CLB_DEVICE_INFO(GLOBAL_MEM_CACHELINE_SIZE);
+__TEUTHID_CLB_DEVICE_INFO(GLOBAL_MEM_SIZE);
 #undef __TEUTHID_CLB_DEVICE_INFO
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -144,4 +145,8 @@ uint64_t device::global_mem_cache_size() const {
 
 uint32_t device::global_mem_cache_line_size() const {
   return info<devparam_t::GLOBAL_MEM_CACHELINE_SIZE>();
+}
+
+uint64_t device::global_mem_size() const {
+  return info<devparam_t::GLOBAL_MEM_SIZE>();
 }

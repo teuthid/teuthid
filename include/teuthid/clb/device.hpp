@@ -49,7 +49,8 @@ enum devparam_t {
   EXTENSIONS = CL_DEVICE_EXTENSIONS,
   GLOBAL_MEM_CACHE_SIZE = CL_DEVICE_GLOBAL_MEM_CACHE_SIZE,
   GLOBAL_MEM_CACHE_TYPE = CL_DEVICE_GLOBAL_MEM_CACHE_TYPE,
-  GLOBAL_MEM_CACHELINE_SIZE = CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE
+  GLOBAL_MEM_CACHELINE_SIZE = CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE,
+  GLOBAL_MEM_SIZE = CL_DEVICE_GLOBAL_MEM_SIZE
 };
 
 enum devfp_config_t {
@@ -138,8 +139,8 @@ public:
   bool have_extension(const std::string &ext_name) const;
   uint64_t global_mem_cache_size() const;
   uint32_t global_mem_cache_line_size() const;
+  uint64_t global_mem_size() const;
 
-  uint64_t global_memory_size() const noexcept { return global_memory_size_; }
   uint64_t local_memory_size() const noexcept { return local_memory_size_; }
 
   bool operator==(const device &other) const { return id_ == other.id_; }
@@ -150,17 +151,16 @@ public:
 private:
   device() {}
 
-  device_id_t id_;              // device ID
-  platform_id_t platform_id_;   // platform ID
-  profile_t profile_;           // CL_DEVICE_PROFILE
-  devtype_t devtype_;           // CL_DEVICE_TYPE
-  std::string name_;            // CL_DEVICE_NAME
-  std::string version_;         // CL_DEVICE_VERSION
-  std::string driver_version_;  // CL_DRIVER_VERSION
-  std::string c_version_;       // CL_DEVICE_OPENCL_C_VERSION
-  uint32_t max_compute_units_;  // CL_DEVICE_MAX_COMPUTE_UNITS
-  uint64_t global_memory_size_; // CL_DEVICE_GLOBAL_MEM_SIZE
-  uint64_t local_memory_size_;  // CL_DEVICE_LOCAL_MEM_SIZE
+  device_id_t id_;             // device ID
+  platform_id_t platform_id_;  // platform ID
+  profile_t profile_;          // CL_DEVICE_PROFILE
+  devtype_t devtype_;          // CL_DEVICE_TYPE
+  std::string name_;           // CL_DEVICE_NAME
+  std::string version_;        // CL_DEVICE_VERSION
+  std::string driver_version_; // CL_DRIVER_VERSION
+  std::string c_version_;      // CL_DEVICE_OPENCL_C_VERSION
+  uint32_t max_compute_units_; // CL_DEVICE_MAX_COMPUTE_UNITS
+  uint64_t local_memory_size_; // CL_DEVICE_LOCAL_MEM_SIZE
 };
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -242,6 +242,13 @@ template <> struct device_param<devparam_t::GLOBAL_MEM_CACHELINE_SIZE> {
 template <>
 device_param<devparam_t::GLOBAL_MEM_CACHELINE_SIZE>::value_type
 device::info<devparam_t::GLOBAL_MEM_CACHELINE_SIZE>() const;
+
+template <> struct device_param<devparam_t::GLOBAL_MEM_SIZE> {
+  typedef uint64_t value_type;
+};
+template <>
+device_param<devparam_t::GLOBAL_MEM_SIZE>::value_type
+device::info<devparam_t::GLOBAL_MEM_SIZE>() const;
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb
