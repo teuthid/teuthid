@@ -50,11 +50,13 @@ enum devparam_t {
   GLOBAL_MEM_CACHE_SIZE = CL_DEVICE_GLOBAL_MEM_CACHE_SIZE,
   GLOBAL_MEM_CACHE_TYPE = CL_DEVICE_GLOBAL_MEM_CACHE_TYPE,
   GLOBAL_MEM_CACHELINE_SIZE = CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE,
-  GLOBAL_MEM_SIZE = CL_DEVICE_GLOBAL_MEM_SIZE
-  /* No CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE in cl2.hpp
+  GLOBAL_MEM_SIZE = CL_DEVICE_GLOBAL_MEM_SIZE,
+  /* Not in cl2.hpp:
   GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE =
-      CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE
+      CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE,
+  IL_VERSION = CL_DEVICE_IL_VERSION
   */
+  IMAGE2D_MAX_HEIGHT = CL_DEVICE_IMAGE2D_MAX_HEIGHT
 };
 
 enum devfp_config_t {
@@ -254,7 +256,7 @@ template <>
 device_param<devparam_t::GLOBAL_MEM_SIZE>::value_type
 device::info<devparam_t::GLOBAL_MEM_SIZE>() const;
 
-/* No CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE in cl2.hpp
+/* Not in cl2.hpp:
 template <>
 struct device_param<devparam_t::GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE> {
   typedef std::size_t value_type;
@@ -262,7 +264,19 @@ struct device_param<devparam_t::GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE> {
 template <>
 device_param<devparam_t::GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE>::value_type
 device::info<devparam_t::GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE>() const;
+
+template <>
+device_param<devparam_t::IL_VERSION>::value_type
+device::info<devparam_t::IL_VERSION>() const;
 */
+
+template <>
+struct device_param<devparam_t::IMAGE2D_MAX_HEIGHT> {
+  typedef std::size_t value_type;
+};
+template <>
+device_param<devparam_t::IMAGE2D_MAX_HEIGHT>::value_type
+device::info<devparam_t::IMAGE2D_MAX_HEIGHT>() const;
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb
