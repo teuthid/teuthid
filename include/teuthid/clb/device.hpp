@@ -47,7 +47,8 @@ enum devparam_t {
   ERROR_CORRECTION_SUPPORT = CL_DEVICE_ERROR_CORRECTION_SUPPORT,
   EXECUTION_CAPABILITIES = CL_DEVICE_EXECUTION_CAPABILITIES,
   EXTENSIONS = CL_DEVICE_EXTENSIONS,
-  GLOBAL_MEM_CACHE_SIZE = CL_DEVICE_GLOBAL_MEM_CACHE_SIZE
+  GLOBAL_MEM_CACHE_SIZE = CL_DEVICE_GLOBAL_MEM_CACHE_SIZE,
+  GLOBAL_MEM_CACHE_TYPE = CL_DEVICE_GLOBAL_MEM_CACHE_TYPE
 };
 
 enum devfp_config_t {
@@ -64,6 +65,12 @@ enum devfp_config_t {
 enum devexec_caps_t {
   KERNEL = CL_EXEC_KERNEL,
   NATIVE_KERNEL = CL_EXEC_NATIVE_KERNEL
+};
+
+enum devmem_cache_t {
+  NONE = CL_NONE,
+  READ_ONLY_CACHE = CL_READ_ONLY_CACHE,
+  READ_WRITE_CACHE = CL_READ_WRITE_CACHE
 };
 
 enum devtype_t {
@@ -219,6 +226,13 @@ template <> struct device_param<devparam_t::GLOBAL_MEM_CACHE_SIZE> {
 template <>
 device_param<devparam_t::GLOBAL_MEM_CACHE_SIZE>::value_type
 device::info<devparam_t::GLOBAL_MEM_CACHE_SIZE>() const;
+
+template <> struct device_param<devparam_t::GLOBAL_MEM_CACHE_TYPE> {
+  typedef devmem_cache_t value_type;
+};
+template <>
+device_param<devparam_t::GLOBAL_MEM_CACHE_TYPE>::value_type
+device::info<devparam_t::GLOBAL_MEM_CACHE_TYPE>() const;
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb
