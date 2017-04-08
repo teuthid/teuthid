@@ -118,7 +118,7 @@ int main() {
         std::cout << "    Global memory: "
                   << system::to_string(__device.global_mem_size()) << "  ";
         std::cout << "    Local memory: "
-                  << system::to_string(__device.local_memory_size())
+                  << system::to_string(__device.local_mem_size())
                   << std::endl;
         std::cout << "    Global memory cache: "
                   << system::to_string(__device.global_mem_cache_size());

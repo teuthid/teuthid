@@ -105,6 +105,7 @@ __TEUTHID_CLB_DEVICE_INFO(IMAGE3D_MAX_DEPTH);
 __TEUTHID_CLB_DEVICE_INFO(IMAGE3D_MAX_HEIGHT);
 __TEUTHID_CLB_DEVICE_INFO(IMAGE3D_MAX_WIDTH);
 __TEUTHID_CLB_DEVICE_INFO(IMAGE_SUPPORT);
+__TEUTHID_CLB_DEVICE_INFO(LOCAL_MEM_SIZE);
 #undef __TEUTHID_CLB_DEVICE_INFO
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -155,4 +156,8 @@ uint32_t device::global_mem_cache_line_size() const {
 
 uint64_t device::global_mem_size() const {
   return info<devparam_t::GLOBAL_MEM_SIZE>();
+}
+
+uint64_t device::local_mem_size() const {
+  return info<devparam_t::LOCAL_MEM_SIZE>();
 }

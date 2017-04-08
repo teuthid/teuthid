@@ -56,7 +56,8 @@ enum devparam_t {
   IMAGE3D_MAX_DEPTH = CL_DEVICE_IMAGE3D_MAX_DEPTH,
   IMAGE3D_MAX_HEIGHT = CL_DEVICE_IMAGE3D_MAX_HEIGHT,
   IMAGE3D_MAX_WIDTH = CL_DEVICE_IMAGE3D_MAX_WIDTH,
-  IMAGE_SUPPORT = CL_DEVICE_IMAGE_SUPPORT
+  IMAGE_SUPPORT = CL_DEVICE_IMAGE_SUPPORT,
+  LOCAL_MEM_SIZE = CL_DEVICE_LOCAL_MEM_SIZE
 
   /* Not in cl2.hpp:
   CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE
@@ -65,6 +66,7 @@ enum devparam_t {
   CL_DEVICE_IMAGE_MAX_ARRAY_SIZE
   CL_DEVICE_IMAGE_MAX_BUFFER_SIZE
   CL_DEVICE_IMAGE_PITCH_ALIGNMENT
+  CL_DEVICE_LINKER_AVAILABLE
   */
 };
 
@@ -155,8 +157,7 @@ public:
   uint64_t global_mem_cache_size() const;
   uint32_t global_mem_cache_line_size() const;
   uint64_t global_mem_size() const;
-
-  uint64_t local_memory_size() const noexcept { return local_memory_size_; }
+  uint64_t local_mem_size() const;
 
   bool operator==(const device &other) const { return id_ == other.id_; }
   bool operator!=(const device &other) const { return id_ != other.id_; }
@@ -306,6 +307,13 @@ template <> struct device_param<devparam_t::IMAGE_SUPPORT> {
 template <>
 device_param<devparam_t::IMAGE_SUPPORT>::value_type
 device::info<devparam_t::IMAGE_SUPPORT>() const;
+
+template <> struct device_param<devparam_t::LOCAL_MEM_SIZE> {
+  typedef uint64_t value_type;
+};
+template <>
+device_param<devparam_t::LOCAL_MEM_SIZE>::value_type
+device::info<devparam_t::LOCAL_MEM_SIZE>() const;
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb
