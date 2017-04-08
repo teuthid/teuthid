@@ -122,6 +122,8 @@ int main() {
                   << std::endl;
         std::cout << "    Global memory cache: "
                   << system::to_string(__device.global_mem_cache_size());
+        std::cout << "    Global memory cache line: "
+                  << system::to_string(__device.global_mem_cache_line_size());
         std::cout << std::endl;
       }
     }

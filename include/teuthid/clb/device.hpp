@@ -48,7 +48,8 @@ enum devparam_t {
   EXECUTION_CAPABILITIES = CL_DEVICE_EXECUTION_CAPABILITIES,
   EXTENSIONS = CL_DEVICE_EXTENSIONS,
   GLOBAL_MEM_CACHE_SIZE = CL_DEVICE_GLOBAL_MEM_CACHE_SIZE,
-  GLOBAL_MEM_CACHE_TYPE = CL_DEVICE_GLOBAL_MEM_CACHE_TYPE
+  GLOBAL_MEM_CACHE_TYPE = CL_DEVICE_GLOBAL_MEM_CACHE_TYPE,
+  GLOBAL_MEM_CACHELINE_SIZE = CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE
 };
 
 enum devfp_config_t {
@@ -136,6 +137,7 @@ public:
   extensions_t extensions() const;
   bool have_extension(const std::string &ext_name) const;
   uint64_t global_mem_cache_size() const;
+  uint32_t global_mem_cache_line_size() const;
 
   uint64_t global_memory_size() const noexcept { return global_memory_size_; }
   uint64_t local_memory_size() const noexcept { return local_memory_size_; }
@@ -233,6 +235,13 @@ template <> struct device_param<devparam_t::GLOBAL_MEM_CACHE_TYPE> {
 template <>
 device_param<devparam_t::GLOBAL_MEM_CACHE_TYPE>::value_type
 device::info<devparam_t::GLOBAL_MEM_CACHE_TYPE>() const;
+
+template <> struct device_param<devparam_t::GLOBAL_MEM_CACHELINE_SIZE> {
+  typedef uint32_t value_type;
+};
+template <>
+device_param<devparam_t::GLOBAL_MEM_CACHELINE_SIZE>::value_type
+device::info<devparam_t::GLOBAL_MEM_CACHELINE_SIZE>() const;
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb

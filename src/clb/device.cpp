@@ -97,6 +97,7 @@ __TEUTHID_CLB_DEVICE_INFO(EXECUTION_CAPABILITIES);
 __TEUTHID_CLB_DEVICE_INFO(EXTENSIONS);
 __TEUTHID_CLB_DEVICE_INFO(GLOBAL_MEM_CACHE_SIZE);
 __TEUTHID_CLB_DEVICE_INFO(GLOBAL_MEM_CACHE_TYPE);
+__TEUTHID_CLB_DEVICE_INFO(GLOBAL_MEM_CACHELINE_SIZE);
 #undef __TEUTHID_CLB_DEVICE_INFO
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -139,4 +140,8 @@ bool device::have_extension(const std::string &ext_name) const {
 
 uint64_t device::global_mem_cache_size() const {
   return info<devparam_t::GLOBAL_MEM_CACHE_SIZE>();
+}
+
+uint32_t device::global_mem_cache_line_size() const {
+  return info<devparam_t::GLOBAL_MEM_CACHELINE_SIZE>();
 }
