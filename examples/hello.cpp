@@ -102,8 +102,10 @@ int main() {
           __str = "UNKNOWN PROFILE";
         std::cout << "    Device Type: " << __str << "    Compiler: "
                   << yesno(__device.is_compiler_available());
-        std::cout << "    Parallel compute units: "
-                  << __device.max_compute_units() << std::endl;
+        std::cout << "    Compute units: " << __device.max_compute_units();
+        std::cout << "    Frequency: "
+                  << system::to_string(__device.max_clock_frequency())
+                  << std::endl;
         std::cout << "    Double precision: "
                   << yesno(__device.have_double_precision());
         std::cout << std::endl;
@@ -118,8 +120,7 @@ int main() {
         std::cout << "    Global memory: "
                   << system::to_string(__device.global_mem_size()) << "  ";
         std::cout << "    Local memory: "
-                  << system::to_string(__device.local_mem_size())
-                  << std::endl;
+                  << system::to_string(__device.local_mem_size()) << std::endl;
         std::cout << "    Global memory cache: "
                   << system::to_string(__device.global_mem_cache_size());
         std::cout << "    Global memory cache line: "

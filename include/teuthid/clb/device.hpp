@@ -58,8 +58,8 @@ enum class devparam_t {
   IMAGE3D_MAX_WIDTH = CL_DEVICE_IMAGE3D_MAX_WIDTH,
   IMAGE_SUPPORT = CL_DEVICE_IMAGE_SUPPORT,
   LOCAL_MEM_SIZE = CL_DEVICE_LOCAL_MEM_SIZE,
-  LOCAL_MEM_TYPE = CL_DEVICE_LOCAL_MEM_TYPE
-
+  LOCAL_MEM_TYPE = CL_DEVICE_LOCAL_MEM_TYPE,
+  MAX_CLOCK_FREQUENCY = CL_DEVICE_MAX_CLOCK_FREQUENCY
   /* Not in cl2.hpp:
   CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE
   CL_DEVICE_IL_VERSION
@@ -165,6 +165,7 @@ public:
   uint32_t global_mem_cache_line_size() const;
   uint64_t global_mem_size() const;
   uint64_t local_mem_size() const;
+  uint32_t max_clock_frequency() const;
 
   bool operator==(const device &other) const { return id_ == other.id_; }
   bool operator!=(const device &other) const { return id_ != other.id_; }
@@ -327,6 +328,13 @@ template <> struct device_param<devparam_t::LOCAL_MEM_TYPE> {
 template <>
 device_param<devparam_t::LOCAL_MEM_TYPE>::value_type
 device::info<devparam_t::LOCAL_MEM_TYPE>() const;
+
+template <> struct device_param<devparam_t::MAX_CLOCK_FREQUENCY> {
+  typedef uint32_t value_type;
+};
+template <>
+device_param<devparam_t::MAX_CLOCK_FREQUENCY>::value_type
+device::info<devparam_t::MAX_CLOCK_FREQUENCY>() const;
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb

@@ -107,6 +107,7 @@ __TEUTHID_CLB_DEVICE_INFO(IMAGE3D_MAX_WIDTH);
 __TEUTHID_CLB_DEVICE_INFO(IMAGE_SUPPORT);
 __TEUTHID_CLB_DEVICE_INFO(LOCAL_MEM_SIZE);
 __TEUTHID_CLB_DEVICE_INFO(LOCAL_MEM_TYPE);
+__TEUTHID_CLB_DEVICE_INFO(MAX_CLOCK_FREQUENCY);
 #undef __TEUTHID_CLB_DEVICE_INFO
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -160,4 +161,8 @@ uint64_t device::global_mem_size() const {
 
 uint64_t device::local_mem_size() const {
   return info<devparam_t::LOCAL_MEM_SIZE>();
+}
+
+uint32_t device::max_clock_frequency() const {
+  return info<devparam_t::MAX_CLOCK_FREQUENCY>();
 }

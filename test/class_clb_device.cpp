@@ -62,6 +62,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
       BOOST_TEST(__device.info<devparam_t::IMAGE3D_MAX_WIDTH>() > 0,
                  "info<devparam_t::IMAGE3D_MAX_WIDTH>()");
       BOOST_TEST(__device.local_mem_size() > 0, "local_mem_size()");
+      BOOST_TEST(__device.max_clock_frequency() > 0, "max_clock_frequency()");
 
       BOOST_TEST(__device.get_platform().id() == __platform.id(),
                  "get_platform()");
