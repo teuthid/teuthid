@@ -63,7 +63,8 @@ enum class devparam_t {
   MAX_COMPUTE_UNITS = CL_DEVICE_MAX_COMPUTE_UNITS,
   MAX_CONSTANT_ARGS = CL_DEVICE_MAX_CONSTANT_ARGS,
   MAX_CONSTANT_BUFFER_SIZE = CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE,
-  MAX_MEM_ALLOC_SIZE = CL_DEVICE_MAX_MEM_ALLOC_SIZE
+  MAX_MEM_ALLOC_SIZE = CL_DEVICE_MAX_MEM_ALLOC_SIZE,
+  MAX_PARAMETER_SIZE = CL_DEVICE_MAX_PARAMETER_SIZE
   /* Not in cl2.hpp:
   CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE
   CL_DEVICE_IL_VERSION
@@ -73,6 +74,9 @@ enum class devparam_t {
   CL_DEVICE_IMAGE_PITCH_ALIGNMENT
   CL_DEVICE_LINKER_AVAILABLE
   CL_DEVICE_MAX_GLOBAL_VARIABLE_SIZE
+  CL_DEVICE_MAX_NUM_SUB_GROUPS
+  CL_DEVICE_MAX_ON_DEVICE_EVENTS
+  CL_DEVICE_MAX_ON_DEVICE_QUEUES
   */
 };
 
@@ -368,6 +372,13 @@ template <> struct device_param<devparam_t::MAX_MEM_ALLOC_SIZE> {
 template <>
 device_param<devparam_t::MAX_MEM_ALLOC_SIZE>::value_type
 device::info<devparam_t::MAX_MEM_ALLOC_SIZE>() const;
+
+template <> struct device_param<devparam_t::MAX_PARAMETER_SIZE> {
+  typedef std::size_t value_type;
+};
+template <>
+device_param<devparam_t::MAX_PARAMETER_SIZE>::value_type
+device::info<devparam_t::MAX_PARAMETER_SIZE>() const;
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb
