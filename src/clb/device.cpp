@@ -109,6 +109,9 @@ __TEUTHID_CLB_DEVICE_INFO(LOCAL_MEM_SIZE);
 __TEUTHID_CLB_DEVICE_INFO(LOCAL_MEM_TYPE);
 __TEUTHID_CLB_DEVICE_INFO(MAX_CLOCK_FREQUENCY);
 __TEUTHID_CLB_DEVICE_INFO(MAX_COMPUTE_UNITS);
+__TEUTHID_CLB_DEVICE_INFO(MAX_CONSTANT_ARGS);
+__TEUTHID_CLB_DEVICE_INFO(MAX_CONSTANT_BUFFER_SIZE);
+__TEUTHID_CLB_DEVICE_INFO(MAX_MEM_ALLOC_SIZE);
 #undef __TEUTHID_CLB_DEVICE_INFO
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -170,4 +173,8 @@ uint32_t device::max_clock_frequency() const {
 
 uint32_t device::max_compute_units() const {
   return info<devparam_t::MAX_COMPUTE_UNITS>();
+}
+
+uint64_t device::max_mem_alloc_size() const {
+  return info<devparam_t::MAX_MEM_ALLOC_SIZE>();
 }

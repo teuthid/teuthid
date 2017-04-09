@@ -116,7 +116,10 @@ int main() {
                   << system::to_string(__device.built_in_kernels());
         std::cout << std::endl;
         std::cout << "    Address bits: "
-                  << system::to_string(__device.address_bits()) << std::endl;
+                  << system::to_string(__device.address_bits())
+                  << "    Max alloc size: "
+                  << system::to_string(__device.max_mem_alloc_size());
+        std::cout << std::endl;
         std::cout << "    Global memory: "
                   << system::to_string(__device.global_mem_size()) << "  ";
         std::cout << "    Local memory: "

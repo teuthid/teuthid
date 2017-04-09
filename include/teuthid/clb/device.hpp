@@ -60,7 +60,10 @@ enum class devparam_t {
   LOCAL_MEM_SIZE = CL_DEVICE_LOCAL_MEM_SIZE,
   LOCAL_MEM_TYPE = CL_DEVICE_LOCAL_MEM_TYPE,
   MAX_CLOCK_FREQUENCY = CL_DEVICE_MAX_CLOCK_FREQUENCY,
-  MAX_COMPUTE_UNITS = CL_DEVICE_MAX_COMPUTE_UNITS
+  MAX_COMPUTE_UNITS = CL_DEVICE_MAX_COMPUTE_UNITS,
+  MAX_CONSTANT_ARGS = CL_DEVICE_MAX_CONSTANT_ARGS,
+  MAX_CONSTANT_BUFFER_SIZE = CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE,
+  MAX_MEM_ALLOC_SIZE = CL_DEVICE_MAX_MEM_ALLOC_SIZE
   /* Not in cl2.hpp:
   CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE
   CL_DEVICE_IL_VERSION
@@ -69,6 +72,7 @@ enum class devparam_t {
   CL_DEVICE_IMAGE_MAX_BUFFER_SIZE
   CL_DEVICE_IMAGE_PITCH_ALIGNMENT
   CL_DEVICE_LINKER_AVAILABLE
+  CL_DEVICE_MAX_GLOBAL_VARIABLE_SIZE
   */
 };
 
@@ -167,6 +171,7 @@ public:
   uint64_t local_mem_size() const;
   uint32_t max_clock_frequency() const;
   uint32_t max_compute_units() const;
+  uint64_t max_mem_alloc_size() const;
 
   bool operator==(const device &other) const { return id_ == other.id_; }
   bool operator!=(const device &other) const { return id_ != other.id_; }
@@ -342,6 +347,27 @@ template <> struct device_param<devparam_t::MAX_COMPUTE_UNITS> {
 template <>
 device_param<devparam_t::MAX_COMPUTE_UNITS>::value_type
 device::info<devparam_t::MAX_COMPUTE_UNITS>() const;
+
+template <> struct device_param<devparam_t::MAX_CONSTANT_ARGS> {
+  typedef uint32_t value_type;
+};
+template <>
+device_param<devparam_t::MAX_CONSTANT_ARGS>::value_type
+device::info<devparam_t::MAX_CONSTANT_ARGS>() const;
+
+template <> struct device_param<devparam_t::MAX_CONSTANT_BUFFER_SIZE> {
+  typedef uint64_t value_type;
+};
+template <>
+device_param<devparam_t::MAX_CONSTANT_BUFFER_SIZE>::value_type
+device::info<devparam_t::MAX_CONSTANT_BUFFER_SIZE>() const;
+
+template <> struct device_param<devparam_t::MAX_MEM_ALLOC_SIZE> {
+  typedef uint64_t value_type;
+};
+template <>
+device_param<devparam_t::MAX_MEM_ALLOC_SIZE>::value_type
+device::info<devparam_t::MAX_MEM_ALLOC_SIZE>() const;
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb
