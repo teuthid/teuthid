@@ -147,8 +147,6 @@ void platform::detect_devices_(platform &plat) {
           __cl_devices[__i].getInfo<CL_DRIVER_VERSION>();
       plat.devices_[__i].c_version_ =
           __cl_devices[__i].getInfo<CL_DEVICE_OPENCL_C_VERSION>();
-      plat.devices_[__i].max_compute_units_ =
-          __cl_devices[__i].getInfo<CL_DEVICE_MAX_COMPUTE_UNITS>();
       plat.devices_[__i].devtype_ =
           static_cast<devtype_t>(__cl_devices[__i].getInfo<CL_DEVICE_TYPE>());
     }

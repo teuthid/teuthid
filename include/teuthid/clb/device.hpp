@@ -59,7 +59,8 @@ enum class devparam_t {
   IMAGE_SUPPORT = CL_DEVICE_IMAGE_SUPPORT,
   LOCAL_MEM_SIZE = CL_DEVICE_LOCAL_MEM_SIZE,
   LOCAL_MEM_TYPE = CL_DEVICE_LOCAL_MEM_TYPE,
-  MAX_CLOCK_FREQUENCY = CL_DEVICE_MAX_CLOCK_FREQUENCY
+  MAX_CLOCK_FREQUENCY = CL_DEVICE_MAX_CLOCK_FREQUENCY,
+  MAX_COMPUTE_UNITS = CL_DEVICE_MAX_COMPUTE_UNITS
   /* Not in cl2.hpp:
   CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE
   CL_DEVICE_IL_VERSION
@@ -151,7 +152,6 @@ public:
   const std::string &version() const noexcept { return version_; }
   const std::string &driver_version() const noexcept { return driver_version_; }
   const std::string &c_version() const noexcept { return c_version_; }
-  uint32_t max_compute_units() const noexcept { return max_compute_units_; }
 
   uint32_t address_bits() const;
   bool is_available() const;
@@ -166,6 +166,7 @@ public:
   uint64_t global_mem_size() const;
   uint64_t local_mem_size() const;
   uint32_t max_clock_frequency() const;
+  uint32_t max_compute_units() const;
 
   bool operator==(const device &other) const { return id_ == other.id_; }
   bool operator!=(const device &other) const { return id_ != other.id_; }
@@ -183,7 +184,6 @@ private:
   std::string version_;        // CL_DEVICE_VERSION
   std::string driver_version_; // CL_DRIVER_VERSION
   std::string c_version_;      // CL_DEVICE_OPENCL_C_VERSION
-  uint32_t max_compute_units_; // CL_DEVICE_MAX_COMPUTE_UNITS
 };
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -335,6 +335,13 @@ template <> struct device_param<devparam_t::MAX_CLOCK_FREQUENCY> {
 template <>
 device_param<devparam_t::MAX_CLOCK_FREQUENCY>::value_type
 device::info<devparam_t::MAX_CLOCK_FREQUENCY>() const;
+
+template <> struct device_param<devparam_t::MAX_COMPUTE_UNITS> {
+  typedef uint32_t value_type;
+};
+template <>
+device_param<devparam_t::MAX_COMPUTE_UNITS>::value_type
+device::info<devparam_t::MAX_COMPUTE_UNITS>() const;
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb
