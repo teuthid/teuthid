@@ -75,6 +75,20 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
       BOOST_TEST(__device.max_work_group_size() > 0, "max_work_group_size()");
       BOOST_TEST(__device.max_work_item_dimensions() > 0,
                  "max_work_item_dimensions()");
+      BOOST_TEST(!__device.info<devparam_t::MAX_WORK_ITEM_SIZES>().empty(),
+                 "info<devparam_t::MAX_WORK_ITEM_SIZES>()");
+      BOOST_TEST(__device.info<devparam_t::MEM_BASE_ADDR_ALIGN>() > 0,
+                 "info<devparam_t::MEM_BASE_ADDR_ALIGN>()");
+      BOOST_TEST(__device.info<devparam_t::NATIVE_VECTOR_WIDTH_CHAR>() > 0,
+                 "info<devparam_t::NATIVE_VECTOR_WIDTH_CHAR>()");
+      BOOST_TEST(__device.info<devparam_t::NATIVE_VECTOR_WIDTH_SHORT>() > 0,
+                 "info<devparam_t::NATIVE_VECTOR_WIDTH_SHORT>()");
+      BOOST_TEST(__device.info<devparam_t::NATIVE_VECTOR_WIDTH_INT>() > 0,
+                 "info<devparam_t::NATIVE_VECTOR_WIDTH_INT>()");
+      BOOST_TEST(__device.info<devparam_t::NATIVE_VECTOR_WIDTH_LONG>() > 0,
+                 "info<devparam_t::NATIVE_VECTOR_WIDTH_INT>()");
+      BOOST_TEST(__device.info<devparam_t::NATIVE_VECTOR_WIDTH_FLOAT>() > 0,
+                 "info<devparam_t::NATIVE_VECTOR_WIDTH_FLOAT>()");
 
       BOOST_TEST(__device.get_platform().id() == __platform.id(),
                  "get_platform()");

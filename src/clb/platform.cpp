@@ -140,7 +140,6 @@ void platform::detect_devices_(platform &plat) {
           __cl_devices[__i].getInfo<CL_DEVICE_PLATFORM>();
       plat.devices_[__i].profile_ = __teuthid_get_cl_profile(
           __cl_devices[__i].getInfo<CL_DEVICE_PROFILE>());
-      plat.devices_[__i].name_ = __cl_devices[__i].getInfo<CL_DEVICE_NAME>();
       plat.devices_[__i].version_ =
           __cl_devices[__i].getInfo<CL_DEVICE_VERSION>();
       plat.devices_[__i].driver_version_ =

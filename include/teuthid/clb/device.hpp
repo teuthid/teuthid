@@ -71,7 +71,18 @@ enum class devparam_t {
   MAX_READ_IMAGE_ARGS = CL_DEVICE_MAX_READ_IMAGE_ARGS,
   MAX_SAMPLERS = CL_DEVICE_MAX_SAMPLERS,
   MAX_WORK_GROUP_SIZE = CL_DEVICE_MAX_WORK_GROUP_SIZE,
-  MAX_WORK_ITEM_DIMENSIONS = CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS
+  MAX_WORK_ITEM_DIMENSIONS = CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS,
+  MAX_WORK_ITEM_SIZES = CL_DEVICE_MAX_WORK_ITEM_SIZES,
+  MAX_WRITE_IMAGE_ARGS = CL_DEVICE_MAX_WRITE_IMAGE_ARGS,
+  MEM_BASE_ADDR_ALIGN = CL_DEVICE_MEM_BASE_ADDR_ALIGN,
+  NAME = CL_DEVICE_NAME,
+  NATIVE_VECTOR_WIDTH_CHAR = CL_DEVICE_NATIVE_VECTOR_WIDTH_CHAR,
+  NATIVE_VECTOR_WIDTH_SHORT = CL_DEVICE_NATIVE_VECTOR_WIDTH_SHORT,
+  NATIVE_VECTOR_WIDTH_INT = CL_DEVICE_NATIVE_VECTOR_WIDTH_INT,
+  NATIVE_VECTOR_WIDTH_LONG = CL_DEVICE_NATIVE_VECTOR_WIDTH_LONG,
+  NATIVE_VECTOR_WIDTH_FLOAT = CL_DEVICE_NATIVE_VECTOR_WIDTH_FLOAT,
+  NATIVE_VECTOR_WIDTH_DOUBLE = CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE,
+  NATIVE_VECTOR_WIDTH_HALF = CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF
   /* Not in cl2.hpp:
   CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE
   CL_DEVICE_IL_VERSION
@@ -125,6 +136,7 @@ typedef cl_device_id device_id_t;
 typedef cl_platform_id platform_id_t;
 typedef std::vector<std::string> extensions_t;
 typedef std::vector<std::string> built_in_kernels_t;
+typedef std::vector<std::size_t> max_work_item_sizes_t;
 typedef std::vector<device> devices_t;
 typedef std::vector<platform> platforms_t;
 
@@ -157,7 +169,6 @@ public:
   bool is_devtype_accelerator() const noexcept {
     return (devtype_ == devtype_t::ACCELERATOR);
   }
-  const std::string &name() const noexcept { return name_; }
   const std::string &version() const noexcept { return version_; }
   const std::string &driver_version() const noexcept { return driver_version_; }
   const std::string &c_version() const noexcept { return c_version_; }
@@ -179,6 +190,7 @@ public:
   uint64_t max_mem_alloc_size() const;
   std::size_t max_work_group_size() const;
   uint32_t max_work_item_dimensions() const;
+  std::string name() const;
 
   bool operator==(const device &other) const { return id_ == other.id_; }
   bool operator!=(const device &other) const { return id_ != other.id_; }
@@ -192,7 +204,6 @@ private:
   platform_id_t platform_id_;  // platform ID
   profile_t profile_;          // CL_DEVICE_PROFILE
   devtype_t devtype_;          // CL_DEVICE_TYPE
-  std::string name_;           // CL_DEVICE_NAME
   std::string version_;        // CL_DEVICE_VERSION
   std::string driver_version_; // CL_DRIVER_VERSION
   std::string c_version_;      // CL_DEVICE_OPENCL_C_VERSION
@@ -242,6 +253,17 @@ __TEUTHID_CLB_DEVICE_INFO_SPEC(MAX_READ_IMAGE_ARGS, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(MAX_SAMPLERS, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(MAX_WORK_GROUP_SIZE, std::size_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(MAX_WORK_ITEM_DIMENSIONS, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(MAX_WORK_ITEM_SIZES, max_work_item_sizes_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(MAX_WRITE_IMAGE_ARGS, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(MEM_BASE_ADDR_ALIGN, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(NAME, std::string)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_CHAR, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_SHORT, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_INT, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_LONG, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_FLOAT, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_DOUBLE, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_HALF, uint32_t)
 #undef __TEUTHID_CLB_DEVICE_INFO_SPEC
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb
