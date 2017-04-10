@@ -67,7 +67,11 @@ enum class devparam_t {
   MAX_ON_DEVICE_EVENTS = CL_DEVICE_MAX_ON_DEVICE_EVENTS,
   MAX_ON_DEVICE_QUEUES = CL_DEVICE_MAX_ON_DEVICE_QUEUES,
   MAX_PARAMETER_SIZE = CL_DEVICE_MAX_PARAMETER_SIZE,
-  MAX_PIPE_ARGS = CL_DEVICE_MAX_PIPE_ARGS
+  MAX_PIPE_ARGS = CL_DEVICE_MAX_PIPE_ARGS,
+  MAX_READ_IMAGE_ARGS = CL_DEVICE_MAX_READ_IMAGE_ARGS,
+  MAX_SAMPLERS = CL_DEVICE_MAX_SAMPLERS,
+  MAX_WORK_GROUP_SIZE = CL_DEVICE_MAX_WORK_GROUP_SIZE,
+  MAX_WORK_ITEM_DIMENSIONS = CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS
   /* Not in cl2.hpp:
   CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE
   CL_DEVICE_IL_VERSION
@@ -78,6 +82,7 @@ enum class devparam_t {
   CL_DEVICE_LINKER_AVAILABLE
   CL_DEVICE_MAX_GLOBAL_VARIABLE_SIZE
   CL_DEVICE_MAX_NUM_SUB_GROUPS
+  CL_DEVICE_MAX_READ_WRITE_IMAGE_ARGS
   */
 };
 enum class devfp_config_t {
@@ -172,6 +177,8 @@ public:
   uint32_t max_clock_frequency() const;
   uint32_t max_compute_units() const;
   uint64_t max_mem_alloc_size() const;
+  std::size_t max_work_group_size() const;
+  uint32_t max_work_item_dimensions() const;
 
   bool operator==(const device &other) const { return id_ == other.id_; }
   bool operator!=(const device &other) const { return id_ != other.id_; }
@@ -231,6 +238,10 @@ __TEUTHID_CLB_DEVICE_INFO_SPEC(MAX_ON_DEVICE_EVENTS, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(MAX_ON_DEVICE_QUEUES, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(MAX_PARAMETER_SIZE, std::size_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(MAX_PIPE_ARGS, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(MAX_READ_IMAGE_ARGS, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(MAX_SAMPLERS, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(MAX_WORK_GROUP_SIZE, std::size_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(MAX_WORK_ITEM_DIMENSIONS, uint32_t)
 #undef __TEUTHID_CLB_DEVICE_INFO_SPEC
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb

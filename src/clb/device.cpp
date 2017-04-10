@@ -116,6 +116,10 @@ __TEUTHID_CLB_DEVICE_INFO(MAX_ON_DEVICE_EVENTS);
 __TEUTHID_CLB_DEVICE_INFO(MAX_ON_DEVICE_QUEUES);
 __TEUTHID_CLB_DEVICE_INFO(MAX_PARAMETER_SIZE);
 __TEUTHID_CLB_DEVICE_INFO(MAX_PIPE_ARGS);
+__TEUTHID_CLB_DEVICE_INFO(MAX_READ_IMAGE_ARGS);
+__TEUTHID_CLB_DEVICE_INFO(MAX_SAMPLERS);
+__TEUTHID_CLB_DEVICE_INFO(MAX_WORK_GROUP_SIZE);
+__TEUTHID_CLB_DEVICE_INFO(MAX_WORK_ITEM_DIMENSIONS);
 #undef __TEUTHID_CLB_DEVICE_INFO
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -181,4 +185,12 @@ uint32_t device::max_compute_units() const {
 
 uint64_t device::max_mem_alloc_size() const {
   return info<devparam_t::MAX_MEM_ALLOC_SIZE>();
+}
+
+std::size_t device::max_work_group_size() const {
+  return info<devparam_t::MAX_WORK_GROUP_SIZE>();
+}
+
+uint32_t device::max_work_item_dimensions() const {
+  return info<devparam_t::MAX_WORK_ITEM_DIMENSIONS>();
 }
