@@ -65,7 +65,7 @@ enum class devparam_t {
   MAX_CONSTANT_BUFFER_SIZE = CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE,
   MAX_MEM_ALLOC_SIZE = CL_DEVICE_MAX_MEM_ALLOC_SIZE,
   MAX_PARAMETER_SIZE = CL_DEVICE_MAX_PARAMETER_SIZE
-  
+
   /* Not in cl2.hpp:
   CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE
   CL_DEVICE_IL_VERSION
@@ -81,7 +81,6 @@ enum class devparam_t {
   CL_DEVICE_MAX_PIPE_ARGS
   */
 };
-
 enum class devfp_config_t {
   DENORM = CL_FP_DENORM,
   INF_NAN = CL_FP_INF_NAN,
@@ -92,24 +91,20 @@ enum class devfp_config_t {
   SOFT_FLOAT = CL_FP_SOFT_FLOAT,
   CORRECTLY_ROUNDED_DIVIDE_SQRT = CL_FP_CORRECTLY_ROUNDED_DIVIDE_SQRT
 };
-
 enum class devexec_caps_t {
   KERNEL = CL_EXEC_KERNEL,
   NATIVE_KERNEL = CL_EXEC_NATIVE_KERNEL
 };
-
 enum class devlocal_mem_t {
   LOCAL = CL_LOCAL,
   GLOBAL = CL_GLOBAL,
   NONE = CL_NONE
 };
-
 enum class devmem_cache_t {
   NONE = CL_NONE,
   READ_ONLY_CACHE = CL_READ_ONLY_CACHE,
   READ_WRITE_CACHE = CL_READ_WRITE_CACHE
 };
-
 enum class devtype_t {
   CPU = CL_DEVICE_TYPE_CPU,
   GPU = CL_DEVICE_TYPE_GPU,
@@ -117,7 +112,7 @@ enum class devtype_t {
   CUSTOM = CL_DEVICE_TYPE_CUSTOM
 };
 
-template <devparam_t> struct device_param { typedef std::string value_type; };
+template <devparam_t> struct device_param { typedef void value_type; };
 
 class device;
 class platform;
@@ -199,189 +194,42 @@ private:
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 // specialization of device_param<>::value_type info()
-template <> struct device_param<devparam_t::ADDRESS_BITS> {
-  typedef uint32_t value_type;
-};
-template <>
-device_param<devparam_t::ADDRESS_BITS>::value_type
-device::info<devparam_t::ADDRESS_BITS>() const;
+#define __TEUTHID_CLB_DEVICE_INFO_SPEC(PARAM, VALUE_TYPE)                      \
+  template <> struct device_param<devparam_t::PARAM> {                         \
+    typedef VALUE_TYPE value_type;                                             \
+  };                                                                           \
+  template <>                                                                  \
+  device_param<devparam_t::PARAM>::value_type                                  \
+  device::info<devparam_t::PARAM>() const;
 
-template <> struct device_param<devparam_t::AVAILABLE> {
-  typedef bool value_type;
-};
-template <>
-device_param<devparam_t::AVAILABLE>::value_type
-device::info<devparam_t::AVAILABLE>() const;
-
-template <>
-device_param<devparam_t::BUILT_IN_KERNELS>::value_type
-device::info<devparam_t::BUILT_IN_KERNELS>() const;
-
-template <> struct device_param<devparam_t::COMPILER_AVAILABLE> {
-  typedef bool value_type;
-};
-template <>
-device_param<devparam_t::COMPILER_AVAILABLE>::value_type
-device::info<devparam_t::COMPILER_AVAILABLE>() const;
-
-template <> struct device_param<devparam_t::DOUBLE_FP_CONFIG> {
-  typedef devfp_config_t value_type;
-};
-template <>
-device_param<devparam_t::DOUBLE_FP_CONFIG>::value_type
-device::info<devparam_t::DOUBLE_FP_CONFIG>() const;
-
-template <> struct device_param<devparam_t::ENDIAN_LITTLE> {
-  typedef bool value_type;
-};
-template <>
-device_param<devparam_t::ENDIAN_LITTLE>::value_type
-device::info<devparam_t::ENDIAN_LITTLE>() const;
-
-template <> struct device_param<devparam_t::ERROR_CORRECTION_SUPPORT> {
-  typedef bool value_type;
-};
-template <>
-device_param<devparam_t::ERROR_CORRECTION_SUPPORT>::value_type
-device::info<devparam_t::ERROR_CORRECTION_SUPPORT>() const;
-
-template <> struct device_param<devparam_t::EXECUTION_CAPABILITIES> {
-  typedef devexec_caps_t value_type;
-};
-template <>
-device_param<devparam_t::EXECUTION_CAPABILITIES>::value_type
-device::info<devparam_t::EXECUTION_CAPABILITIES>() const;
-
-template <>
-device_param<devparam_t::EXTENSIONS>::value_type
-device::info<devparam_t::EXTENSIONS>() const;
-
-template <> struct device_param<devparam_t::GLOBAL_MEM_CACHE_SIZE> {
-  typedef uint64_t value_type;
-};
-template <>
-device_param<devparam_t::GLOBAL_MEM_CACHE_SIZE>::value_type
-device::info<devparam_t::GLOBAL_MEM_CACHE_SIZE>() const;
-
-template <> struct device_param<devparam_t::GLOBAL_MEM_CACHE_TYPE> {
-  typedef devmem_cache_t value_type;
-};
-template <>
-device_param<devparam_t::GLOBAL_MEM_CACHE_TYPE>::value_type
-device::info<devparam_t::GLOBAL_MEM_CACHE_TYPE>() const;
-
-template <> struct device_param<devparam_t::GLOBAL_MEM_CACHELINE_SIZE> {
-  typedef uint32_t value_type;
-};
-template <>
-device_param<devparam_t::GLOBAL_MEM_CACHELINE_SIZE>::value_type
-device::info<devparam_t::GLOBAL_MEM_CACHELINE_SIZE>() const;
-
-template <> struct device_param<devparam_t::GLOBAL_MEM_SIZE> {
-  typedef uint64_t value_type;
-};
-template <>
-device_param<devparam_t::GLOBAL_MEM_SIZE>::value_type
-device::info<devparam_t::GLOBAL_MEM_SIZE>() const;
-
-template <> struct device_param<devparam_t::IMAGE2D_MAX_HEIGHT> {
-  typedef std::size_t value_type;
-};
-template <>
-device_param<devparam_t::IMAGE2D_MAX_HEIGHT>::value_type
-device::info<devparam_t::IMAGE2D_MAX_HEIGHT>() const;
-
-template <> struct device_param<devparam_t::IMAGE2D_MAX_WIDTH> {
-  typedef std::size_t value_type;
-};
-template <>
-device_param<devparam_t::IMAGE2D_MAX_WIDTH>::value_type
-device::info<devparam_t::IMAGE2D_MAX_WIDTH>() const;
-
-template <> struct device_param<devparam_t::IMAGE3D_MAX_DEPTH> {
-  typedef std::size_t value_type;
-};
-template <>
-device_param<devparam_t::IMAGE3D_MAX_DEPTH>::value_type
-device::info<devparam_t::IMAGE3D_MAX_DEPTH>() const;
-
-template <> struct device_param<devparam_t::IMAGE3D_MAX_HEIGHT> {
-  typedef std::size_t value_type;
-};
-template <>
-device_param<devparam_t::IMAGE3D_MAX_HEIGHT>::value_type
-device::info<devparam_t::IMAGE3D_MAX_HEIGHT>() const;
-
-template <> struct device_param<devparam_t::IMAGE3D_MAX_WIDTH> {
-  typedef std::size_t value_type;
-};
-template <>
-device_param<devparam_t::IMAGE3D_MAX_WIDTH>::value_type
-device::info<devparam_t::IMAGE3D_MAX_WIDTH>() const;
-
-template <> struct device_param<devparam_t::IMAGE_SUPPORT> {
-  typedef bool value_type;
-};
-template <>
-device_param<devparam_t::IMAGE_SUPPORT>::value_type
-device::info<devparam_t::IMAGE_SUPPORT>() const;
-
-template <> struct device_param<devparam_t::LOCAL_MEM_SIZE> {
-  typedef uint64_t value_type;
-};
-template <>
-device_param<devparam_t::LOCAL_MEM_SIZE>::value_type
-device::info<devparam_t::LOCAL_MEM_SIZE>() const;
-
-template <> struct device_param<devparam_t::LOCAL_MEM_TYPE> {
-  typedef devlocal_mem_t value_type;
-};
-template <>
-device_param<devparam_t::LOCAL_MEM_TYPE>::value_type
-device::info<devparam_t::LOCAL_MEM_TYPE>() const;
-
-template <> struct device_param<devparam_t::MAX_CLOCK_FREQUENCY> {
-  typedef uint32_t value_type;
-};
-template <>
-device_param<devparam_t::MAX_CLOCK_FREQUENCY>::value_type
-device::info<devparam_t::MAX_CLOCK_FREQUENCY>() const;
-
-template <> struct device_param<devparam_t::MAX_COMPUTE_UNITS> {
-  typedef uint32_t value_type;
-};
-template <>
-device_param<devparam_t::MAX_COMPUTE_UNITS>::value_type
-device::info<devparam_t::MAX_COMPUTE_UNITS>() const;
-
-template <> struct device_param<devparam_t::MAX_CONSTANT_ARGS> {
-  typedef uint32_t value_type;
-};
-template <>
-device_param<devparam_t::MAX_CONSTANT_ARGS>::value_type
-device::info<devparam_t::MAX_CONSTANT_ARGS>() const;
-
-template <> struct device_param<devparam_t::MAX_CONSTANT_BUFFER_SIZE> {
-  typedef uint64_t value_type;
-};
-template <>
-device_param<devparam_t::MAX_CONSTANT_BUFFER_SIZE>::value_type
-device::info<devparam_t::MAX_CONSTANT_BUFFER_SIZE>() const;
-
-template <> struct device_param<devparam_t::MAX_MEM_ALLOC_SIZE> {
-  typedef uint64_t value_type;
-};
-template <>
-device_param<devparam_t::MAX_MEM_ALLOC_SIZE>::value_type
-device::info<devparam_t::MAX_MEM_ALLOC_SIZE>() const;
-
-template <> struct device_param<devparam_t::MAX_PARAMETER_SIZE> {
-  typedef std::size_t value_type;
-};
-template <>
-device_param<devparam_t::MAX_PARAMETER_SIZE>::value_type
-device::info<devparam_t::MAX_PARAMETER_SIZE>() const;
-
+__TEUTHID_CLB_DEVICE_INFO_SPEC(ADDRESS_BITS, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(AVAILABLE, bool)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(BUILT_IN_KERNELS, std::string)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(COMPILER_AVAILABLE, bool)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(DOUBLE_FP_CONFIG, devfp_config_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(ENDIAN_LITTLE, bool)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(ERROR_CORRECTION_SUPPORT, bool)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(EXECUTION_CAPABILITIES, devexec_caps_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(EXTENSIONS, std::string)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(GLOBAL_MEM_CACHE_SIZE, uint64_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(GLOBAL_MEM_CACHE_TYPE, devmem_cache_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(GLOBAL_MEM_CACHELINE_SIZE, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(GLOBAL_MEM_SIZE, uint64_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(IMAGE2D_MAX_HEIGHT, std::size_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(IMAGE2D_MAX_WIDTH, std::size_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(IMAGE3D_MAX_DEPTH, std::size_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(IMAGE3D_MAX_HEIGHT, std::size_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(IMAGE3D_MAX_WIDTH, std::size_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(IMAGE_SUPPORT, bool)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(LOCAL_MEM_SIZE, uint64_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(LOCAL_MEM_TYPE, devlocal_mem_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(MAX_CLOCK_FREQUENCY, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(MAX_COMPUTE_UNITS, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(MAX_CONSTANT_ARGS, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(MAX_CONSTANT_BUFFER_SIZE, uint64_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(MAX_MEM_ALLOC_SIZE, uint64_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(MAX_PARAMETER_SIZE, std::size_t)
+#undef __TEUTHID_CLB_DEVICE_INFO_SPEC
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb
 } // namespace teuthid
