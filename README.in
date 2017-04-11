@@ -4,10 +4,7 @@ connected networks.
 Cross-platform execution in floating-point numbers are supported with more
 range and precision than C's ordinary built-in types.
 The framework is designed to support multi-core CPU/GPGPU computing platforms
-based on OpenCL and using Boost, free portable C++ source libraries.
-
-Teuthid was inspired by the project FANN (http://leenissen.dk/fann/wp/).
-Thank you, Mr. Steffen Nissen!
+based on OpenCL.
 
 This is version @teuthid_VERSION@ of the framework (under development). 
 The sources are available from https://github.com/teuthid/teuthid.
@@ -29,8 +26,7 @@ This project requires:
   * GMP library, version @GMP_REQUIRED_VERSION@ or higher.
   * MPFR library, version @MPFR_REQUIRED_VERSION@ or higher.
   * [optional] OpenCL library and OpenCL C++ bindings.
-  * [optional] ArrayFire libraries, version @ArrayFire_REQUIRED_VERSION@ or higher.
-
+  
   
 == 2. BUILDING ==
  
@@ -45,11 +41,9 @@ by CMake - it has not, so please do not delete that file.
 Available CMake options for building the framework are:
   * BUILD_SHARED_LIBS - Build shared libraries. Default is ON.
   * BUILD_STATIC_LIBS - Build static libraries. Default is OFF.
-  * BUILD_WITH_OPENCL - Build with OpenCL support and Boost.Compute.
-                        Default is ON.
+  * BUILD_WITH_OPENCL - Build with OpenCL. Default is ON.
   * CHECK_OPENCL_DEVICES - Check for working OpenCL platforms/devices. 
                            Default is OFF.
-  * BUILD_WITH_ARRAYFIRE - Build with ArrayFire. Default is OFF.
   * BUILD_TESTS - Build unit tests. Default is ON.
   * BUILD_DOCS - Build HTML documentation using Doxygen. Default is ON.
   * BUILD_EXAMPLES - Build examples. Default is OFF.
