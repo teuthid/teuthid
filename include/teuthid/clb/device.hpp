@@ -191,6 +191,7 @@ public:
   std::size_t max_work_group_size() const;
   uint32_t max_work_item_dimensions() const;
   std::string name() const;
+  template <typename T> uint32_t native_vector_width() const { return 0; }
 
   bool operator==(const device &other) const { return id_ == other.id_; }
   bool operator!=(const device &other) const { return id_ != other.id_; }
@@ -210,7 +211,7 @@ private:
 };
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-// specialization of device_param<>::value_type info()
+// specialization of device::info<>()
 #define __TEUTHID_CLB_DEVICE_INFO_SPEC(PARAM, VALUE_TYPE)                      \
   template <> struct device_param<devparam_t::PARAM> {                         \
     typedef VALUE_TYPE value_type;                                             \
@@ -265,6 +266,19 @@ __TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_FLOAT, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_DOUBLE, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_HALF, uint32_t)
 #undef __TEUTHID_CLB_DEVICE_INFO_SPEC
+
+// specialization of device::native_vector_width<>()
+template <> uint32_t device::native_vector_width<int8_t>() const;
+template <> uint32_t device::native_vector_width<uint8_t>() const;
+template <> uint32_t device::native_vector_width<int16_t>() const;
+template <> uint32_t device::native_vector_width<uint16_t>() const;
+template <> uint32_t device::native_vector_width<int32_t>() const;
+template <> uint32_t device::native_vector_width<uint32_t>() const;
+template <> uint32_t device::native_vector_width<int64_t>() const;
+template <> uint32_t device::native_vector_width<uint64_t>() const;
+template <> uint32_t device::native_vector_width<float16_t>() const;
+template <> uint32_t device::native_vector_width<float32_t>() const;
+template <> uint32_t device::native_vector_width<float64_t>() const;
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb
 } // namespace teuthid

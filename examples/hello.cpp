@@ -129,8 +129,21 @@ int main() {
         std::cout << "    Global memory cache line: "
                   << system::to_string(__device.global_mem_cache_line_size());
         std::cout << std::endl;
-        std::cout << "    Image support: "
-                  << yesno(__device.info<clb::devparam_t::IMAGE_SUPPORT>());
+        std::cout
+            << "    Native vector width:  char="
+            << system::to_string(__device.native_vector_width<int8_t>())
+            << "  short="
+            << system::to_string(__device.native_vector_width<int16_t>())
+            << "  int="
+            << system::to_string(__device.native_vector_width<int32_t>())
+            << "  long="
+            << system::to_string(__device.native_vector_width<int64_t>())
+            << "  half="
+            << system::to_string(__device.native_vector_width<float16_t>())
+            << "  float="
+            << system::to_string(__device.native_vector_width<float32_t>())
+            << "  double="
+            << system::to_string(__device.native_vector_width<float64_t>());
         std::cout << std::endl;
       }
     }

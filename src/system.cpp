@@ -159,13 +159,15 @@ std::string system::to_string(const std::vector<std::string> &value) {
   return std::string(__str);
 }
 
+#if defined(TEUTHID_WITH_OPENCL)
 template <> std::string system::to_string(const clb::device &value) {
   return std::string(value.name());
 }
-
 template <> std::string system::to_string(const clb::platform &value) {
   return std::string(value.name());
 }
+#endif // TEUTHID_WITH_OPENCL
+
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 std::size_t system::split_string(const std::string &str,

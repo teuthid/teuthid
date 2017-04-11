@@ -72,7 +72,6 @@ const platform &device::get_platform(device_id_t device_id) {
 }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-
 #define __TEUTHID_CLB_DEVICE_INFO(PARAM)                                       \
   template <>                                                                  \
   device_param<devparam_t::PARAM>::value_type                                  \
@@ -206,6 +205,24 @@ uint32_t device::max_work_item_dimensions() const {
   return info<devparam_t::MAX_WORK_ITEM_DIMENSIONS>();
 }
 
-std::string device::name() const {
-  return info<devparam_t::NAME>();
-}
+std::string device::name() const { return info<devparam_t::NAME>(); }
+
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+#define __TEUTHID_CLB_DEVICE_NATIVE_VECTOR_WIDTH(TYPE, PARAM)                  \
+  template <> uint32_t device::native_vector_width<TYPE>() const {             \
+    return info<devparam_t::PARAM>();                                          \
+  }
+
+__TEUTHID_CLB_DEVICE_NATIVE_VECTOR_WIDTH(int8_t, NATIVE_VECTOR_WIDTH_CHAR);
+__TEUTHID_CLB_DEVICE_NATIVE_VECTOR_WIDTH(uint8_t, NATIVE_VECTOR_WIDTH_CHAR);
+__TEUTHID_CLB_DEVICE_NATIVE_VECTOR_WIDTH(int16_t, NATIVE_VECTOR_WIDTH_SHORT);
+__TEUTHID_CLB_DEVICE_NATIVE_VECTOR_WIDTH(uint16_t, NATIVE_VECTOR_WIDTH_SHORT);
+__TEUTHID_CLB_DEVICE_NATIVE_VECTOR_WIDTH(int32_t, NATIVE_VECTOR_WIDTH_INT);
+__TEUTHID_CLB_DEVICE_NATIVE_VECTOR_WIDTH(uint32_t, NATIVE_VECTOR_WIDTH_INT);
+__TEUTHID_CLB_DEVICE_NATIVE_VECTOR_WIDTH(int64_t, NATIVE_VECTOR_WIDTH_LONG);
+__TEUTHID_CLB_DEVICE_NATIVE_VECTOR_WIDTH(uint64_t, NATIVE_VECTOR_WIDTH_LONG);
+__TEUTHID_CLB_DEVICE_NATIVE_VECTOR_WIDTH(float16_t, NATIVE_VECTOR_WIDTH_HALF);
+__TEUTHID_CLB_DEVICE_NATIVE_VECTOR_WIDTH(float32_t, NATIVE_VECTOR_WIDTH_FLOAT);
+__TEUTHID_CLB_DEVICE_NATIVE_VECTOR_WIDTH(float64_t, NATIVE_VECTOR_WIDTH_DOUBLE);
+#undef __TEUTHID_CLB_DEVICE_NATIVE_VECTOR_WIDTH
+#endif // DOXYGEN_SHOULD_SKIP_THIS

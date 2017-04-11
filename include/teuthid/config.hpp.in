@@ -76,6 +76,31 @@ constexpr std::size_t float256_prec = 237;
 @typedef_float_128_t@
 typedef mpfr_t float256_t;
 
+#if defined(TEUTHID_WITH_OPENCL)
+namespace clb {
+using int8_t = teuthid::int8_t;
+using int16_t = teuthid::int16_t;
+using int32_t = teuthid::int32_t;
+using int64_t = teuthid::int64_t;
+using int128_t = teuthid::int128_t;
+using uint8_t = teuthid::uint8_t;
+using uint16_t = teuthid::uint16_t;
+using uint32_t = teuthid::uint32_t;
+using uint64_t = teuthid::uint64_t;
+using uint128_t = teuthid::uint128_t;
+
+using intptr_t = teuthid::intptr_t;
+using uintptr_t = teuthid::uintptr_t;
+
+using float16_t = teuthid::float16_t;
+using float32_t = teuthid::float32_t;
+using float64_t = teuthid::float64_t;
+using float80_t = teuthid::float80_t;
+using float128_t = teuthid::float128_t;
+using float256_t = teuthid::float256_t;
+}
+#endif // TEUTHID_WITH_OPENCL
+
 } // namespace teuthid
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
