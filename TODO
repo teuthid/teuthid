@@ -1,3 +1,3 @@
-+ implement class floatmp<>
++ implement class floatmp<std:size_t precision>
 + implement class scalar<T value_t, const T& default_value> 
 + implement class mutable_array<T value_t> 
