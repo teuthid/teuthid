@@ -82,7 +82,9 @@ enum class devparam_t {
   NATIVE_VECTOR_WIDTH_LONG = CL_DEVICE_NATIVE_VECTOR_WIDTH_LONG,
   NATIVE_VECTOR_WIDTH_FLOAT = CL_DEVICE_NATIVE_VECTOR_WIDTH_FLOAT,
   NATIVE_VECTOR_WIDTH_DOUBLE = CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE,
-  NATIVE_VECTOR_WIDTH_HALF = CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF
+  NATIVE_VECTOR_WIDTH_HALF = CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF,
+  OPENCL_C_VERSION = CL_DEVICE_OPENCL_C_VERSION,
+  PARTITION_AFFINITY_DOMAIN = CL_DEVICE_PARTITION_AFFINITY_DOMAIN
   /* Not in cl2.hpp:
   CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE
   CL_DEVICE_IL_VERSION
@@ -96,6 +98,19 @@ enum class devparam_t {
   CL_DEVICE_MAX_READ_WRITE_IMAGE_ARGS
   */
 };
+
+enum class devaffinity_domain_t {
+  NUMA = CL_DEVICE_AFFINITY_DOMAIN_NUMA,
+  L4_CACHE = CL_DEVICE_AFFINITY_DOMAIN_L4_CACHE,
+  L3_CACHE = CL_DEVICE_AFFINITY_DOMAIN_L3_CACHE,
+  L2_CACHE = CL_DEVICE_AFFINITY_DOMAIN_L2_CACHE,
+  L1_CACHE = CL_DEVICE_AFFINITY_DOMAIN_L1_CACHE,
+  NEXT_PARTITIONABLE = CL_DEVICE_AFFINITY_DOMAIN_NEXT_PARTITIONABLE
+};
+enum class devexec_caps_t {
+  KERNEL = CL_EXEC_KERNEL,
+  NATIVE_KERNEL = CL_EXEC_NATIVE_KERNEL
+};
 enum class devfp_config_t {
   DENORM = CL_FP_DENORM,
   INF_NAN = CL_FP_INF_NAN,
@@ -105,10 +120,6 @@ enum class devfp_config_t {
   FMA = CL_FP_FMA,
   SOFT_FLOAT = CL_FP_SOFT_FLOAT,
   CORRECTLY_ROUNDED_DIVIDE_SQRT = CL_FP_CORRECTLY_ROUNDED_DIVIDE_SQRT
-};
-enum class devexec_caps_t {
-  KERNEL = CL_EXEC_KERNEL,
-  NATIVE_KERNEL = CL_EXEC_NATIVE_KERNEL
 };
 enum class devlocal_mem_t {
   LOCAL = CL_LOCAL,
@@ -171,7 +182,6 @@ public:
   }
   const std::string &version() const noexcept { return version_; }
   const std::string &driver_version() const noexcept { return driver_version_; }
-  const std::string &c_version() const noexcept { return c_version_; }
 
   uint32_t address_bits() const;
   bool is_available() const;
@@ -192,6 +202,7 @@ public:
   uint32_t max_work_item_dimensions() const;
   std::string name() const;
   template <typename T> uint32_t native_vector_width() const { return 0; }
+  std::string c_version() const;
 
   bool operator==(const device &other) const { return id_ == other.id_; }
   bool operator!=(const device &other) const { return id_ != other.id_; }
@@ -207,7 +218,6 @@ private:
   devtype_t devtype_;          // CL_DEVICE_TYPE
   std::string version_;        // CL_DEVICE_VERSION
   std::string driver_version_; // CL_DRIVER_VERSION
-  std::string c_version_;      // CL_DEVICE_OPENCL_C_VERSION
 };
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -265,6 +275,8 @@ __TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_LONG, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_FLOAT, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_DOUBLE, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_HALF, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(OPENCL_C_VERSION, std::string)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(PARTITION_AFFINITY_DOMAIN, devaffinity_domain_t)
 #undef __TEUTHID_CLB_DEVICE_INFO_SPEC
 
 // specialization of device::native_vector_width<>()
