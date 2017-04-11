@@ -34,11 +34,7 @@
 #cmakedefine BOOST_COMPUTE_USE_OFFLINE_CACHE
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
-#cmakedefine TEUTHID_USE_ARRAYFIRE
-#cmakedefine ARRAYFIRE_CUDA_BACKEND
-#cmakedefine ARRAYFIRE_OPENCL_BACKEND
-#cmakedefine ARRAYFIRE_CPU_BACKEND
-
+#include <cstddef>
 #include <cstdint>
 #include <mpfr.h>
 
@@ -52,12 +48,12 @@
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 namespace teuthid {
 
-constexpr unsigned float16_prec = 11;
-constexpr unsigned float32_prec = 24;
-constexpr unsigned float64_prec = 53;
-constexpr unsigned float80_prec = 64;
-constexpr unsigned float128_prec = 113;
-constexpr unsigned float256_prec = 237;
+constexpr std::size_t float16_prec = 11;
+constexpr std::size_t float32_prec = 24;
+constexpr std::size_t float64_prec = 53;
+constexpr std::size_t float80_prec = 64;
+constexpr std::size_t float128_prec = 113;
+constexpr std::size_t float256_prec = 237;
 
 @typedef_int8_t@
 @typedef_int16_t@
