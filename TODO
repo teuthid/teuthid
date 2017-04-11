@@ -1,4 +1,3 @@
-+ implement class mutable_array<T value_t> 
-
++ implement class floatmp<>
 + implement class scalar<T value_t, const T& default_value> 
-  
++ implement class mutable_array<T value_t> 
