@@ -21,12 +21,6 @@
 #include <teuthid/system.hpp>
 using namespace teuthid;
 
-#if defined(TEUTHID_USE_ARRAYFIRE)
-#define cl_backend "ArrayFire"
-#else
-#define cl_backend "Boost.Compute"
-#endif
-
 #if defined(TEUTHID_WITH_OPENCL)
 #include <teuthid/clb/platform.hpp>
 #endif
@@ -47,8 +41,7 @@ int main() {
   std::cout << "  --" << std::endl;
   if (system::have_clb()) {
 #if defined(TEUTHID_WITH_OPENCL)
-    std::cout << "Build with OpenCL (using " << cl_backend << " as a backend)."
-              << std::endl;
+    std::cout << "Build with OpenCL." << std::endl;
 
     // OpenCL platforms ...
     std::cout << "Available OpenCL platform(s): "
