@@ -84,7 +84,8 @@ enum class devparam_t {
   NATIVE_VECTOR_WIDTH_DOUBLE = CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE,
   NATIVE_VECTOR_WIDTH_HALF = CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF,
   OPENCL_C_VERSION = CL_DEVICE_OPENCL_C_VERSION,
-  PARTITION_AFFINITY_DOMAIN = CL_DEVICE_PARTITION_AFFINITY_DOMAIN
+  PARTITION_AFFINITY_DOMAIN = CL_DEVICE_PARTITION_AFFINITY_DOMAIN,
+  PARTITION_PROPERTIES = CL_DEVICE_PARTITION_PROPERTIES
   /* Not in cl2.hpp:
   CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE
   CL_DEVICE_IL_VERSION
@@ -96,6 +97,7 @@ enum class devparam_t {
   CL_DEVICE_MAX_GLOBAL_VARIABLE_SIZE
   CL_DEVICE_MAX_NUM_SUB_GROUPS
   CL_DEVICE_MAX_READ_WRITE_IMAGE_ARGS
+  CL_DEVICE_PARTITION_MAX_SUB_DEVICES
   */
 };
 
@@ -131,6 +133,12 @@ enum class devmem_cache_t {
   READ_ONLY_CACHE = CL_READ_ONLY_CACHE,
   READ_WRITE_CACHE = CL_READ_WRITE_CACHE
 };
+enum class devpartition_property_t {
+  EQUALLY = CL_DEVICE_PARTITION_EQUALLY,
+  BY_COUNTS = CL_DEVICE_PARTITION_BY_COUNTS,
+  BY_AFFINITY_DOMAIN = CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN,
+  NONE = 0
+};
 enum class devtype_t {
   CPU = CL_DEVICE_TYPE_CPU,
   GPU = CL_DEVICE_TYPE_GPU,
@@ -148,6 +156,7 @@ typedef cl_platform_id platform_id_t;
 typedef std::vector<std::string> extensions_t;
 typedef std::vector<std::string> built_in_kernels_t;
 typedef std::vector<std::size_t> max_work_item_sizes_t;
+typedef std::vector<intptr_t> partition_properties_t;
 typedef std::vector<device> devices_t;
 typedef std::vector<platform> platforms_t;
 
@@ -277,6 +286,7 @@ __TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_DOUBLE, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_HALF, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(OPENCL_C_VERSION, std::string)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(PARTITION_AFFINITY_DOMAIN, devaffinity_domain_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(PARTITION_PROPERTIES, partition_properties_t)
 #undef __TEUTHID_CLB_DEVICE_INFO_SPEC
 
 // specialization of device::native_vector_width<>()
