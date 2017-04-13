@@ -138,6 +138,22 @@ int main() {
             << "  double="
             << system::to_string(__device.native_vector_width<float64_t>());
         std::cout << std::endl;
+        std::cout
+            << "    Preferred vector width:  char="
+            << system::to_string(__device.preferred_vector_width<int8_t>())
+            << "  short="
+            << system::to_string(__device.preferred_vector_width<int16_t>())
+            << "  int="
+            << system::to_string(__device.preferred_vector_width<int32_t>())
+            << "  long="
+            << system::to_string(__device.preferred_vector_width<int64_t>())
+            << "  half="
+            << system::to_string(__device.preferred_vector_width<float16_t>())
+            << "  float="
+            << system::to_string(__device.preferred_vector_width<float32_t>())
+            << "  double="
+            << system::to_string(__device.preferred_vector_width<float64_t>());
+        std::cout << std::endl;
       }
     }
 #endif // TEUTHID_WITH_OPENCL

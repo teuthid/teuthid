@@ -94,7 +94,14 @@ enum class devparam_t {
   PREFERRED_INTEROP_USER_SYNC = CL_DEVICE_PREFERRED_INTEROP_USER_SYNC,
   PREFERRED_LOCAL_ATOMIC_ALIGNMENT = CL_DEVICE_PREFERRED_LOCAL_ATOMIC_ALIGNMENT,
   PREFERRED_PLATFORM_ATOMIC_ALIGNMENT =
-      CL_DEVICE_PREFERRED_PLATFORM_ATOMIC_ALIGNMENT
+      CL_DEVICE_PREFERRED_PLATFORM_ATOMIC_ALIGNMENT,
+  PREFERRED_VECTOR_WIDTH_CHAR = CL_DEVICE_PREFERRED_VECTOR_WIDTH_CHAR,
+  PREFERRED_VECTOR_WIDTH_SHORT = CL_DEVICE_PREFERRED_VECTOR_WIDTH_SHORT,
+  PREFERRED_VECTOR_WIDTH_INT = CL_DEVICE_PREFERRED_VECTOR_WIDTH_INT,
+  PREFERRED_VECTOR_WIDTH_LONG = CL_DEVICE_PREFERRED_VECTOR_WIDTH_LONG,
+  PREFERRED_VECTOR_WIDTH_FLOAT = CL_DEVICE_PREFERRED_VECTOR_WIDTH_FLOAT,
+  PREFERRED_VECTOR_WIDTH_DOUBLE = CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE,
+  PREFERRED_VECTOR_WIDTH_HALF = CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF
   /* Not in cl2.hpp:
   CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE
   CL_DEVICE_IL_VERSION
@@ -204,6 +211,7 @@ public:
   uint32_t address_bits() const;
   bool is_available() const;
   built_in_kernels_t built_in_kernels() const;
+  std::string c_version() const;
   bool is_compiler_available() const;
   devfp_config_t double_fp_config() const;
   bool have_double_precision() const;
@@ -220,7 +228,7 @@ public:
   uint32_t max_work_item_dimensions() const;
   std::string name() const;
   template <typename T> uint32_t native_vector_width() const { return 0; }
-  std::string c_version() const;
+  template <typename T> uint32_t preferred_vector_width() const { return 0; }
 
   bool operator==(const device &other) const { return id_ == other.id_; }
   bool operator!=(const device &other) const { return id_ != other.id_; }
@@ -303,6 +311,13 @@ __TEUTHID_CLB_DEVICE_INFO_SPEC(PREFERRED_GLOBAL_ATOMIC_ALIGNMENT, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(PREFERRED_INTEROP_USER_SYNC, bool)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(PREFERRED_LOCAL_ATOMIC_ALIGNMENT, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(PREFERRED_PLATFORM_ATOMIC_ALIGNMENT, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(PREFERRED_VECTOR_WIDTH_CHAR, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(PREFERRED_VECTOR_WIDTH_SHORT, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(PREFERRED_VECTOR_WIDTH_INT, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(PREFERRED_VECTOR_WIDTH_LONG, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(PREFERRED_VECTOR_WIDTH_FLOAT, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(PREFERRED_VECTOR_WIDTH_DOUBLE, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(PREFERRED_VECTOR_WIDTH_HALF, uint32_t)
 #undef __TEUTHID_CLB_DEVICE_INFO_SPEC
 
 // specialization of device::native_vector_width<>()
@@ -317,6 +332,20 @@ template <> uint32_t device::native_vector_width<uint64_t>() const;
 template <> uint32_t device::native_vector_width<float16_t>() const;
 template <> uint32_t device::native_vector_width<float32_t>() const;
 template <> uint32_t device::native_vector_width<float64_t>() const;
+
+// specialization of device::preferred_vector_width<>()
+template <> uint32_t device::preferred_vector_width<int8_t>() const;
+template <> uint32_t device::preferred_vector_width<uint8_t>() const;
+template <> uint32_t device::preferred_vector_width<int16_t>() const;
+template <> uint32_t device::preferred_vector_width<uint16_t>() const;
+template <> uint32_t device::preferred_vector_width<int32_t>() const;
+template <> uint32_t device::preferred_vector_width<uint32_t>() const;
+template <> uint32_t device::preferred_vector_width<int64_t>() const;
+template <> uint32_t device::preferred_vector_width<uint64_t>() const;
+template <> uint32_t device::preferred_vector_width<float16_t>() const;
+template <> uint32_t device::preferred_vector_width<float32_t>() const;
+template <> uint32_t device::preferred_vector_width<float64_t>() const;
+
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb
 } // namespace teuthid

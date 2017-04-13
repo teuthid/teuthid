@@ -140,6 +140,13 @@ __TEUTHID_CLB_DEVICE_INFO(PREFERRED_GLOBAL_ATOMIC_ALIGNMENT);
 __TEUTHID_CLB_DEVICE_INFO(PREFERRED_INTEROP_USER_SYNC);
 __TEUTHID_CLB_DEVICE_INFO(PREFERRED_LOCAL_ATOMIC_ALIGNMENT);
 __TEUTHID_CLB_DEVICE_INFO(PREFERRED_PLATFORM_ATOMIC_ALIGNMENT);
+__TEUTHID_CLB_DEVICE_INFO(PREFERRED_VECTOR_WIDTH_CHAR);
+__TEUTHID_CLB_DEVICE_INFO(PREFERRED_VECTOR_WIDTH_SHORT);
+__TEUTHID_CLB_DEVICE_INFO(PREFERRED_VECTOR_WIDTH_INT);
+__TEUTHID_CLB_DEVICE_INFO(PREFERRED_VECTOR_WIDTH_LONG);
+__TEUTHID_CLB_DEVICE_INFO(PREFERRED_VECTOR_WIDTH_FLOAT);
+__TEUTHID_CLB_DEVICE_INFO(PREFERRED_VECTOR_WIDTH_DOUBLE);
+__TEUTHID_CLB_DEVICE_INFO(PREFERRED_VECTOR_WIDTH_HALF);
 #undef __TEUTHID_CLB_DEVICE_INFO
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -153,6 +160,10 @@ built_in_kernels_t device::built_in_kernels() const {
   built_in_kernels_t __v;
   system::split_string(info<devparam_t::BUILT_IN_KERNELS>(), __v, ';');
   return __v;
+}
+
+std::string device::c_version() const {
+  return info<devparam_t::OPENCL_C_VERSION>().substr(9);
 }
 
 bool device::is_compiler_available() const {
@@ -235,8 +246,33 @@ __TEUTHID_CLB_DEVICE_NATIVE_VECTOR_WIDTH(float16_t, NATIVE_VECTOR_WIDTH_HALF);
 __TEUTHID_CLB_DEVICE_NATIVE_VECTOR_WIDTH(float32_t, NATIVE_VECTOR_WIDTH_FLOAT);
 __TEUTHID_CLB_DEVICE_NATIVE_VECTOR_WIDTH(float64_t, NATIVE_VECTOR_WIDTH_DOUBLE);
 #undef __TEUTHID_CLB_DEVICE_NATIVE_VECTOR_WIDTH
-#endif // DOXYGEN_SHOULD_SKIP_THIS
 
-std::string device::c_version() const {
-  return info<devparam_t::OPENCL_C_VERSION>().substr(9);
-}
+#define __TEUTHID_CLB_DEVICE_PREFERRED_VECTOR_WIDTH(TYPE, PARAM)               \
+  template <> uint32_t device::preferred_vector_width<TYPE>() const {          \
+    return info<devparam_t::PARAM>();                                          \
+  }
+
+__TEUTHID_CLB_DEVICE_PREFERRED_VECTOR_WIDTH(int8_t,
+                                            PREFERRED_VECTOR_WIDTH_CHAR);
+__TEUTHID_CLB_DEVICE_PREFERRED_VECTOR_WIDTH(uint8_t,
+                                            PREFERRED_VECTOR_WIDTH_CHAR);
+__TEUTHID_CLB_DEVICE_PREFERRED_VECTOR_WIDTH(int16_t,
+                                            PREFERRED_VECTOR_WIDTH_SHORT);
+__TEUTHID_CLB_DEVICE_PREFERRED_VECTOR_WIDTH(uint16_t,
+                                            PREFERRED_VECTOR_WIDTH_SHORT);
+__TEUTHID_CLB_DEVICE_PREFERRED_VECTOR_WIDTH(int32_t,
+                                            PREFERRED_VECTOR_WIDTH_INT);
+__TEUTHID_CLB_DEVICE_PREFERRED_VECTOR_WIDTH(uint32_t,
+                                            PREFERRED_VECTOR_WIDTH_INT);
+__TEUTHID_CLB_DEVICE_PREFERRED_VECTOR_WIDTH(int64_t,
+                                            PREFERRED_VECTOR_WIDTH_LONG);
+__TEUTHID_CLB_DEVICE_PREFERRED_VECTOR_WIDTH(uint64_t,
+                                            PREFERRED_VECTOR_WIDTH_LONG);
+__TEUTHID_CLB_DEVICE_PREFERRED_VECTOR_WIDTH(float16_t,
+                                            PREFERRED_VECTOR_WIDTH_HALF);
+__TEUTHID_CLB_DEVICE_PREFERRED_VECTOR_WIDTH(float32_t,
+                                            PREFERRED_VECTOR_WIDTH_FLOAT);
+__TEUTHID_CLB_DEVICE_PREFERRED_VECTOR_WIDTH(float64_t,
+                                            PREFERRED_VECTOR_WIDTH_DOUBLE);
+#undef __TEUTHID_CLB_DEVICE_PREFERRED_VECTOR_WIDTH
+#endif // DOXYGEN_SHOULD_SKIP_THIS

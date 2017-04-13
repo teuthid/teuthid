@@ -98,7 +98,29 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
                  "native_vector_width<int64_t>()");
       BOOST_TEST(__device.native_vector_width<uint64_t>() > 0,
                  "native_vector_width<uint64_t>()");
+      BOOST_TEST(__device.native_vector_width<float32_t>() > 0,
+                 "native_vector_width<float32_t>()");
 
+      BOOST_TEST(__device.preferred_vector_width<bool>() == 0,
+                 "preferred_vector_width<>()");
+      BOOST_TEST(__device.preferred_vector_width<int8_t>() > 0,
+                 "preferred_vector_width<int8_t>()");
+      BOOST_TEST(__device.preferred_vector_width<uint8_t>() > 0,
+                 "preferred_vector_width<int8_t>()");
+      BOOST_TEST(__device.preferred_vector_width<int16_t>() > 0,
+                 "preferred_vector_width<int16_t>()");
+      BOOST_TEST(__device.preferred_vector_width<uint16_t>() > 0,
+                 "preferred_vector_width<uint16_t>()");
+      BOOST_TEST(__device.preferred_vector_width<int32_t>() > 0,
+                 "preferred_vector_width<int32_t>()");
+      BOOST_TEST(__device.preferred_vector_width<uint32_t>() > 0,
+                 "preferred_vector_width<uint32_t>()");
+      BOOST_TEST(__device.preferred_vector_width<int64_t>() > 0,
+                 "preferred_vector_width<int64_t>()");
+      BOOST_TEST(__device.preferred_vector_width<uint64_t>() > 0,
+                 "preferred_vector_width<uint64_t>()");
+      BOOST_TEST(__device.preferred_vector_width<float32_t>() > 0,
+                 "preferred_vector_width<float32_t>()");
 
       BOOST_TEST(__device.get_platform().id() == __platform.id(),
                  "get_platform()");
