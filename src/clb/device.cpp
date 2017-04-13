@@ -147,6 +147,7 @@ __TEUTHID_CLB_DEVICE_INFO(PREFERRED_VECTOR_WIDTH_LONG);
 __TEUTHID_CLB_DEVICE_INFO(PREFERRED_VECTOR_WIDTH_FLOAT);
 __TEUTHID_CLB_DEVICE_INFO(PREFERRED_VECTOR_WIDTH_DOUBLE);
 __TEUTHID_CLB_DEVICE_INFO(PREFERRED_VECTOR_WIDTH_HALF);
+__TEUTHID_CLB_DEVICE_INFO(PROFILE);
 #undef __TEUTHID_CLB_DEVICE_INFO
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -276,3 +277,13 @@ __TEUTHID_CLB_DEVICE_PREFERRED_VECTOR_WIDTH(float64_t,
                                             PREFERRED_VECTOR_WIDTH_DOUBLE);
 #undef __TEUTHID_CLB_DEVICE_PREFERRED_VECTOR_WIDTH
 #endif // DOXYGEN_SHOULD_SKIP_THIS
+
+devprofile_t device::profile() const {
+  std::string __s = info<devparam_t::PROFILE>();
+  if (__s == std::string("FULL_PROFILE"))
+    return devprofile_t::FULL;
+  else if (__s == std::string("EMBEDDED_PROFILE"))
+    return devprofile_t::EMBEDDED;
+  else
+    throw invalid_device("unknown device profile");
+}

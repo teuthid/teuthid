@@ -101,7 +101,8 @@ enum class devparam_t {
   PREFERRED_VECTOR_WIDTH_LONG = CL_DEVICE_PREFERRED_VECTOR_WIDTH_LONG,
   PREFERRED_VECTOR_WIDTH_FLOAT = CL_DEVICE_PREFERRED_VECTOR_WIDTH_FLOAT,
   PREFERRED_VECTOR_WIDTH_DOUBLE = CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE,
-  PREFERRED_VECTOR_WIDTH_HALF = CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF
+  PREFERRED_VECTOR_WIDTH_HALF = CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF,
+  PROFILE = CL_DEVICE_PROFILE
   /* Not in cl2.hpp:
   CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE
   CL_DEVICE_IL_VERSION
@@ -114,6 +115,7 @@ enum class devparam_t {
   CL_DEVICE_MAX_NUM_SUB_GROUPS
   CL_DEVICE_MAX_READ_WRITE_IMAGE_ARGS
   CL_DEVICE_PARTITION_MAX_SUB_DEVICES
+  CL_DEVICE_PRINTF_BUFFER_SIZE
   */
 };
 
@@ -155,6 +157,7 @@ enum class devpartition_property_t {
   BY_AFFINITY_DOMAIN = CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN,
   NONE = 0
 };
+enum class devprofile_t { FULL, EMBEDDED };
 enum class devtype_t {
   CPU = CL_DEVICE_TYPE_CPU,
   GPU = CL_DEVICE_TYPE_GPU,
@@ -192,13 +195,6 @@ public:
 
   const device_id_t &id() const noexcept { return id_; }
   const platform &get_platform() const;
-  const profile_t &profile() const noexcept { return profile_; }
-  bool is_full_profile() const noexcept {
-    return (profile_ == profile_t::FULL_PROFILE);
-  }
-  bool is_embedded_profile() const noexcept {
-    return (profile_ == profile_t::EMBEDDED_PROFILE);
-  }
   const devtype_t &devtype() const noexcept { return devtype_; }
   bool is_devtype_cpu() const noexcept { return (devtype_ == devtype_t::CPU); }
   bool is_devtype_gpu() const noexcept { return (devtype_ == devtype_t::GPU); }
@@ -229,6 +225,11 @@ public:
   std::string name() const;
   template <typename T> uint32_t native_vector_width() const { return 0; }
   template <typename T> uint32_t preferred_vector_width() const { return 0; }
+  devprofile_t profile() const;
+  bool is_full_profile() const { return (profile() == devprofile_t::FULL); }
+  bool is_embedded_profile() const {
+    return (profile() == devprofile_t::EMBEDDED);
+  }
 
   bool operator==(const device &other) const { return id_ == other.id_; }
   bool operator!=(const device &other) const { return id_ != other.id_; }
@@ -240,7 +241,6 @@ private:
 
   device_id_t id_;             // device ID
   platform_id_t platform_id_;  // platform ID
-  profile_t profile_;          // CL_DEVICE_PROFILE
   devtype_t devtype_;          // CL_DEVICE_TYPE
   std::string version_;        // CL_DEVICE_VERSION
   std::string driver_version_; // CL_DRIVER_VERSION
@@ -318,6 +318,7 @@ __TEUTHID_CLB_DEVICE_INFO_SPEC(PREFERRED_VECTOR_WIDTH_LONG, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(PREFERRED_VECTOR_WIDTH_FLOAT, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(PREFERRED_VECTOR_WIDTH_DOUBLE, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(PREFERRED_VECTOR_WIDTH_HALF, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(PROFILE, std::string)
 #undef __TEUTHID_CLB_DEVICE_INFO_SPEC
 
 // specialization of device::native_vector_width<>()

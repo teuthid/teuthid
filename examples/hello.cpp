@@ -82,8 +82,6 @@ int main() {
           __str = "FULL PROFILE";
         else if (__device.is_embedded_profile())
           __str = "EMBEDDED PROFILE";
-        else
-          __str = "UNKNOWN PROFILE";
         std::cout << "    Device Profile: " << __str << std::endl;
         if (__device.is_devtype_cpu())
           __str = "CPU";
