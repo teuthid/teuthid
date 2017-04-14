@@ -123,6 +123,9 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
       BOOST_TEST(__device.preferred_vector_width<float32_t>() > 0,
                  "preferred_vector_width<float32_t>()");
 
+      BOOST_TEST(__device.profiling_timer_resolution() > 0,
+                 "profiling_timer_resolution()");
+
       BOOST_TEST(__device.get_platform().id() == __platform.id(),
                  "get_platform()");
       BOOST_TEST((device::get_platform(__device.id()) == __platform),
