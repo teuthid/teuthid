@@ -251,8 +251,8 @@ public:
   devfp_config_t single_fp_config() const;
   bool has_single_precision() const;
   devtype_t devtype() const;
-  bool is_cpu() const noexcept { return (devtype() == devtype_t::CPU); }
-  bool is_gpu() const noexcept { return (devtype() == devtype_t::GPU); }
+  bool is_cpu() const { return (devtype() == devtype_t::CPU); }
+  bool is_gpu() const { return (devtype() == devtype_t::GPU); }
 
 
   bool operator==(const device &other) const { return id_ == other.id_; }
