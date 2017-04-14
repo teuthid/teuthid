@@ -32,9 +32,9 @@
 using namespace teuthid;
 
 #if defined(TEUTHID_WITH_OPENCL)
-thread_local bool system::use_clb_ = system::have_clb();
+thread_local bool system::clb_ = system::has_clb();
 #else
-thread_local bool system::use_clb_ = false;
+thread_local bool system::clb_ = false;
 #endif
 
 std::string system::version_ = std::string(TEUTHID_VERSION);
@@ -49,7 +49,7 @@ bool system::is_required_version(uint8_t major, uint8_t minor) noexcept {
   return (!(__required > __actual));
 }
 
-bool system::have_clb() {
+bool system::has_clb() {
 #if defined(TEUTHID_WITH_OPENCL)
   try {
     for (auto __platform : clb::platform::platforms())
@@ -62,10 +62,10 @@ bool system::have_clb() {
   return false;
 }
 
-bool system::use_clb(bool enabled) {
-  if (system::have_clb())
-    system::use_clb_ = enabled;
-  return system::use_clb_;
+bool system::uses_clb(bool enabled) {
+  if (system::has_clb())
+    system::clb_ = enabled;
+  return system::clb_;
 }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS

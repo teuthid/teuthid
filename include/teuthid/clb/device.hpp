@@ -37,7 +37,7 @@ namespace clb {
 
 enum profile_t { FULL_PROFILE, EMBEDDED_PROFILE, UNKNOWN_PROFILE };
 
-enum class devparam_t {
+enum class devparam_t : uint64_t {
   ADDRESS_BITS = CL_DEVICE_ADDRESS_BITS,
   AVAILABLE = CL_DEVICE_AVAILABLE,
   BUILT_IN_KERNELS = CL_DEVICE_BUILT_IN_KERNELS,
@@ -107,7 +107,9 @@ enum class devparam_t {
   QUEUE_ON_DEVICE_MAX_SIZE = CL_DEVICE_QUEUE_ON_DEVICE_MAX_SIZE,
   QUEUE_ON_DEVICE_PREFERRED_SIZE = CL_DEVICE_QUEUE_ON_DEVICE_PREFERRED_SIZE,
   QUEUE_ON_DEVICE_PROPERTIES = CL_DEVICE_QUEUE_ON_DEVICE_PROPERTIES,
-  QUEUE_ON_HOST_PROPERTIES = CL_DEVICE_QUEUE_ON_HOST_PROPERTIES
+  QUEUE_ON_HOST_PROPERTIES = CL_DEVICE_QUEUE_ON_HOST_PROPERTIES,
+  REFERENCE_COUNT = CL_DEVICE_REFERENCE_COUNT,
+  SINGLE_FP_CONFIG = CL_DEVICE_SINGLE_FP_CONFIG
   /* Not in cl2.hpp:
   CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE
   CL_DEVICE_IL_VERSION
@@ -124,7 +126,7 @@ enum class devparam_t {
   */
 };
 
-enum class devaffinity_domain_t {
+enum class devaffinity_domain_t : uint64_t {
   NUMA = CL_DEVICE_AFFINITY_DOMAIN_NUMA,
   L4_CACHE = CL_DEVICE_AFFINITY_DOMAIN_L4_CACHE,
   L3_CACHE = CL_DEVICE_AFFINITY_DOMAIN_L3_CACHE,
@@ -132,15 +134,15 @@ enum class devaffinity_domain_t {
   L1_CACHE = CL_DEVICE_AFFINITY_DOMAIN_L1_CACHE,
   NEXT_PARTITIONABLE = CL_DEVICE_AFFINITY_DOMAIN_NEXT_PARTITIONABLE
 };
-enum class devcommand_queue_properties_t {
+enum class devcommand_queue_properties_t : uint64_t {
   OUT_OF_ORDER_EXEC_MODE_ENABLE = CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE,
   PROFILING_ENABLE = CL_QUEUE_PROFILING_ENABLE
 };
-enum class devexec_caps_t {
+enum class devexec_caps_t : uint64_t {
   KERNEL = CL_EXEC_KERNEL,
   NATIVE_KERNEL = CL_EXEC_NATIVE_KERNEL
 };
-enum class devfp_config_t {
+enum class devfp_config_t : uint64_t {
   DENORM = CL_FP_DENORM,
   INF_NAN = CL_FP_INF_NAN,
   ROUND_TO_NEAREST = CL_FP_ROUND_TO_NEAREST,
@@ -150,24 +152,24 @@ enum class devfp_config_t {
   SOFT_FLOAT = CL_FP_SOFT_FLOAT,
   CORRECTLY_ROUNDED_DIVIDE_SQRT = CL_FP_CORRECTLY_ROUNDED_DIVIDE_SQRT
 };
-enum class devlocal_mem_t {
+enum class devlocal_mem_t : uint64_t {
   LOCAL = CL_LOCAL,
   GLOBAL = CL_GLOBAL,
   NONE = CL_NONE
 };
-enum class devmem_cache_t {
+enum class devmem_cache_t : uint64_t {
   NONE = CL_NONE,
   READ_ONLY_CACHE = CL_READ_ONLY_CACHE,
   READ_WRITE_CACHE = CL_READ_WRITE_CACHE
 };
-enum class devpartition_property_t {
+enum class devpartition_property_t : uint64_t {
   EQUALLY = CL_DEVICE_PARTITION_EQUALLY,
   BY_COUNTS = CL_DEVICE_PARTITION_BY_COUNTS,
   BY_AFFINITY_DOMAIN = CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN,
   NONE = 0
 };
-enum class devprofile_t { FULL, EMBEDDED };
-enum class devtype_t {
+enum class devprofile_t : uint64_t { FULL, EMBEDDED };
+enum class devtype_t : uint64_t {
   CPU = CL_DEVICE_TYPE_CPU,
   GPU = CL_DEVICE_TYPE_GPU,
   ACCELERATOR = CL_DEVICE_TYPE_ACCELERATOR,
@@ -219,9 +221,9 @@ public:
   std::string c_version() const;
   bool is_compiler_available() const;
   devfp_config_t double_fp_config() const;
-  bool have_double_precision() const;
+  bool has_double_precision() const;
   extensions_t extensions() const;
-  bool have_extension(const std::string &ext_name) const;
+  bool has_extension(const std::string &ext_name) const;
   uint64_t global_mem_cache_size() const;
   uint32_t global_mem_cache_line_size() const;
   uint64_t global_mem_size() const;
@@ -240,6 +242,8 @@ public:
     return (profile() == devprofile_t::EMBEDDED);
   }
   size_t profiling_timer_resolution() const;
+  devfp_config_t single_fp_config() const;
+  bool has_single_precision() const;
 
   bool operator==(const device &other) const { return id_ == other.id_; }
   bool operator!=(const device &other) const { return id_ != other.id_; }
@@ -336,6 +340,8 @@ __TEUTHID_CLB_DEVICE_INFO_SPEC(QUEUE_ON_DEVICE_PROPERTIES,
                                devcommand_queue_properties_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(QUEUE_ON_HOST_PROPERTIES,
                                devcommand_queue_properties_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(REFERENCE_COUNT, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(SINGLE_FP_CONFIG, devfp_config_t)
 #undef __TEUTHID_CLB_DEVICE_INFO_SPEC
 
 // specialization of device::native_vector_width<>()

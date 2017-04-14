@@ -48,9 +48,9 @@ public:
   static constexpr uint8_t soversion() noexcept { return TEUTHID_SOVERSION; }
   static const std::string &version() noexcept { return system::version_; }
   static bool is_required_version(uint8_t major, uint8_t minor) noexcept;
-  static bool have_clb();
-  static bool use_clb() noexcept { return system::use_clb_; }
-  static bool use_clb(bool enabled);
+  static bool has_clb();
+  static bool uses_clb() noexcept { return system::clb_; }
+  static bool uses_clb(bool enabled);
 
   template <typename T> static std::string to_string(const T &value);
   static std::size_t split_string(const std::string &str,
@@ -74,7 +74,7 @@ private:
   system() {}
   ~system() {}
   static std::string version_;
-  static thread_local bool use_clb_;
+  static thread_local bool clb_;
   static std::mutex mutex_;
   static constexpr std::streamsize default_format_float_precision_ = 10;
   static std::streamsize format_float_precision_;

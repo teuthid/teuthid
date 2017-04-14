@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
       BOOST_TEST(!__device.extensions().empty(), "extensions()");
       for (auto __ext : __device.extensions()) {
         BOOST_TEST(!__ext.empty(), "extensions()");
-        BOOST_TEST(__device.have_extension(__ext), "have_extension()");
+        BOOST_TEST(__device.has_extension(__ext), "have_extension()");
       }
       BOOST_TEST(
           ((__device.address_bits() == 32) || (__device.address_bits() == 64)),

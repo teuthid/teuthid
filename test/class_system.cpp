@@ -29,7 +29,7 @@ using namespace teuthid;
 
 class test_thread {
 public:
-  void test() { system::use_clb(false); }
+  void test() { system::uses_clb(false); }
 };
 
 class test {
@@ -67,19 +67,19 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
 
   test __test = test();
 #if defined(TEUTHID_WITH_OPENCL)
-  BOOST_TEST(system::have_clb(), "have_clb()");
-  BOOST_TEST(system::use_clb(), "use_clb()");
-  BOOST_TEST(!system::use_clb(false), "use_clb(bool)");
-  BOOST_TEST(!system::use_clb(), "use_clb()");
-  BOOST_TEST(system::use_clb(true), "use_clb(bool)");
+  BOOST_TEST(system::has_clb(), "has_clb()");
+  BOOST_TEST(system::uses_clb(), "uses_clb()");
+  BOOST_TEST(!system::uses_clb(false), "uses_clb(bool)");
+  BOOST_TEST(!system::uses_clb(), "uses_clb()");
+  BOOST_TEST(system::uses_clb(true), "uses_clb(bool)");
   __test.call_threads();
   std::this_thread::sleep_for(std::chrono::milliseconds(123));
-  BOOST_TEST(system::use_clb(), "use_clb()");
+  BOOST_TEST(system::uses_clb(), "uses_clb()");
 #else
-  BOOST_TEST(!system::have_clb(), "have_clb()");
-  BOOST_TEST(!system::use_clb(), "use_clb()");
-  BOOST_TEST(!system::use_clb(true), "use_clb(bool)");
-  BOOST_TEST(!system::use_clb(false), "use_clb(bool)");
+  BOOST_TEST(!system::has_clb(), "has_clb()");
+  BOOST_TEST(!system::uses_clb(), "uses_clb()");
+  BOOST_TEST(!system::uses_clb(true), "uses_clb(bool)");
+  BOOST_TEST(!system::uses_clb(false), "uses_clb(bool)");
 #endif
 
   int __x = 13;

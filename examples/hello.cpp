@@ -31,7 +31,7 @@ using namespace teuthid;
 std::string __str;
 
 std::string yesno(bool value) {
-  return (value ? std::string("Yes") : std::string("No"));
+  return (value ? std::string("YES") : std::string("NO"));
 }
 
 int main() {
@@ -39,7 +39,7 @@ int main() {
   std::cout << "Teuthid Version " << system::to_string(system::major_version())
             << "." << system::to_string(system::minor_version()) << std::endl;
   std::cout << "  --" << std::endl;
-  if (system::have_clb()) {
+  if (system::has_clb()) {
 #if defined(TEUTHID_WITH_OPENCL)
     std::cout << "Build with OpenCL." << std::endl;
 
@@ -97,8 +97,9 @@ int main() {
         std::cout << "    Frequency: "
                   << system::to_string(__device.max_clock_frequency())
                   << std::endl;
-        std::cout << "    Double precision: "
-                  << yesno(__device.have_double_precision());
+        std::cout << "    Precision:  double="
+                  << yesno(__device.has_double_precision())
+                  << "  single=" << yesno(__device.has_single_precision());
         std::cout << std::endl;
         std::cout << "    Device Extensions: "
                   << system::to_string(__device.extensions());

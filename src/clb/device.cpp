@@ -152,6 +152,7 @@ __TEUTHID_CLB_DEVICE_INFO(PROFILING_TIMER_RESOLUTION);
 __TEUTHID_CLB_DEVICE_INFO(QUEUE_ON_DEVICE_MAX_SIZE);
 __TEUTHID_CLB_DEVICE_INFO(QUEUE_ON_DEVICE_PROPERTIES);
 __TEUTHID_CLB_DEVICE_INFO(QUEUE_ON_HOST_PROPERTIES);
+__TEUTHID_CLB_DEVICE_INFO(SINGLE_FP_CONFIG);
 #undef __TEUTHID_CLB_DEVICE_INFO
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -179,7 +180,7 @@ devfp_config_t device::double_fp_config() const {
   return info<devparam_t::DOUBLE_FP_CONFIG>();
 }
 
-bool device::have_double_precision() const {
+bool device::has_double_precision() const {
   int __dp = CL_FP_FMA | CL_FP_ROUND_TO_NEAREST | CL_FP_INF_NAN | CL_FP_DENORM;
   return (static_cast<int>(double_fp_config()) & __dp) > 0;
 }
@@ -190,7 +191,7 @@ extensions_t device::extensions() const {
   return __v;
 }
 
-bool device::have_extension(const std::string &ext_name) const {
+bool device::has_extension(const std::string &ext_name) const {
   std::string __s = info<devparam_t::EXTENSIONS>();
   return (__s.find(ext_name) != std::string::npos);
 }
@@ -294,4 +295,13 @@ devprofile_t device::profile() const {
 
 size_t device::profiling_timer_resolution() const {
   return info<devparam_t::PROFILING_TIMER_RESOLUTION>();
+}
+
+devfp_config_t device::single_fp_config() const {
+  return info<devparam_t::SINGLE_FP_CONFIG>();
+}
+
+bool device::has_single_precision() const {
+  int __dp = CL_FP_ROUND_TO_NEAREST | CL_FP_INF_NAN;
+  return (static_cast<int>(single_fp_config()) & __dp) > 0;
 }
