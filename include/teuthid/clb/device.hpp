@@ -109,7 +109,9 @@ enum class devparam_t : uint64_t {
   QUEUE_ON_DEVICE_PROPERTIES = CL_DEVICE_QUEUE_ON_DEVICE_PROPERTIES,
   QUEUE_ON_HOST_PROPERTIES = CL_DEVICE_QUEUE_ON_HOST_PROPERTIES,
   REFERENCE_COUNT = CL_DEVICE_REFERENCE_COUNT,
-  SINGLE_FP_CONFIG = CL_DEVICE_SINGLE_FP_CONFIG
+  SINGLE_FP_CONFIG = CL_DEVICE_SINGLE_FP_CONFIG,
+  SVM_CAPABILITIES = CL_DEVICE_SVM_CAPABILITIES,
+  TYPE = CL_DEVICE_TYPE
   /* Not in cl2.hpp:
   CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE
   CL_DEVICE_IL_VERSION
@@ -123,6 +125,9 @@ enum class devparam_t : uint64_t {
   CL_DEVICE_MAX_READ_WRITE_IMAGE_ARGS
   CL_DEVICE_PARTITION_MAX_SUB_DEVICES
   CL_DEVICE_PRINTF_BUFFER_SIZE
+  CL_DEVICE_SPIR_VERSIONS
+  CL_DEVICE_SUBGROUP_INDEPENDENT_FORWARD_PROGRESS
+  CL_DEVICE_TERMINATE_CAPABILITY_KHR
   */
 };
 
@@ -169,11 +174,18 @@ enum class devpartition_property_t : uint64_t {
   NONE = 0
 };
 enum class devprofile_t : uint64_t { FULL, EMBEDDED };
+enum class devsvm_capabilities_t : uint64_t {
+  COARSE_GRAIN_BUFFER = CL_DEVICE_SVM_COARSE_GRAIN_BUFFER,
+  FINE_GRAIN_BUFFER = CL_DEVICE_SVM_FINE_GRAIN_BUFFER,
+  FINE_GRAIN_SYSTEM = CL_DEVICE_SVM_FINE_GRAIN_SYSTEM,
+  ATOMICS = CL_DEVICE_SVM_ATOMICS
+};
 enum class devtype_t : uint64_t {
   CPU = CL_DEVICE_TYPE_CPU,
   GPU = CL_DEVICE_TYPE_GPU,
   ACCELERATOR = CL_DEVICE_TYPE_ACCELERATOR,
-  CUSTOM = CL_DEVICE_TYPE_CUSTOM
+  CUSTOM = CL_DEVICE_TYPE_CUSTOM,
+  DEFAULT = CL_DEVICE_TYPE_DEFAULT
 };
 
 template <devparam_t> struct device_param { typedef void value_type; };
@@ -206,12 +218,6 @@ public:
 
   const device_id_t &id() const noexcept { return id_; }
   const platform &get_platform() const;
-  const devtype_t &devtype() const noexcept { return devtype_; }
-  bool is_devtype_cpu() const noexcept { return (devtype_ == devtype_t::CPU); }
-  bool is_devtype_gpu() const noexcept { return (devtype_ == devtype_t::GPU); }
-  bool is_devtype_accelerator() const noexcept {
-    return (devtype_ == devtype_t::ACCELERATOR);
-  }
   const std::string &version() const noexcept { return version_; }
   const std::string &driver_version() const noexcept { return driver_version_; }
 
@@ -244,6 +250,10 @@ public:
   size_t profiling_timer_resolution() const;
   devfp_config_t single_fp_config() const;
   bool has_single_precision() const;
+  devtype_t devtype() const;
+  bool is_cpu() const noexcept { return (devtype() == devtype_t::CPU); }
+  bool is_gpu() const noexcept { return (devtype() == devtype_t::GPU); }
+
 
   bool operator==(const device &other) const { return id_ == other.id_; }
   bool operator!=(const device &other) const { return id_ != other.id_; }
@@ -255,7 +265,6 @@ private:
 
   device_id_t id_;             // device ID
   platform_id_t platform_id_;  // platform ID
-  devtype_t devtype_;          // CL_DEVICE_TYPE
   std::string version_;        // CL_DEVICE_VERSION
   std::string driver_version_; // CL_DRIVER_VERSION
 };
@@ -342,6 +351,8 @@ __TEUTHID_CLB_DEVICE_INFO_SPEC(QUEUE_ON_HOST_PROPERTIES,
                                devcommand_queue_properties_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(REFERENCE_COUNT, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(SINGLE_FP_CONFIG, devfp_config_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(SVM_CAPABILITIES, devsvm_capabilities_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(TYPE, devtype_t)
 #undef __TEUTHID_CLB_DEVICE_INFO_SPEC
 
 // specialization of device::native_vector_width<>()

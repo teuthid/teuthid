@@ -153,6 +153,8 @@ __TEUTHID_CLB_DEVICE_INFO(QUEUE_ON_DEVICE_MAX_SIZE);
 __TEUTHID_CLB_DEVICE_INFO(QUEUE_ON_DEVICE_PROPERTIES);
 __TEUTHID_CLB_DEVICE_INFO(QUEUE_ON_HOST_PROPERTIES);
 __TEUTHID_CLB_DEVICE_INFO(SINGLE_FP_CONFIG);
+__TEUTHID_CLB_DEVICE_INFO(SVM_CAPABILITIES);
+__TEUTHID_CLB_DEVICE_INFO(TYPE);
 #undef __TEUTHID_CLB_DEVICE_INFO
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -305,3 +307,5 @@ bool device::has_single_precision() const {
   int __dp = CL_FP_ROUND_TO_NEAREST | CL_FP_INF_NAN;
   return (static_cast<int>(single_fp_config()) & __dp) > 0;
 }
+
+devtype_t device::devtype() const { return info<devparam_t::TYPE>(); }

@@ -83,14 +83,10 @@ int main() {
         else if (__device.is_embedded_profile())
           __str = "EMBEDDED PROFILE";
         std::cout << "    Device Profile: " << __str << std::endl;
-        if (__device.is_devtype_cpu())
+        if (__device.is_cpu())
           __str = "CPU";
-        else if (__device.is_devtype_gpu())
+        else if (__device.is_gpu())
           __str = "GPU";
-        else if (__device.is_devtype_accelerator())
-          __str = "ACCELERATOR";
-        else
-          __str = "UNKNOWN PROFILE";
         std::cout << "    Device Type: " << __str << "    Compiler: "
                   << yesno(__device.is_compiler_available());
         std::cout << "    Compute units: " << __device.max_compute_units();

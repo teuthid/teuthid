@@ -142,8 +142,6 @@ void platform::detect_devices_(platform &plat) {
           __cl_devices[__i].getInfo<CL_DEVICE_VERSION>();
       plat.devices_[__i].driver_version_ =
           __cl_devices[__i].getInfo<CL_DRIVER_VERSION>();
-      plat.devices_[__i].devtype_ =
-          static_cast<devtype_t>(__cl_devices[__i].getInfo<CL_DEVICE_TYPE>());
     }
   } catch (const cl::Error &__e) {
     throw invalid_device(__e.err());
