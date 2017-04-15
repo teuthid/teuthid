@@ -24,12 +24,10 @@
 
 #include <teuthid/config.hpp>
 
-#if defined(TEUTHID_WITH_OPENCL)
 #if defined(__APPLE__)
 #include <OpenCL/opencl.h>
 #else
 #include <CL/opencl.h>
-#endif
 #endif
 
 namespace teuthid {
@@ -84,6 +82,7 @@ enum class devparam_t : uint64_t {
   NATIVE_VECTOR_WIDTH_DOUBLE = CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE,
   NATIVE_VECTOR_WIDTH_HALF = CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF,
   OPENCL_C_VERSION = CL_DEVICE_OPENCL_C_VERSION,
+  PARENT_DEVICE = CL_DEVICE_PARENT_DEVICE,
   PARTITION_AFFINITY_DOMAIN = CL_DEVICE_PARTITION_AFFINITY_DOMAIN,
   PARTITION_PROPERTIES = CL_DEVICE_PARTITION_PROPERTIES,
   PARTITION_TYPE = CL_DEVICE_PARTITION_TYPE,
@@ -221,6 +220,8 @@ public:
   typename device_param<value>::value_type info() const;
 
   device_id_t id() const noexcept { return id_; }
+  device_id_t parent_id() const;
+  bool is_subdevice() const { return (parent_id() != nullptr); }
   const platform &get_platform() const;
 
   uint32_t address_bits() const;
@@ -266,8 +267,8 @@ public:
 
 private:
   device() {}
-  device_id_t id_;             // device ID
-  platform_id_t platform_id_;  // platform ID
+  device_id_t id_;            // device ID
+  platform_id_t platform_id_; // platform ID
 };
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -325,6 +326,7 @@ __TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_LONG, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_FLOAT, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_DOUBLE, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_HALF, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(PARENT_DEVICE, device_id_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(OPENCL_C_VERSION, std::string)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(PARTITION_AFFINITY_DOMAIN, devaffinity_domain_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(PARTITION_PROPERTIES, partition_properties_t)

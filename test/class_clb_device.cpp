@@ -31,9 +31,10 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
   for (auto __platform : __platforms) {
     auto __devices = __platform.devices();
     for (auto __device : __devices) {
-      BOOST_TEST(__device.id(), "id()");
+      BOOST_TEST(!__device.is_subdevice(), "is_subdevice()");
       BOOST_TEST((__device.is_full_profile() || __device.is_embedded_profile()),
                  "profile()");
+      BOOST_TEST(__device.id(), "id()");
       BOOST_TEST(!__device.name().empty(), "name()");
       BOOST_TEST(!__device.version().empty(), "version()");
       BOOST_TEST(!__device.driver_version().empty(), "driver_version()");

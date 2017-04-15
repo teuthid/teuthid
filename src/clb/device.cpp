@@ -160,7 +160,24 @@ __TEUTHID_CLB_DEVICE_INFO(VENDOR_ID);
 __TEUTHID_CLB_DEVICE_INFO(VERSION);
 __TEUTHID_CLB_DEVICE_INFO(DRIVER_VERSION);
 #undef __TEUTHID_CLB_DEVICE_INFO
+
+template <>
+device_param<devparam_t::PARENT_DEVICE>::value_type
+device::info<devparam_t::PARENT_DEVICE>() const {
+  try {
+    cl::Device __cl_device(id_);
+    cl::Device __cl_parent(
+        __cl_device.getInfo<static_cast<int>(devparam_t::PARENT_DEVICE)>());
+    return __cl_parent();
+  } catch (const cl::Error &__e) {
+    throw invalid_device(__e.err());
+  }
+}
 #endif // DOXYGEN_SHOULD_SKIP_THIS
+
+device_id_t device::parent_id() const {
+  return info<devparam_t::PARENT_DEVICE>();
+}
 
 uint32_t device::address_bits() const {
   return info<devparam_t::ADDRESS_BITS>();
