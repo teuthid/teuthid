@@ -220,7 +220,7 @@ public:
   template <devparam_t value>
   typename device_param<value>::value_type info() const;
 
-  const device_id_t &id() const noexcept { return id_; }
+  device_id_t id() const noexcept { return id_; }
   const platform &get_platform() const;
 
   uint32_t address_bits() const;
