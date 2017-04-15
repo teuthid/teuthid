@@ -222,7 +222,7 @@ public:
   device_id_t id() const noexcept { return id_; }
   device_id_t parent_id() const;
   bool is_subdevice() const { return (parent_id() != nullptr); }
-  const platform &get_platform() const;
+  const platform &get_platform() const { return device::get_platform(id_); }
 
   uint32_t address_bits() const;
   bool is_available() const;
@@ -263,6 +263,7 @@ public:
   bool operator==(const device &other) const { return id_ == other.id_; }
   bool operator!=(const device &other) const { return id_ != other.id_; }
 
+  static const device &get(device_id_t device_id);
   static const platform &get_platform(device_id_t device_id);
 
 private:
