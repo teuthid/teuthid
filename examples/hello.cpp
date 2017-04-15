@@ -73,8 +73,8 @@ int main() {
       for (auto __device : __platform.devices()) {
         std::cout << "    Device Name: " << system::to_string(__device)
                   << std::endl;
-        std::cout << "    Device Version: " << __device.version() << std::endl;
-        std::cout << "    Driver Version: " << __device.driver_version()
+        std::cout << "    Device Version: " << __device.version()
+                  << "    Driver Version: " << __device.driver_version()
                   << std::endl;
         std::cout << "    OpenCL C Version: " << __device.c_version()
                   << std::endl;

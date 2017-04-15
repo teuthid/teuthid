@@ -138,10 +138,6 @@ void platform::detect_devices_(platform &plat) {
       plat.devices_[__i].id_ = __cl_devices[__i]();
       plat.devices_[__i].platform_id_ =
           __cl_devices[__i].getInfo<CL_DEVICE_PLATFORM>();
-      plat.devices_[__i].version_ =
-          __cl_devices[__i].getInfo<CL_DEVICE_VERSION>();
-      plat.devices_[__i].driver_version_ =
-          __cl_devices[__i].getInfo<CL_DRIVER_VERSION>();
     }
   } catch (const cl::Error &__e) {
     throw invalid_device(__e.err());

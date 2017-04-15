@@ -111,7 +111,11 @@ enum class devparam_t : uint64_t {
   REFERENCE_COUNT = CL_DEVICE_REFERENCE_COUNT,
   SINGLE_FP_CONFIG = CL_DEVICE_SINGLE_FP_CONFIG,
   SVM_CAPABILITIES = CL_DEVICE_SVM_CAPABILITIES,
-  TYPE = CL_DEVICE_TYPE
+  TYPE = CL_DEVICE_TYPE,
+  VENDOR = CL_DEVICE_VENDOR,
+  VENDOR_ID = CL_DEVICE_VENDOR_ID,
+  VERSION = CL_DEVICE_VERSION,
+  DRIVER_VERSION = CL_DRIVER_VERSION
   /* Not in cl2.hpp:
   CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE
   CL_DEVICE_IL_VERSION
@@ -218,8 +222,6 @@ public:
 
   const device_id_t &id() const noexcept { return id_; }
   const platform &get_platform() const;
-  const std::string &version() const noexcept { return version_; }
-  const std::string &driver_version() const noexcept { return driver_version_; }
 
   uint32_t address_bits() const;
   bool is_available() const;
@@ -253,7 +255,9 @@ public:
   devtype_t devtype() const;
   bool is_cpu() const { return (devtype() == devtype_t::CPU); }
   bool is_gpu() const { return (devtype() == devtype_t::GPU); }
-
+  std::string vendor() const;
+  std::string version() const;
+  std::string driver_version() const;
 
   bool operator==(const device &other) const { return id_ == other.id_; }
   bool operator!=(const device &other) const { return id_ != other.id_; }
@@ -262,11 +266,8 @@ public:
 
 private:
   device() {}
-
   device_id_t id_;             // device ID
   platform_id_t platform_id_;  // platform ID
-  std::string version_;        // CL_DEVICE_VERSION
-  std::string driver_version_; // CL_DRIVER_VERSION
 };
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -353,6 +354,10 @@ __TEUTHID_CLB_DEVICE_INFO_SPEC(REFERENCE_COUNT, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(SINGLE_FP_CONFIG, devfp_config_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(SVM_CAPABILITIES, devsvm_capabilities_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(TYPE, devtype_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(VENDOR, std::string)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(VENDOR_ID, uint32_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(VERSION, std::string)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(DRIVER_VERSION, std::string)
 #undef __TEUTHID_CLB_DEVICE_INFO_SPEC
 
 // specialization of device::native_vector_width<>()

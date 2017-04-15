@@ -155,6 +155,10 @@ __TEUTHID_CLB_DEVICE_INFO(QUEUE_ON_HOST_PROPERTIES);
 __TEUTHID_CLB_DEVICE_INFO(SINGLE_FP_CONFIG);
 __TEUTHID_CLB_DEVICE_INFO(SVM_CAPABILITIES);
 __TEUTHID_CLB_DEVICE_INFO(TYPE);
+__TEUTHID_CLB_DEVICE_INFO(VENDOR);
+__TEUTHID_CLB_DEVICE_INFO(VENDOR_ID);
+__TEUTHID_CLB_DEVICE_INFO(VERSION);
+__TEUTHID_CLB_DEVICE_INFO(DRIVER_VERSION);
 #undef __TEUTHID_CLB_DEVICE_INFO
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -309,3 +313,13 @@ bool device::has_single_precision() const {
 }
 
 devtype_t device::devtype() const { return info<devparam_t::TYPE>(); }
+
+std::string device::vendor() const { return info<devparam_t::VENDOR>(); }
+
+std::string device::version() const {
+  return info<devparam_t::VERSION>().substr(7);
+}
+
+std::string device::driver_version() const {
+  return info<devparam_t::DRIVER_VERSION>();
+}
