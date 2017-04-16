@@ -57,6 +57,19 @@ const device &device::get(device_id_t device_id) {
   return __teuthid_clb_get(device_id).second;
 }
 
+const device &device::get_default() {
+  try {
+    return device::get(cl::Device::getDefault()());
+  } catch (const cl::Error &__e) {
+    throw invalid_device("unknown a default device");
+  }
+}
+
+const device &device::set_default(const device& dev) {
+  cl::Device __dev = cl::Device::setDefault(cl::Device(dev.id()));
+  return device::get(__dev());
+}
+
 const platform &device::get_platform(device_id_t device_id) {
   assert(device_id);
   return __teuthid_clb_get(device_id).first;

@@ -27,7 +27,9 @@ using namespace teuthid::clb;
 BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
   const platforms_t &__platforms = platform::platforms();
   BOOST_TEST(!__platforms.empty());
-
+  BOOST_TEST(
+      (device::set_default(device::get_default()) == device::get_default()),
+      "device::get_default()");
   for (auto __platform : __platforms) {
     auto __devices = __platform.devices();
     for (auto __device : __devices) {

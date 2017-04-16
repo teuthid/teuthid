@@ -264,6 +264,8 @@ public:
   bool operator!=(const device &other) const { return id_ != other.id_; }
 
   static const device &get(device_id_t device_id);
+  static const device &get_default();
+  static const device &set_default(const device& dev);
   static const platform &get_platform(device_id_t device_id);
 
 private:

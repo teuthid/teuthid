@@ -62,11 +62,11 @@ int main() {
         __str = "UNKNOWN PROFILE";
       std::cout << "  Platform Profile: " << __str << std::endl;
       std::cout << "  Platform Extensions: "
-                << system::to_string(__platform.extensions());
-      std::cout << std::endl;
+                << system::to_string(__platform.extensions()) << std::endl;
       std::cout << "  Platform Extensions function suffix : "
                 << __platform.icd_suffix_khr() << std::endl;
-
+      std::cout << "  Default OpenCL device: "
+                << system::to_string(clb::device::get_default()) << std::endl;
       // ... and devices:
       std::cout << "  Available OpenCL device(s): " << __platform.device_count()
                 << std::endl;
