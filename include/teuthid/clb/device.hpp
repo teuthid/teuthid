@@ -391,7 +391,6 @@ template <> uint32_t device::preferred_vector_width<uint64_t>() const;
 template <> uint32_t device::preferred_vector_width<float16_t>() const;
 template <> uint32_t device::preferred_vector_width<float32_t>() const;
 template <> uint32_t device::preferred_vector_width<float64_t>() const;
-
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb
 } // namespace teuthid

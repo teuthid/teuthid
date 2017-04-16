@@ -31,7 +31,6 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_platform) {
 
   for (auto __platform : __platforms) {
     BOOST_TEST(__platform.id(), "id()");
-    BOOST_TEST(__platform.profile() != UNKNOWN_PROFILE, "profile()");
     BOOST_TEST(
         (__platform.is_full_profile() || __platform.is_embedded_profile()),
         "is_full_profile(), is_embedded_profile()");
@@ -65,7 +64,6 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_platform) {
     BOOST_TEST(__plat.id(), "id()");
     __plat = platform(__platform.id());
     BOOST_TEST(__plat.id(), "id()");
-    BOOST_TEST(__plat.profile() != UNKNOWN_PROFILE, "profile()");
     BOOST_TEST(!__plat.version().empty(), "version()");
   }
 }

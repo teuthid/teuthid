@@ -74,14 +74,6 @@ const platforms_t &platform::platforms() {
 }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-profile_t __teuthid_get_cl_profile(const std::string &str_profile) {
-  if (str_profile == std::string("FULL_PROFILE"))
-    return profile_t::FULL_PROFILE;
-  else if (str_profile == std::string("EMBEDDED_PROFILE"))
-    return profile_t::EMBEDDED_PROFILE;
-  return profile_t::UNKNOWN_PROFILE;
-}
-
 void __teuthid_get_cl_version(const std::string &version, int &major,
                               int &minor, std::string &spec) {
   std::string __s = version.substr(7);
@@ -104,8 +96,6 @@ void platform::detect_platforms_() {
       platform::platforms_.push_back(platform());
       platform::platforms_[__i].id_ = __cl_platforms[__i]();
       assert(platform::platforms_[__i].id_);
-      platform::platforms_[__i].profile_ = __teuthid_get_cl_profile(
-          __cl_platforms[__i].getInfo<CL_PLATFORM_PROFILE>());
       platform::platforms_[__i].version_ =
           __cl_platforms[__i].getInfo<CL_PLATFORM_VERSION>();
       __teuthid_get_cl_version(platform::platforms_[__i].version_,
@@ -149,4 +139,33 @@ bool platform::unload_compiler() {
   cl::Platform __cl_platform(id_);
   cl_int __result = __cl_platform.unloadCompiler();
   return (__result == CL_SUCCESS);
+}
+
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+#define __TEUTHID_CLB_PLATFORM_INFO(PARAM)                                     \
+  template <>                                                                  \
+  platform_param<platparam_t::PARAM>::value_type                               \
+  platform::info<platparam_t::PARAM>() const {                                 \
+    try {                                                                      \
+      cl::Platform __cl_plattform(id_);                                        \
+      return static_cast<platform_param<platparam_t::PARAM>::value_type>(      \
+          __cl_plattform                                                       \
+              .getInfo<static_cast<cl_bitfield>(platparam_t::PARAM)>());       \
+    } catch (const cl::Error &__e) {                                           \
+      throw invalid_device("unknown platform parameter");                      \
+    }                                                                          \
+  }
+
+__TEUTHID_CLB_PLATFORM_INFO(PROFILE);
+#undef __TEUTHID_CLB_PLATFORM_INFO
+#endif // DOXYGEN_SHOULD_SKIP_THIS
+
+platprofile_t platform::profile() const {
+  std::string __s = info<platparam_t::PROFILE>();
+  if (__s == std::string("FULL_PROFILE"))
+    return platprofile_t::FULL;
+  else if (__s == std::string("EMBEDDED_PROFILE"))
+    return platprofile_t::EMBEDDED;
+  else
+    throw invalid_device("unknown platform profile");
 }
