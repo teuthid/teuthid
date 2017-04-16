@@ -55,11 +55,9 @@ int main() {
                 << __platform.minor_version();
       std::cout << "  Specific: " << __platform.spec_version() << std::endl;
       if (__platform.is_full_profile())
-        __str = "FULL PROFILE";
+        __str = "FULL";
       else if (__platform.is_embedded_profile())
-        __str = "EMBEDDED PROFILE";
-      else
-        __str = "UNKNOWN PROFILE";
+        __str = "EMBEDDED";
       std::cout << "  Platform Profile: " << __str << std::endl;
       std::cout << "  Platform Extensions: "
                 << system::to_string(__platform.extensions()) << std::endl;
@@ -82,9 +80,9 @@ int main() {
         std::cout << "    OpenCL C Version: " << __device.c_version()
                   << std::endl;
         if (__device.is_full_profile())
-          __str = "FULL PROFILE";
+          __str = "FULL";
         else if (__device.is_embedded_profile())
-          __str = "EMBEDDED PROFILE";
+          __str = "EMBEDDED";
         std::cout << "    Device Profile: " << __str << std::endl;
         if (__device.is_cpu())
           __str = "CPU";

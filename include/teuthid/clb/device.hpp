@@ -33,8 +33,6 @@
 namespace teuthid {
 namespace clb {
 
-enum profile_t { FULL_PROFILE, EMBEDDED_PROFILE, UNKNOWN_PROFILE };
-
 enum class devparam_t : uint64_t {
   ADDRESS_BITS = CL_DEVICE_ADDRESS_BITS,
   AVAILABLE = CL_DEVICE_AVAILABLE,
