@@ -65,11 +65,14 @@ int main() {
                 << system::to_string(__platform.extensions()) << std::endl;
       std::cout << "  Platform Extensions function suffix : "
                 << __platform.icd_suffix_khr() << std::endl;
+      // ... and devices:
+      std::cout << "  Available OpenCL device(s): "
+                << __platform.device_count();
+      std::cout << "  OpenCL GPU device(s): "
+                << clb::device::find_by_type(clb::devtype_t::GPU).size()
+                << std::endl;
       std::cout << "  Default OpenCL device: "
                 << system::to_string(clb::device::get_default()) << std::endl;
-      // ... and devices:
-      std::cout << "  Available OpenCL device(s): " << __platform.device_count()
-                << std::endl;
       for (auto __device : __platform.devices()) {
         std::cout << "    Device Name: " << system::to_string(__device)
                   << std::endl;

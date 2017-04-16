@@ -65,9 +65,20 @@ const device &device::get_default() {
   }
 }
 
-const device &device::set_default(const device& dev) {
+const device &device::set_default(const device &dev) {
   cl::Device __dev = cl::Device::setDefault(cl::Device(dev.id()));
   return device::get(__dev());
+}
+
+devices_t device::find_by_type(devtype_t dev_type) {
+  cl_bitfield __devtype = static_cast<cl_bitfield>(dev_type);
+  devices_t __devs;
+  for (auto __platform : platform::platforms())
+    for (auto __device : __platform.devices())
+      if (static_cast<cl_bitfield>(__device.devtype()) & __devtype)
+        __devs.push_back(__device);
+  __devs.shrink_to_fit();
+  return __devs;
 }
 
 const platform &device::get_platform(device_id_t device_id) {
@@ -83,7 +94,7 @@ const platform &device::get_platform(device_id_t device_id) {
     try {                                                                      \
       cl::Device __cl_device(id_);                                             \
       return static_cast<device_param<devparam_t::PARAM>::value_type>(         \
-          __cl_device.getInfo<static_cast<int>(devparam_t::PARAM)>());         \
+          __cl_device.getInfo<static_cast<cl_bitfield>(devparam_t::PARAM)>()); \
     } catch (const cl::Error &__e) {                                           \
       throw invalid_device("unknown device parameter");                        \
     }                                                                          \
@@ -171,7 +182,8 @@ device::info<devparam_t::PARENT_DEVICE>() const {
   try {
     cl::Device __cl_device(id_);
     cl::Device __cl_parent(
-        __cl_device.getInfo<static_cast<int>(devparam_t::PARENT_DEVICE)>());
+        __cl_device
+            .getInfo<static_cast<cl_bitfield>(devparam_t::PARENT_DEVICE)>());
     return __cl_parent();
   } catch (const cl::Error &__e) {
     throw invalid_device(__e.err());
@@ -208,8 +220,9 @@ devfp_config_t device::double_fp_config() const {
 }
 
 bool device::has_double_precision() const {
-  int __dp = CL_FP_FMA | CL_FP_ROUND_TO_NEAREST | CL_FP_INF_NAN | CL_FP_DENORM;
-  return (static_cast<int>(double_fp_config()) & __dp) > 0;
+  cl_bitfield __dp =
+      CL_FP_FMA | CL_FP_ROUND_TO_NEAREST | CL_FP_INF_NAN | CL_FP_DENORM;
+  return (static_cast<cl_bitfield>(double_fp_config()) & __dp) > 0;
 }
 
 extensions_t device::extensions() const {
@@ -329,8 +342,8 @@ devfp_config_t device::single_fp_config() const {
 }
 
 bool device::has_single_precision() const {
-  int __dp = CL_FP_ROUND_TO_NEAREST | CL_FP_INF_NAN;
-  return (static_cast<int>(single_fp_config()) & __dp) > 0;
+  cl_bitfield __dp = CL_FP_ROUND_TO_NEAREST | CL_FP_INF_NAN;
+  return (static_cast<cl_bitfield>(single_fp_config()) & __dp) > 0;
 }
 
 devtype_t device::devtype() const { return info<devparam_t::TYPE>(); }
