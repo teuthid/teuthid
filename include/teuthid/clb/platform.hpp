@@ -28,7 +28,10 @@
 namespace teuthid {
 namespace clb {
 
-enum class platparam_t : uint64_t { PROFILE = CL_PLATFORM_PROFILE };
+enum class platparam_t : uint64_t {
+  PROFILE = CL_PLATFORM_PROFILE,
+  VERSION = CL_PLATFORM_VERSION
+};
 using platprofile_t = devprofile_t;
 
 template <platparam_t> struct platform_param { typedef void value_type; };
@@ -51,7 +54,7 @@ public:
   bool is_embedded_profile() const {
     return (profile() == platprofile_t::EMBEDDED);
   }
-  const std::string &version() const noexcept { return version_; }
+  std::string version() const;
   int major_version() const noexcept { return major_version_; }
   int minor_version() const noexcept { return minor_version_; }
   const std::string &spec_version() const noexcept { return spec_version_; }
@@ -103,6 +106,7 @@ private:
   platform::info<platparam_t::PARAM>() const;
 
 __TEUTHID_CLB_PLATFORM_INFO_SPEC(PROFILE, std::string)
+__TEUTHID_CLB_PLATFORM_INFO_SPEC(VERSION, std::string)
 #undef __TEUTHID_CLB_PLATFORM_INFO_SPEC
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb

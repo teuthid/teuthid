@@ -157,6 +157,7 @@ bool platform::unload_compiler() {
   }
 
 __TEUTHID_CLB_PLATFORM_INFO(PROFILE);
+__TEUTHID_CLB_PLATFORM_INFO(VERSION);
 #undef __TEUTHID_CLB_PLATFORM_INFO
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -168,4 +169,8 @@ platprofile_t platform::profile() const {
     return platprofile_t::EMBEDDED;
   else
     throw invalid_device("unknown platform profile");
+}
+
+std::string platform::version() const {
+  return info<platparam_t::VERSION>().substr(7);
 }
