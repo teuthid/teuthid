@@ -1,6 +1,12 @@
 set(teuthid_examples
-  hello
 )
+
+if (BUILD_WITH_OPENCL)
+  set(teuthid_clb_examples
+    cl_info
+  )
+  list(APPEND teuthid_examples ${teuthid_clb_examples})
+endif(BUILD_WITH_OPENCL)
 
 foreach(example_ ${teuthid_examples})
   set(filename_ "${example_}.cpp")
