@@ -232,8 +232,10 @@ extensions_t device::extensions() const {
 }
 
 bool device::has_extension(const std::string &ext_name) const {
-  std::string __s = info<devparam_t::EXTENSIONS>();
-  return (__s.find(ext_name) != std::string::npos);
+  for (std::string __s : extensions())
+    if (__s == ext_name)
+      return true;
+  return false;
 }
 
 uint64_t device::global_mem_cache_size() const {

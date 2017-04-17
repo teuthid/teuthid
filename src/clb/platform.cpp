@@ -56,13 +56,6 @@ bool platform::is_required_version(int major, int minor) const noexcept {
   return (!(__required > __actual));
 }
 
-bool platform::have_extension(const std::string &ext_name) const {
-  if (!ext_name.empty())
-    return std::find(platform::extensions_.begin(), platform::extensions_.end(),
-                     ext_name) != platform::extensions_.end();
-  return false;
-}
-
 const platforms_t &platform::platforms() {
   std::lock_guard<std::mutex> __guard(platform::mutex_);
   if (platform::platforms_.empty()) {
@@ -102,13 +95,6 @@ void platform::detect_platforms_() {
                                platform::platforms_[__i].major_version_,
                                platform::platforms_[__i].minor_version_,
                                platform::platforms_[__i].spec_version_);
-      platform::platforms_[__i].name_ =
-          __cl_platforms[__i].getInfo<CL_PLATFORM_NAME>();
-      platform::platforms_[__i].vendor_ =
-          __cl_platforms[__i].getInfo<CL_PLATFORM_VENDOR>();
-      system::split_string(
-          __cl_platforms[__i].getInfo<CL_PLATFORM_EXTENSIONS>(),
-          platform::platforms_[__i].extensions_);
       platform::platforms_[__i].icd_suffix_khr_ =
           __cl_platforms[__i].getInfo<CL_PLATFORM_ICD_SUFFIX_KHR>();
     }
@@ -158,6 +144,9 @@ bool platform::unload_compiler() {
 
 __TEUTHID_CLB_PLATFORM_INFO(PROFILE);
 __TEUTHID_CLB_PLATFORM_INFO(VERSION);
+__TEUTHID_CLB_PLATFORM_INFO(NAME);
+__TEUTHID_CLB_PLATFORM_INFO(VENDOR);
+__TEUTHID_CLB_PLATFORM_INFO(EXTENSIONS);
 #undef __TEUTHID_CLB_PLATFORM_INFO
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -173,4 +162,21 @@ platprofile_t platform::profile() const {
 
 std::string platform::version() const {
   return info<platparam_t::VERSION>().substr(7);
+}
+
+std::string platform::name() const { return info<platparam_t::NAME>(); }
+
+std::string platform::vendor() const { return info<platparam_t::VENDOR>(); }
+
+extensions_t platform::extensions() const {
+  extensions_t __v;
+  system::split_string(info<platparam_t::EXTENSIONS>(), __v);
+  return __v;
+}
+
+bool platform::has_extension(const std::string &ext_name) const {
+  for (std::string __s : extensions())
+    if (__s == ext_name)
+      return true;
+  return false;
 }

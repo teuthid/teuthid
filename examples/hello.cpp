@@ -48,8 +48,7 @@ int main() {
               << clb::platform::platforms().size() << std::endl;
     for (auto __platform : clb::platform::platforms()) {
       std::cout << "  Platform Name: " << system::to_string(__platform)
-                << std::endl;
-      std::cout << "  Platform Vendor: " << __platform.vendor() << std::endl;
+                << "  Vendor: " << __platform.vendor() << std::endl;
       std::cout << "  Platform Version: " << __platform.version() << std::endl;
       std::cout << "    OpenCL supported: " << __platform.major_version() << "."
                 << __platform.minor_version();

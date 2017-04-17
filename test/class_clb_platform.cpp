@@ -41,10 +41,10 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_platform) {
     BOOST_TEST(!__platform.vendor().empty(), "vendor()");
     for (auto __ext : __platform.extensions()) {
       BOOST_TEST(!__ext.empty(), "extensions()");
-      BOOST_TEST(__platform.have_extension(__ext), "have_extension()");
+      BOOST_TEST(__platform.has_extension(__ext), "has_extension()");
     }
-    BOOST_TEST(!__platform.have_extension(" "), "have_extension()");
-    BOOST_TEST(!__platform.have_extension("xxx"), "have_extension()");
+    BOOST_TEST(!__platform.has_extension(" "), "has_extension()");
+    BOOST_TEST(!__platform.has_extension("xxx"), "has_extension()");
     BOOST_TEST(__platform.is_required_version(__platform.major_version(),
                                               __platform.minor_version()),
                "is_required_version()");

@@ -30,7 +30,14 @@ namespace clb {
 
 enum class platparam_t : uint64_t {
   PROFILE = CL_PLATFORM_PROFILE,
-  VERSION = CL_PLATFORM_VERSION
+  VERSION = CL_PLATFORM_VERSION,
+  NAME = CL_PLATFORM_NAME,
+  VENDOR = CL_PLATFORM_VENDOR,
+  EXTENSIONS = CL_PLATFORM_EXTENSIONS
+
+  /* Not in cl2.hpp:
+  CL_PLATFORM_HOST_TIMER_RESOLUTION
+  */
 };
 using platprofile_t = devprofile_t;
 
@@ -59,10 +66,10 @@ public:
   int minor_version() const noexcept { return minor_version_; }
   const std::string &spec_version() const noexcept { return spec_version_; }
   bool is_required_version(int major, int minor) const noexcept;
-  const std::string &name() const noexcept { return name_; }
-  const std::string &vendor() const noexcept { return vendor_; }
-  const extensions_t &extensions() const noexcept { return extensions_; }
-  bool have_extension(const std::string &ext_name) const;
+  std::string name() const;
+  std::string vendor() const;
+  extensions_t extensions() const;
+  bool has_extension(const std::string &ext_name) const;
   const std::string &icd_suffix_khr() const noexcept { return icd_suffix_khr_; }
   const devices_t &devices() const noexcept { return devices_; }
   std::size_t device_count() const noexcept { return devices_.size(); }
@@ -82,9 +89,6 @@ private:
   int major_version_;
   int minor_version_;
   std::string spec_version_;
-  std::string name_;           // CL_PLATFORM_NAME
-  std::string vendor_;         // CL_PLATFORM_VENDOR
-  extensions_t extensions_;    // CL_PLATFORM_EXTENSIONS
   std::string icd_suffix_khr_; // CL_PLATFORM_ICD_SUFFIX_KHR
   devices_t devices_;          // devices of this platform
 
@@ -107,6 +111,9 @@ private:
 
 __TEUTHID_CLB_PLATFORM_INFO_SPEC(PROFILE, std::string)
 __TEUTHID_CLB_PLATFORM_INFO_SPEC(VERSION, std::string)
+__TEUTHID_CLB_PLATFORM_INFO_SPEC(NAME, std::string)
+__TEUTHID_CLB_PLATFORM_INFO_SPEC(VENDOR, std::string)
+__TEUTHID_CLB_PLATFORM_INFO_SPEC(EXTENSIONS, std::string)
 #undef __TEUTHID_CLB_PLATFORM_INFO_SPEC
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace clb

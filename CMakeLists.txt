@@ -43,7 +43,6 @@ set(Boost_REQUIRED_VERSION "1.61.0")
 set(Boost_REQUIRED_COMPONENTS filesystem)
 set(GMP_REQUIRED_VERSION "6.1.1")
 set(MPFR_REQUIRED_VERSION "3.1.5")
-set(ArrayFire_REQUIRED_VERSION "3.3.2")
 
 option(ENABLE_AVX_SSE "Enable AVX or SSE compiler options" OFF)
 set(teuthid_compiler_options)
