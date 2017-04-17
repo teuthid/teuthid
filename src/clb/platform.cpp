@@ -32,21 +32,21 @@ platforms_t platform::platforms_;
 
 platform::platform(platform_id_t platform_id) {
   assert(platform_id);
-  bool __found = false;
+  *this = platform::get(platform_id);
+}
+
+const platform &platform::get(platform_id_t platform_id) {
+  assert(platform_id);
   try {
     if (platform::count() > 0) {
       for (const platform &__platform : platform::platforms_)
-        if (platform_id == __platform.id()) {
-          *this = platform(__platform);
-          __found = true;
-          break;
-        }
+        if (platform_id == __platform.id())
+          return __platform;
     }
   } catch (const error &__e) {
     throw invalid_platform(__e.cl_error());
   }
-  if (!__found)
-    throw invalid_platform("unknown platform_id_t");
+  throw invalid_platform("unknown platform_id_t");
 }
 
 const platforms_t &platform::get_all() {
@@ -57,6 +57,23 @@ const platforms_t &platform::get_all() {
       platform::detect_devices_(platform::platforms_[__i]);
   }
   return platform::platforms_;
+}
+
+const platform &platform::get_default() {
+  try {
+    return platform::get(cl::Platform::getDefault()());
+  } catch (const cl::Error &__e) {
+    throw invalid_device("unknown a default platform");
+  }
+}
+
+const platform &platform::set_default(const platform &plat) {
+  try {
+    cl::Platform __plat = cl::Platform::setDefault(cl::Platform(plat.id()));
+    return platform::get(__plat());
+  } catch (const cl::Error &__e) {
+    throw invalid_device("unknown a default platform");
+  }
 }
 
 void platform::detect_platforms_() {

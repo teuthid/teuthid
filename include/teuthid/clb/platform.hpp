@@ -74,7 +74,10 @@ public:
   bool operator==(const platform &other) const { return id_ == other.id_; }
   bool operator!=(const platform &other) const { return id_ != other.id_; }
 
+  static const platform &get(platform_id_t platform_id);
   static const platforms_t &get_all();
+  static const platform &get_default();
+  static const platform &set_default(const platform &plat);
   static std::size_t count() { return platform::get_all().size(); }
 
 private:
@@ -83,7 +86,7 @@ private:
   devices_t devices_; // devices of this platform
 
   static std::mutex mutex_;
-  static platforms_t platforms_;
+  static platforms_t platforms_; // all available platforms
   static void detect_platforms_();
   static void detect_devices_(platform &);
 };

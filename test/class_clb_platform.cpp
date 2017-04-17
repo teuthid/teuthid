@@ -27,10 +27,15 @@ using namespace teuthid::clb;
 BOOST_AUTO_TEST_CASE(class_teuthid_clb_platform) {
   const platforms_t &__platforms = platform::get_all();
   BOOST_TEST(!__platforms.empty(), "platform::get_all()");
+  BOOST_TEST((platform::set_default(platform::get_default()) ==
+              platform::get_default()),
+             "platform::get_default()");
   BOOST_TEST(platform::count() > 0, "platform::count()");
 
   for (auto __platform : __platforms) {
     BOOST_TEST(__platform.id(), "id()");
+    BOOST_TEST((__platform == platform::get(__platform.id())),
+               "platform::get()");
     BOOST_TEST(
         (__platform.is_full_profile() || __platform.is_embedded_profile()),
         "is_full_profile(), is_embedded_profile()");

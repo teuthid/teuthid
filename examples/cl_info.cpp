@@ -25,9 +25,6 @@ using namespace teuthid;
 #include <teuthid/clb/platform.hpp>
 #endif
 
-#define ruler                                                                  \
-  "------------------------------------------------------------------------"
-
 std::string __str;
 
 std::string yesno(bool value) {
@@ -35,7 +32,6 @@ std::string yesno(bool value) {
 }
 
 int main() {
-  std::cout << std::endl << ruler << std::endl;
   std::cout << "Teuthid Version " << system::to_string(system::major_version())
             << "." << system::to_string(system::minor_version()) << std::endl;
   std::cout << "  --" << std::endl;
@@ -46,6 +42,8 @@ int main() {
     // OpenCL platforms ...
     std::cout << "Available OpenCL platform(s): " << clb::platform::count()
               << std::endl;
+    std::cout << "Default OpenCL platform: "
+              << system::to_string(clb::platform::get_default()) << std::endl;
     for (auto __platform : clb::platform::get_all()) {
       std::cout << "  Platform Name: " << system::to_string(__platform)
                 << "  Vendor: " << __platform.vendor() << std::endl;
@@ -153,7 +151,6 @@ int main() {
     std::cout << "Build without OpenCL." << std::endl;
 
   // ...
-  std::cout << ruler << std::endl;
   // std::cout << std::endl;
   std::cout << std::endl;
   return 0;
