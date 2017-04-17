@@ -50,9 +50,6 @@ int main() {
       std::cout << "  Platform Name: " << system::to_string(__platform)
                 << "  Vendor: " << __platform.vendor() << std::endl;
       std::cout << "  Platform Version: " << __platform.version() << std::endl;
-      std::cout << "    OpenCL supported: " << __platform.major_version() << "."
-                << __platform.minor_version();
-      std::cout << "  Specific: " << __platform.spec_version() << std::endl;
       if (__platform.is_full_profile())
         __str = "FULL";
       else if (__platform.is_embedded_profile())

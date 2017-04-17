@@ -50,12 +50,6 @@ platform::platform(platform_id_t platform_id) {
     throw invalid_platform("unknown platform_id_t");
 }
 
-bool platform::is_required_version(int major, int minor) const noexcept {
-  int __required = major * 100 + minor;
-  int __actual = platform::major_version_ * 100 + platform::minor_version_;
-  return (!(__required > __actual));
-}
-
 const platforms_t &platform::platforms() {
   std::lock_guard<std::mutex> __guard(platform::mutex_);
   if (platform::platforms_.empty()) {
@@ -66,21 +60,6 @@ const platforms_t &platform::platforms() {
   return platform::platforms_;
 }
 
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-void __teuthid_get_cl_version(const std::string &version, int &major,
-                              int &minor, std::string &spec) {
-  std::string __s = version.substr(7);
-  std::string::size_type __dot = __s.find('.');
-  assert(__dot != std::string::npos);
-  major = std::stoi(__s.substr(0, __dot));
-  assert(major != 0);
-  std::string::size_type __space = __s.find(' ');
-  assert(__space != std::string::npos);
-  minor = std::stoi(__s.substr(__dot + 1, __space - __dot));
-  spec = __s.substr(__space + 1);
-}
-#endif // DOXYGEN_SHOULD_SKIP_THIS
-
 void platform::detect_platforms_() {
   try {
     std::vector<cl::Platform> __cl_platforms;
@@ -89,14 +68,6 @@ void platform::detect_platforms_() {
       platform::platforms_.push_back(platform());
       platform::platforms_[__i].id_ = __cl_platforms[__i]();
       assert(platform::platforms_[__i].id_);
-      platform::platforms_[__i].version_ =
-          __cl_platforms[__i].getInfo<CL_PLATFORM_VERSION>();
-      __teuthid_get_cl_version(platform::platforms_[__i].version_,
-                               platform::platforms_[__i].major_version_,
-                               platform::platforms_[__i].minor_version_,
-                               platform::platforms_[__i].spec_version_);
-      platform::platforms_[__i].icd_suffix_khr_ =
-          __cl_platforms[__i].getInfo<CL_PLATFORM_ICD_SUFFIX_KHR>();
     }
   } catch (const cl::Error &__e) {
     throw invalid_platform(__e.err());
@@ -112,8 +83,7 @@ void platform::detect_devices_(platform &plat) {
     for (std::size_t __i = 0; __i < __cl_devices.size(); __i++) {
       plat.devices_.push_back(device());
       plat.devices_[__i].id_ = __cl_devices[__i]();
-      plat.devices_[__i].platform_id_ =
-          __cl_devices[__i].getInfo<CL_DEVICE_PLATFORM>();
+      plat.devices_[__i].platform_id_ = plat.id_;
     }
   } catch (const cl::Error &__e) {
     throw invalid_device(__e.err());
@@ -147,6 +117,7 @@ __TEUTHID_CLB_PLATFORM_INFO(VERSION);
 __TEUTHID_CLB_PLATFORM_INFO(NAME);
 __TEUTHID_CLB_PLATFORM_INFO(VENDOR);
 __TEUTHID_CLB_PLATFORM_INFO(EXTENSIONS);
+__TEUTHID_CLB_PLATFORM_INFO(ICD_SUFFIX_KHR);
 #undef __TEUTHID_CLB_PLATFORM_INFO
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -179,4 +150,8 @@ bool platform::has_extension(const std::string &ext_name) const {
     if (__s == ext_name)
       return true;
   return false;
+}
+
+std::string platform::icd_suffix_khr() const {
+  return info<platparam_t::ICD_SUFFIX_KHR>();
 }

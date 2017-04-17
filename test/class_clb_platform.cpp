@@ -35,8 +35,6 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_platform) {
         (__platform.is_full_profile() || __platform.is_embedded_profile()),
         "is_full_profile(), is_embedded_profile()");
     BOOST_TEST(!__platform.version().empty(), "version()");
-    BOOST_TEST(__platform.major_version() > 0, "major_version()");
-    BOOST_TEST(!__platform.spec_version().empty(), "spec_version()");
     BOOST_TEST(!__platform.name().empty(), "name()");
     BOOST_TEST(!__platform.vendor().empty(), "vendor()");
     for (auto __ext : __platform.extensions()) {
@@ -45,16 +43,6 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_platform) {
     }
     BOOST_TEST(!__platform.has_extension(" "), "has_extension()");
     BOOST_TEST(!__platform.has_extension("xxx"), "has_extension()");
-    BOOST_TEST(__platform.is_required_version(__platform.major_version(),
-                                              __platform.minor_version()),
-               "is_required_version()");
-    BOOST_TEST(__platform.is_required_version(0, 0), "is_required_version()");
-    BOOST_TEST(
-        !__platform.is_required_version(__platform.major_version() + 1, 0),
-        "is_required_version()");
-    BOOST_TEST(!__platform.is_required_version(__platform.major_version(),
-                                               __platform.minor_version() + 1),
-               "is_required_version()");
     BOOST_TEST(!__platform.devices().empty(), "devices()");
     BOOST_TEST(__platform.device_count() > 0, "device_count()");
 
