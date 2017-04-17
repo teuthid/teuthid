@@ -34,7 +34,7 @@ platform::platform(platform_id_t platform_id) {
   assert(platform_id);
   bool __found = false;
   try {
-    if (platform::platform_count() > 0) {
+    if (platform::count() > 0) {
       for (const platform &__platform : platform::platforms_)
         if (platform_id == __platform.id()) {
           *this = platform(__platform);
@@ -49,7 +49,7 @@ platform::platform(platform_id_t platform_id) {
     throw invalid_platform("unknown platform_id_t");
 }
 
-const platforms_t &platform::platforms() {
+const platforms_t &platform::get_all() {
   std::lock_guard<std::mutex> __guard(platform::mutex_);
   if (platform::platforms_.empty()) {
     platform::detect_platforms_();

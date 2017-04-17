@@ -44,9 +44,9 @@ int main() {
     std::cout << "Build with OpenCL." << std::endl;
 
     // OpenCL platforms ...
-    std::cout << "Available OpenCL platform(s): "
-              << clb::platform::platforms().size() << std::endl;
-    for (auto __platform : clb::platform::platforms()) {
+    std::cout << "Available OpenCL platform(s): " << clb::platform::count()
+              << std::endl;
+    for (auto __platform : clb::platform::get_all()) {
       std::cout << "  Platform Name: " << system::to_string(__platform)
                 << "  Vendor: " << __platform.vendor() << std::endl;
       std::cout << "  Platform Version: " << __platform.version() << std::endl;

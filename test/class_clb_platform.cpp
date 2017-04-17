@@ -25,9 +25,9 @@
 using namespace teuthid::clb;
 
 BOOST_AUTO_TEST_CASE(class_teuthid_clb_platform) {
-  const platforms_t &__platforms = platform::platforms();
-  BOOST_TEST(!__platforms.empty());
-  BOOST_TEST(platform::platform_count() > 0);
+  const platforms_t &__platforms = platform::get_all();
+  BOOST_TEST(!__platforms.empty(), "platform::get_all()");
+  BOOST_TEST(platform::count() > 0, "platform::count()");
 
   for (auto __platform : __platforms) {
     BOOST_TEST(__platform.id(), "id()");

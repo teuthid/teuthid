@@ -74,8 +74,8 @@ public:
   bool operator==(const platform &other) const { return id_ == other.id_; }
   bool operator!=(const platform &other) const { return id_ != other.id_; }
 
-  static const platforms_t &platforms();
-  static std::size_t platform_count() { return platforms().size(); }
+  static const platforms_t &get_all();
+  static std::size_t count() { return platform::get_all().size(); }
 
 private:
   platform() {}

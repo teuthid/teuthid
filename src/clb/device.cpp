@@ -37,7 +37,7 @@ device::device(device_id_t device_id) {
 std::pair<const platform &, const device &>
 __teuthid_clb_get(device_id_t device_id) {
   try {
-    const platforms_t &__platforms = platform::platforms();
+    const platforms_t &__platforms = platform::get_all();
     for (std::size_t __i = 0; __i < __platforms.size(); __i++) {
       const devices_t &__devices = __platforms[__i].devices();
       for (std::size_t __j = 0; __j < __devices.size(); __j++)
@@ -77,7 +77,7 @@ const device &device::set_default(const device &dev) {
 devices_t device::find_by_type(devtype_t dev_type) {
   cl_bitfield __devtype = static_cast<cl_bitfield>(dev_type);
   devices_t __devs;
-  for (auto __platform : platform::platforms())
+  for (auto __platform : platform::get_all())
     for (auto __device : __platform.devices())
       if (static_cast<cl_bitfield>(__device.devtype()) & __devtype)
         __devs.push_back(__device);
