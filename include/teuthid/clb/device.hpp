@@ -257,6 +257,7 @@ public:
   std::string vendor() const;
   std::string version() const;
   std::string driver_version() const;
+  bool check_version(int major, int minor) const;
 
   bool operator==(const device &other) const { return id_ == other.id_; }
   bool operator!=(const device &other) const { return id_ != other.id_; }

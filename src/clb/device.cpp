@@ -16,8 +16,8 @@
     along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <algorithm>
 #include <cassert>
+#include <sstream>
 #include <utility>
 
 #include <teuthid/clb/error.hpp>
@@ -66,8 +66,12 @@ const device &device::get_default() {
 }
 
 const device &device::set_default(const device &dev) {
-  cl::Device __dev = cl::Device::setDefault(cl::Device(dev.id()));
-  return device::get(__dev());
+  try {
+    cl::Device __dev = cl::Device::setDefault(cl::Device(dev.id()));
+    return device::get(__dev());
+  } catch (const cl::Error &__e) {
+    throw invalid_device("unknown a default device");
+  }
 }
 
 devices_t device::find_by_type(devtype_t dev_type) {
@@ -358,4 +362,14 @@ std::string device::version() const {
 
 std::string device::driver_version() const {
   return info<devparam_t::DRIVER_VERSION>();
+}
+
+bool device::check_version(int major, int minor) const {
+  int act_major, act_minor;
+  std::stringstream __s;
+  __s << version();
+  __s >> act_major;
+  __s.ignore(1); // '.'
+  __s >> act_minor;
+  return (act_major > major || (act_major == major && act_minor >= minor));
 }

@@ -41,6 +41,9 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
       BOOST_TEST(!__device.version().empty(), "version()");
       BOOST_TEST(!__device.driver_version().empty(), "driver_version()");
       BOOST_TEST(!__device.c_version().empty(), "c_version()");
+      BOOST_TEST(__device.check_version(0, 0));
+      BOOST_TEST(!__device.check_version(3, 0));
+      BOOST_TEST(!__device.check_version(2, 999));
       BOOST_TEST(__device.max_compute_units() > 0, "max_compute_units()");
       BOOST_TEST(!__device.vendor().empty(), "vendor()");
       BOOST_TEST(__device.info<devparam_t::VENDOR_ID>() > 0,

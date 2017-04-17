@@ -16,7 +16,6 @@
     along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <algorithm>
 #include <cassert>
 
 #include <teuthid/clb/error.hpp>
