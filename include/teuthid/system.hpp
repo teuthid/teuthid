@@ -36,18 +36,12 @@ public:
   system(system const &) = delete;
   void operator=(system const &) = delete;
 #endif // DOXYGEN_SHOULD_SKIP_THIS
-  static constexpr uint8_t major_version() noexcept {
-    return TEUTHID_MAJOR_VERSION;
-  }
-  static constexpr uint8_t minor_version() noexcept {
-    return TEUTHID_MINOR_VERSION;
-  }
-  static constexpr uint8_t patch_version() noexcept {
-    return TEUTHID_PATCH_VERSION;
-  }
+  static constexpr uint8_t major_version() { return TEUTHID_MAJOR_VERSION; }
+  static constexpr uint8_t minor_version() { return TEUTHID_MINOR_VERSION; }
+  static constexpr uint8_t patch_version() { return TEUTHID_PATCH_VERSION; }
   static constexpr uint8_t soversion() noexcept { return TEUTHID_SOVERSION; }
   static const std::string &version() noexcept { return system::version_; }
-  static bool is_required_version(uint8_t major, uint8_t minor) noexcept;
+  static bool check_version(uint8_t major, uint8_t minor) noexcept;
   static bool has_clb();
   static bool uses_clb() noexcept { return system::clb_; }
   static bool uses_clb(bool enabled);

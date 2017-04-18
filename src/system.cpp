@@ -43,10 +43,9 @@ std::streamsize system::format_float_precision_ =
     system::default_format_float_precision_;
 bool system::format_float_scientific_ = false;
 
-bool system::is_required_version(uint8_t major, uint8_t minor) noexcept {
-  uint32_t __required = major * 1000 + minor;
-  uint32_t __actual = TEUTHID_MAJOR_VERSION * 1000 + TEUTHID_MINOR_VERSION;
-  return (!(__required > __actual));
+bool system::check_version(uint8_t major, uint8_t minor) noexcept {
+  return (TEUTHID_MAJOR_VERSION > major ||
+          (TEUTHID_MAJOR_VERSION == major && TEUTHID_MINOR_VERSION >= minor));
 }
 
 bool system::has_clb() {

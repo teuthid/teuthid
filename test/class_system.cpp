@@ -56,14 +56,13 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
 
   int major_ver = system::major_version();
   int minor_ver = system::minor_version();
-  BOOST_TEST(system::is_required_version(major_ver, minor_ver),
-             "is_required_version()");
-  BOOST_TEST(!system::is_required_version(major_ver + 1, minor_ver),
-             "is_required_version()");
-  BOOST_TEST(!system::is_required_version(major_ver, minor_ver + 1),
-             "is_required_version()");
-  BOOST_TEST(system::is_required_version(major_ver, minor_ver - 1),
-             "is_required_version()");
+  BOOST_TEST(system::check_version(major_ver, minor_ver), "check_version()");
+  BOOST_TEST(!system::check_version(major_ver + 1, minor_ver),
+             "check_version()");
+  BOOST_TEST(!system::check_version(major_ver, minor_ver + 1),
+             "check_version()");
+  BOOST_TEST(system::check_version(major_ver, minor_ver - 1),
+             "check_version()");
 
   test __test = test();
 #if defined(TEUTHID_WITH_OPENCL)
