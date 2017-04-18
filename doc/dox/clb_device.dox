@@ -114,6 +114,90 @@
  * Is \c true if images are supported by the OpenCL device and \c false 
  * otherwise. This is equivalent to \c CL_DEVICE_IMAGE_SUPPORT.
  */ 
+/*! \var teuthid::clb::LOCAL_MEM_SIZE
+ * Size of local memory region in bytes. This is equivalent to 
+ * \c CL_DEVICE_LOCAL_MEM_SIZE. See device::local_mem_size().
+ */ 
+/*! \var teuthid::clb::LOCAL_MEM_TYPE
+ * Type (clb::devlocal_mem_t) of local memory supported. This is equivalent to 
+ * \c CL_DEVICE_LOCAL_MEM_TYPE.
+ */ 
+/*! \var teuthid::clb::MAX_CLOCK_FREQUENCY
+ * Maximum configured clock frequency of the device in MHz. This is equivalent 
+ * to \c CL_DEVICE_MAX_CLOCK_FREQUENCY. See device::max_clock_frequency().
+ */ 
+/*! \var teuthid::clb::MAX_COMPUTE_UNITS
+ * The number of parallel compute units on the OpenCL device. A work-group 
+ * executes on a single compute unit. The minimum value is 1. This is 
+ * equivalent to \c CL_DEVICE_MAX_COMPUTE_UNITS. 
+ * See device::max_compute_units().
+ */ 
+/*! \var teuthid::clb::MAX_CONSTANT_ARGS
+ * Max number of arguments declared with the \c __constant qualifier in a 
+ * kernel. This is equivalent to \c CL_DEVICE_MAX_CONSTANT_ARGS.
+ */ 
+/*! \var teuthid::clb::MAX_CONSTANT_BUFFER_SIZE
+ * Max size in bytes of a constant buffer allocation. This is equivalent to 
+ * \c CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE.
+ */ 
+/*! \var teuthid::clb::MAX_MEM_ALLOC_SIZE
+ * Max size of memory object allocation in bytes. This is equivalent to 
+ * \c CL_DEVICE_MAX_MEM_ALLOC_SIZE. See device::max_mem_alloc_size().
+ */ 
+/*! \var teuthid::clb::MAX_ON_DEVICE_EVENTS
+ * The maximum number of events in use by a device queue. This is equivalent to 
+ * \c CL_DEVICE_MAX_ON_DEVICE_EVENTS.
+ */ 
+/*! \var teuthid::clb::MAX_ON_DEVICE_QUEUES
+ * The maximum number of device queues that can be created per context. This is 
+ * equivalent to \c CL_DEVICE_MAX_ON_DEVICE_QUEUES.
+ */
+/*! \var teuthid::clb::MAX_PARAMETER_SIZE
+ * Max size in bytes of all arguments that can be passed to a kernel. This is 
+ * equivalent to \c CL_DEVICE_MAX_PARAMETER_SIZE.
+ */  
+/*! \var teuthid::clb::MAX_PIPE_ARGS
+ * The maximum number of pipe objects that can be passed as arguments to a 
+ * kernel. This is equivalent to \c CL_DEVICE_MAX_PIPE_ARGS.
+ */ 
+/*! \var teuthid::clb::MAX_READ_IMAGE_ARGS
+ * Max number of image objects arguments of a kernel declared with the 
+ * \c read_only qualifier. This is equivalent to 
+ * \c CL_DEVICE_MAX_READ_IMAGE_ARGS.
+ */ 
+/*! \var teuthid::clb::MAX_SAMPLERS
+ * Maximum number of samplers that can be used in a kernel. This is equivalent 
+ * to \c CL_DEVICE_MAX_SAMPLERS.
+ */ 
+/*! \var teuthid::clb::MAX_WORK_GROUP_SIZE
+ * Maximum number of work-items in a work-group that a device is capable of 
+ * executing on a single compute unit, for any given kernel-instance running on 
+ * the device. This is equivalent to \c CL_DEVICE_MAX_WORK_GROUP_SIZE.
+ * See device::max_work_group_size().
+ */ 
+/*! \var teuthid::clb::MAX_WORK_ITEM_DIMENSIONS
+ * Maximum dimensions that specify the global and local work-item IDs used by 
+ * the data parallel execution model. This is equivalent to 
+ * \c CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS. 
+ * See device::max_work_item_dimensions().
+ */
+/*! \var teuthid::clb::MAX_WORK_ITEM_SIZES
+ * Maximum number of work-items that can be specified in each dimension of the 
+ * work-group. This is equivalent to \c CL_DEVICE_MAX_WORK_ITEM_SIZES.
+ */  
+/*! \var teuthid::clb::MAX_WRITE_IMAGE_ARGS
+ * Max number of image objects arguments of a kernel declared with the 
+ * \c write_only qualifier. 
+ * This is equivalent to \c CL_DEVICE_MAX_WRITE_IMAGE_ARGS.
+ */
+/*! \var teuthid::clb::MEM_BASE_ADDR_ALIGN
+ * Alignment requirement (in bits) for sub-buffer offsets. This is equivalent 
+ * to \c CL_DEVICE_MEM_BASE_ADDR_ALIGN.
+ */  
+/*! \var teuthid::clb::NAME
+ * Device name string. This is equivalent to \c CL_DEVICE_NAME.
+ * See device::name().
+ */ 
 
 
 /*! \enum teuthid::compute_profile_t
