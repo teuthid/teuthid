@@ -32,7 +32,7 @@
 using namespace teuthid;
 
 #if defined(TEUTHID_WITH_OPENCL)
-thread_local bool system::clb_ = system::has_clb();
+thread_local bool system::clb_ = system::has_cl_backend();
 #else
 thread_local bool system::clb_ = false;
 #endif
@@ -48,7 +48,7 @@ bool system::check_version(uint8_t major, uint8_t minor) noexcept {
           (TEUTHID_MAJOR_VERSION == major && TEUTHID_MINOR_VERSION >= minor));
 }
 
-bool system::has_clb() {
+bool system::has_cl_backend() {
 #if defined(TEUTHID_WITH_OPENCL)
   try {
     for (auto __platform : clb::platform::get_all())
@@ -61,8 +61,8 @@ bool system::has_clb() {
   return false;
 }
 
-bool system::uses_clb(bool enabled) {
-  if (system::has_clb())
+bool system::uses_cl_backend(bool enabled) {
+  if (system::has_cl_backend())
     system::clb_ = enabled;
   return system::clb_;
 }

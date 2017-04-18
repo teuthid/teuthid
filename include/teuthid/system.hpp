@@ -42,9 +42,9 @@ public:
   static constexpr uint8_t soversion() noexcept { return TEUTHID_SOVERSION; }
   static const std::string &version() noexcept { return system::version_; }
   static bool check_version(uint8_t major, uint8_t minor) noexcept;
-  static bool has_clb();
-  static bool uses_clb() noexcept { return system::clb_; }
-  static bool uses_clb(bool enabled);
+  static bool has_cl_backend();
+  static bool uses_cl_backend() noexcept { return system::clb_; }
+  static bool uses_cl_backend(bool enabled);
 
   template <typename T> static std::string to_string(const T &value);
   static std::size_t split_string(const std::string &str,

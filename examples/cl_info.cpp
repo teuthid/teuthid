@@ -35,7 +35,7 @@ int main() {
   std::cout << "Teuthid Version " << system::to_string(system::major_version())
             << "." << system::to_string(system::minor_version()) << std::endl;
   std::cout << "  --" << std::endl;
-  if (system::has_clb()) {
+  if (system::has_cl_backend()) {
 #if defined(TEUTHID_WITH_OPENCL)
     std::cout << "Build with OpenCL." << std::endl;
 
