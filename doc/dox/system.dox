@@ -58,11 +58,11 @@
  *
  * \return the version of the framework as a string that has the following 
  * format: \e "<major_version>.<minor_version>.<patch_version>".
- * \see major_version(), minor_version(), patch_version().
+ * \see major_version(), minor_version(), patch_version(), check_version().
  */
 
 
-/*! \fn static bool system::is_required_version(uint8_t major, uint8_t minor)
+/*! \fn static bool system::check_version(uint8_t major, uint8_t minor)
  * \brief Checks whether a version of the framework is sufficient. 
  * \return \c true if a version of the framewrok is a sufficient version. 
  * Otherwise return \c false. 
@@ -73,7 +73,7 @@
  */ 
 
 
-/*! \fn static bool system::have_clb()
+/*! \fn static bool system::has_cl_backend()
  * \brief Checks whether the framework can use OpenCL compute kernels.
  * \return \c true if the framework can use OpenCL compute kernels - the system 
  * must have at least one properly working OpenCL platform with one properly 
@@ -81,11 +81,11 @@
  * \note The Teuthid framework must be compiled with enabled 
  * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
  * devices.
- * \see use_clb(), clb::platform::platforms(), clb::platform::devices().
+ * \see uses_cl_backend().
  */
 
 
-/*! \fn static bool teuthid::system::use_clb()
+/*! \fn static bool teuthid::system::uses_cl_backend()
  * \brief Checks whether a given thread can use OpenCL compute kernels.
  * \return \c true if a given thread (a thread that call this function) can use 
  * OpenCL compute kernels in a multithreading environment. 
@@ -93,11 +93,11 @@
  * \note The Teuthid framework must be compiled with enabled 
  * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
  * devices.
- * \see use_clb(bool), have_clb().
+ * \see uses_cl_backend(bool), has_cl_backend().
  */
 
 
-/*! \fn static bool system::use_clb(bool enabled)
+/*! \fn static bool system::uses_cl_backend(bool enabled)
  * \brief Enables or disables the possibility to use OpenCL compute kernels
  * by a given thread.
  *
@@ -110,7 +110,7 @@
  * \note The Teuthid framework must be compiled with enabled 
  * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
  * devices.
- * \see have_clb().
+ * \see has_cl_backend().
  */
 
 
