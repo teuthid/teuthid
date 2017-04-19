@@ -198,6 +198,225 @@
  * Device name string. This is equivalent to \c CL_DEVICE_NAME.
  * See device::name().
  */ 
+/*! \var teuthid::clb::NATIVE_VECTOR_WIDTH_CHAR
+ * Returns the native ISA vector width. The vector width is defined as the 
+ * number of scalar elements that can be stored in the vector. This is 
+ * equivalent to \c CL_DEVICE_NATIVE_VECTOR_WIDTH_CHAR. 
+ * See device::native_vector_width().
+ */ 
+/*! \var teuthid::clb::NATIVE_VECTOR_WIDTH_SHORT
+ * Returns the native ISA vector width. The vector width is defined as the 
+ * number of scalar elements that can be stored in the vector. This is 
+ * equivalent to \c CL_DEVICE_NATIVE_VECTOR_WIDTH_SHORT. 
+ * See device::native_vector_width().
+ */ 
+/*! \var teuthid::clb::NATIVE_VECTOR_WIDTH_INT
+ * Returns the native ISA vector width. The vector width is defined as the 
+ * number of scalar elements that can be stored in the vector. This is 
+ * equivalent to \c CL_DEVICE_NATIVE_VECTOR_WIDTH_INT. 
+ * See device::native_vector_width().
+ */ 
+/*! \var teuthid::clb::NATIVE_VECTOR_WIDTH_LONG
+ * Returns the native ISA vector width. The vector width is defined as the 
+ * number of scalar elements that can be stored in the vector. This is 
+ * equivalent to \c CL_DEVICE_NATIVE_VECTOR_WIDTH_LONG. 
+ * See device::native_vector_width().
+ */ 
+/*! \var teuthid::clb::NATIVE_VECTOR_WIDTH_FLOAT
+ * Returns the native ISA vector width. The vector width is defined as the 
+ * number of scalar elements that can be stored in the vector. This is 
+ * equivalent to \c CL_DEVICE_NATIVE_VECTOR_WIDTH_FLOAT. 
+ * See device::native_vector_width().
+ */ 
+/*! \var teuthid::clb::NATIVE_VECTOR_WIDTH_DOUBLE
+ * Returns the native ISA vector width. The vector width is defined as the 
+ * number of scalar elements that can be stored in the vector. This is 
+ * equivalent to \c CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE. 
+ * See device::native_vector_width().
+ */ 
+/*! \var teuthid::clb::NATIVE_VECTOR_WIDTH_HALF
+ * Returns the native ISA vector width. The vector width is defined as the 
+ * number of scalar elements that can be stored in the vector. This is 
+ * equivalent to \c CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF. 
+ * See device::native_vector_width().
+ */ 
+/*! \var teuthid::clb::OPENCL_C_VERSION
+ * OpenCL C version string. Returns the highest OpenCL C version supported by 
+ * the compiler for this device. This is equivalent to 
+ * \c CL_DEVICE_OPENCL_C_VERSION. See device::c_version().
+ */
+/*! \var teuthid::clb::PARENT_DEVICE
+ * Returns the clb::device_id_t of the parent device to which this sub-device 
+ * belongs. If device is a root-level device, a \c NULL value is returned.
+ * This is equivalent to \c CL_DEVICE_PARENT_DEVICE. See device::parent_id().
+ */
+/*! \var teuthid::clb::PARTITION_AFFINITY_DOMAIN
+ * Returns the list of supported affinity domains for partitioning the device.
+ * This is a bit-field of type clb::devaffinity_domain_t. If the device does 
+ * not support any affinity domains, a value of \c 0 will be returned.
+ * This is equivalent to \c CL_DEVICE_PARTITION_AFFINITY_DOMAIN.
+ */
+/*! \var teuthid::clb::PARTITION_PROPERTIES
+ * Returns the list (clb::partition_properties_t) of partition types supported 
+ * by device. This is equivalent to \c CL_DEVICE_PARTITION_PROPERTIES.
+ */
+/*! \var teuthid::clb::PARTITION_TYPE
+ * TO DO
+ */
+/*! \var teuthid::clb::PIPE_MAX_ACTIVE_RESERVATIONS
+ * The maximum number of reservations that can be active for a pipe per 
+ * work-item in a kernel. A work-group reservation is counted as one 
+ * reservation per work-item. This is equivalent to 
+ * \c CL_DEVICE_PIPE_MAX_ACTIVE_RESERVATIONS.
+ */
+/*! \var teuthid::clb::PIPE_MAX_PACKET_SIZE
+ * The maximum size of pipe packet in bytes. This is equivalent to 
+ * \c CL_DEVICE_PIPE_MAX_PACKET_SIZE.
+ */
+/*! \var teuthid::clb::PREFERRED_GLOBAL_ATOMIC_ALIGNMENT
+ * Returns the value representing the preferred alignment in bytes for atomic 
+ * types to global memory. This query can return \c 0 which indicates that the 
+ * preferred alignment is aligned to the natural size of the type. This is 
+ * equivalent to \c CL_DEVICE_PREFERRED_GLOBAL_ATOMIC_ALIGNMENT.
+ */
+/*! \var teuthid::clb::PREFERRED_INTEROP_USER_SYNC
+ * Is \c true if the device's preference is for the user to be responsible for 
+ * synchronization, when sharing memory objects between OpenCL and other APIs 
+ * such as DirectX, \c false if the device/implementation has a performant path 
+ * for performing synchronization of memory object shared between OpenCL and 
+ * other APIs such as DirectX. This is equivalent to 
+ * \c CL_DEVICE_PREFERRED_INTEROP_USER_SYNC.
+ */
+/*! \var teuthid::clb::PREFERRED_LOCAL_ATOMIC_ALIGNMENT
+ * Returns the value representing the preferred alignment in bytes for atomic 
+ * types to local memory. This query can return \c 0 which indicates that the 
+ * preferred alignment is aligned to the natural size of the type. This is 
+ * equivalent to \c CL_DEVICE_PREFERRED_LOCAL_ATOMIC_ALIGNMENT.
+ */
+/*! \var teuthid::clb::PREFERRED_PLATFORM_ATOMIC_ALIGNMENT
+ * Returns the value representing the preferred alignment in bytes for 
+ * fine-grained SVM atomic types. This query can return \c 0 which indicates 
+ * that the preferred alignment is aligned to the natural size of the type.
+ * This is equivalent to \c CL_DEVICE_PREFERRED_PLATFORM_ATOMIC_ALIGNMENT.
+ */
+/*! \var teuthid::clb::PREFERRED_VECTOR_WIDTH_CHAR
+ * Preferred native vector width size for built-in scalar types that can be put 
+ * into vectors. The vector width is defined as the number of scalar elements 
+ * that can be stored in the vector. This is equivalent to 
+ * \c CL_DEVICE_PREFERRED_VECTOR_WIDTH_CHAR. 
+ * See device::preferred_vector_width().
+ */
+/*! \var teuthid::clb::PREFERRED_VECTOR_WIDTH_SHORT
+ * Preferred native vector width size for built-in scalar types that can be put 
+ * into vectors. The vector width is defined as the number of scalar elements 
+ * that can be stored in the vector. This is equivalent to 
+ * \c CL_DEVICE_PREFERRED_VECTOR_WIDTH_SHORT. 
+ * See device::preferred_vector_width().
+ */
+/*! \var teuthid::clb::PREFERRED_VECTOR_WIDTH_INT
+ * Preferred native vector width size for built-in scalar types that can be put 
+ * into vectors. The vector width is defined as the number of scalar elements 
+ * that can be stored in the vector. This is equivalent to 
+ * \c CL_DEVICE_PREFERRED_VECTOR_WIDTH_INT. 
+ * See device::preferred_vector_width().
+ */
+/*! \var teuthid::clb::PREFERRED_VECTOR_WIDTH_LONG
+ * Preferred native vector width size for built-in scalar types that can be put 
+ * into vectors. The vector width is defined as the number of scalar elements 
+ * that can be stored in the vector. This is equivalent to 
+ * \c CL_DEVICE_PREFERRED_VECTOR_WIDTH_LONG. 
+ * See device::preferred_vector_width().
+ */
+/*! \var teuthid::clb::PREFERRED_VECTOR_WIDTH_FLOAT
+ * Preferred native vector width size for built-in scalar types that can be put 
+ * into vectors. The vector width is defined as the number of scalar elements 
+ * that can be stored in the vector. This is equivalent to 
+ * \c CL_DEVICE_PREFERRED_VECTOR_WIDTH_FLOAT. 
+ * See device::preferred_vector_width().
+ */
+/*! \var teuthid::clb::PREFERRED_VECTOR_WIDTH_DOUBLE
+ * Preferred native vector width size for built-in scalar types that can be put 
+ * into vectors. The vector width is defined as the number of scalar elements 
+ * that can be stored in the vector. This is equivalent to 
+ * \c CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE. 
+ * See device::preferred_vector_width().
+ */
+/*! \var teuthid::clb::PREFERRED_VECTOR_WIDTH_HALF
+ * Preferred native vector width size for built-in scalar types that can be put 
+ * into vectors. The vector width is defined as the number of scalar elements 
+ * that can be stored in the vector. This is equivalent to 
+ * \c CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF. 
+ * See device::preferred_vector_width().
+ */
+/*! \var teuthid::clb::PROFILE
+ * OpenCL profile string. Returns the profile (clb::devprofile_t) supported by 
+ * the device. This is equivalent to \c CL_DEVICE_PROFILE. 
+ * See device::profile(), device::is_full_profile(), 
+ * device::is_embedded_profile().
+ */
+/*! \var teuthid::clb::PROFILING_TIMER_RESOLUTION
+ * Describes the resolution of device timer. This is measured in nanoseconds.
+ * This is equivalent to \c CL_DEVICE_PROFILING_TIMER_RESOLUTION. 
+ * See device::profiling_timer_resolution().
+ */
+/*! \var teuthid::clb::QUEUE_ON_DEVICE_MAX_SIZE
+ * The maximum size of the device queue in bytes. This is equivalent to 
+ * \c CL_DEVICE_QUEUE_ON_DEVICE_MAX_SIZE.
+ */
+/*! \var teuthid::clb::QUEUE_ON_DEVICE_PREFERRED_SIZE
+ * The size of the device queue in bytes preferred by the implementation. 
+ * Applications should use this size for the device queue to ensure good 
+ * performance. This is equivalent to 
+ * \c CL_DEVICE_QUEUE_ON_DEVICE_PREFERRED_SIZE.
+ */
+/*! \var teuthid::clb::QUEUE_ON_DEVICE_PROPERTIES
+ * Describes the on device command-queue properties 
+ * (clb::devcommand_queue_properties_t) supported by the device. This is 
+ * equivalent to \c CL_DEVICE_QUEUE_ON_DEVICE_PROPERTIES.
+ */
+/*! \var teuthid::clb::QUEUE_ON_HOST_PROPERTIES
+ * Describes the on host command-queue properties
+ * (clb::devcommand_queue_properties_t) supported by the device. This is 
+ * equivalent to \c CL_DEVICE_QUEUE_ON_HOST_PROPERTIES.
+ */
+/*! \var teuthid::clb::REFERENCE_COUNT
+ * Returns the device reference count. If the device is a root-level device, a 
+ * reference count of one is returned. This is equivalent to 
+ * \c CL_DEVICE_REFERENCE_COUNT.
+ */
+/*! \var teuthid::clb::SINGLE_FP_CONFIG
+ * Describes single precision floating-point capability (clb::devfp_config_t) 
+ * of the device. This is equivalent to \c CL_DEVICE_SINGLE_FP_CONFIG.
+ * See device::single_fp_config(), device::has_single_precision().
+ */
+/*! \var teuthid::clb::SVM_CAPABILITIES
+ * Describes the various shared virtual memory (a.k.a. SVM) memory allocation 
+ * types the device supports. Coarse-grain SVM allocations are required to be 
+ * supported by all devices. This is a bit-field of type 
+ * clb::devsvm_capabilities_t. This is equivalent to 
+ * \c CL_DEVICE_SVM_CAPABILITIES.
+ */
+/*! \var teuthid::clb::TYPE
+ * The OpenCL device type (clb::devtype_t). This is equivalent to 
+ * \c CL_DEVICE_TYPE. See device::devtype(), device::is_cpu(), device::is_gpu().
+ */
+/*! \var teuthid::clb::VENDOR
+ * Vendor name string. This is equivalent to \c CL_DEVICE_VENDOR.
+ * See device::vendor().
+ */
+/*! \var teuthid::clb::VENDOR_ID
+ * A unique device vendor identifier. This is equivalent to 
+ * \c CL_DEVICE_VENDOR_ID.
+ */
+/*! \var teuthid::clb::VERSION
+ * OpenCL version string. Returns the OpenCL version supported by the device.
+ * This is equivalent to \c CL_DEVICE_VERSION. See device::version(),
+ * device::check_version().
+ */
+/*! \var teuthid::clb::DRIVER_VERSION
+ * OpenCL software driver version string. This is equivalent to 
+ * \c CL_DRIVER_VERSION. See device::driver_version().
+ */
 
 
 /*! \enum teuthid::compute_profile_t
