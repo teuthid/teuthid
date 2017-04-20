@@ -16,7 +16,6 @@
     along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 /*! \enum teuthid::clb::devparam_t
  * \brief This enumeration includes named constants that identifies 
  * the OpenCL device information being queried.
@@ -558,9 +557,21 @@
  * Indicates the global memory storage.
  * This is equivalent to \c CL_GLOBAL.
  */
-/*! \var teuthid::clb::devlocal_mem_t::NONE
- * Indicates no local memory support.
+
+
+/*! \enum teuthid::clb::devmem_cache_t
+ * \brief This enumeration includes named constants that identifies
+ * a type of global memory cache supported.
+ *
+ * This is equivalent to \c cl_device_mem_cache_type.
  */
+/*! \var teuthid::clb::devmem_cache_t::READ_ONLY_CACHE
+ * This is equivalent to \c CL_READ_ONLY_CACHE.
+ */
+/*! \var teuthid::clb::devmem_cache_t::READ_WRITE_CACHE
+ * This is equivalent to \c CL_READ_WRITE_CACHE.
+ */
+
 
 
 
