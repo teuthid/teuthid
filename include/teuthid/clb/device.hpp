@@ -161,15 +161,15 @@ enum class devfp_config_t : uint64_t { // cl_device_fp_config
   SOFT_FLOAT = CL_FP_SOFT_FLOAT,
   CORRECTLY_ROUNDED_DIVIDE_SQRT = CL_FP_CORRECTLY_ROUNDED_DIVIDE_SQRT
 };
-enum class devlocal_mem_t : uint64_t {
+enum class devlocal_mem_t : uint64_t { // cl_device_local_mem_type
   LOCAL = CL_LOCAL,
   GLOBAL = CL_GLOBAL,
   NONE = CL_NONE
 };
 enum class devmem_cache_t : uint64_t {
-  NONE = CL_NONE,
   READ_ONLY_CACHE = CL_READ_ONLY_CACHE,
-  READ_WRITE_CACHE = CL_READ_WRITE_CACHE
+  READ_WRITE_CACHE = CL_READ_WRITE_CACHE,
+  NONE = CL_NONE
 };
 enum class devpartition_property_t : uint64_t {
   EQUALLY = CL_DEVICE_PARTITION_EQUALLY,

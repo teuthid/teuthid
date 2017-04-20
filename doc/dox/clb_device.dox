@@ -544,6 +544,26 @@
  */
 
 
+/*! \enum teuthid::clb::devlocal_mem_t
+ * \brief This enumeration includes named constants that identifies 
+ * a type of local memory supported.
+ *
+ * This is equivalent to \c cl_device_local_mem_type.
+ */
+/*! \var teuthid::clb::devlocal_mem_t::LOCAL
+ * Indicates the dedicated local memory storage such as SRAM.
+ * This is equivalent to \c CL_LOCAL.
+ */
+/*! \var teuthid::clb::devlocal_mem_t::GLOBAL
+ * Indicates the global memory storage.
+ * This is equivalent to \c CL_GLOBAL.
+ */
+/*! \var teuthid::clb::devlocal_mem_t::NONE
+ * Indicates no local memory support.
+ */
+
+
+
 /*! \enum teuthid::compute_profile_t
  * \brief This enumeration includes named constants of OpenCL platform's 
  * or device's profile.
