@@ -33,7 +33,7 @@
 namespace teuthid {
 namespace clb {
 
-enum class devparam_t : uint64_t {
+enum class devparam_t : uint64_t { // cl_device_info
   ADDRESS_BITS = CL_DEVICE_ADDRESS_BITS,
   AVAILABLE = CL_DEVICE_AVAILABLE,
   BUILT_IN_KERNELS = CL_DEVICE_BUILT_IN_KERNELS,
@@ -132,7 +132,7 @@ enum class devparam_t : uint64_t {
   */
 };
 
-enum class devaffinity_domain_t : uint64_t {
+enum class devaffinity_domain_t : uint64_t { // cl_device_affinity_domain
   NUMA = CL_DEVICE_AFFINITY_DOMAIN_NUMA,
   L4_CACHE = CL_DEVICE_AFFINITY_DOMAIN_L4_CACHE,
   L3_CACHE = CL_DEVICE_AFFINITY_DOMAIN_L3_CACHE,
@@ -140,10 +140,13 @@ enum class devaffinity_domain_t : uint64_t {
   L1_CACHE = CL_DEVICE_AFFINITY_DOMAIN_L1_CACHE,
   NEXT_PARTITIONABLE = CL_DEVICE_AFFINITY_DOMAIN_NEXT_PARTITIONABLE
 };
-enum class devcommand_queue_properties_t : uint64_t {
-  OUT_OF_ORDER_EXEC_MODE_ENABLE = CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE,
-  PROFILING_ENABLE = CL_QUEUE_PROFILING_ENABLE
-};
+enum class
+    devcommand_queue_properties_t : uint64_t { // cl_command_queue_properties
+      OUT_OF_ORDER_EXEC_MODE_ENABLE = CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE,
+      PROFILING_ENABLE = CL_QUEUE_PROFILING_ENABLE,
+      ON_DEVICE = CL_QUEUE_ON_DEVICE,
+      ON_DEVICE_DEFAULT = CL_QUEUE_ON_DEVICE_DEFAULT
+    };
 enum class devexec_caps_t : uint64_t {
   KERNEL = CL_EXEC_KERNEL,
   NATIVE_KERNEL = CL_EXEC_NATIVE_KERNEL
