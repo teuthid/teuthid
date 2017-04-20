@@ -21,265 +21,265 @@
  * \brief This enumeration includes named constants that identifies 
  * the OpenCL device information being queried.
  */
-/*! \var teuthid::clb::ADDRESS_BITS
+/*! \var teuthid::clb::devparam_t::ADDRESS_BITS
  * The default compute device address space size of the global address space 
  * specified as \c uint32_t value in bits. This is equivalent to 
  * \c CL_DEVICE_ADDRESS_BITS. See device::address_bits().
  */
-/*! \var teuthid::clb::AVAILABLE
+/*! \var teuthid::clb::devparam_t::AVAILABLE
  * Is \c true if the device is available and \c false otherwise. A device is 
  * considered to be available if the device can be expected to successfully 
  * execute commands enqueued to the device. This is equivalent to 
  * \c CL_DEVICE_AVAILABLE. See device::is_available().
  */
-/*! \var teuthid::clb::BUILT_IN_KERNELS
+/*! \var teuthid::clb::devparam_t::BUILT_IN_KERNELS
  * A clb::built_in_kernels_t list of built-in kernels supported by the device. 
  * An empty list is returned if no built-in kernels are supported by 
  * the device. This is equivalent to \c CL_DEVICE_BUILT_IN_KERNELS.
  * See device::built_in_kernels().
  */
-/*! \var teuthid::clb::COMPILER_AVAILABLE
+/*! \var teuthid::clb::devparam_t::COMPILER_AVAILABLE
  * Is \c false if the implementation does not have a compiler available to 
  * compile the program source. Is \c true if the compiler is available. This 
  * can be \c false for the embedded platform profile only. This is equivalent 
  * to \c CL_DEVICE_COMPILER_AVAILABLE. See device::is_compiler_available(),
  * device::profile().
  */ 
-/*! \var teuthid::clb::DOUBLE_FP_CONFIG
+/*! \var teuthid::clb::devparam_t::DOUBLE_FP_CONFIG
  * Describes double precision floating-point capability of the OpenCL device 
  * as a clb::devfp_config_t value. Double precision is an optional 
  * feature. This is equivalent to \c CL_DEVICE_DOUBLE_FP_CONFIG.
  * See device::double_fp_config(), device::has_double_precision().
  */
-/*! \var teuthid::clb::ENDIAN_LITTLE
+/*! \var teuthid::clb::devparam_t::ENDIAN_LITTLE
  * Is \c true if the OpenCL device is a little endian device and \c false 
  * otherwise. This is equivalent to \c CL_DEVICE_ENDIAN_LITTLE.
  */
-/*! \var teuthid::clb::ERROR_CORRECTION_SUPPORT
+/*! \var teuthid::clb::devparam_t::ERROR_CORRECTION_SUPPORT
  * Is \c true if the device implements error correction for all accesses to 
  * compute device memory (global and constant). Is \c false if the device does 
  * not implement such error correction. This is equivalent to 
  * \c CL_DEVICE_ERROR_CORRECTION_SUPPORT.
  */
-/*! \var teuthid::clb::EXECUTION_CAPABILITIES
+/*! \var teuthid::clb::devparam_t::EXECUTION_CAPABILITIES
  * Describes the execution capabilities of the device as a 
  * clb::devexec_caps_t value. This is equivalent to 
  * \c CL_DEVICE_EXECUTION_CAPABILITIES.
  */ 
-/*! \var teuthid::clb::EXTENSIONS
+/*! \var teuthid::clb::devparam_t::EXTENSIONS
  * Returns a teuthid::clb::extensions_t list of extension names (the extension 
  * names themselves do not contain any spaces) supported by the device. The 
  * list of extension names returned can be vendor supported extension names and 
  * one or more of the Khronos approved extension names. This is equivalent to 
  * \c CL_DEVICE_EXTENSIONS. See device::extensions(), device::has_extension().
  */
-/*! \var teuthid::clb::GLOBAL_MEM_CACHE_SIZE
+/*! \var teuthid::clb::devparam_t::GLOBAL_MEM_CACHE_SIZE
  * Size of global memory cache in bytes. This is equivalent to 
  * \c CL_DEVICE_GLOBAL_MEM_CACHE_SIZE. See device::global_mem_cache_size().
  */ 
-/*! \var teuthid::clb::GLOBAL_MEM_CACHE_TYPE
+/*! \var teuthid::clb::devparam_t::GLOBAL_MEM_CACHE_TYPE
  * Type (clb::devmem_cache_t) of global memory cache supported.
  * This is equivalent to \c CL_DEVICE_GLOBAL_MEM_CACHE_TYPE.
  */
-/*! \var teuthid::clb::GLOBAL_MEM_CACHELINE_SIZE
+/*! \var teuthid::clb::devparam_t::GLOBAL_MEM_CACHELINE_SIZE
  * Size of global memory cache line in bytes. This is equivalent to 
  * \c CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE.
  * See device::global_mem_cache_line_size().
  */ 
-/*! \var teuthid::clb::GLOBAL_MEM_SIZE
+/*! \var teuthid::clb::devparam_t::GLOBAL_MEM_SIZE
  * Size of global device memory in bytes. This is equivalent to 
  * \c CL_DEVICE_GLOBAL_MEM_SIZE. See device::global_mem_size().
  */
-/*! \var teuthid::clb::IMAGE2D_MAX_HEIGHT
+/*! \var teuthid::clb::devparam_t::IMAGE2D_MAX_HEIGHT
  * Max height of 2D image in pixels. This is equivalent to 
  * \c CL_DEVICE_IMAGE2D_MAX_HEIGHT.
  */
-/*! \var teuthid::clb::IMAGE2D_MAX_WIDTH
+/*! \var teuthid::clb::devparam_t::IMAGE2D_MAX_WIDTH
  * Max width of 2D image or 1D image not created from a buffer object in pixels.
  * This is equivalent to \c CL_DEVICE_IMAGE2D_MAX_WIDTH.
  */ 
-/*! \var teuthid::clb::IMAGE3D_MAX_DEPTH
+/*! \var teuthid::clb::devparam_t::IMAGE3D_MAX_DEPTH
  * Max depth of 3D image in pixels. This is equivalent to 
  * \c CL_DEVICE_IMAGE3D_MAX_DEPTH.
  */
-/*! \var teuthid::clb::IMAGE3D_MAX_HEIGHT
+/*! \var teuthid::clb::devparam_t::IMAGE3D_MAX_HEIGHT
  * Max height of 3D image in pixels. This is equivalent to 
  * \c CL_DEVICE_IMAGE3D_MAX_HEIGHT. 
  */
-/*! \var teuthid::clb::IMAGE3D_MAX_WIDTH
+/*! \var teuthid::clb::devparam_t::IMAGE3D_MAX_WIDTH
  * Max width of 3D image in pixels. This is equivalent to 
  * \c CL_DEVICE_IMAGE3D_MAX_WIDTH. 
  */ 
-/*! \var teuthid::clb::IMAGE_SUPPORT
+/*! \var teuthid::clb::devparam_t::IMAGE_SUPPORT
  * Is \c true if images are supported by the OpenCL device and \c false 
  * otherwise. This is equivalent to \c CL_DEVICE_IMAGE_SUPPORT.
  */ 
-/*! \var teuthid::clb::LOCAL_MEM_SIZE
+/*! \var teuthid::clb::devparam_t::LOCAL_MEM_SIZE
  * Size of local memory region in bytes. This is equivalent to 
  * \c CL_DEVICE_LOCAL_MEM_SIZE. See device::local_mem_size().
  */ 
-/*! \var teuthid::clb::LOCAL_MEM_TYPE
+/*! \var teuthid::clb::devparam_t::LOCAL_MEM_TYPE
  * Type (clb::devlocal_mem_t) of local memory supported. This is equivalent to 
  * \c CL_DEVICE_LOCAL_MEM_TYPE.
  */ 
-/*! \var teuthid::clb::MAX_CLOCK_FREQUENCY
+/*! \var teuthid::clb::devparam_t::MAX_CLOCK_FREQUENCY
  * Maximum configured clock frequency of the device in MHz. This is equivalent 
  * to \c CL_DEVICE_MAX_CLOCK_FREQUENCY. See device::max_clock_frequency().
  */ 
-/*! \var teuthid::clb::MAX_COMPUTE_UNITS
+/*! \var teuthid::clb::devparam_t::MAX_COMPUTE_UNITS
  * The number of parallel compute units on the OpenCL device. A work-group 
  * executes on a single compute unit. The minimum value is 1. This is 
  * equivalent to \c CL_DEVICE_MAX_COMPUTE_UNITS. 
  * See device::max_compute_units().
  */ 
-/*! \var teuthid::clb::MAX_CONSTANT_ARGS
+/*! \var teuthid::clb::devparam_t::MAX_CONSTANT_ARGS
  * Max number of arguments declared with the \c __constant qualifier in a 
  * kernel. This is equivalent to \c CL_DEVICE_MAX_CONSTANT_ARGS.
  */ 
-/*! \var teuthid::clb::MAX_CONSTANT_BUFFER_SIZE
+/*! \var teuthid::clb::devparam_t::MAX_CONSTANT_BUFFER_SIZE
  * Max size in bytes of a constant buffer allocation. This is equivalent to 
  * \c CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE.
  */ 
-/*! \var teuthid::clb::MAX_MEM_ALLOC_SIZE
+/*! \var teuthid::clb::devparam_t::MAX_MEM_ALLOC_SIZE
  * Max size of memory object allocation in bytes. This is equivalent to 
  * \c CL_DEVICE_MAX_MEM_ALLOC_SIZE. See device::max_mem_alloc_size().
  */ 
-/*! \var teuthid::clb::MAX_ON_DEVICE_EVENTS
+/*! \var teuthid::clb::devparam_t::MAX_ON_DEVICE_EVENTS
  * The maximum number of events in use by a device queue. This is equivalent to 
  * \c CL_DEVICE_MAX_ON_DEVICE_EVENTS.
  */ 
-/*! \var teuthid::clb::MAX_ON_DEVICE_QUEUES
+/*! \var teuthid::clb::devparam_t::MAX_ON_DEVICE_QUEUES
  * The maximum number of device queues that can be created per context. This is 
  * equivalent to \c CL_DEVICE_MAX_ON_DEVICE_QUEUES.
  */
-/*! \var teuthid::clb::MAX_PARAMETER_SIZE
+/*! \var teuthid::clb::devparam_t::MAX_PARAMETER_SIZE
  * Max size in bytes of all arguments that can be passed to a kernel. This is 
  * equivalent to \c CL_DEVICE_MAX_PARAMETER_SIZE.
  */  
-/*! \var teuthid::clb::MAX_PIPE_ARGS
+/*! \var teuthid::clb::devparam_t::MAX_PIPE_ARGS
  * The maximum number of pipe objects that can be passed as arguments to a 
  * kernel. This is equivalent to \c CL_DEVICE_MAX_PIPE_ARGS.
  */ 
-/*! \var teuthid::clb::MAX_READ_IMAGE_ARGS
+/*! \var teuthid::clb::devparam_t::MAX_READ_IMAGE_ARGS
  * Max number of image objects arguments of a kernel declared with the 
  * \c read_only qualifier. This is equivalent to 
  * \c CL_DEVICE_MAX_READ_IMAGE_ARGS.
  */ 
-/*! \var teuthid::clb::MAX_SAMPLERS
+/*! \var teuthid::clb::devparam_t::MAX_SAMPLERS
  * Maximum number of samplers that can be used in a kernel. This is equivalent 
  * to \c CL_DEVICE_MAX_SAMPLERS.
  */ 
-/*! \var teuthid::clb::MAX_WORK_GROUP_SIZE
+/*! \var teuthid::clb::devparam_t::MAX_WORK_GROUP_SIZE
  * Maximum number of work-items in a work-group that a device is capable of 
  * executing on a single compute unit, for any given kernel-instance running on 
  * the device. This is equivalent to \c CL_DEVICE_MAX_WORK_GROUP_SIZE.
  * See device::max_work_group_size().
  */ 
-/*! \var teuthid::clb::MAX_WORK_ITEM_DIMENSIONS
+/*! \var teuthid::clb::devparam_t::MAX_WORK_ITEM_DIMENSIONS
  * Maximum dimensions that specify the global and local work-item IDs used by 
  * the data parallel execution model. This is equivalent to 
  * \c CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS. 
  * See device::max_work_item_dimensions().
  */
-/*! \var teuthid::clb::MAX_WORK_ITEM_SIZES
+/*! \var teuthid::clb::devparam_t::MAX_WORK_ITEM_SIZES
  * Maximum number of work-items that can be specified in each dimension of the 
  * work-group. This is equivalent to \c CL_DEVICE_MAX_WORK_ITEM_SIZES.
  */  
-/*! \var teuthid::clb::MAX_WRITE_IMAGE_ARGS
+/*! \var teuthid::clb::devparam_t::MAX_WRITE_IMAGE_ARGS
  * Max number of image objects arguments of a kernel declared with the 
  * \c write_only qualifier. 
  * This is equivalent to \c CL_DEVICE_MAX_WRITE_IMAGE_ARGS.
  */
-/*! \var teuthid::clb::MEM_BASE_ADDR_ALIGN
+/*! \var teuthid::clb::devparam_t::MEM_BASE_ADDR_ALIGN
  * Alignment requirement (in bits) for sub-buffer offsets. This is equivalent 
  * to \c CL_DEVICE_MEM_BASE_ADDR_ALIGN.
  */  
-/*! \var teuthid::clb::NAME
+/*! \var teuthid::clb::devparam_t::NAME
  * Device name string. This is equivalent to \c CL_DEVICE_NAME.
  * See device::name().
  */ 
-/*! \var teuthid::clb::NATIVE_VECTOR_WIDTH_CHAR
+/*! \var teuthid::clb::devparam_t::NATIVE_VECTOR_WIDTH_CHAR
  * Returns the native ISA vector width. The vector width is defined as the 
  * number of scalar elements that can be stored in the vector. This is 
  * equivalent to \c CL_DEVICE_NATIVE_VECTOR_WIDTH_CHAR. 
  * See device::native_vector_width().
  */ 
-/*! \var teuthid::clb::NATIVE_VECTOR_WIDTH_SHORT
+/*! \var teuthid::clb::devparam_t::NATIVE_VECTOR_WIDTH_SHORT
  * Returns the native ISA vector width. The vector width is defined as the 
  * number of scalar elements that can be stored in the vector. This is 
  * equivalent to \c CL_DEVICE_NATIVE_VECTOR_WIDTH_SHORT. 
  * See device::native_vector_width().
  */ 
-/*! \var teuthid::clb::NATIVE_VECTOR_WIDTH_INT
+/*! \var teuthid::clb::devparam_t::NATIVE_VECTOR_WIDTH_INT
  * Returns the native ISA vector width. The vector width is defined as the 
  * number of scalar elements that can be stored in the vector. This is 
  * equivalent to \c CL_DEVICE_NATIVE_VECTOR_WIDTH_INT. 
  * See device::native_vector_width().
  */ 
-/*! \var teuthid::clb::NATIVE_VECTOR_WIDTH_LONG
+/*! \var teuthid::clb::devparam_t::NATIVE_VECTOR_WIDTH_LONG
  * Returns the native ISA vector width. The vector width is defined as the 
  * number of scalar elements that can be stored in the vector. This is 
  * equivalent to \c CL_DEVICE_NATIVE_VECTOR_WIDTH_LONG. 
  * See device::native_vector_width().
  */ 
-/*! \var teuthid::clb::NATIVE_VECTOR_WIDTH_FLOAT
+/*! \var teuthid::clb::devparam_t::NATIVE_VECTOR_WIDTH_FLOAT
  * Returns the native ISA vector width. The vector width is defined as the 
  * number of scalar elements that can be stored in the vector. This is 
  * equivalent to \c CL_DEVICE_NATIVE_VECTOR_WIDTH_FLOAT. 
  * See device::native_vector_width().
  */ 
-/*! \var teuthid::clb::NATIVE_VECTOR_WIDTH_DOUBLE
+/*! \var teuthid::clb::devparam_t::NATIVE_VECTOR_WIDTH_DOUBLE
  * Returns the native ISA vector width. The vector width is defined as the 
  * number of scalar elements that can be stored in the vector. This is 
  * equivalent to \c CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE. 
  * See device::native_vector_width().
  */ 
-/*! \var teuthid::clb::NATIVE_VECTOR_WIDTH_HALF
+/*! \var teuthid::clb::devparam_t::NATIVE_VECTOR_WIDTH_HALF
  * Returns the native ISA vector width. The vector width is defined as the 
  * number of scalar elements that can be stored in the vector. This is 
  * equivalent to \c CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF. 
  * See device::native_vector_width().
  */ 
-/*! \var teuthid::clb::OPENCL_C_VERSION
+/*! \var teuthid::clb::devparam_t::OPENCL_C_VERSION
  * OpenCL C version string. Returns the highest OpenCL C version supported by 
  * the compiler for this device. This is equivalent to 
  * \c CL_DEVICE_OPENCL_C_VERSION. See device::c_version().
  */
-/*! \var teuthid::clb::PARENT_DEVICE
+/*! \var teuthid::clb::devparam_t::PARENT_DEVICE
  * Returns the clb::device_id_t of the parent device to which this sub-device 
  * belongs. If device is a root-level device, a \c NULL value is returned.
  * This is equivalent to \c CL_DEVICE_PARENT_DEVICE. See device::parent_id().
  */
-/*! \var teuthid::clb::PARTITION_AFFINITY_DOMAIN
+/*! \var teuthid::clb::devparam_t::PARTITION_AFFINITY_DOMAIN
  * Returns the list of supported affinity domains for partitioning the device.
  * This is a bit-field of type clb::devaffinity_domain_t. If the device does 
  * not support any affinity domains, a value of \c 0 will be returned.
  * This is equivalent to \c CL_DEVICE_PARTITION_AFFINITY_DOMAIN.
  */
-/*! \var teuthid::clb::PARTITION_PROPERTIES
+/*! \var teuthid::clb::devparam_t::PARTITION_PROPERTIES
  * Returns the list (clb::partition_properties_t) of partition types supported 
  * by device. This is equivalent to \c CL_DEVICE_PARTITION_PROPERTIES.
  */
-/*! \var teuthid::clb::PARTITION_TYPE
+/*! \var teuthid::clb::devparam_t::PARTITION_TYPE
  * TO DO
  */
-/*! \var teuthid::clb::PIPE_MAX_ACTIVE_RESERVATIONS
+/*! \var teuthid::clb::devparam_t::PIPE_MAX_ACTIVE_RESERVATIONS
  * The maximum number of reservations that can be active for a pipe per 
  * work-item in a kernel. A work-group reservation is counted as one 
  * reservation per work-item. This is equivalent to 
  * \c CL_DEVICE_PIPE_MAX_ACTIVE_RESERVATIONS.
  */
-/*! \var teuthid::clb::PIPE_MAX_PACKET_SIZE
+/*! \var teuthid::clb::devparam_t::PIPE_MAX_PACKET_SIZE
  * The maximum size of pipe packet in bytes. This is equivalent to 
  * \c CL_DEVICE_PIPE_MAX_PACKET_SIZE.
  */
-/*! \var teuthid::clb::PREFERRED_GLOBAL_ATOMIC_ALIGNMENT
+/*! \var teuthid::clb::devparam_t::PREFERRED_GLOBAL_ATOMIC_ALIGNMENT
  * Returns the value representing the preferred alignment in bytes for atomic 
  * types to global memory. This query can return \c 0 which indicates that the 
  * preferred alignment is aligned to the natural size of the type. This is 
  * equivalent to \c CL_DEVICE_PREFERRED_GLOBAL_ATOMIC_ALIGNMENT.
  */
-/*! \var teuthid::clb::PREFERRED_INTEROP_USER_SYNC
+/*! \var teuthid::clb::devparam_t::PREFERRED_INTEROP_USER_SYNC
  * Is \c true if the device's preference is for the user to be responsible for 
  * synchronization, when sharing memory objects between OpenCL and other APIs 
  * such as DirectX, \c false if the device/implementation has a performant path 
@@ -287,136 +287,146 @@
  * other APIs such as DirectX. This is equivalent to 
  * \c CL_DEVICE_PREFERRED_INTEROP_USER_SYNC.
  */
-/*! \var teuthid::clb::PREFERRED_LOCAL_ATOMIC_ALIGNMENT
+/*! \var teuthid::clb::devparam_t::PREFERRED_LOCAL_ATOMIC_ALIGNMENT
  * Returns the value representing the preferred alignment in bytes for atomic 
  * types to local memory. This query can return \c 0 which indicates that the 
  * preferred alignment is aligned to the natural size of the type. This is 
  * equivalent to \c CL_DEVICE_PREFERRED_LOCAL_ATOMIC_ALIGNMENT.
  */
-/*! \var teuthid::clb::PREFERRED_PLATFORM_ATOMIC_ALIGNMENT
+/*! \var teuthid::clb::devparam_t::PREFERRED_PLATFORM_ATOMIC_ALIGNMENT
  * Returns the value representing the preferred alignment in bytes for 
  * fine-grained SVM atomic types. This query can return \c 0 which indicates 
  * that the preferred alignment is aligned to the natural size of the type.
  * This is equivalent to \c CL_DEVICE_PREFERRED_PLATFORM_ATOMIC_ALIGNMENT.
  */
-/*! \var teuthid::clb::PREFERRED_VECTOR_WIDTH_CHAR
+/*! \var teuthid::clb::devparam_t::PREFERRED_VECTOR_WIDTH_CHAR
  * Preferred native vector width size for built-in scalar types that can be put 
  * into vectors. The vector width is defined as the number of scalar elements 
  * that can be stored in the vector. This is equivalent to 
  * \c CL_DEVICE_PREFERRED_VECTOR_WIDTH_CHAR. 
  * See device::preferred_vector_width().
  */
-/*! \var teuthid::clb::PREFERRED_VECTOR_WIDTH_SHORT
+/*! \var teuthid::clb::devparam_t::PREFERRED_VECTOR_WIDTH_SHORT
  * Preferred native vector width size for built-in scalar types that can be put 
  * into vectors. The vector width is defined as the number of scalar elements 
  * that can be stored in the vector. This is equivalent to 
  * \c CL_DEVICE_PREFERRED_VECTOR_WIDTH_SHORT. 
  * See device::preferred_vector_width().
  */
-/*! \var teuthid::clb::PREFERRED_VECTOR_WIDTH_INT
+/*! \var teuthid::clb::devparam_t::PREFERRED_VECTOR_WIDTH_INT
  * Preferred native vector width size for built-in scalar types that can be put 
  * into vectors. The vector width is defined as the number of scalar elements 
  * that can be stored in the vector. This is equivalent to 
  * \c CL_DEVICE_PREFERRED_VECTOR_WIDTH_INT. 
  * See device::preferred_vector_width().
  */
-/*! \var teuthid::clb::PREFERRED_VECTOR_WIDTH_LONG
+/*! \var teuthid::clb::devparam_t::PREFERRED_VECTOR_WIDTH_LONG
  * Preferred native vector width size for built-in scalar types that can be put 
  * into vectors. The vector width is defined as the number of scalar elements 
  * that can be stored in the vector. This is equivalent to 
  * \c CL_DEVICE_PREFERRED_VECTOR_WIDTH_LONG. 
  * See device::preferred_vector_width().
  */
-/*! \var teuthid::clb::PREFERRED_VECTOR_WIDTH_FLOAT
+/*! \var teuthid::clb::devparam_t::PREFERRED_VECTOR_WIDTH_FLOAT
  * Preferred native vector width size for built-in scalar types that can be put 
  * into vectors. The vector width is defined as the number of scalar elements 
  * that can be stored in the vector. This is equivalent to 
  * \c CL_DEVICE_PREFERRED_VECTOR_WIDTH_FLOAT. 
  * See device::preferred_vector_width().
  */
-/*! \var teuthid::clb::PREFERRED_VECTOR_WIDTH_DOUBLE
+/*! \var teuthid::clb::devparam_t::PREFERRED_VECTOR_WIDTH_DOUBLE
  * Preferred native vector width size for built-in scalar types that can be put 
  * into vectors. The vector width is defined as the number of scalar elements 
  * that can be stored in the vector. This is equivalent to 
  * \c CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE. 
  * See device::preferred_vector_width().
  */
-/*! \var teuthid::clb::PREFERRED_VECTOR_WIDTH_HALF
+/*! \var teuthid::clb::devparam_t::PREFERRED_VECTOR_WIDTH_HALF
  * Preferred native vector width size for built-in scalar types that can be put 
  * into vectors. The vector width is defined as the number of scalar elements 
  * that can be stored in the vector. This is equivalent to 
  * \c CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF. 
  * See device::preferred_vector_width().
  */
-/*! \var teuthid::clb::PROFILE
+/*! \var teuthid::clb::devparam_t::PROFILE
  * OpenCL profile string. Returns the profile (clb::devprofile_t) supported by 
  * the device. This is equivalent to \c CL_DEVICE_PROFILE. 
  * See device::profile(), device::is_full_profile(), 
  * device::is_embedded_profile().
  */
-/*! \var teuthid::clb::PROFILING_TIMER_RESOLUTION
+/*! \var teuthid::clb::devparam_t::PROFILING_TIMER_RESOLUTION
  * Describes the resolution of device timer. This is measured in nanoseconds.
  * This is equivalent to \c CL_DEVICE_PROFILING_TIMER_RESOLUTION. 
  * See device::profiling_timer_resolution().
  */
-/*! \var teuthid::clb::QUEUE_ON_DEVICE_MAX_SIZE
+/*! \var teuthid::clb::devparam_t::QUEUE_ON_DEVICE_MAX_SIZE
  * The maximum size of the device queue in bytes. This is equivalent to 
  * \c CL_DEVICE_QUEUE_ON_DEVICE_MAX_SIZE.
  */
-/*! \var teuthid::clb::QUEUE_ON_DEVICE_PREFERRED_SIZE
+/*! \var teuthid::clb::devparam_t::QUEUE_ON_DEVICE_PREFERRED_SIZE
  * The size of the device queue in bytes preferred by the implementation. 
  * Applications should use this size for the device queue to ensure good 
  * performance. This is equivalent to 
  * \c CL_DEVICE_QUEUE_ON_DEVICE_PREFERRED_SIZE.
  */
-/*! \var teuthid::clb::QUEUE_ON_DEVICE_PROPERTIES
+/*! \var teuthid::clb::devparam_t::QUEUE_ON_DEVICE_PROPERTIES
  * Describes the on device command-queue properties 
  * (clb::devcommand_queue_properties_t) supported by the device. This is 
  * equivalent to \c CL_DEVICE_QUEUE_ON_DEVICE_PROPERTIES.
  */
-/*! \var teuthid::clb::QUEUE_ON_HOST_PROPERTIES
+/*! \var teuthid::clb::devparam_t::QUEUE_ON_HOST_PROPERTIES
  * Describes the on host command-queue properties
  * (clb::devcommand_queue_properties_t) supported by the device. This is 
  * equivalent to \c CL_DEVICE_QUEUE_ON_HOST_PROPERTIES.
  */
-/*! \var teuthid::clb::REFERENCE_COUNT
+/*! \var teuthid::clb::devparam_t::REFERENCE_COUNT
  * Returns the device reference count. If the device is a root-level device, a 
  * reference count of one is returned. This is equivalent to 
  * \c CL_DEVICE_REFERENCE_COUNT.
  */
-/*! \var teuthid::clb::SINGLE_FP_CONFIG
+/*! \var teuthid::clb::devparam_t::SINGLE_FP_CONFIG
  * Describes single precision floating-point capability (clb::devfp_config_t) 
  * of the device. This is equivalent to \c CL_DEVICE_SINGLE_FP_CONFIG.
  * See device::single_fp_config(), device::has_single_precision().
  */
-/*! \var teuthid::clb::SVM_CAPABILITIES
+/*! \var teuthid::clb::devparam_t::SVM_CAPABILITIES
  * Describes the various shared virtual memory (a.k.a. SVM) memory allocation 
  * types the device supports. Coarse-grain SVM allocations are required to be 
  * supported by all devices. This is a bit-field of type 
  * clb::devsvm_capabilities_t. This is equivalent to 
  * \c CL_DEVICE_SVM_CAPABILITIES.
  */
-/*! \var teuthid::clb::TYPE
+/*! \var teuthid::clb::devparam_t::TYPE
  * The OpenCL device type (clb::devtype_t). This is equivalent to 
  * \c CL_DEVICE_TYPE. See device::devtype(), device::is_cpu(), device::is_gpu().
  */
-/*! \var teuthid::clb::VENDOR
+/*! \var teuthid::clb::devparam_t::VENDOR
  * Vendor name string. This is equivalent to \c CL_DEVICE_VENDOR.
  * See device::vendor().
  */
-/*! \var teuthid::clb::VENDOR_ID
+/*! \var teuthid::clb::devparam_t::VENDOR_ID
  * A unique device vendor identifier. This is equivalent to 
  * \c CL_DEVICE_VENDOR_ID.
  */
-/*! \var teuthid::clb::VERSION
+/*! \var teuthid::clb::devparam_t::VERSION
  * OpenCL version string. Returns the OpenCL version supported by the device.
  * This is equivalent to \c CL_DEVICE_VERSION. See device::version(),
  * device::check_version().
  */
-/*! \var teuthid::clb::DRIVER_VERSION
+/*! \var teuthid::clb::devparam_t::DRIVER_VERSION
  * OpenCL software driver version string. This is equivalent to 
  * \c CL_DRIVER_VERSION. See device::driver_version().
  */
+
+
+/*! \enum teuthid::clb::devaffinity_domain_t
+ * \brief This enumeration includes named constants that identifies 
+ * affinity domains.
+ */
+/*! \var teuthid::clb::devaffinity_domain_t::NUMA
+ * Compute units that share a NUMA node. This is equivalent to 
+ * \c CL_DEVICE_AFFINITY_DOMAIN_NUMA.
+ */ 
 
 
 /*! \enum teuthid::compute_profile_t

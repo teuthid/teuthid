@@ -264,7 +264,7 @@ public:
 
   static const device &get(device_id_t device_id);
   static const device &get_default();
-  static const device &set_default(const device& dev);
+  static const device &set_default(const device &dev);
   static devices_t find_by_type(devtype_t dev_type);
   static const platform &get_platform(device_id_t device_id);
 
