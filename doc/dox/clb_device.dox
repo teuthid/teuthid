@@ -615,6 +615,23 @@
  */
 
 
+/*! \enum teuthid::clb::devprofile_t
+ * \brief This enumeration includes named constants that identifies
+ * the profile supported by the device.
+ * 
+ * See device::profile().
+ */
+/*! \var teuthid::clb::devprofile_t::FULL
+ * Indicates that the device supports the OpenCL specification (functionality 
+ * defined as part of the core specification and does not require any 
+ * extensions to be supported). See device::is_full_profile().
+ */
+/*! \var teuthid::clb::devprofile_t::EMBEDDED
+ * Indicates that the device supports the OpenCL embedded profile.
+ * See device::is_embedded_profile().
+ */
+
+
 
 
 /*! \class teuthid::compute_device compute_device.hpp \ 
