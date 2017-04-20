@@ -427,6 +427,29 @@
  * Compute units that share a NUMA node. This is equivalent to 
  * \c CL_DEVICE_AFFINITY_DOMAIN_NUMA.
  */ 
+/*! \var teuthid::clb::devaffinity_domain_t::L4_CACHE
+ * Compute units that share a level 4 data cache. This is equivalent to 
+ * \c CL_DEVICE_AFFINITY_DOMAIN_L4_CACHE.
+ */
+/*! \var teuthid::clb::devaffinity_domain_t::L3_CACHE
+ * Compute units that share a level 3 data cache. This is equivalent to 
+ * \c CL_DEVICE_AFFINITY_DOMAIN_L3_CACHE.
+ */
+/*! \var teuthid::clb::devaffinity_domain_t::L2_CACHE
+ * Compute units that share a level 2 data cache. This is equivalent to 
+ * \c CL_DEVICE_AFFINITY_DOMAIN_L2_CACHE.
+ */
+/*! \var teuthid::clb::devaffinity_domain_t::L1_CACHE
+ * Compute units that share a level 1 data cache. This is equivalent to 
+ * \c CL_DEVICE_AFFINITY_DOMAIN_L1_CACHE.
+ */
+/*! \var teuthid::clb::devaffinity_domain_t::NEXT_PARTITIONABLE
+ * Next partitionable affinity domain. The implementation shall find the first 
+ * level along which the device or sub-device may be further subdivided in the 
+ * order NUMA, L4, L3, L2, L1, and partition the device into sub-devices 
+ * comprised of compute units that share memory subsystems at this level.
+ * This is equivalent to \c CL_DEVICE_AFFINITY_DOMAIN_NEXT_PARTITIONABLE.
+ */
 
 
 /*! \enum teuthid::compute_profile_t
