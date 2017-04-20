@@ -486,6 +486,22 @@
  * This is equivalent to \c CL_QUEUE_ON_DEVICE_DEFAULT.
  */
 
+
+/*! \enum teuthid::clb::devexec_caps_t
+ * \brief This enumeration includes named constants that identifies 
+ * execution capabilities of the device.
+ *
+ * This is equivalent to \c cl_device_exec_capabilities.
+ */
+/*! \var teuthid::clb::devexec_caps_t::KERNEL
+ * Device can execute OpenCL kernels. This is equivalent to \c CL_EXEC_KERNEL.
+ */
+/*! \var teuthid::clb::devexec_caps_t::NATIVE_KERNEL
+ * Device can execute native kernels. This is equivalent to 
+ * \c CL_EXEC_NATIVE_KERNEL.
+ */
+
+
 /*! \enum teuthid::compute_profile_t
  * \brief This enumeration includes named constants of OpenCL platform's 
  * or device's profile.

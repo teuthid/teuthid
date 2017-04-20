@@ -147,7 +147,7 @@ enum class
       ON_DEVICE = CL_QUEUE_ON_DEVICE,
       ON_DEVICE_DEFAULT = CL_QUEUE_ON_DEVICE_DEFAULT
     };
-enum class devexec_caps_t : uint64_t {
+enum class devexec_caps_t : uint64_t { // cl_device_exec_capabilities
   KERNEL = CL_EXEC_KERNEL,
   NATIVE_KERNEL = CL_EXEC_NATIVE_KERNEL
 };
