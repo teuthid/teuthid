@@ -151,7 +151,7 @@ enum class devexec_caps_t : uint64_t { // cl_device_exec_capabilities
   KERNEL = CL_EXEC_KERNEL,
   NATIVE_KERNEL = CL_EXEC_NATIVE_KERNEL
 };
-enum class devfp_config_t : uint64_t {
+enum class devfp_config_t : uint64_t { // cl_device_fp_config
   DENORM = CL_FP_DENORM,
   INF_NAN = CL_FP_INF_NAN,
   ROUND_TO_NEAREST = CL_FP_ROUND_TO_NEAREST,

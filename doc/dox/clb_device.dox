@@ -502,6 +502,48 @@
  */
 
 
+/*! \enum teuthid::clb::devfp_config_t
+ * \brief This enumeration includes named constants that identifies 
+ * a floating-point capability of the OpenCL device.
+ *
+ * This is equivalent to \c cl_device_fp_config.
+ * See device::double_fp_config(), device::single_fp_config().
+ */
+/*! \var teuthid::clb::devfp_config_t::DENORM
+ * Denorms are supported. This is equivalent to \c CL_FP_DENORM.
+ */ 
+/*! \var teuthid::clb::devfp_config_t::INF_NAN
+ * \c INF and <tt>NaN</tt>s are supported. This is equivalent to 
+ * \c CL_FP_INF_NAN.
+ */
+/*! \var teuthid::clb::devfp_config_t::ROUND_TO_NEAREST
+ * Round to nearest even rounding mode supported.
+ * This is equivalent to \c CL_FP_ROUND_TO_NEAREST.
+ */
+/*! \var teuthid::clb::devfp_config_t::ROUND_TO_ZERO
+ * Round to zero rounding mode supported.
+ * This is equivalent to \c CL_FP_ROUND_TO_ZERO.
+ */
+/*! \var teuthid::clb::devfp_config_t::ROUND_TO_INF
+ * Round to positive and negative infinity rounding modes supported.
+ * This is equivalent to \c CL_FP_ROUND_TO_INF.
+ */
+/*! \var teuthid::clb::devfp_config_t::FMA
+ * IEEE754-2008 fused multiply-add is supported.
+ * This is equivalent to \c CL_FP_FMA.
+ */
+/*! \var teuthid::clb::devfp_config_t::SOFT_FLOAT
+ * Basic floating-point operations (such as addition, subtraction, 
+ * multiplication) are implemented in software.
+ * This is equivalent to \c CL_FP_SOFT_FLOAT.
+ */
+/*! \var teuthid::clb::devfp_config_t::CORRECTLY_ROUNDED_DIVIDE_SQRT
+ * Divide and \c sqrt are correctly rounded as defined by the IEEE754 
+ * specification.
+ * This is equivalent to \c CL_FP_CORRECTLY_ROUNDED_DIVIDE_SQRT.
+ */
+
+
 /*! \enum teuthid::compute_profile_t
  * \brief This enumeration includes named constants of OpenCL platform's 
  * or device's profile.
