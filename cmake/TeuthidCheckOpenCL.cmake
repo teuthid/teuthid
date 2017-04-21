@@ -1,4 +1,4 @@
-find_package(OpenCL QUIET)
+find_package(OpenCL)
 
 if (NOT OpenCL_FOUND)
   msg_warning(
