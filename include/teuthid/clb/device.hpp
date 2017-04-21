@@ -179,18 +179,19 @@ enum class devpartition_property_t : uint64_t { // cl_device_partition_property
   BY_AFFINITY_DOMAIN = CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN
 };
 enum class devprofile_t : uint64_t { FULL, EMBEDDED };
-enum class devsvm_capabilities_t : uint64_t {
+enum class devsvm_capabilities_t : uint64_t { // cl_device_svm_capabilities
   COARSE_GRAIN_BUFFER = CL_DEVICE_SVM_COARSE_GRAIN_BUFFER,
   FINE_GRAIN_BUFFER = CL_DEVICE_SVM_FINE_GRAIN_BUFFER,
   FINE_GRAIN_SYSTEM = CL_DEVICE_SVM_FINE_GRAIN_SYSTEM,
   ATOMICS = CL_DEVICE_SVM_ATOMICS
 };
-enum class devtype_t : uint64_t {
+enum class devtype_t : uint64_t { // cl_device_type
   CPU = CL_DEVICE_TYPE_CPU,
   GPU = CL_DEVICE_TYPE_GPU,
   ACCELERATOR = CL_DEVICE_TYPE_ACCELERATOR,
   CUSTOM = CL_DEVICE_TYPE_CUSTOM,
-  DEFAULT = CL_DEVICE_TYPE_DEFAULT
+  DEFAULT = CL_DEVICE_TYPE_DEFAULT,
+  ALL = CL_DEVICE_TYPE_ALL
 };
 
 template <devparam_t> struct device_param { typedef void value_type; };
@@ -256,8 +257,9 @@ public:
   devfp_config_t single_fp_config() const;
   bool has_single_precision() const;
   devtype_t devtype() const;
-  bool is_cpu() const;
-  bool is_gpu() const;
+  bool is_devtype(devtype_t type_of_device) const;
+  bool is_cpu() const { return is_devtype(devtype_t::CPU); }
+  bool is_gpu() const { return is_devtype(devtype_t::GPU); }
   std::string vendor() const;
   std::string version() const;
   std::string driver_version() const;

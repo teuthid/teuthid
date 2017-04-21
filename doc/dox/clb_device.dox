@@ -632,6 +632,71 @@
  */
 
 
+/*! \enum teuthid::clb::devsvm_capabilities_t
+ * \brief This enumeration includes named constants that identifies
+ * various shared virtual memory allocation types.
+ *
+ * This is equivalent to \c cl_device_svm_capabilities.
+ */
+/*! \var teuthid::clb::devsvm_capabilities_t::COARSE_GRAIN_BUFFER
+ * Indicates the support for coarse-grain buffer sharing.
+ * This is equivalent to \c CL_DEVICE_SVM_COARSE_GRAIN_BUFFER.
+ */
+/*! \var teuthid::clb::devsvm_capabilities_t::FINE_GRAIN_BUFFER
+ * Indicates the support for fine-grain buffer sharing.
+ * This is equivalent to \c CL_DEVICE_SVM_FINE_GRAIN_BUFFER.
+ */
+/*! \var teuthid::clb::devsvm_capabilities_t::FINE_GRAIN_SYSTEM
+ * Indicates the support for sharing the host’s entire virtual memory including 
+ * memory allocated using malloc. Memory consistency is guaranteed at 
+ * synchronization points.
+ * This is equivalent to \c CL_DEVICE_SVM_FINE_GRAIN_SYSTEM.
+ */
+/*! \var teuthid::clb::devsvm_capabilities_t::ATOMICS
+ * Indicates the support for the atomic operations that provide memory 
+ * consistency across the host and all OpenCL devices supporting fine-grain SVM 
+ * allocations.
+ * This is equivalent to \c CL_DEVICE_SVM_ATOMICS.
+ */
+
+
+/*! \enum teuthid::clb::devtype_t
+ * \brief This enumeration includes named constants that identifies
+ * the type of device. 
+ *
+ * See device::devtype(), device::is_devtype(). This is equivalent to 
+ * \c cl_device_type.
+ */
+/*! \var teuthid::clb::devtype_t::CPU
+ * An OpenCL device that is the host processor. The host processor runs the 
+ * OpenCL implementations and is a single or multi-core CPU. 
+ * See device::is_cpu(). This is equivalent to \c CL_DEVICE_TYPE_CPU.
+ */
+/*! \var teuthid::clb::devtype_t::GPU
+ * An OpenCL device that is a GPU. By this we mean that the device can also be 
+ * used to accelerate a 3D API such as OpenGL or DirectX.
+ * See device::is_gpu(). This is equivalent to \c CL_DEVICE_TYPE_GPU.
+ */
+/*! \var teuthid::clb::devtype_t::ACCELERATOR
+ * Dedicated OpenCL accelerators. These devices communicate with the host 
+ * processor using a peripheral interconnect such as PCIe.
+ * This is equivalent to \c CL_DEVICE_TYPE_ACCELERATOR.
+ */
+/*! \var teuthid::clb::devtype_t::CUSTOM
+ * Dedicated accelerators that do not support programs written in OpenCL C.
+ * This is equivalent to \c CL_DEVICE_TYPE_CUSTOM.
+ */
+/*! \var teuthid::clb::devtype_t::DEFAULT
+ * The default OpenCL device in the system. The default device cannot be a 
+ * devtype_t::CUSTOM device.
+ * This is equivalent to \c CL_DEVICE_TYPE_DEFAULT.
+ */
+/*! \var teuthid::clb::devtype_t::ALL
+ * All OpenCL devices available in the system except devtype_t::CUSTOM devices.
+ * This is equivalent to \c CL_DEVICE_TYPE_ALL.
+ */
+
+
 
 
 /*! \class teuthid::compute_device compute_device.hpp \ 

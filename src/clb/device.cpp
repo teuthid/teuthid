@@ -354,14 +354,10 @@ bool device::has_single_precision() const {
 
 devtype_t device::devtype() const { return info<devparam_t::TYPE>(); }
 
-bool device::is_cpu() const {
+bool device::is_devtype(devtype_t type_of_device) const {
   cl_bitfield __devtype = static_cast<cl_bitfield>(devtype());
-  return (CL_DEVICE_TYPE_CPU & __devtype) > 0;
-}
-
-bool device::is_gpu() const {
-  cl_bitfield __devtype = static_cast<cl_bitfield>(devtype());
-  return (CL_DEVICE_TYPE_GPU & __devtype) > 0;
+  cl_bitfield __type = static_cast<cl_bitfield>(type_of_device);
+  return (__devtype & __type) > 0;
 }
 
 std::string device::vendor() const { return info<devparam_t::VENDOR>(); }
