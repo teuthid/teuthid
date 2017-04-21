@@ -44,7 +44,14 @@ int main() {
               << std::endl;
     std::cout << "Default OpenCL platform: "
               << system::to_string(clb::platform::get_default()) << std::endl;
+    std::cout << "Available OpenCL GPU device(s): "
+              << clb::device::find_by_type(clb::devtype_t::GPU).size()
+              << std::endl;
+    std::cout << "Default OpenCL device: "
+              << system::to_string(clb::device::get_default()) << std::endl;
+
     for (auto __platform : clb::platform::get_all()) {
+      std::cout << "  --" << std::endl;
       std::cout << "  Platform Name: " << system::to_string(__platform)
                 << "  Vendor: " << __platform.vendor() << std::endl;
       std::cout << "  Platform Version: " << __platform.version() << std::endl;
@@ -58,13 +65,9 @@ int main() {
       std::cout << "  Platform Extensions function suffix : "
                 << __platform.icd_suffix_khr() << std::endl;
       // ... and devices:
-      std::cout << "  Available OpenCL device(s): "
-                << __platform.device_count();
-      std::cout << "  OpenCL GPU device(s): "
-                << clb::device::find_by_type(clb::devtype_t::GPU).size()
+      std::cout << "  Available OpenCL device(s): " << __platform.device_count()
                 << std::endl;
-      std::cout << "  Default OpenCL device: "
-                << system::to_string(clb::device::get_default()) << std::endl;
+
       for (auto __device : __platform.devices()) {
         std::cout << "    Device Name: " << system::to_string(__device)
                   << std::endl;
