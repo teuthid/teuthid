@@ -697,6 +697,21 @@
  */
 
 
+/*! \typedef typedef cl_device_id teuthid::clb::device_id_t
+ * \brief This is a type alias for \c cl_device_id.
+ *
+ * \see device::id(), device::parent_id().
+ */
+/*! \typedef typedef cl_platform_id teuthid::clb::platform_id_t
+ * \brief This is a type alias for \c cl_platform_id.
+ *
+ * \see platform::id().
+ */
+/*! \typedef std::vector<std::string> teuthid::clb::extensions_t
+ * \brief This is a type alias for the vector containing strings.
+ * \see device::extensions(), platform::extensions()
+ */
+
 
 
 /*! \class teuthid::compute_device compute_device.hpp \ 

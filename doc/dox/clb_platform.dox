@@ -17,13 +17,6 @@
 */
 
 
-/*! \typedef typedef cl_platform_id teuthid::clb::platform_id_t
- * \brief This is a type alias for \c cl_platform_id.
- *
- * \see \ref teuthid::clb::platform::id() "platform::id()".
- */
-
-
 /*! \typedef typedef std::vector<platform> teuthid::clb::platforms_t
  * \brief This is a type alias for the vector containing objects of class
  * \ref teuthid::clb::platform "platform".
