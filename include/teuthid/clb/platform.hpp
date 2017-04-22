@@ -35,7 +35,7 @@ enum class platparam_t : uint64_t { // cl_platform_info
   VENDOR = CL_PLATFORM_VENDOR,
   EXTENSIONS = CL_PLATFORM_EXTENSIONS,
   ICD_SUFFIX_KHR = CL_PLATFORM_ICD_SUFFIX_KHR,
-  // Not in cl2.hpp:
+  // Not implemented in cl2.hpp:
   HOST_TIMER_RESOLUTION = CL_PLATFORM_HOST_TIMER_RESOLUTION
 };
 using platprofile_t = devprofile_t;
