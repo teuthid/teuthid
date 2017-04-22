@@ -113,7 +113,7 @@ enum class devparam_t : uint64_t { // cl_device_info
   VENDOR_ID = CL_DEVICE_VENDOR_ID,
   VERSION = CL_DEVICE_VERSION,
   DRIVER_VERSION = CL_DRIVER_VERSION,
-  /* Not implemented in cl2.hpp:
+  /* Not implemented in cl::Device::getInfo()
   CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE
   CL_DEVICE_IL_VERSION
   CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT
@@ -368,7 +368,7 @@ __TEUTHID_CLB_DEVICE_INFO_SPEC(VENDOR, std::string)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(VENDOR_ID, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(VERSION, std::string)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(DRIVER_VERSION, std::string)
-// Not implemented in cl2.hpp:
+// Not implemented in cl::Device::getInfo():
 __TEUTHID_CLB_DEVICE_INFO_SPEC(PARTITION_MAX_SUB_DEVICES, uint32_t)
 #undef __TEUTHID_CLB_DEVICE_INFO_SPEC
 
