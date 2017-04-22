@@ -16,6 +16,8 @@
     along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/*! \file device.hpp */ 
+
 /*! \enum teuthid::clb::devparam_t
  * \brief This enumeration includes named constants that identifies 
  * the OpenCL device information being queried.
@@ -853,8 +855,7 @@
 
 
 
-/*! \class teuthid::compute_device compute_device.hpp \ 
-<teuthid/compute_device.hpp>
+/*! \class teuthid::clb::device device.hpp <teuthid/clb/device.hpp>
  * \brief This class holds specific information about the OpenCL
  * devices for a particular OpenCL \ref teuthid::compute_platform "platform".
  *

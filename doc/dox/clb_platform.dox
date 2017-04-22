@@ -16,6 +16,7 @@
     along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/*! \file platform.hpp */ 
 
 /*! \enum teuthid::clb::platparam_t
  * \brief This enumeration includes named constants that identifies 
@@ -27,8 +28,43 @@
  * \hideinitializer
  * Returns the profile (clb::platprofile_t) supported by the implementation.
  * This is equivalent to \c CL_PLATFORM_PROFILE.
- * \see platform::profile(), platform::is_full_profile(), 
+ * See platform::profile(), platform::is_full_profile(), 
  * platform::is_embedded_profile().
+ */
+/*! \var teuthid::clb::platparam_t::VERSION
+ * \hideinitializer
+ * OpenCL version string. Returns the OpenCL version supported by the 
+ * implementation. This is equivalent to \c CL_PLATFORM_VERSION.
+ * See platform::version().
+ */
+/*! \var teuthid::clb::platparam_t::NAME
+ * \hideinitializer
+ * Platform name string. This is equivalent to \c CL_PLATFORM_NAME.
+ * See platform::name().
+ */
+/*! \var teuthid::clb::platparam_t::VENDOR
+ * \hideinitializer
+ * Platform vendor string. This is equivalent to \c CL_PLATFORM_VENDOR.
+ * See platform::vendor().
+ */
+/*! \var teuthid::clb::platparam_t::EXTENSIONS
+ * \hideinitializer
+ * Returns a list of extension names supported by the platform. Extensions 
+ * defined here must be supported by all devices associated with this platform.
+ * This is equivalent to \c CL_PLATFORM_EXTENSIONS.
+ * See platform::extensions(), platform::has_extension().
+ */
+/*! \var teuthid::clb::platparam_t::ICD_SUFFIX_KHR
+ * \hideinitializer
+ * If the \c cl_khr_icd extension is enabled, the function name suffix used to 
+ * identify extension functions to be directed to this platform by the ICD 
+ * Loader. This is equivalent to \c CL_PLATFORM_ICD_SUFFIX_KHR.
+ * See platform::icd_suffix_khr().
+ */
+/*! \var teuthid::clb::platparam_t::HOST_TIMER_RESOLUTION
+ * \hideinitializer
+ * Returns the resolution of the host timer in nanoseconds.
+ * This is equivalent to \c CL_PLATFORM_HOST_TIMER_RESOLUTION.
  */
 
 
