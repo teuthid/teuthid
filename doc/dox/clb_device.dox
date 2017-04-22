@@ -356,8 +356,8 @@
  * See device::preferred_vector_width().
  */
 /*! \var teuthid::clb::devparam_t::PROFILE
- * OpenCL profile string. Returns the profile (clb::devprofile_t) supported by 
- * the device. This is equivalent to \c CL_DEVICE_PROFILE. 
+ * Returns the profile (clb::devprofile_t) supported by the device. 
+ * This is equivalent to \c CL_DEVICE_PROFILE. 
  * See device::profile(), device::is_full_profile(), 
  * device::is_embedded_profile().
  */
@@ -604,8 +604,8 @@
  * This is equivalent to \c CL_DEVICE_PARTITION_BY_COUNTS.
  */
 /*! \var teuthid::clb::devpartition_property_t::BY_COUNTS_LIST_END
- * See devpartition_property_t::BY_COUNTS.
  * This is equivalent to \c CL_DEVICE_PARTITION_BY_COUNTS_LIST_END.
+ * See devpartition_property_t::BY_COUNTS.
  */
 /*! \var teuthid::clb::devpartition_property_t::BY_AFFINITY_DOMAIN
  * Split the device into smaller aggregate devices containing one or more 
@@ -664,18 +664,18 @@
  * \brief This enumeration includes named constants that identifies
  * the type of device. 
  *
- * See device::devtype(), device::is_devtype(). This is equivalent to 
- * \c cl_device_type.
+ * This is equivalent to \c cl_device_type. See device::devtype(), 
+ * device::is_devtype(). 
  */
 /*! \var teuthid::clb::devtype_t::CPU
  * An OpenCL device that is the host processor. The host processor runs the 
  * OpenCL implementations and is a single or multi-core CPU. 
- * See device::is_cpu(). This is equivalent to \c CL_DEVICE_TYPE_CPU.
+ * This is equivalent to \c CL_DEVICE_TYPE_CPU. See device::is_cpu(). 
  */
 /*! \var teuthid::clb::devtype_t::GPU
  * An OpenCL device that is a GPU. By this we mean that the device can also be 
  * used to accelerate a 3D API such as OpenGL or DirectX.
- * See device::is_gpu(). This is equivalent to \c CL_DEVICE_TYPE_GPU.
+ * This is equivalent to \c CL_DEVICE_TYPE_GPU. See device::is_gpu(). 
  */
 /*! \var teuthid::clb::devtype_t::ACCELERATOR
  * Dedicated OpenCL accelerators. These devices communicate with the host 
@@ -709,8 +709,27 @@
  */
 /*! \typedef std::vector<std::string> teuthid::clb::extensions_t
  * \brief This is a type alias for the vector containing strings.
+ *
  * \see device::extensions(), platform::extensions()
  */
+/*! \typedef std::vector<std::string> teuthid::clb::built_in_kernels_t
+ * \brief This is a type alias for the vector containing strings.
+ *
+ * \see device::built_in_kernels().
+ */
+/*! \typedef std::vector<std::size_t> teuthid::clb::max_work_item_sizes_t
+ * \brief This is a type alias for the vector containing values of type 
+ * \c std::size_t.
+ */
+/*! \typedef std::vector<intptr_t> teuthid::clb::partition_properties_t
+ * \brief This is a type alias for the vector containing values of type 
+ * \c intptr_t.
+ */
+/*! \typedef std::vector<std::string> teuthid::clb::devices_t
+ * \brief This is a type alias for the vector containing objects of class
+ * clb::device.
+ */
+
 
 
 

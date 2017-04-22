@@ -178,7 +178,7 @@ enum class devpartition_property_t : uint64_t { // cl_device_partition_property
   BY_COUNTS_LIST_END = CL_DEVICE_PARTITION_BY_COUNTS_LIST_END,
   BY_AFFINITY_DOMAIN = CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN
 };
-enum class devprofile_t : uint64_t { FULL, EMBEDDED };
+enum class devprofile_t { FULL, EMBEDDED };
 enum class devsvm_capabilities_t : uint64_t { // cl_device_svm_capabilities
   COARSE_GRAIN_BUFFER = CL_DEVICE_SVM_COARSE_GRAIN_BUFFER,
   FINE_GRAIN_BUFFER = CL_DEVICE_SVM_FINE_GRAIN_BUFFER,
@@ -206,7 +206,6 @@ typedef std::vector<std::string> built_in_kernels_t;
 typedef std::vector<std::size_t> max_work_item_sizes_t;
 typedef std::vector<intptr_t> partition_properties_t;
 typedef std::vector<device> devices_t;
-typedef std::vector<platform> platforms_t;
 
 class device {
   friend class platform;
