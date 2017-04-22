@@ -24,6 +24,7 @@
  * This is equivalent to \c cl_platform_info.
  */
 /*! \var teuthid::clb::platparam_t::PROFILE
+ * \hideinitializer
  * Returns the profile (clb::platprofile_t) supported by the implementation.
  * This is equivalent to \c CL_PLATFORM_PROFILE.
  * \see platform::profile(), platform::is_full_profile(), 
