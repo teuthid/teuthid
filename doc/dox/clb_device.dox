@@ -106,6 +106,14 @@
  * Size of global device memory in bytes. This is equivalent to 
  * \c CL_DEVICE_GLOBAL_MEM_SIZE. See device::global_mem_size().
  */
+/*! \var teuthid::clb::devparam_t::GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE
+ * \hideinitializer
+ * Maximum preferred total size, in bytes, of all program variables in the 
+ * global address space. This is a performance hint. An implementation may 
+ * place such variables in storage with optimized device access. This query 
+ * returns the capacity of such storage.
+ * This is equivalent to \c CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE.
+ */ 
 /*! \var teuthid::clb::devparam_t::IMAGE2D_MAX_HEIGHT
  * \hideinitializer
  * Max height of 2D image in pixels. This is equivalent to 
@@ -130,6 +138,27 @@
  * \hideinitializer
  * Max width of 3D image in pixels. This is equivalent to 
  * \c CL_DEVICE_IMAGE3D_MAX_WIDTH. 
+ */ 
+/*! \var teuthid::clb::devparam_t::IMAGE_BASE_ADDRESS_ALIGNMENT
+ * \hideinitializer
+ * This query specifies the minimum alignment in pixels of the pointer to the 
+ * buffer data specified to the buffer object.
+ * This is equivalent to \c CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT.
+ */ 
+/*! \var teuthid::clb::devparam_t::IMAGE_MAX_ARRAY_SIZE
+ * \hideinitializer
+ * Maximum number of images in a 1D or 2D image array.
+ * This is equivalent to \c CL_DEVICE_IMAGE_MAX_ARRAY_SIZE.
+ */ 
+/*! \var teuthid::clb::devparam_t::IMAGE_MAX_BUFFER_SIZE
+ * \hideinitializer
+ * Maximum number of pixels for a 1D image created from a buffer object.
+ * This is equivalent to \c CL_DEVICE_IMAGE_MAX_BUFFER_SIZE.
+ */ 
+/*! \var teuthid::clb::devparam_t::IMAGE_PITCH_ALIGNMENT
+ * \hideinitializer
+ * The row pitch alignment size in pixels for 2D images created from a buffer.
+ * This is equivalent to \c CL_DEVICE_IMAGE_PITCH_ALIGNMENT.
  */ 
 /*! \var teuthid::clb::devparam_t::IMAGE_SUPPORT
  * \hideinitializer
@@ -160,44 +189,63 @@
  */ 
 /*! \var teuthid::clb::devparam_t::MAX_CONSTANT_ARGS
  * \hideinitializer
- * Max number of arguments declared with the \c __constant qualifier in a 
+ * Maximum number of arguments declared with the \c __constant qualifier in a 
  * kernel. This is equivalent to \c CL_DEVICE_MAX_CONSTANT_ARGS.
  */ 
 /*! \var teuthid::clb::devparam_t::MAX_CONSTANT_BUFFER_SIZE
  * \hideinitializer
- * Max size in bytes of a constant buffer allocation. This is equivalent to 
+ * Maximum size in bytes of a constant buffer allocation. This is equivalent to 
  * \c CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE.
+ */ 
+/*! \var teuthid::clb::devparam_t::MAX_GLOBAL_VARIABLE_SIZE
+ * \hideinitializer
+ * Maximum number of bytes of storage that may be allocated for any single 
+ * variable in program scope or inside a function in OpenCL C declared in the 
+ * global address space.
+ * This is equivalent to \c CL_DEVICE_MAX_GLOBAL_VARIABLE_SIZE.
  */ 
 /*! \var teuthid::clb::devparam_t::MAX_MEM_ALLOC_SIZE
  * \hideinitializer
- * Max size of memory object allocation in bytes. This is equivalent to 
+ * Maximum size of memory object allocation in bytes. This is equivalent to 
  * \c CL_DEVICE_MAX_MEM_ALLOC_SIZE. See device::max_mem_alloc_size().
  */ 
+/*! \var teuthid::clb::devparam_t::MAX_NUM_SUB_GROUPS
+ * \hideinitializer
+ * Maximum number of sub-groups in a work-group that a device is capable of 
+ * executing on a single compute unit, for any given kernel-instance running on 
+ * the device. This is equivalent to \c CL_DEVICE_MAX_NUM_SUB_GROUPS.
+ */
 /*! \var teuthid::clb::devparam_t::MAX_ON_DEVICE_EVENTS
  * \hideinitializer
- * The maximum number of events in use by a device queue. This is equivalent to 
+ * Maximum number of events in use by a device queue. This is equivalent to 
  * \c CL_DEVICE_MAX_ON_DEVICE_EVENTS.
  */ 
 /*! \var teuthid::clb::devparam_t::MAX_ON_DEVICE_QUEUES
  * \hideinitializer
- * The maximum number of device queues that can be created per context. This is 
+ * Maximum number of device queues that can be created per context. This is 
  * equivalent to \c CL_DEVICE_MAX_ON_DEVICE_QUEUES.
  */
 /*! \var teuthid::clb::devparam_t::MAX_PARAMETER_SIZE
  * \hideinitializer
- * Max size in bytes of all arguments that can be passed to a kernel. This is 
+ * Maximum size in bytes of all arguments that can be passed to a kernel. This is 
  * equivalent to \c CL_DEVICE_MAX_PARAMETER_SIZE.
  */  
 /*! \var teuthid::clb::devparam_t::MAX_PIPE_ARGS
  * \hideinitializer
- * The maximum number of pipe objects that can be passed as arguments to a 
+ * Maximum number of pipe objects that can be passed as arguments to a 
  * kernel. This is equivalent to \c CL_DEVICE_MAX_PIPE_ARGS.
  */ 
 /*! \var teuthid::clb::devparam_t::MAX_READ_IMAGE_ARGS
  * \hideinitializer
- * Max number of image objects arguments of a kernel declared with the 
+ * Maximum number of image objects arguments of a kernel declared with the 
  * \c read_only qualifier. This is equivalent to 
  * \c CL_DEVICE_MAX_READ_IMAGE_ARGS.
+ */ 
+/*! \var teuthid::clb::devparam_t::MAX_READ_WRITE_IMAGE_ARGS
+ * \hideinitializer
+ * Maximum number of image objects arguments of a kernel declared with the 
+ * \c write_only or \c read_write qualifier.
+ * This is equivalent to \c CL_DEVICE_MAX_READ_WRITE_IMAGE_ARGS.
  */ 
 /*! \var teuthid::clb::devparam_t::MAX_SAMPLERS
  * \hideinitializer
@@ -325,14 +373,14 @@
  */
 /*! \var teuthid::clb::devparam_t::PIPE_MAX_ACTIVE_RESERVATIONS
  * \hideinitializer
- * The maximum number of reservations that can be active for a pipe per 
+ * Maximum number of reservations that can be active for a pipe per 
  * work-item in a kernel. A work-group reservation is counted as one 
  * reservation per work-item. This is equivalent to 
  * \c CL_DEVICE_PIPE_MAX_ACTIVE_RESERVATIONS.
  */
 /*! \var teuthid::clb::devparam_t::PIPE_MAX_PACKET_SIZE
  * \hideinitializer
- * The maximum size of pipe packet in bytes. This is equivalent to 
+ * Maximum size of pipe packet in bytes. This is equivalent to 
  * \c CL_DEVICE_PIPE_MAX_PACKET_SIZE.
  */
 /*! \var teuthid::clb::devparam_t::PREFERRED_GLOBAL_ATOMIC_ALIGNMENT
@@ -421,6 +469,12 @@
  * \c CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF. 
  * See device::preferred_vector_width().
  */
+/*! \var teuthid::clb::devparam_t::PRINTF_BUFFER_SIZE
+ * \hideinitializer
+ * Maximum size in bytes of the internal buffer that holds the output of 
+ * \c printf calls from a kernel.
+ * This is equivalent to \c CL_DEVICE_PRINTF_BUFFER_SIZE. 
+ */ 
 /*! \var teuthid::clb::devparam_t::PROFILE
  * \hideinitializer
  * Returns the profile (clb::devprofile_t) supported by the device. 
@@ -436,7 +490,7 @@
  */
 /*! \var teuthid::clb::devparam_t::QUEUE_ON_DEVICE_MAX_SIZE
  * \hideinitializer
- * The maximum size of the device queue in bytes. This is equivalent to 
+ * Maximum size of the device queue in bytes. This is equivalent to 
  * \c CL_DEVICE_QUEUE_ON_DEVICE_MAX_SIZE.
  */
 /*! \var teuthid::clb::devparam_t::QUEUE_ON_DEVICE_PREFERRED_SIZE
