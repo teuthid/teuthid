@@ -100,10 +100,11 @@ const platform &device::get_platform(device_id_t device_id) {
       return static_cast<device_param<devparam_t::PARAM>::value_type>(         \
           __cl_device.getInfo<static_cast<cl_bitfield>(devparam_t::PARAM)>()); \
     } catch (const cl::Error &__e) {                                           \
-      throw invalid_device("unknown device parameter");                        \
+      throw invalid_device("invalid device parameter");                        \
     }                                                                          \
   }
 
+__TEUTHID_CLB_DEVICE_INFO(ADDRESS_BITS);
 __TEUTHID_CLB_DEVICE_INFO(AVAILABLE);
 __TEUTHID_CLB_DEVICE_INFO(BUILT_IN_KERNELS);
 __TEUTHID_CLB_DEVICE_INFO(COMPILER_AVAILABLE);
@@ -191,11 +192,12 @@ __TEUTHID_CLB_DEVICE_INFO(DRIVER_VERSION);
                         sizeof(__param), &__param, NULL);                      \
     if (__result == CL_SUCCESS)                                                \
       return static_cast<__param_type>(__param);                               \
+    else if (__result == CL_INVALID_VALUE)                                     \
+      throw invalid_device("invalid device parameter");                        \
     else                                                                       \
       throw invalid_device(__result);                                          \
   }
 
-__TEUTHID_CLB_DEVICE_INFO(ADDRESS_BITS);
 __TEUTHID_CLB_DEVICE_INFO(PARENT_DEVICE);
 __TEUTHID_CLB_DEVICE_INFO(PARTITION_MAX_SUB_DEVICES);
 #undef __TEUTHID_CLB_DEVICE_INFO
