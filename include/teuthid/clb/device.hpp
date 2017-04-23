@@ -242,6 +242,7 @@ public:
   uint32_t max_clock_frequency() const;
   uint32_t max_compute_units() const;
   uint64_t max_mem_alloc_size() const;
+  uint32_t max_subdevices() const;
   std::size_t max_work_group_size() const;
   uint32_t max_work_item_dimensions() const;
   std::string name() const;
@@ -338,6 +339,7 @@ __TEUTHID_CLB_DEVICE_INFO_SPEC(PARENT_DEVICE, device_id_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(OPENCL_C_VERSION, std::string)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(PARTITION_AFFINITY_DOMAIN, devaffinity_domain_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(PARTITION_PROPERTIES, partition_properties_t)
+__TEUTHID_CLB_DEVICE_INFO_SPEC(PARTITION_MAX_SUB_DEVICES, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(PARTITION_TYPE, partition_properties_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(PIPE_MAX_ACTIVE_RESERVATIONS, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(PIPE_MAX_PACKET_SIZE, uint32_t)
@@ -368,8 +370,6 @@ __TEUTHID_CLB_DEVICE_INFO_SPEC(VENDOR, std::string)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(VENDOR_ID, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(VERSION, std::string)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(DRIVER_VERSION, std::string)
-// Not implemented in cl::Device::getInfo():
-__TEUTHID_CLB_DEVICE_INFO_SPEC(PARTITION_MAX_SUB_DEVICES, uint32_t)
 #undef __TEUTHID_CLB_DEVICE_INFO_SPEC
 
 // specialization of device::native_vector_width<>()

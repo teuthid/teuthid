@@ -85,12 +85,12 @@ int main() {
           __str = "CPU";
         else if (__device.is_gpu())
           __str = "GPU";
-        std::cout << "    Device Type: " << __str << "    Compiler: "
-                  << yesno(__device.is_compiler_available());
-        std::cout << "    Compute units: " << __device.max_compute_units();
-        std::cout << "    Frequency: "
-                  << system::to_string(__device.max_clock_frequency())
+        std::cout << "    Device Type: " << __str
+                  << "    Compiler: " << yesno(__device.is_compiler_available())
                   << std::endl;
+        std::cout << "    Max compute units: " << __device.max_compute_units();
+        std::cout << "    Max subdevices: "
+                  << system::to_string(__device.max_subdevices()) << std::endl;
         std::cout << "    Precision:  double="
                   << yesno(__device.has_double_precision())
                   << "  single=" << yesno(__device.has_single_precision());

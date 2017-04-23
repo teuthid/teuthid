@@ -133,6 +133,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
 
       BOOST_TEST(__device.profiling_timer_resolution() > 0,
                  "profiling_timer_resolution()");
+      BOOST_TEST(__device.max_compute_units() >= __device.max_subdevices(),
+                 "max_compute_units()");
 
       BOOST_TEST(__device.get_platform().id() == __platform.id(),
                  "get_platform()");

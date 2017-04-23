@@ -104,7 +104,6 @@ const platform &device::get_platform(device_id_t device_id) {
     }                                                                          \
   }
 
-__TEUTHID_CLB_DEVICE_INFO(ADDRESS_BITS);
 __TEUTHID_CLB_DEVICE_INFO(AVAILABLE);
 __TEUTHID_CLB_DEVICE_INFO(BUILT_IN_KERNELS);
 __TEUTHID_CLB_DEVICE_INFO(COMPILER_AVAILABLE);
@@ -178,23 +177,28 @@ __TEUTHID_CLB_DEVICE_INFO(VENDOR);
 __TEUTHID_CLB_DEVICE_INFO(VENDOR_ID);
 __TEUTHID_CLB_DEVICE_INFO(VERSION);
 __TEUTHID_CLB_DEVICE_INFO(DRIVER_VERSION);
-// Not implemented in cl::Device::getInfo(): 
-//__TEUTHID_CLB_DEVICE_INFO(PARTITION_MAX_SUB_DEVICES);
 #undef __TEUTHID_CLB_DEVICE_INFO
 
-template <>
-device_param<devparam_t::PARENT_DEVICE>::value_type
-device::info<devparam_t::PARENT_DEVICE>() const {
-  try {
-    cl::Device __cl_device(id_);
-    cl::Device __cl_parent(
-        __cl_device
-            .getInfo<static_cast<cl_bitfield>(devparam_t::PARENT_DEVICE)>());
-    return __cl_parent();
-  } catch (const cl::Error &__e) {
-    throw invalid_device(__e.err());
+#define __TEUTHID_CLB_DEVICE_INFO(PARAM)                                       \
+  template <>                                                                  \
+  device_param<devparam_t::PARAM>::value_type                                  \
+  device::info<devparam_t::PARAM>() const {                                    \
+    typedef device_param<devparam_t::PARAM>::value_type __param_type;          \
+    cl_int __result;                                                           \
+    __param_type __param;                                                      \
+    __result =                                                                 \
+        clGetDeviceInfo(id_, static_cast<cl_bitfield>(devparam_t::PARAM),      \
+                        sizeof(__param), &__param, NULL);                      \
+    if (__result == CL_SUCCESS)                                                \
+      return static_cast<__param_type>(__param);                               \
+    else                                                                       \
+      throw invalid_device(__result);                                          \
   }
-}
+
+__TEUTHID_CLB_DEVICE_INFO(ADDRESS_BITS);
+__TEUTHID_CLB_DEVICE_INFO(PARENT_DEVICE);
+__TEUTHID_CLB_DEVICE_INFO(PARTITION_MAX_SUB_DEVICES);
+#undef __TEUTHID_CLB_DEVICE_INFO
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 device_id_t device::parent_id() const {
@@ -270,6 +274,10 @@ uint32_t device::max_compute_units() const {
 
 uint64_t device::max_mem_alloc_size() const {
   return info<devparam_t::MAX_MEM_ALLOC_SIZE>();
+}
+
+uint32_t device::max_subdevices() const {
+  return info<devparam_t::PARTITION_MAX_SUB_DEVICES>();
 }
 
 std::size_t device::max_work_group_size() const {
