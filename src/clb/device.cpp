@@ -191,7 +191,7 @@ __TEUTHID_CLB_DEVICE_INFO(DRIVER_VERSION);
         clGetDeviceInfo(id_, static_cast<cl_bitfield>(devparam_t::PARAM),      \
                         sizeof(__param), &__param, NULL);                      \
     if (__result == CL_SUCCESS)                                                \
-      return static_cast<__param_type>(__param);                               \
+      return __param;                                                          \
     else if (__result == CL_INVALID_VALUE)                                     \
       throw invalid_device("invalid device parameter");                        \
     else                                                                       \
