@@ -63,7 +63,7 @@ const platform &platform::get_default() {
   try {
     return platform::get(cl::Platform::getDefault()());
   } catch (const cl::Error &__e) {
-    throw invalid_device("unknown a default platform");
+    throw invalid_platform("unknown default platform");
   }
 }
 
@@ -72,7 +72,7 @@ const platform &platform::set_default(const platform &plat) {
     cl::Platform __plat = cl::Platform::setDefault(cl::Platform(plat.id()));
     return platform::get(__plat());
   } catch (const cl::Error &__e) {
-    throw invalid_device("unknown a default platform");
+    throw invalid_platform("unknown default platform");
   }
 }
 
@@ -124,7 +124,7 @@ bool platform::unload_compiler() {
           __cl_plattform                                                       \
               .getInfo<static_cast<cl_bitfield>(platparam_t::PARAM)>());       \
     } catch (const cl::Error &__e) {                                           \
-      throw invalid_device("unknown platform parameter");                      \
+      throw invalid_platform("unknown platform parameter");                    \
     }                                                                          \
   }
 
@@ -144,7 +144,7 @@ platprofile_t platform::profile() const {
   else if (__s == std::string("EMBEDDED_PROFILE"))
     return platprofile_t::EMBEDDED;
   else
-    throw invalid_device("unknown platform profile");
+    throw invalid_platform("unknown platform profile");
 }
 
 std::string platform::version() const {
