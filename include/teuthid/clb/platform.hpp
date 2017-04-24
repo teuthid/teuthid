@@ -34,9 +34,8 @@ enum class platparam_t : uint64_t { // cl_platform_info
   NAME = CL_PLATFORM_NAME,
   VENDOR = CL_PLATFORM_VENDOR,
   EXTENSIONS = CL_PLATFORM_EXTENSIONS,
-  ICD_SUFFIX_KHR = CL_PLATFORM_ICD_SUFFIX_KHR,
-  // Not implemented in cl2.hpp:
-  HOST_TIMER_RESOLUTION = CL_PLATFORM_HOST_TIMER_RESOLUTION
+  HOST_TIMER_RESOLUTION = CL_PLATFORM_HOST_TIMER_RESOLUTION,
+  ICD_SUFFIX_KHR = CL_PLATFORM_ICD_SUFFIX_KHR
 };
 using platprofile_t = devprofile_t;
 
@@ -68,6 +67,7 @@ public:
   std::string vendor() const;
   extensions_t extensions() const;
   bool has_extension(const std::string &ext_name) const;
+  uint64_t host_timer_resolution() const;
   std::string icd_suffix_khr() const;
   const devices_t &devices() const noexcept { return devices_; }
   std::size_t device_count() const noexcept { return devices_.size(); }
@@ -108,6 +108,7 @@ __TEUTHID_CLB_PLATFORM_INFO_SPEC(VERSION, std::string)
 __TEUTHID_CLB_PLATFORM_INFO_SPEC(NAME, std::string)
 __TEUTHID_CLB_PLATFORM_INFO_SPEC(VENDOR, std::string)
 __TEUTHID_CLB_PLATFORM_INFO_SPEC(EXTENSIONS, std::string)
+__TEUTHID_CLB_PLATFORM_INFO_SPEC(HOST_TIMER_RESOLUTION, uint64_t)
 __TEUTHID_CLB_PLATFORM_INFO_SPEC(ICD_SUFFIX_KHR, std::string)
 #undef __TEUTHID_CLB_PLATFORM_INFO_SPEC
 #endif // DOXYGEN_SHOULD_SKIP_THIS

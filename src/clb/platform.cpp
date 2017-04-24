@@ -46,7 +46,7 @@ const platform &platform::get(platform_id_t platform_id) {
   } catch (const error &__e) {
     throw invalid_platform(__e.cl_error());
   }
-  throw invalid_platform("unknown platform_id_t");
+  throw invalid_platform("invalid platform_id_t");
 }
 
 const platforms_t &platform::get_all() {
@@ -63,7 +63,7 @@ const platform &platform::get_default() {
   try {
     return platform::get(cl::Platform::getDefault()());
   } catch (const cl::Error &__e) {
-    throw invalid_platform("unknown default platform");
+    throw invalid_platform("invalid default platform");
   }
 }
 
@@ -72,7 +72,7 @@ const platform &platform::set_default(const platform &plat) {
     cl::Platform __plat = cl::Platform::setDefault(cl::Platform(plat.id()));
     return platform::get(__plat());
   } catch (const cl::Error &__e) {
-    throw invalid_platform("unknown default platform");
+    throw invalid_platform("invalid default platform");
   }
 }
 
@@ -124,7 +124,7 @@ bool platform::unload_compiler() {
           __cl_plattform                                                       \
               .getInfo<static_cast<cl_bitfield>(platparam_t::PARAM)>());       \
     } catch (const cl::Error &__e) {                                           \
-      throw invalid_platform("unknown platform parameter");                    \
+      throw invalid_platform("invalid platform parameter");                    \
     }                                                                          \
   }
 
@@ -135,6 +135,27 @@ __TEUTHID_CLB_PLATFORM_INFO(VENDOR);
 __TEUTHID_CLB_PLATFORM_INFO(EXTENSIONS);
 __TEUTHID_CLB_PLATFORM_INFO(ICD_SUFFIX_KHR);
 #undef __TEUTHID_CLB_PLATFORM_INFO
+
+#define __TEUTHID_CLB_PLATFORM_INFO(PARAM)                                     \
+  template <>                                                                  \
+  platform_param<platparam_t::PARAM>::value_type                               \
+  platform::info<platparam_t::PARAM>() const {                                 \
+    typedef platform_param<platparam_t::PARAM>::value_type __param_type;       \
+    cl_int __result;                                                           \
+    __param_type __param;                                                      \
+    __result =                                                                 \
+        clGetPlatformInfo(id_, static_cast<cl_bitfield>(platparam_t::PARAM),   \
+                          sizeof(__param), &__param, NULL);                    \
+    if (__result == CL_SUCCESS)                                                \
+      return __param;                                                          \
+    else if (__result == CL_INVALID_VALUE)                                     \
+      throw invalid_platform("invalid platform parameter");                    \
+    else                                                                       \
+      throw invalid_platform(__result);                                        \
+  }
+
+__TEUTHID_CLB_PLATFORM_INFO(HOST_TIMER_RESOLUTION);
+#undef __TEUTHID_CLB_PLATFORM_INFO
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 platprofile_t platform::profile() const {
@@ -144,7 +165,7 @@ platprofile_t platform::profile() const {
   else if (__s == std::string("EMBEDDED_PROFILE"))
     return platprofile_t::EMBEDDED;
   else
-    throw invalid_platform("unknown platform profile");
+    throw invalid_platform("invalid platform profile");
 }
 
 std::string platform::version() const {
@@ -166,6 +187,10 @@ bool platform::has_extension(const std::string &ext_name) const {
     if (__s == ext_name)
       return true;
   return false;
+}
+
+uint64_t platform::host_timer_resolution() const {
+  return info<platparam_t::HOST_TIMER_RESOLUTION>();
 }
 
 std::string platform::icd_suffix_khr() const {
