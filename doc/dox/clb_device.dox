@@ -625,352 +625,388 @@ OpenCL software driver version string. This is equivalent to
 */
 
 
-/*! \enum teuthid::clb::devaffinity_domain_t
- * \brief This enumeration includes named constants that identifies 
- * affinity domains. 
- * 
- * This is equivalent to \c cl_device_affinity_domain.
- */
-/*! \var teuthid::clb::devaffinity_domain_t::NUMA
- * \hideinitializer
- * Compute units that share a NUMA node. This is equivalent to 
- * \c CL_DEVICE_AFFINITY_DOMAIN_NUMA.
- */ 
-/*! \var teuthid::clb::devaffinity_domain_t::L4_CACHE
- * \hideinitializer
- * Compute units that share a level 4 data cache. This is equivalent to 
- * \c CL_DEVICE_AFFINITY_DOMAIN_L4_CACHE.
- */
-/*! \var teuthid::clb::devaffinity_domain_t::L3_CACHE
- * \hideinitializer
- * Compute units that share a level 3 data cache. This is equivalent to 
- * \c CL_DEVICE_AFFINITY_DOMAIN_L3_CACHE.
- */
-/*! \var teuthid::clb::devaffinity_domain_t::L2_CACHE
- * \hideinitializer
- * Compute units that share a level 2 data cache. This is equivalent to 
- * \c CL_DEVICE_AFFINITY_DOMAIN_L2_CACHE.
- */
-/*! \var teuthid::clb::devaffinity_domain_t::L1_CACHE
- * \hideinitializer
- * Compute units that share a level 1 data cache. This is equivalent to 
- * \c CL_DEVICE_AFFINITY_DOMAIN_L1_CACHE.
- */
-/*! \var teuthid::clb::devaffinity_domain_t::NEXT_PARTITIONABLE
- * \hideinitializer
- * Next partitionable affinity domain. The implementation shall find the first 
- * level along which the device or sub-device may be further subdivided in the 
- * order NUMA, L4, L3, L2, L1, and partition the device into sub-devices 
- * comprised of compute units that share memory subsystems at this level.
- * This is equivalent to \c CL_DEVICE_AFFINITY_DOMAIN_NEXT_PARTITIONABLE.
- */
+/*! 
+\enum teuthid::clb::devaffinity_domain_t
+\brief This enumeration includes named constants that identifies affinity 
+domains. 
+\details This is equivalent to \c cl_device_affinity_domain.
+*/
+/*! 
+\var teuthid::clb::devaffinity_domain_t::NUMA
+\hideinitializer
+Compute units that share a NUMA node. This is equivalent to 
+\c CL_DEVICE_AFFINITY_DOMAIN_NUMA.
+*/ 
+/*! 
+\var teuthid::clb::devaffinity_domain_t::L4_CACHE
+\hideinitializer
+Compute units that share a level 4 data cache. This is equivalent to 
+\c CL_DEVICE_AFFINITY_DOMAIN_L4_CACHE.
+*/
+/*! 
+\var teuthid::clb::devaffinity_domain_t::L3_CACHE
+\hideinitializer
+Compute units that share a level 3 data cache. This is equivalent to 
+\c CL_DEVICE_AFFINITY_DOMAIN_L3_CACHE.
+*/
+/*! 
+\var teuthid::clb::devaffinity_domain_t::L2_CACHE
+\hideinitializer
+Compute units that share a level 2 data cache. This is equivalent to 
+\c CL_DEVICE_AFFINITY_DOMAIN_L2_CACHE.
+*/
+/*! 
+\var teuthid::clb::devaffinity_domain_t::L1_CACHE
+\hideinitializer
+Compute units that share a level 1 data cache. This is equivalent to 
+\c CL_DEVICE_AFFINITY_DOMAIN_L1_CACHE.
+*/
+/*! 
+\var teuthid::clb::devaffinity_domain_t::NEXT_PARTITIONABLE
+\hideinitializer
+Next partitionable affinity domain. The implementation shall find the first 
+level along which the device or sub-device may be further subdivided in the 
+order NUMA, L4, L3, L2, L1, and partition the device into sub-devices comprised 
+of compute units that share memory subsystems at this level. This is equivalent 
+to \c CL_DEVICE_AFFINITY_DOMAIN_NEXT_PARTITIONABLE.
+*/
 
 
-/*! \enum teuthid::clb::devcommand_queue_properties_t
- * \brief This enumeration includes named constants that identifies 
- * properties for the command-queue.
- *
- * This is equivalent to \c cl_command_queue_properties.
- */
-/*! \var teuthid::clb::devcommand_queue_properties_t::OUT_OF_ORDER_EXEC_MODE_ENABLE
- * \hideinitializer
- * Determines whether the commands queued in the command-queue are executed 
- * in-order or out-of-order. If set, the commands in the command-queue are 
- * executed out-of-order. Otherwise, commands are executed in-order.
- * This is equivalent to \c CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE.
- */ 
-/*! \var teuthid::clb::devcommand_queue_properties_t::PROFILING_ENABLE
- * \hideinitializer
- * Enable or disable profiling of commands in the command-queue. If set, the 
- * profiling of commands is enabled. Otherwise profiling of commands is 
- * disabled. This is equivalent to \c CL_QUEUE_PROFILING_ENABLE.
- */
-/*! \var teuthid::clb::devcommand_queue_properties_t::ON_DEVICE
- * \hideinitializer
- * Indicates that this is a device queue. If set, 
- * \c OUT_OF_ORDER_EXEC_MODE_ENABLE must also be set. Only out-of-order device 
- * queues are supported. This is equivalent to \c CL_QUEUE_ON_DEVICE.
- */
-/*! \var teuthid::clb::devcommand_queue_properties_t::ON_DEVICE_DEFAULT
- * \hideinitializer
- * Indicates that this is the default device queue. This can only be used with 
- * devcommand_queue_properties_t::ON_DEVICE. The application must create the 
- * default device queue if any kernels containing calls to get_default_queue 
- * are enqueued. There can only be one default device queue for each device 
- * within a context.
- * This is equivalent to \c CL_QUEUE_ON_DEVICE_DEFAULT.
- */
+/*! 
+\enum teuthid::clb::devcommand_queue_properties_t
+\brief This enumeration includes named constants that identifies properties for 
+the command-queue.
+\details This is equivalent to \c cl_command_queue_properties.
+*/
+/*! 
+\var teuthid::clb::devcommand_queue_properties_t::OUT_OF_ORDER_EXEC_MODE_ENABLE
+\hideinitializer
+Determines whether the commands queued in the command-queue are executed 
+in-order or out-of-order. If set, the commands in the command-queue are 
+executed out-of-order. Otherwise, commands are executed in-order. This is 
+equivalent to \c CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE.
+*/ 
+/*! 
+\var teuthid::clb::devcommand_queue_properties_t::PROFILING_ENABLE
+\hideinitializer
+Enable or disable profiling of commands in the command-queue. If set, the 
+profiling of commands is enabled. Otherwise profiling of commands is disabled. 
+This is equivalent to \c CL_QUEUE_PROFILING_ENABLE.
+*/
+/*! 
+\var teuthid::clb::devcommand_queue_properties_t::ON_DEVICE
+\hideinitializer
+Indicates that this is a device queue. If set, \c OUT_OF_ORDER_EXEC_MODE_ENABLE 
+must also be set. Only out-of-order device queues are supported. This is 
+equivalent to \c CL_QUEUE_ON_DEVICE.
+*/
+/*! 
+\var teuthid::clb::devcommand_queue_properties_t::ON_DEVICE_DEFAULT
+\hideinitializer
+Indicates that this is the default device queue. This can only be used with 
+devcommand_queue_properties_t::ON_DEVICE. The application must create the 
+default device queue if any kernels containing calls to get_default_queue are 
+enqueued. There can only be one default device queue for each device within a 
+context. This is equivalent to \c CL_QUEUE_ON_DEVICE_DEFAULT.
+*/
 
 
-/*! \enum teuthid::clb::devexec_caps_t
- * \brief This enumeration includes named constants that identifies 
- * execution capabilities of the device.
- *
- * This is equivalent to \c cl_device_exec_capabilities.
- */
-/*! \var teuthid::clb::devexec_caps_t::KERNEL
- * \hideinitializer
- * Device can execute OpenCL kernels. This is equivalent to \c CL_EXEC_KERNEL.
- */
-/*! \var teuthid::clb::devexec_caps_t::NATIVE_KERNEL
- * \hideinitializer
- * Device can execute native kernels. This is equivalent to 
- * \c CL_EXEC_NATIVE_KERNEL.
- */
+/*! 
+\enum teuthid::clb::devexec_caps_t
+\brief This enumeration includes named constants that identifies execution 
+capabilities of the device.
+\details This is equivalent to \c cl_device_exec_capabilities.
+*/
+/*! 
+\var teuthid::clb::devexec_caps_t::KERNEL
+\hideinitializer
+Device can execute OpenCL kernels. This is equivalent to \c CL_EXEC_KERNEL.
+*/
+/*! 
+\var teuthid::clb::devexec_caps_t::NATIVE_KERNEL
+\hideinitializer
+Device can execute native kernels. This is equivalent to 
+\c CL_EXEC_NATIVE_KERNEL.
+*/
 
 
-/*! \enum teuthid::clb::devfp_config_t
- * \brief This enumeration includes named constants that identifies 
- * a floating-point capability of the OpenCL device.
- *
- * This is equivalent to \c cl_device_fp_config.
- * See device::double_fp_config(), device::single_fp_config().
- */
-/*! \var teuthid::clb::devfp_config_t::DENORM
- * \hideinitializer
- * Denorms are supported. This is equivalent to \c CL_FP_DENORM.
- */ 
-/*! \var teuthid::clb::devfp_config_t::INF_NAN
- * \hideinitializer
- * \c INF and <tt>NaN</tt>s are supported. This is equivalent to 
- * \c CL_FP_INF_NAN.
- */
-/*! \var teuthid::clb::devfp_config_t::ROUND_TO_NEAREST
- * \hideinitializer
- * Round to nearest even rounding mode supported.
- * This is equivalent to \c CL_FP_ROUND_TO_NEAREST.
- */
-/*! \var teuthid::clb::devfp_config_t::ROUND_TO_ZERO
- * \hideinitializer
- * Round to zero rounding mode supported.
- * This is equivalent to \c CL_FP_ROUND_TO_ZERO.
- */
-/*! \var teuthid::clb::devfp_config_t::ROUND_TO_INF
- * \hideinitializer
- * Round to positive and negative infinity rounding modes supported.
- * This is equivalent to \c CL_FP_ROUND_TO_INF.
- */
-/*! \var teuthid::clb::devfp_config_t::FMA
- * \hideinitializer
- * IEEE754-2008 fused multiply-add is supported.
- * This is equivalent to \c CL_FP_FMA.
- */
-/*! \var teuthid::clb::devfp_config_t::SOFT_FLOAT
- * \hideinitializer
- * Basic floating-point operations (such as addition, subtraction, 
- * multiplication) are implemented in software.
- * This is equivalent to \c CL_FP_SOFT_FLOAT.
- */
-/*! \var teuthid::clb::devfp_config_t::CORRECTLY_ROUNDED_DIVIDE_SQRT
- * \hideinitializer
- * Divide and \c sqrt are correctly rounded as defined by the IEEE754 
- * specification.
- * This is equivalent to \c CL_FP_CORRECTLY_ROUNDED_DIVIDE_SQRT.
- */
+/*! 
+\enum teuthid::clb::devfp_config_t
+\brief This enumeration includes named constants that identifies a 
+floating-point capability of the OpenCL device.
+\details This is equivalent to \c cl_device_fp_config. See 
+device::double_fp_config(), device::single_fp_config().
+*/
+/*! 
+\var teuthid::clb::devfp_config_t::DENORM
+\hideinitializer
+Denorms are supported. This is equivalent to \c CL_FP_DENORM.
+*/ 
+/*! 
+\var teuthid::clb::devfp_config_t::INF_NAN
+\hideinitializer
+\c INF and <tt>NaN</tt>s are supported. This is equivalent to \c CL_FP_INF_NAN.
+*/
+/*! 
+\var teuthid::clb::devfp_config_t::ROUND_TO_NEAREST
+\hideinitializer
+Round to nearest even rounding mode supported. This is equivalent to 
+\c CL_FP_ROUND_TO_NEAREST.
+*/
+/*! 
+\var teuthid::clb::devfp_config_t::ROUND_TO_ZERO
+\hideinitializer
+Round to zero rounding mode supported. This is equivalent to 
+\c CL_FP_ROUND_TO_ZERO.
+*/
+/*! 
+\var teuthid::clb::devfp_config_t::ROUND_TO_INF
+\hideinitializer
+Round to positive and negative infinity rounding modes supported. This is 
+equivalent to \c CL_FP_ROUND_TO_INF.
+*/
+/*! 
+\var teuthid::clb::devfp_config_t::FMA
+\hideinitializer
+IEEE754-2008 fused multiply-add is supported. This is equivalent to 
+\c CL_FP_FMA.
+*/
+/*! 
+\var teuthid::clb::devfp_config_t::SOFT_FLOAT
+\hideinitializer
+Basic floating-point operations (such as addition, subtraction, multiplication) 
+are implemented in software. This is equivalent to \c CL_FP_SOFT_FLOAT.
+*/
+/*! 
+\var teuthid::clb::devfp_config_t::CORRECTLY_ROUNDED_DIVIDE_SQRT
+\hideinitializer
+Divide and \c sqrt are correctly rounded as defined by the IEEE754 
+specification. This is equivalent to \c CL_FP_CORRECTLY_ROUNDED_DIVIDE_SQRT.
+*/
 
 
-/*! \enum teuthid::clb::devlocal_mem_t
- * \brief This enumeration includes named constants that identifies 
- * a type of local memory supported.
- *
- * This is equivalent to \c cl_device_local_mem_type.
- */
-/*! \var teuthid::clb::devlocal_mem_t::LOCAL
- * \hideinitializer
- * Indicates the dedicated local memory storage such as SRAM.
- * This is equivalent to \c CL_LOCAL.
- */
-/*! \var teuthid::clb::devlocal_mem_t::GLOBAL
- * \hideinitializer
- * Indicates the global memory storage.
- * This is equivalent to \c CL_GLOBAL.
- */
-/*! \var teuthid::clb::devlocal_mem_t::NONE
- * \hideinitializer
- */
+/*! 
+\enum teuthid::clb::devlocal_mem_t
+\brief This enumeration includes named constants that identifies a type of 
+local memory supported.
+\details This is equivalent to \c cl_device_local_mem_type.
+*/
+/*! 
+\var teuthid::clb::devlocal_mem_t::LOCAL
+\hideinitializer
+Indicates the dedicated local memory storage such as SRAM. This is equivalent 
+to \c CL_LOCAL.
+*/
+/*! 
+\var teuthid::clb::devlocal_mem_t::GLOBAL
+\hideinitializer
+Indicates the global memory storage. This is equivalent to \c CL_GLOBAL.
+*/
+/*! 
+\var teuthid::clb::devlocal_mem_t::NONE
+\hideinitializer
+*/
 
-/*! \enum teuthid::clb::devmem_cache_t
- * \brief This enumeration includes named constants that identifies
- * a type of global memory cache supported.
- *
- * This is equivalent to \c cl_device_mem_cache_type.
- */
-/*! \var teuthid::clb::devmem_cache_t::READ_ONLY_CACHE
- * \hideinitializer
- * This is equivalent to \c CL_READ_ONLY_CACHE.
- */
-/*! \var teuthid::clb::devmem_cache_t::READ_WRITE_CACHE
- * \hideinitializer
- * This is equivalent to \c CL_READ_WRITE_CACHE.
- */
-/*! \var teuthid::clb::devmem_cache_t::NONE
- * \hideinitializer
- */
+/*! 
+\enum teuthid::clb::devmem_cache_t
+\brief This enumeration includes named constants that identifies a type of 
+global memory cache supported.
+\details This is equivalent to \c cl_device_mem_cache_type.
+*/
+/*! 
+\var teuthid::clb::devmem_cache_t::READ_ONLY_CACHE
+\hideinitializer
+This is equivalent to \c CL_READ_ONLY_CACHE.
+*/
+/*! 
+\var teuthid::clb::devmem_cache_t::READ_WRITE_CACHE
+\hideinitializer
+This is equivalent to \c CL_READ_WRITE_CACHE.
+*/
+/*! 
+\var teuthid::clb::devmem_cache_t::NONE
+\hideinitializer
+*/
 
-/*! \enum teuthid::clb::devpartition_property_t
- * \brief This enumeration includes named constants that identifies
- * partitioning schemes.
- *
- * This is equivalent to \c cl_device_partition_property.
- */
-/*! \var teuthid::clb::devpartition_property_t::EQUALLY
- * \hideinitializer
- * Split the aggregate device into as many smaller aggregate devices as can be 
- * created, each containing \e n compute units. The value \e n is passed as the 
- * value accompanying this property. If \e n does not divide evenly into 
- * devparam_t::MAX_COMPUTE_UNITS, then the remaining compute units are not used.
- * This is equivalent to \c CL_DEVICE_PARTITION_EQUALLY.
- */ 
-/*! \var teuthid::clb::devpartition_property_t::BY_COUNTS
- * \hideinitializer
- * This property is followed by a devpartition_property_t::BY_COUNTS_LIST_END 
- * terminated list of compute unit counts. For each nonzero count \e m in the 
- * list, a sub-device is created with \e m compute units in it.
- * The number of non-zero count entries in the list may not exceed 
- * devparam_t::PARTITION_MAX_SUB_DEVICES.
- * The total number of compute units specified may not exceed 
- * devparam_t::MAX_COMPUTE_UNITS.
- * This is equivalent to \c CL_DEVICE_PARTITION_BY_COUNTS.
- */
-/*! \var teuthid::clb::devpartition_property_t::BY_COUNTS_LIST_END
- * \hideinitializer
- * This is equivalent to \c CL_DEVICE_PARTITION_BY_COUNTS_LIST_END.
- * See devpartition_property_t::BY_COUNTS.
- */
-/*! \var teuthid::clb::devpartition_property_t::BY_AFFINITY_DOMAIN
- * \hideinitializer
- * Split the device into smaller aggregate devices containing one or more 
- * compute units that all share part of a cache hierarchy. The value 
- * accompanying this property may be drawn from clb::devaffinity_domain_t.
- * This is equivalent to \c CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN.
- */
-
-
-/*! \enum teuthid::clb::devprofile_t
- * \brief This enumeration includes named constants that identifies
- * the profile supported by the device.
- * 
- * See device::profile(), platform::profile().
- */
-/*! \var teuthid::clb::devprofile_t::FULL
- * Indicates that the device supports the OpenCL specification (functionality 
- * defined as part of the core specification and does not require any 
- * extensions to be supported). See device::is_full_profile(),
- * platform::is_full_profile().
- */
-/*! \var teuthid::clb::devprofile_t::EMBEDDED
- * Indicates that the device supports the OpenCL embedded profile.
- * See device::is_embedded_profile(), platform::is_embedded_profile().
- */
+/*! 
+\enum teuthid::clb::devpartition_property_t
+\brief This enumeration includes named constants that identifies partitioning 
+schemes.
+\details This is equivalent to \c cl_device_partition_property.
+*/
+/*! 
+\var teuthid::clb::devpartition_property_t::EQUALLY
+\hideinitializer
+Split the aggregate device into as many smaller aggregate devices as can be 
+created, each containing \e n compute units. The value \e n is passed as the 
+value accompanying this property. If \e n does not divide evenly into 
+devparam_t::MAX_COMPUTE_UNITS, then the remaining compute units are not used. 
+This is equivalent to \c CL_DEVICE_PARTITION_EQUALLY.
+*/ 
+/*! 
+\var teuthid::clb::devpartition_property_t::BY_COUNTS
+\hideinitializer
+This property is followed by a devpartition_property_t::BY_COUNTS_LIST_END 
+terminated list of compute unit counts. For each nonzero count \e m in the list,
+a sub-device is created with \e m compute units in it. The number of non-zero 
+count entries in the list may not exceed devparam_t::PARTITION_MAX_SUB_DEVICES.
+The total number of compute units specified may not exceed 
+devparam_t::MAX_COMPUTE_UNITS. This is equivalent to 
+\c CL_DEVICE_PARTITION_BY_COUNTS.
+*/
+/*! 
+\var teuthid::clb::devpartition_property_t::BY_COUNTS_LIST_END
+\hideinitializer
+This is equivalent to \c CL_DEVICE_PARTITION_BY_COUNTS_LIST_END. See 
+devpartition_property_t::BY_COUNTS.
+*/
+/*! 
+\var teuthid::clb::devpartition_property_t::BY_AFFINITY_DOMAIN
+\hideinitializer
+Split the device into smaller aggregate devices containing one or more compute 
+units that all share part of a cache hierarchy. The value accompanying this 
+property may be drawn from clb::devaffinity_domain_t. This is equivalent to 
+\c CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN.
+*/
 
 
-/*! \enum teuthid::clb::devsvm_capabilities_t
- * \brief This enumeration includes named constants that identifies
- * various shared virtual memory allocation types.
- *
- * This is equivalent to \c cl_device_svm_capabilities.
- */
-/*! \var teuthid::clb::devsvm_capabilities_t::COARSE_GRAIN_BUFFER
- * \hideinitializer
- * Indicates the support for coarse-grain buffer sharing.
- * This is equivalent to \c CL_DEVICE_SVM_COARSE_GRAIN_BUFFER.
- */
-/*! \var teuthid::clb::devsvm_capabilities_t::FINE_GRAIN_BUFFER
- * \hideinitializer
- * Indicates the support for fine-grain buffer sharing.
- * This is equivalent to \c CL_DEVICE_SVM_FINE_GRAIN_BUFFER.
- */
-/*! \var teuthid::clb::devsvm_capabilities_t::FINE_GRAIN_SYSTEM
- * \hideinitializer
- * Indicates the support for sharing the host’s entire virtual memory including 
- * memory allocated using malloc. Memory consistency is guaranteed at 
- * synchronization points.
- * This is equivalent to \c CL_DEVICE_SVM_FINE_GRAIN_SYSTEM.
- */
-/*! \var teuthid::clb::devsvm_capabilities_t::ATOMICS
- * \hideinitializer
- * Indicates the support for the atomic operations that provide memory 
- * consistency across the host and all OpenCL devices supporting fine-grain SVM 
- * allocations.
- * This is equivalent to \c CL_DEVICE_SVM_ATOMICS.
- */
+/*! 
+\enum teuthid::clb::devprofile_t
+\brief This enumeration includes named constants that identifies the profile 
+supported by the device.
+\details See device::profile(), platform::profile().
+*/
+/*! 
+\var teuthid::clb::devprofile_t::FULL
+Indicates that the device supports the OpenCL specification (functionality 
+defined as part of the core specification and does not require any extensions 
+to be supported). See device::is_full_profile(), platform::is_full_profile().
+*/
+/*! 
+\var teuthid::clb::devprofile_t::EMBEDDED
+Indicates that the device supports the OpenCL embedded profile. See 
+device::is_embedded_profile(), platform::is_embedded_profile().
+*/
 
 
-/*! \enum teuthid::clb::devtype_t
- * \brief This enumeration includes named constants that identifies
- * the type of device. 
- *
- * This is equivalent to \c cl_device_type. See device::devtype(), 
- * device::is_devtype(). 
- */
-/*! \var teuthid::clb::devtype_t::CPU
- * \hideinitializer
- * An OpenCL device that is the host processor. The host processor runs the 
- * OpenCL implementations and is a single or multi-core CPU. 
- * This is equivalent to \c CL_DEVICE_TYPE_CPU. See device::is_cpu(). 
- */
-/*! \var teuthid::clb::devtype_t::GPU
- * \hideinitializer
- * An OpenCL device that is a GPU. By this we mean that the device can also be 
- * used to accelerate a 3D API such as OpenGL or DirectX.
- * This is equivalent to \c CL_DEVICE_TYPE_GPU. See device::is_gpu(). 
- */
-/*! \var teuthid::clb::devtype_t::ACCELERATOR
- * \hideinitializer
- * Dedicated OpenCL accelerators. These devices communicate with the host 
- * processor using a peripheral interconnect such as PCIe.
- * This is equivalent to \c CL_DEVICE_TYPE_ACCELERATOR.
- */
-/*! \var teuthid::clb::devtype_t::CUSTOM
- * \hideinitializer
- * Dedicated accelerators that do not support programs written in OpenCL C.
- * This is equivalent to \c CL_DEVICE_TYPE_CUSTOM.
- */
-/*! \var teuthid::clb::devtype_t::DEFAULT
- * \hideinitializer
- * The default OpenCL device in the system. The default device cannot be a 
- * devtype_t::CUSTOM device.
- * This is equivalent to \c CL_DEVICE_TYPE_DEFAULT.
- */
-/*! \var teuthid::clb::devtype_t::ALL
- * \hideinitializer
- * All OpenCL devices available in the system except devtype_t::CUSTOM devices.
- * This is equivalent to \c CL_DEVICE_TYPE_ALL.
- */
+/*! 
+\enum teuthid::clb::devsvm_capabilities_t
+\brief This enumeration includes named constants that identifies various shared 
+virtual memory allocation types.
+\details This is equivalent to \c cl_device_svm_capabilities.
+*/
+/*! 
+\var teuthid::clb::devsvm_capabilities_t::COARSE_GRAIN_BUFFER
+\hideinitializer
+Indicates the support for coarse-grain buffer sharing. This is equivalent to 
+\c CL_DEVICE_SVM_COARSE_GRAIN_BUFFER.
+*/
+/*! 
+\var teuthid::clb::devsvm_capabilities_t::FINE_GRAIN_BUFFER
+\hideinitializer
+Indicates the support for fine-grain buffer sharing. This is equivalent to 
+\c CL_DEVICE_SVM_FINE_GRAIN_BUFFER.
+*/
+/*! 
+\var teuthid::clb::devsvm_capabilities_t::FINE_GRAIN_SYSTEM
+\hideinitializer
+Indicates the support for sharing the host’s entire virtual memory including 
+memory allocated using malloc. Memory consistency is guaranteed at 
+synchronization points. This is equivalent to 
+\c CL_DEVICE_SVM_FINE_GRAIN_SYSTEM.
+*/
+/*! 
+\var teuthid::clb::devsvm_capabilities_t::ATOMICS
+\hideinitializer
+Indicates the support for the atomic operations that provide memory consistency 
+across the host and all OpenCL devices supporting fine-grain SVM allocations.
+This is equivalent to \c CL_DEVICE_SVM_ATOMICS.
+*/
 
 
-/*! \typedef typedef cl_device_id teuthid::clb::device_id_t
- * \brief This is a type alias for \c cl_device_id.
- *
- * \see device::id(), device::parent_id().
- */
-/*! \typedef typedef cl_platform_id teuthid::clb::platform_id_t
- * \brief This is a type alias for \c cl_platform_id.
- *
- * \see platform::id().
- */
-/*! \typedef std::vector<std::string> teuthid::clb::extensions_t
- * \brief This is a type alias for the vector containing strings.
- *
- * \see device::extensions(), platform::extensions()
- */
-/*! \typedef std::vector<std::string> teuthid::clb::built_in_kernels_t
- * \brief This is a type alias for the vector containing strings.
- *
- * \see device::built_in_kernels().
- */
-/*! \typedef std::vector<std::size_t> teuthid::clb::max_work_item_sizes_t
- * \brief This is a type alias for the vector containing values of type 
- * \c std::size_t.
- */
-/*! \typedef std::vector<intptr_t> teuthid::clb::partition_properties_t
- * \brief This is a type alias for the vector containing values of type 
- * \c intptr_t.
- */
-/*! \typedef std::vector<std::string> teuthid::clb::devices_t
- * \brief This is a type alias for the vector containing objects of class
- * clb::device.
- */
+/*! 
+\enum teuthid::clb::devtype_t
+\brief This enumeration includes named constants that identifies the type of 
+device. 
+\details This is equivalent to \c cl_device_type. See device::devtype(), 
+device::is_devtype(). 
+*/
+/*! 
+\var teuthid::clb::devtype_t::CPU
+\hideinitializer
+An OpenCL device that is the host processor. The host processor runs the OpenCL 
+implementations and is a single or multi-core CPU. This is equivalent to 
+\c CL_DEVICE_TYPE_CPU. See device::is_cpu(). 
+*/
+/*! 
+\var teuthid::clb::devtype_t::GPU
+\hideinitializer
+An OpenCL device that is a GPU. By this we mean that the device can also be 
+used to accelerate a 3D API such as OpenGL or DirectX. This is equivalent to 
+\c CL_DEVICE_TYPE_GPU. See device::is_gpu(). 
+*/
+/*! 
+\var teuthid::clb::devtype_t::ACCELERATOR
+\hideinitializer
+Dedicated OpenCL accelerators. These devices communicate with the host 
+processor using a peripheral interconnect such as PCIe. This is equivalent to 
+\c CL_DEVICE_TYPE_ACCELERATOR.
+*/
+/*! 
+\var teuthid::clb::devtype_t::CUSTOM
+\hideinitializer
+Dedicated accelerators that do not support programs written in OpenCL C. This 
+is equivalent to \c CL_DEVICE_TYPE_CUSTOM.
+*/
+/*! 
+\var teuthid::clb::devtype_t::DEFAULT
+\hideinitializer
+The default OpenCL device in the system. The default device cannot be a 
+devtype_t::CUSTOM device. This is equivalent to \c CL_DEVICE_TYPE_DEFAULT.
+*/
+/*! 
+\var teuthid::clb::devtype_t::ALL
+\hideinitializer
+All OpenCL devices available in the system except devtype_t::CUSTOM devices. 
+This is equivalent to \c CL_DEVICE_TYPE_ALL.
+*/
+
+
+/*! 
+\typedef typedef cl_device_id teuthid::clb::device_id_t
+\brief This is a type alias for \c cl_device_id.
+\details \see device::id(), device::parent_id().
+*/
+/*! 
+\typedef typedef cl_platform_id teuthid::clb::platform_id_t
+\brief This is a type alias for \c cl_platform_id.
+\details \see platform::id().
+*/
+/*! 
+\typedef std::vector<std::string> teuthid::clb::extensions_t
+\brief This is a type alias for the vector containing strings.
+\details \see device::extensions(), platform::extensions()
+*/
+/*! 
+\typedef std::vector<std::string> teuthid::clb::built_in_kernels_t
+\brief This is a type alias for the vector containing strings.
+\details \see device::built_in_kernels().
+*/
+/*! 
+\typedef std::vector<std::size_t> teuthid::clb::max_work_item_sizes_t
+\brief This is a type alias for the vector containing values of type 
+\c std::size_t.
+*/
+/*! 
+\typedef std::vector<intptr_t> teuthid::clb::partition_properties_t
+\brief This is a type alias for the vector containing values of type 
+\c intptr_t.
+*/
+/*! 
+\typedef std::vector<std::string> teuthid::clb::devices_t
+\brief This is a type alias for the vector containing objects of class 
+clb::device.
+*/
 
 
 
