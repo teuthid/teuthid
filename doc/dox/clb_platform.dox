@@ -77,48 +77,24 @@ Returns the resolution of the host timer in nanoseconds. This is equivalent to
 */
 
 
-/*! \typedef std::vector<std::string> teuthid::clb::platforms_t
- * \brief This is a type alias for the vector containing objects of class
- * clb::platform.
- */
+/*! 
+\typedef std::vector<platform> teuthid::clb::platforms_t
+\brief This is a type alias for the vector containing objects of class 
+clb::platform.
+*/
 
 
-/*! \class teuthid::clb::platform platform.hpp <teuthid/clb/platform.hpp>
- *  \brief This class holds information about the OpenCL platform.
- * 
- * <a href="https://www.khronos.org/opencl/">OpenCL</a> is used as an interface 
- * for executing code on parallel devices such as GPUs and multi-core CPUs. 
- * \note The Teuthid framework must be compiled with enabled 
- * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
- * devices.
- *
- * \b Example:
- * \code
- * #include <iostream>
- * #include <teuthid/clb/platform.hpp>
- * using namespace teuthid;
- * 
- * int main() {
- *   std::cout << "Available OpenCL platform(s): "
- *             << clb::platform::platform_count() << std::endl;
- *
- *   for (auto __platform : clb::platform::platforms()) {
- *
- *     std::cout << "Platform Name: " << __platform.name() << std::endl;
- *     std::cout << "Platform Vendor: " << __platform.vendor() << std::endl;
- *     std::cout << "Platform Version: " << __platform.version() << std::endl;
- *
- *     if (__platform.is_full_profile())
- *       std::cout << "  Platform Profile: FULL PROFILE" << std::endl;
- *   }   
- *
- *   return 0;
- * }
- * \endcode
- * See \ref teuthid::system::have_clb() "system::have_clb()" and platforms()
- * about checking if the running system has OpenCL-capable hardware 
- * and drivers.
- */
+/*! 
+\class teuthid::clb::platform platform.hpp <teuthid/clb/platform.hpp>
+\brief This class holds information about the OpenCL platform.
+\details <a href="https://www.khronos.org/opencl/">OpenCL</a> is used as an 
+interface for executing code on parallel devices such as GPUs and multi-core 
+CPUs. 
+\note The Teuthid framework must be compiled with enabled \c BUILD_WITH_OPENCL 
+option to be able to use the OpenCL platforms and devices.
+\see system::has_cl_backend() and platform::get_all() about checking if the 
+running system has OpenCL-capable hardware and drivers.
+*/
 
  
 /*! \fn teuthid::clb::platform::platform(platform_id_t platform_id)
