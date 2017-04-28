@@ -16,210 +16,210 @@
     along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*! \file system.hpp */ 
-
-/*! \class teuthid::system system.hpp <teuthid/system.hpp>
- * \brief This class includes a number of functions that control the framework
- * and provide information about its settings. 
- * 
- * In addition, this class also includes a set of general-purpose functions 
- * such as functions for converting numeric values to strings and vice versa. 
- * (system::to_string(), system::from_string()).
- * 
- * All functions that provides class teuthid::system are static.
- * 
- */
+/*! 
+\file system.hpp 
+*/ 
 
 
-/*! \fn static constexpr uint8_t system::major_version()
- * \brief Returns the major version of the framework.
- * \see version().
- */
+/*! 
+\class teuthid::system system.hpp <teuthid/system.hpp>
+\brief This class includes a number of functions that control the framework and 
+provide information about its settings. 
+\details In addition, this class also includes a set of general-purpose 
+functions such as functions for converting numeric values to strings and vice 
+versa (system::to_string(), system::from_string()). \n All functions that provides class teuthid::system are static.
+*/
 
 
-/*! \fn static constexpr uint8_t system::minor_version()
- * \brief Returns the minor version of the framework.
- * \see version().
- */
+/*! 
+\fn static constexpr uint8_t system::major_version()
+\brief Returns the major version of the framework.
+\see version().
+*/
 
 
-/*! \fn static constexpr uint8_t system::patch_version()
- * \brief Returns the patch version of the framework.
- * \see version().
- */
-
-/*! \fn static constexpr uint8_t system::soversion()
- * \brief Returns the soversion of the framework shared libraries.
- * \see version().
- */
+/*! 
+\fn static constexpr uint8_t system::minor_version()
+\brief Returns the minor version of the framework.
+\see version().
+*/
 
 
-/*! \fn static const std::string &system::version()
- * \brief Returns the version of the framework.
- *
- * \return the version of the framework as a string that has the following 
- * format: \e "<major_version>.<minor_version>.<patch_version>".
- * \see major_version(), minor_version(), patch_version(), check_version().
- */
+/*! 
+\fn static constexpr uint8_t system::patch_version()
+\brief Returns the patch version of the framework.
+\see version().
+*/
+
+/*! 
+\fn static constexpr uint8_t system::soversion()
+\brief Returns the soversion of the framework shared libraries.
+\see version().
+*/
 
 
-/*! \fn static bool system::check_version(uint8_t major, uint8_t minor)
- * \brief Checks whether a version of the framework is sufficient. 
- * \return \c true if a version of the framewrok is a sufficient version. 
- * Otherwise return \c false. 
- * @param[in] major The required minimum major version of the framework.
- * @param[in] minor The required minimum minor version of the framework 
- * (if the major version is the same as required \c major).
- * \see major_version(), minor_version(), version().
- */ 
+/*! 
+\fn static const std::string &system::version()
+\brief Returns the version of the framework.
+\return the version of the framework as a string that has the following format: 
+\e "<major_version>.<minor_version>.<patch_version>".
+\see major_version(), minor_version(), patch_version(), check_version().
+*/
 
 
-/*! \fn static bool system::has_cl_backend()
- * \brief Checks whether the framework can use OpenCL compute kernels.
- * \return \c true if the framework can use OpenCL compute kernels - the system 
- * must have at least one properly working OpenCL platform with one properly 
- * working OpenCL device. Otherwise return \c false.
- * \note The Teuthid framework must be compiled with enabled 
- * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
- * devices.
- * \see uses_cl_backend().
- */
+/*! 
+\fn static bool system::check_version(uint8_t major, uint8_t minor)
+\brief Checks whether a version of the framework is sufficient. 
+\return \c true if a version of the framewrok is a sufficient version. 
+Otherwise return \c false. 
+@param[in] major The required minimum major version of the framework.
+@param[in] minor The required minimum minor version of the framework (if the 
+major version is the same as required \c major).
+\see major_version(), minor_version(), version().
+*/ 
 
 
-/*! \fn static bool teuthid::system::uses_cl_backend()
- * \brief Checks whether a given thread can use OpenCL compute kernels.
- * \return \c true if a given thread (a thread that call this function) can use 
- * OpenCL compute kernels in a multithreading environment. 
- * Otherwise return \c false.
- * \note The Teuthid framework must be compiled with enabled 
- * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
- * devices.
- * \see uses_cl_backend(bool), has_cl_backend().
- */
+/*! 
+\fn static bool system::has_cl_backend()
+\brief Checks whether the framework can use OpenCL compute kernels.
+\return \c true if the framework can use OpenCL compute kernels - the system 
+must have at least one properly working OpenCL platform with one properly 
+working OpenCL device. Otherwise return \c false.
+\note The Teuthid framework must be compiled with enabled \c BUILD_WITH_OPENCL 
+option to be able to use the OpenCL platforms and devices.
+\see uses_cl_backend().
+*/
 
 
-/*! \fn static bool system::uses_cl_backend(bool enabled)
- * \brief Enables or disables the possibility to use OpenCL compute kernels
- * by a given thread.
- *
- * @param[in] enabled enables (if it is equal to \c true) or disables (if it is 
- * equal to \c false) the possibility to use OpenCL compute kernels by a given
- * thread (a thread that call this function).
- * \return \c true if a given thread (a thread that call this function) can use 
- * OpenCL compute kernels in a multithreading environment. 
- * Otherwise return \c false.
- * \note The Teuthid framework must be compiled with enabled 
- * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
- * devices.
- * \see has_cl_backend().
- */
+/*! 
+\fn static bool teuthid::system::uses_cl_backend()
+\brief Checks whether a given thread can use OpenCL compute kernels.
+\return \c true if a given thread (a thread that call this function) can use 
+OpenCL compute kernels in a multithreading environment. Otherwise return 
+\c false.
+\note The Teuthid framework must be compiled with enabled \c BUILD_WITH_OPENCL 
+option to be able to use the OpenCL platforms and devices.
+\see uses_cl_backend(bool), has_cl_backend().
+*/
 
 
-/*! \fn template <typename T> static std::string system::to_string(const T &value)
- * \brief Converts a value of type \c T to a string.
- *
- * @param[in] value a value of any type except of the array type 
- * (like \c char[]) or the pointer type (like \c int*, but \c void* is allowed).
- * \return a string holding the converted value of type \c T.
- * \note The function has specializations for the following types:
- * \c bool, \c int8_t, \c int16_t, \c int32_t, \c int64_t, \c int128_t,
- * \c uint8_t, \c uint16_t, \c uint32_t, \c uint64_t, \c uint128_t,
- * \c char, \c char*, \c void*, <tt>std::vector<std::string></tt>, \c mpfr_t. 
- * \n For floating point types, the resulted string is formatted according to 
- * the settings given by the function format_float_output().
- * \see from_string().
- */
+/*! 
+\fn static bool system::uses_cl_backend(bool enabled)
+\brief Enables or disables the possibility to use OpenCL compute kernels by a 
+given thread.
+@param[in] enabled enables (if it is equal to \c true) or disables (if it is 
+equal to \c false) the possibility to use OpenCL compute kernels by a given 
+thread (a thread that call this function).
+\return \c true if a given thread (a thread that call this function) can use 
+OpenCL compute kernels in a multithreading environment. Otherwise return 
+\c false.
+\note The Teuthid framework must be compiled with enabled \c BUILD_WITH_OPENCL 
+option to be able to use the OpenCL platforms and devices.
+\see has_cl_backend().
+*/
 
 
-/*! \fn std::size_t system::split_string(const std::string &str, std::vector<std::string> &vec, char delim);
- * \brief Splits a string by a delimiter.
- * 
- * @param[in] str a string to be split.
- * @param[in,out] vec the result of splitting as a vector of strings.
- * @param[in] delim the delimiter (default is <tt>' '</tt> - a space).
- * \return a size of vector containing separated strings.
- * \note The function ignores empty delimited substrings.
- * \see from_string().
- */
+/*! 
+\fn template <typename T> static std::string system::to_string(const T &value)
+\brief Converts a value of type \c T to a string.
+@param[in] value a value of any type except of the array type (like \c char[]) 
+or the pointer type (like \c int*, but \c void* is allowed).
+\return a string holding the converted value of type \c T.
+\note The function has specializations for the following types: \c bool, 
+\c int8_t, \c int16_t, \c int32_t, \c int64_t, \c int128_t, \c uint8_t, 
+\c uint16_t, \c uint32_t, \c uint64_t, \c uint128_t, \c char, \c char*, 
+\c void*, <tt>std::vector<std::string></tt>, \c mpfr_t. 
+\n For floating point types, the resulted string is formatted according to the 
+settings given by the function format_float_output().
+\see from_string().
+*/
 
 
-/*! \fn static std::streamsize system::default_format_float_precision()
- * \brief Return the default precision of floating point output.
- * 
- * \return the default precision (i.e. how many digits are generated) of 
- * floating point output performed by system::to_string().
- * \see format_float_precision(), format_float_output().
- */
+/*! 
+\fn std::size_t system::split_string(const std::string &str, std::vector<std::string> &vec, char delim);
+\brief Splits a string by a delimiter.
+@param[in] str a string to be split.
+@param[in,out] vec the result of splitting as a vector of strings.
+@param[in] delim the delimiter (default is <tt>' '</tt> - a space).
+\return a size of vector containing separated strings.
+\note The function ignores empty delimited substrings.
+\see from_string().
+*/
 
 
-/*! \fn static void system::format_float_output(std::streamsize precision, bool scientific);
- * \brief Sets the output format for floating point numbers.
- *
- * @param[in] precision the precision (i.e. how many digits are generated) of 
- * floating point output performed by system::to_string().
- * @param[in] scientific if it is equal to \c true, generates floating point 
- * output using a scientific notation (for example \c 6.022e+23). Otherwise 
- * using a fixed notation.
- * \see to_string(), default_format_float_precision(), format_float_precision(),
- * format_float_scientific().
- */
+/*! 
+\fn static std::streamsize system::default_format_float_precision()
+\brief Return the default precision of floating point output.
+\return the default precision (i.e. how many digits are generated) of floating 
+point output performed by system::to_string().
+\see format_float_precision(), format_float_output().
+*/
 
 
-/*! \fn static std::streamsize system::format_float_precision(std::streamsize precision)
- * \brief Sets the output precision for floating point numbers.
- * 
- * @param[in] precision the precision (i.e. how many digits are generated) of 
- * floating point output performed by system::to_string().
- * \return the previous value of output precision for floating point 
- * numbers.
- * \see format_float_output(), default_format_float_precision().
- */
+/*! 
+\fn static void system::format_float_output(std::streamsize precision, bool scientific);
+\brief Sets the output format for floating point numbers.
+@param[in] precision the precision (i.e. how many digits are generated) of 
+floating point output performed by system::to_string().
+@param[in] scientific if it is equal to \c true, generates floating point 
+output using a scientific notation (for example \c 6.022e+23). Otherwise using 
+a fixed notation.
+\see to_string(), default_format_float_precision(), format_float_precision(),
+format_float_scientific().
+*/
 
 
-/*! \fn static bool system::format_float_scientific(bool scientific)
- * \brief Sets the output notation for floating point numbers.
- *
- * @param[in] scientific if it is equal to \c true, generates floating point 
- * output using a scientific notation (for example \c 6.022e+23). Otherwise 
- * using a fixed notation.
- * \return the previous valut of output notation for floating point 
- * numbers.
- * \see format_float_output().
- */
+/*! 
+\fn static std::streamsize system::format_float_precision(std::streamsize precision)
+\brief Sets the output precision for floating point numbers.
+@param[in] precision the precision (i.e. how many digits are generated) of 
+floating point output performed by system::to_string().
+\return the previous value of output precision for floating point numbers.
+\see format_float_output(), default_format_float_precision().
+*/
 
 
-/*! \fn template <typename T> static T &system::from_string(const std::string &str_value, T &value)
- * \brief Interprets a value in a string.
- *
- * Discards any whitespace characters (as identified by calling 
- * \c std::isspace()) and converts all characters to lower case.
- * @param[in] str_value the string to convert.
- * @param[in,out] value the string converted to the specified value of 
- * type \c T.
- * \exception std::invalid_argument if no conversion could be performed.
- * \exception std::out_of_range if the converted string would fall out of the 
- * range of the result type \c T.
- * \return  the string converted to the specified value of type \c T.
- * \note The function has specializations for the following types:
- * \c bool, \c int8_t, \c int16_t, \c int32_t, \c int64_t, \c int128_t,
- * \c uint8_t, \c uint16_t, \c uint32_t, \c uint64_t, \c uint128_t,
- * \c float, \c double, <tt>long double</tt>, \c mpfr_t.
- * \see to_string().
- */
+/*! 
+\fn static bool system::format_float_scientific(bool scientific)
+\brief Sets the output notation for floating point numbers.
+@param[in] scientific if it is equal to \c true, generates floating point 
+output using a scientific notation (for example \c 6.022e+23). Otherwise using 
+a fixed notation.
+\return the previous valut of output notation for floating point numbers.
+\see format_float_output().
+*/
 
 
-/*! \fn template <typename T> static bool system::equal_to(const T &x, const T &y)
- * \brief Checks whether \c x is equal to \c y.
- *
- * @param[in] x a value of type \c T to compare.
- * @param[in] y a value of type \c T to compare.
- * \return \c true if \c x == \c y, \c false otherwise.
- * 
- * \note The function has specializations for the following types:
- * \c float, \c double, <tt>long double</tt>, \c mpfr_t.
- * To compare floating point types, this function converts numbers to 
- * strings according to the current format settings for to_string(). \n
- * For other types, the function behaves just like the \c operator== 
- * (for those types for which this operator is already defined).
- * \see format_float_output(), format_float_precision().
- */
+/*! 
+\fn template <typename T> static T &system::from_string(const std::string &str_value, T &value)
+\brief Interprets a value in a string.
+\details Discards any whitespace characters (as identified by calling 
+\c std::isspace()) and converts all characters to lower case.
+@param[in] str_value the string to convert.
+@param[in,out] value the string converted to the specified value of type \c T.
+\exception std::invalid_argument if no conversion could be performed.
+\exception std::out_of_range if the converted string would fall out of the 
+range of the result type \c T.
+\return  the string converted to the specified value of type \c T.
+\note The function has specializations for the following types: \c bool, 
+\c int8_t, \c int16_t, \c int32_t, \c int64_t, \c int128_t, \c uint8_t, 
+\c uint16_t, \c uint32_t, \c uint64_t, \c uint128_t, \c float, \c double, 
+<tt>long double</tt>, \c mpfr_t.
+\see to_string().
+*/
+
+
+/*! 
+\fn template <typename T> static bool system::equal_to(const T &x, const T &y)
+\brief Checks whether \c x is equal to \c y.
+@param[in] x a value of type \c T to compare.
+@param[in] y a value of type \c T to compare.
+\return \c true if \c x == \c y, \c false otherwise.
+\note The function has specializations for the following types: \c float, 
+\c double, <tt>long double</tt>, \c mpfr_t. 
+\n To compare floating point types, this function converts numbers to strings 
+according to the current format settings for to_string(). For other types, the 
+function behaves just like the \c operator== (for those types for which this 
+operator is already defined).
+\see format_float_output(), format_float_precision().
+*/
