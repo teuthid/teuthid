@@ -97,74 +97,71 @@ running system has OpenCL-capable hardware and drivers.
 */
 
  
-/*! \fn teuthid::clb::platform::platform(platform_id_t platform_id)
- * \brief Constructs a new object of class platform.
- * @param[in] platform_id the ID (\c cl_platform_id) for a OpenCL platform.
- * \throw invalid_platform if \c platform_id is invalid and points to a 
- * non-existent OpenCL platform or is equal to \c nullptr.
- * \note The Teuthid framework must be compiled with enabled 
- * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
- * devices.
- * \see id(), platforms().
- */
+/*! 
+\fn platform::platform(platform_id_t platform_id)
+\brief Constructs a new object of class clb::platform.
+@param[in] platform_id the ID (\c cl_platform_id) for a OpenCL platform.
+\throw invalid_platform if \c platform_id is invalid and points to a 
+non-existent OpenCL platform or is equal to \c nullptr.
+\note The Teuthid framework must be compiled with enabled \c BUILD_WITH_OPENCL 
+option to be able to use the OpenCL platforms and devices.
+\see id(), platform::get(), platform::get_all(), platform::get_default().
+*/
 
+/*!
+\fn template <platparam_t value> platform_param<value>::value_type platform::info() const
+\brief Gets specific information about the platform.
+@param value a platform query - see clb::platparam_t.
+\throw invalid_platform if \c value is an invalid parameter.
+\return the platform's parameter.
+*/
 
-/*! \fn const platform_id_t &platform::id() const
- * \brief Returns the identifier for this platform.
- *
- * \return the identifier for this OpenCL platform.
- * The returned value is the equivalent of \c cl_platform_id.
- */
+/*! 
+\fn const platform_id_t &platform::id() const
+\brief Returns the identifier for this platform.
+\return the identifier for this OpenCL platform. The returned value is the 
+equivalent of \c cl_platform_id.
+\see platform::get().
+*/
    
 
-/*! \fn const profile_t &platform::profile() const
- * \brief Returns the OpenCL platform's profile.
- *
- * \return the OpenCL profile supported by this OpenCL platform. It can be one 
- * of the following: 
- * \ref teuthid::clb::FULL_PROFILE "FULL_PROFILE",
- * \ref teuthid::clb::EMBEDDED_PROFILE "EMBEDDED_PROFILE", or
- * \ref teuthid::clb::UNKNOWN_PROFILE "UNKNOWN_PROFILE". \n
- * The returned value is the equivalent of \c CL_PLATFORM_PROFILE.
- * \see is_full_profile(), is_embedded_profile().
- */
+/*! 
+\fn const profile_t &platform::profile() const
+\brief Returns the platform's profile.
+\return the OpenCL profile supported by this OpenCL platform. The returned 
+value is the equivalent of \c CL_PLATFORM_PROFILE.
+\see is_full_profile(), is_embedded_profile().
+*/
 
 
-/*! \fn bool platform::is_full_profile() const
- * \brief Returns \c true if this platform's profile is 
- * \ref teuthid::clb::FULL_PROFILE "FULL_PROFILE".
- * 
- * \return \c true if this OpenCL platform's profile is 
- * \ref teuthid::clb::FULL_PROFILE "FULL_PROFILE". 
- * Otherwise, it returns \c false.
- * \see profile().
- */
+/*! 
+\fn bool platform::is_full_profile() const
+\brief Returns \c true if this platform has a full profile. 
+\return \c true if this OpenCL platform's profile is platprofile_t::FULL. 
+Otherwise, it returns \c false.
+\see profile().
+*/
 
 
-/*! \fn bool platform::is_embedded_profile() const
- * \brief Returns \c true if the platform's profile is 
- * \ref teuthid::clb::EMBEDDED_PROFILE "EMBEDDED_PROFILE".
- * 
- * \return \c true if this OpenCL platform's profile is 
- * \ref teuthid::clb::EMBEDDED_PROFILE "EMBEDDED_PROFILE". 
- * Otherwise, it returns \c false.
- * \see profile().
- */
+/*! 
+\fn bool platform::is_embedded_profile() const
+\brief Returns \c true if this platform's has an embedded profile.
+\return \c true if this OpenCL platform's profile is platprofile_t::EMBEDDED. 
+Otherwise, it returns \c false.
+\see profile().
+*/
  
 
-/*! \fn const std::string &platform::version() const
- * \brief Returns the platform's version.
- *
- * \return the OpenCL version supported by this platform.
- * The returned value has the following format:
- * \e "OpenCL<space><major_version.minor_version><space><platform-specific information>".
- * The \e "major_version.minor_version" determines a version of OpenCL 
- * supported by this OpenCL platform.\n
- * The returned value is the equivalent of \c CL_PLATFORM_VERSION.
- * If it is an empty string, a version supported by this OpenCL platform is 
- * undetermined.
- * \see major_version(), minor_version(), spec_version().
- */
+/*! 
+\fn const std::string &platform::version() const
+\brief Returns this platform's version.
+\return the OpenCL version supported by this platform. The returned value has 
+the following format: 
+\e "OpenCL<space><major_version.minor_version><space><platform-specific information>". The \e "major_version.minor_version" determines a version of 
+OpenCL supported by this platform. The returned value is the equivalent of 
+\c CL_PLATFORM_VERSION. If it is an empty string, a version supported by this
+platform is undetermined.
+*/
 
 
 /*! \fn int platform::major_version() const
