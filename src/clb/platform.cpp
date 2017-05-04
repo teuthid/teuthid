@@ -17,6 +17,7 @@
 */
 
 #include <cassert>
+#include <sstream>
 
 #include <teuthid/clb/error.hpp>
 #include <teuthid/clb/platform.hpp>
@@ -30,12 +31,12 @@ using namespace teuthid::clb;
 std::mutex platform::mutex_;
 platforms_t platform::platforms_;
 
-platform::platform(platform_id_t platform_id) {
+platform::platform(const platform_id_t &platform_id) {
   assert(platform_id);
   *this = platform::get(platform_id);
 }
 
-const platform &platform::get(platform_id_t platform_id) {
+const platform &platform::get(const platform_id_t &platform_id) {
   assert(platform_id);
   try {
     if (platform::count() > 0) {
@@ -170,6 +171,16 @@ platprofile_t platform::profile() const {
 
 std::string platform::version() const {
   return info<platparam_t::VERSION>().substr(7);
+}
+
+bool platform::check_version(int major, int minor) const {
+  int act_major, act_minor;
+  std::stringstream __s;
+  __s << version();
+  __s >> act_major;
+  __s.ignore(1); // '.'
+  __s >> act_minor;
+  return (act_major > major || (act_major == major && act_minor >= minor));
 }
 
 std::string platform::name() const { return info<platparam_t::NAME>(); }

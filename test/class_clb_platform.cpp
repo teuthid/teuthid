@@ -40,6 +40,9 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_platform) {
         (__platform.is_full_profile() || __platform.is_embedded_profile()),
         "is_full_profile(), is_embedded_profile()");
     BOOST_TEST(!__platform.version().empty(), "version()");
+    BOOST_TEST(__platform.check_version(0, 0));
+    BOOST_TEST(!__platform.check_version(3, 0));
+    BOOST_TEST(!__platform.check_version(2, 999));
     BOOST_TEST(!__platform.name().empty(), "name()");
     BOOST_TEST(!__platform.vendor().empty(), "vendor()");
     for (auto __ext : __platform.extensions()) {

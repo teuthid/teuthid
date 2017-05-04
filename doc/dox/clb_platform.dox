@@ -98,7 +98,7 @@ running system has OpenCL-capable hardware and drivers.
 
  
 /*! 
-\fn platform::platform(platform_id_t platform_id)
+\fn platform::platform(const platform_id_t &platform_id)
 \brief Constructs a new object of class clb::platform.
 @param[in] platform_id the ID (\c cl_platform_id) for a OpenCL platform.
 \throw invalid_platform if \c platform_id is invalid and points to a 
@@ -126,7 +126,7 @@ equivalent of \c cl_platform_id.
    
 
 /*! 
-\fn const profile_t &platform::profile() const
+\fn profile_t platform::profile() const
 \brief Returns the platform's profile.
 \return the OpenCL profile supported by this OpenCL platform. The returned 
 value is the equivalent of \c CL_PLATFORM_PROFILE.
@@ -153,89 +153,68 @@ Otherwise, it returns \c false.
  
 
 /*! 
-\fn const std::string &platform::version() const
+\fn std::string platform::version() const
 \brief Returns this platform's version.
 \return the OpenCL version supported by this platform. The returned value has 
 the following format: 
-\e "OpenCL<space><major_version.minor_version><space><platform-specific information>". The \e "major_version.minor_version" determines a version of 
-OpenCL supported by this platform. The returned value is the equivalent of 
+\e "<major_version.minor_version><space><platform-specific information>". 
+The \e "major_version.minor_version" determines a version of OpenCL supported 
+by this platform. The returned value is the equivalent of 
 \c CL_PLATFORM_VERSION. If it is an empty string, a version supported by this
 platform is undetermined.
+\see check_version().
 */
 
 
-/*! \fn int platform::major_version() const
- * \brief Returns the OpenCL major version.
- * \return the OpenCL major version supported by this OpenCL platform.
- * \see minor_version(), version().
- */
+/*! 
+\fn bool platform::check_version(int major, int minor) const
+\brief Checks whether a version of OpenCL is sufficient.
+\return \c true if the version of OpenCL supported by this platform is a 
+sufficient version. Otherwise, it returns \c false.
+@param[in] major The required minimum major version of OpenCL.
+@param[in] minor The required minimum minor version of OpenCL (if the major 
+version is the same as required \c major).
+\see version().
+*/
 
 
-/*! \fn int platform::minor_version() const
- * \brief Returns the OpenCL minor version.
- * \return the OpenCL minor version supported by this OpenCL platform.
- * \see major_version(), version().
- */
+/*! 
+\fn std::string platform::name() const
+\brief Returns the platform's name.
+\return the name of this OpenCL platform's. The returned value is the 
+equivalent of \c CL_PLATFORM_NAME. If it is an empty string, this name is 
+undetermined.
+*/
 
 
-/*! \fn const std::string &platform::spec_version() const
- * \brief Returns the platform-specific information.
- * \return Returns the platform-specific information about the OpenCL supported 
- * by this OpenCL platform.
- * \see version().
- */
+/*! 
+\fn std::string platform::vendor() const
+\brief Returns the platform's vendor.
+\return the vendor of this OpenCL platform. The returned value is the 
+equivalent of \c CL_PLATFORM_VENDOR. If it is an empty string, this vendor is 
+undetermined.
+*/
 
 
-/*! \fn bool platform::is_required_version(int major, int minor) const
- * \brief Checks whether a version of OpenCL is sufficient.
- *
- * \return \c true if the version of OpenCL supported by this OpenCL platform
- * is a sufficient version. Otherwise, it returns \c false.
- * @param[in] major The required minimum major version of OpenCL.
- * @param[in] minor The required minimum minor version of OpenCL (if the major 
- * version is the same as required \c major).
- * \see major_version(), minor_version(), version().
- */
+/*! 
+\fn extensions_t platform::extensions() const
+\brief Returns extension names. 
+\return the vector of extension names supported by this OpenCL platform. The 
+returned value is the equivalent of \c CL_PLATFORM_EXTENSIONS. If it is an 
+empty vector, these extensions are undetermined.
+\n Extensions must be supported by all devices associated with this platform.
+\see has_extension().
+*/
 
 
-/*! \fn const std::string &platform::name() const
- * \brief Returns the platform's name.
- *
- * \return the name of this OpenCL platform's.
- * The returned value is the equivalent of \c CL_PLATFORM_NAME. 
- * If it is an empty string, this name is undetermined.
- */
-
-
-/*! \fn const std::string &platform::vendor() const
- * \brief Returns the platform's vendor.
- *
- * \return the vendor of this OpenCL platform.
- * The returned value is the equivalent of \c CL_PLATFORM_VENDOR. 
- * If it is an empty string, this vendor is undetermined.
- */
-
-
-/*! \fn const extensions_t &platform::extensions() const
- * \brief Returns a reference to the vector of extension names. 
- *
- * \return a reference to the vector of extension names supported by this 
- * OpenCL platform.
- * The returned value is the equivalent of \c CL_PLATFORM_EXTENSIONS. 
- * If it is an empty vector, these extensions are undetermined.
- *
- * Extensions must be supported by all devices associated with this platform.
- * \see have_extension().
- */
-
-
-/*! \fn bool platform::have_extension(const std::string &ext_name) const
- * \brief Return \c true if this platform supports the extension \c ext_name.
- * 
- * \return \c true if this platform supports the extension \c ext_name.
- * Otherwise, it returns \c false.
- * @param[in] ext_name a name of OpenCL extension.
- */
+/*! 
+\fn bool platform::has_extension(const std::string &ext_name) const
+\brief Return \c true if this platform supports the extension \c ext_name.
+\return \c true if this platform supports the extension \c ext_name. Otherwise, 
+it returns \c false.
+@param[in] ext_name a name of OpenCL extension.
+\see extensions().
+*/
 
 
 /*! \fn const std::string &platform::icd_suffix_khr() const
