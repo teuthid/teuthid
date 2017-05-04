@@ -63,7 +63,7 @@ const platforms_t &platform::get_all() {
 const platform &platform::get_default() {
   try {
     return platform::get(cl::Platform::getDefault()());
-  } catch (const cl::Error &__e) {
+  } catch (const cl::Error &) {
     throw invalid_platform("invalid default platform");
   }
 }
@@ -72,7 +72,7 @@ const platform &platform::set_default(const platform &plat) {
   try {
     cl::Platform __plat = cl::Platform::setDefault(cl::Platform(plat.id()));
     return platform::get(__plat());
-  } catch (const cl::Error &__e) {
+  } catch (const cl::Error &) {
     throw invalid_platform("invalid default platform");
   }
 }

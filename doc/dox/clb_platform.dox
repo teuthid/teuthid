@@ -100,7 +100,7 @@ running system has OpenCL-capable hardware and drivers.
 /*! 
 \fn platform::platform(const platform_id_t &platform_id)
 \brief Constructs a new object of class clb::platform.
-@param[in] platform_id the ID (\c cl_platform_id) for a OpenCL platform.
+@param[in] platform_id the ID for the OpenCL platform.
 \throw invalid_platform if \c platform_id is invalid and points to a 
 non-existent OpenCL platform or is equal to \c nullptr.
 \note The Teuthid framework must be compiled with enabled \c BUILD_WITH_OPENCL 
@@ -209,7 +209,7 @@ empty vector, these extensions are undetermined.
 
 /*! 
 \fn bool platform::has_extension(const std::string &ext_name) const
-\brief Return \c true if this platform supports the extension \c ext_name.
+\brief Returns \c true if this platform supports the extension \c ext_name.
 \return \c true if this platform supports the extension \c ext_name. Otherwise, 
 it returns \c false.
 @param[in] ext_name a name of OpenCL extension.
@@ -217,85 +217,123 @@ it returns \c false.
 */
 
 
-/*! \fn const std::string &platform::icd_suffix_khr() const
- * \brief Returns the function name suffix.
- *
- * \return the function name suffix used to identify extension functions to be 
- * directed to this OpenCL platform by the ICD Loader.
- * The returned value is the equivalent of \c CL_PLATFORM_ICD_SUFFIX_KHR.
- * If it is an empty string, this suffix is undetermined.
- */
+/*!
+\fn uint64_t platform::host_timer_resolution() const
+\brief Returns the resolution of the host timer.
+\return the resolution of the host timer in nanoseconds. The returned value is 
+the equivalent of \c CL_PLATFORM_HOST_TIMER_RESOLUTION.
+*/
 
 
-/*! \fn const devices_t &platform::devices() const
- * \brief Returns the vector containing objects of class 
- * \ref teuthid::clb::device "device".
- * \return the vector of type 
- * \ref teuthid::clb::devices_t "devices_t" containing objects of 
- * class \ref teuthid::clb::device "device" - the OpenCL devices assigned to 
- * this OpenCL platform.
- * \see platforms(), device_count().
- * \note The Teuthid framework must be compiled with enabled 
- * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
- * devices.
- */
+/*! 
+\fn std::string platform::icd_suffix_khr() const
+\brief Returns the function name suffix.
+\return the function name suffix used to identify extension functions to be 
+directed to this OpenCL platform by the ICD Loader. The returned value is the 
+equivalent of \c CL_PLATFORM_ICD_SUFFIX_KHR. If it is an empty string, this 
+suffix is undetermined.
+*/
 
 
-/*! \fn std::size_t platform::device_count()
- * \brief Returns the number of devices.
- *
- * \return the number of OpenCL devices assigned to this OpenCL platform.
- * \see devices().
- */
+/*! 
+\fn const devices_t &platform::devices() const
+\brief Returns devices assigned to this platform.
+\return the vector containing objects of class clb::device - the OpenCL devices 
+assigned to this OpenCL platform.
+\see device_count().
+\note The Teuthid framework must be compiled with enabled \c BUILD_WITH_OPENCL 
+option to be able to use the OpenCL platforms and devices.
+*/
 
 
-/*! \fn bool platform::unload_compiler()
- * \brief Allows the implementation to release the resources allocated by the 
- * OpenCL compiler for this platform.
- * \return \c true if the function is executed successfully.
- * Otherwise, it returns \c false.
- */
+/*! 
+\fn std::size_t platform::device_count()
+\brief Returns the number of devices.
+\return the number of OpenCL devices assigned to this OpenCL platform.
+\see devices().
+*/
 
 
-/*! \fn bool platform::operator==(const platform &other) const
- * \brief Returns \c true if this platform is the same as \c other.
- * 
- * \return \c true if this OpenCL platform is the same as \c other.
- * Otheriwse, it returns \c false.
- * @param[in] other an object of class \ref teuthid::clb::platform "platform".
- * \see id().
- */
+/*! 
+\fn bool platform::unload_compiler()
+\brief Allows the implementation to release the resources allocated by the 
+OpenCL compiler for this platform.
+\return \c true if the function is executed successfully. Otherwise, it returns 
+\c false.
+*/
 
 
-/*! \fn bool platform::operator!=(const platform &other) const
- * \brief Returns \c true if this platform is different from \c other.
- * 
- * \return \c true if this OpenCL platform is different from \c other.
- * Otheriwse, it returns \c false.
- * @param[in] other an object of class \ref teuthid::clb::platform "platform".
- * \see id().
- */
+/*! 
+\fn bool platform::operator==(const platform &other) const
+\brief Returns \c true if this platform is the same as \c other.
+\return \c true if this OpenCL platform is the same as \c other. Otherwise, it 
+returns \c false.
+@param[in] other an object of class clb::platform.
+\see id().
+*/
 
 
-/*! \fn const platforms_t &platform::platforms()
- * \brief Returns the vector containing objects of class 
- * \ref teuthid::clb::platform "platform".
- * \return a reference to the vector of type 
- * \ref teuthid::clb::platforms_t "platforms_t" containing objects 
- * of class \ref teuthid::clb::platform "platform".
- * \throw invalid_platform if there is a problem with the proper 
- * diagnosis of the available OpenCL platform(s) on the system.
- * \throw invalid_device if there is a problem with the proper 
- * diagnosis of the available OpenCL device(s) on the system.
- * \note The Teuthid framework must be compiled with enabled 
- * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
- * devices.
- */
+/*! 
+\fn bool platform::operator!=(const platform &other) const
+\brief Returns \c true if this platform is different from \c other.
+\return \c true if this OpenCL platform is different from \c other. Otherwise, 
+it returns \c false.
+@param[in] other an object of class clb::platform.
+\see id().
+*/
 
 
-/*! \fn std::size_t platform::platform_count()
- * \brief Returns the number of platforms.
- *
- * \return the number of OpenCL platforms supported by the system.
- * \see platforms().
- */
+/*!
+\fn const platform &platform::get(const platform_id_t &platform_id)
+\brief Returns the platform by its identifier.
+\return a reference to the OpenCL platform by its identifier.
+@param[in] platform_id the ID of the OpenCL platform.
+\throw invalid_platform if the platform with the specified identifier does not 
+exist.
+\see id().
+*/
+
+
+/*! 
+\fn const platforms_t &platform::get_all()
+\brief Returns all available platfoms.
+\return a reference to the vector containing objects of class clb::platform.
+\throw invalid_platform if there is a problem with the proper diagnosis of the 
+available OpenCL platform(s) on the system.
+\throw invalid_device if there is a problem with the proper diagnosis of the 
+available OpenCL device(s) on the system.
+\see platform::get_default(), platform::count().
+\note The Teuthid framework must be compiled with enabled \c BUILD_WITH_OPENCL 
+option to be able to use the OpenCL platforms and devices.
+*/
+
+
+/*!
+\fn const platform &platform::get_default()
+\brief Returns the default platform.
+\return a reference to the default OpenCL platform.
+\throw invalid_platform if there is a problem with the proper diagnosis of the 
+default OpenCL platform.
+\see platform::set_default().
+*/
+
+
+/*!
+\fn const platform &platform::set_default(const platform &plat)
+\brief Modify the default platform to be used by subsequent operations.
+\details Will only set the default if no default was previously created.
+\return updated default platform. Should be compared to the passed value to 
+ensure that it was updated.
+@param[in] plat the default OpenCL platform.
+\throw invalid_platform if there is a problem with the proper diagnosis of the 
+default OpenCL platform.
+\see platform::get_default().
+*/
+
+
+/*! 
+\fn std::size_t platform::count()
+\brief Returns the number of platforms.
+\return the number of OpenCL platforms supported by the system.
+\see platform::get_all().
+*/
