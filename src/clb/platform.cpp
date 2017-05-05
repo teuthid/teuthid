@@ -124,7 +124,7 @@ bool platform::unload_compiler() {
       return static_cast<platform_param<platparam_t::PARAM>::value_type>(      \
           __cl_plattform                                                       \
               .getInfo<static_cast<cl_bitfield>(platparam_t::PARAM)>());       \
-    } catch (const cl::Error &__e) {                                           \
+    } catch (const cl::Error &) {                                              \
       throw invalid_platform("invalid platform parameter");                    \
     }                                                                          \
   }

@@ -173,7 +173,6 @@ enum class devmem_cache_t : uint64_t { // cl_device_mem_cache_type
 enum class devpartition_property_t : uint64_t { // cl_device_partition_property
   EQUALLY = CL_DEVICE_PARTITION_EQUALLY,
   BY_COUNTS = CL_DEVICE_PARTITION_BY_COUNTS,
-  BY_COUNTS_LIST_END = CL_DEVICE_PARTITION_BY_COUNTS_LIST_END,
   BY_AFFINITY_DOMAIN = CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN
 };
 enum class devprofile_t { FULL, EMBEDDED };
@@ -271,6 +270,9 @@ public:
   static const device &set_default(const device &dev);
   static devices_t find_by_type(devtype_t dev_type);
   static const platform &get_platform(device_id_t device_id);
+
+protected:
+  devices_t subdevices(const cl_device_partition_property *props) const;
 
 private:
   device() {}

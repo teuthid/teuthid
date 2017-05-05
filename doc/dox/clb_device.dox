@@ -855,12 +855,6 @@ devparam_t::MAX_COMPUTE_UNITS. This is equivalent to
 \c CL_DEVICE_PARTITION_BY_COUNTS.
 */
 /*! 
-\var teuthid::clb::devpartition_property_t::BY_COUNTS_LIST_END
-\hideinitializer
-This is equivalent to \c CL_DEVICE_PARTITION_BY_COUNTS_LIST_END. See 
-devpartition_property_t::BY_COUNTS.
-*/
-/*! 
 \var teuthid::clb::devpartition_property_t::BY_AFFINITY_DOMAIN
 \hideinitializer
 Split the device into smaller aggregate devices containing one or more compute 

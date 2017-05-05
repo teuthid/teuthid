@@ -60,7 +60,7 @@ const device &device::get(device_id_t device_id) {
 const device &device::get_default() {
   try {
     return device::get(cl::Device::getDefault()());
-  } catch (const cl::Error &__e) {
+  } catch (const cl::Error &) {
     throw invalid_device("unknown a default device");
   }
 }
@@ -69,7 +69,7 @@ const device &device::set_default(const device &dev) {
   try {
     cl::Device __dev = cl::Device::setDefault(cl::Device(dev.id()));
     return device::get(__dev());
-  } catch (const cl::Error &__e) {
+  } catch (const cl::Error &) {
     throw invalid_device("unknown a default device");
   }
 }
@@ -90,6 +90,23 @@ const platform &device::get_platform(device_id_t device_id) {
   return __teuthid_clb_get(device_id).first;
 }
 
+devices_t device::subdevices(const cl_device_partition_property *props) const {
+  if (max_subdevices() < 2)
+    throw invalid_device("cannot create subdevices");
+  std::vector<cl::Device> __cl_subdevices;
+  cl::Device __cl_device(id_);
+  try {
+    __cl_device.createSubDevices(props, &__cl_subdevices);
+  } catch (const cl::Error &) {
+    throw invalid_device("cannot create subdevices");
+  }
+  devices_t __devices;
+  for (auto __dev : __cl_subdevices)
+    __devices.push_back(device(__dev()));
+  __devices.shrink_to_fit();
+  return __devices;
+}
+
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 #define __TEUTHID_CLB_DEVICE_INFO(PARAM)                                       \
   template <>                                                                  \
@@ -99,7 +116,7 @@ const platform &device::get_platform(device_id_t device_id) {
       cl::Device __cl_device(id_);                                             \
       return static_cast<device_param<devparam_t::PARAM>::value_type>(         \
           __cl_device.getInfo<static_cast<cl_bitfield>(devparam_t::PARAM)>()); \
-    } catch (const cl::Error &__e) {                                           \
+    } catch (const cl::Error &) {                                              \
       throw invalid_device("invalid device parameter");                        \
     }                                                                          \
   }
