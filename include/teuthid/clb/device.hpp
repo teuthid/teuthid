@@ -221,6 +221,7 @@ public:
   device_id_t id() const noexcept { return id_; }
   device_id_t parent_id() const;
   bool is_subdevice() const { return (parent_id() != nullptr); }
+  devices_t subdevices_equally(std::size_t units) const;
   const platform &get_platform() const { return device::get_platform(id_); }
 
   uint32_t address_bits() const;
@@ -276,6 +277,8 @@ protected:
 
 private:
   device() {}
+  explicit device(device_id_t subdevice_id, platform_id_t platform_id)
+      : id_(subdevice_id), platform_id_(platform_id) {}
   device_id_t id_;            // device ID
   platform_id_t platform_id_; // platform ID
 };

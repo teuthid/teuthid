@@ -30,9 +30,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
   BOOST_TEST(
       (device::set_default(device::get_default()) == device::get_default()),
       "device::get_default()");
-  for (auto __platform : __platforms) {
-    auto __devices = __platform.devices();
-    for (auto __device : __devices) {
+  for (platform __platform : __platforms) {
+    for (device __device : __platform.devices()) {
       BOOST_TEST(!__device.is_subdevice(), "is_subdevice()");
       BOOST_TEST((__device.is_full_profile() || __device.is_embedded_profile()),
                  "profile()");
@@ -152,6 +151,12 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
                  "device::get()");
       BOOST_TEST(__dev.get_platform().id() == __platform.id(),
                  "get_platform()");
+
+      if (__dev.max_subdevices() > 1) {
+        devices_t __subdevices;
+        __subdevices = __dev.subdevices_equally(1);
+        BOOST_TEST(__subdevices.size() == __dev.max_subdevices());
+      }
     }
   }
 }

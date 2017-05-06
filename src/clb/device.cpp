@@ -102,9 +102,19 @@ devices_t device::subdevices(const cl_device_partition_property *props) const {
   }
   devices_t __devices;
   for (auto __dev : __cl_subdevices)
-    __devices.push_back(device(__dev()));
+    __devices.push_back(device(__dev(), platform_id_));
   __devices.shrink_to_fit();
   return __devices;
+}
+
+devices_t device::subdevices_equally(std::size_t units) const {
+  assert(max_subdevices() > 1);
+  if (units < 1)
+    throw invalid_device("invalid number of subdevices");
+  cl_device_partition_property properties[] = {
+      CL_DEVICE_PARTITION_EQUALLY,
+      static_cast<cl_device_partition_property>(units), 0};
+  return subdevices(properties);
 }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
