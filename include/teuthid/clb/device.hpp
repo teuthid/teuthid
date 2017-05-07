@@ -264,9 +264,9 @@ public:
   bool operator==(const device &other) const { return id_ == other.id_; }
   bool operator!=(const device &other) const { return id_ != other.id_; }
 
-  static const device &get(device_id_t device_id);
   static const device &get_default();
   static const device &set_default(const device &dev);
+  static const device &find_by_id(device_id_t device_id);
   static devices_t find_by_type(devtype_t dev_type);
 
 protected:

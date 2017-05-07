@@ -49,14 +49,14 @@ __teuthid_clb_get(device_id_t device_id) {
 }
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
-const device &device::get(device_id_t device_id) {
+const device &device::find_by_id(device_id_t device_id) {
   assert(device_id);
   return __teuthid_clb_get(device_id).second;
 }
 
 const device &device::get_default() {
   try {
-    return device::get(cl::Device::getDefault()());
+    return device::find_by_id(cl::Device::getDefault()());
   } catch (const cl::Error &) {
     throw invalid_device("unknown a default device");
   }
@@ -65,7 +65,7 @@ const device &device::get_default() {
 const device &device::set_default(const device &dev) {
   try {
     cl::Device __dev = cl::Device::setDefault(cl::Device(dev.id()));
-    return device::get(__dev());
+    return device::find_by_id(__dev());
   } catch (const cl::Error &) {
     throw invalid_device("unknown a default device");
   }

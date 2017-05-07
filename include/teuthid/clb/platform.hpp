@@ -46,7 +46,6 @@ typedef std::vector<platform> platforms_t;
 
 class platform {
 public:
-  explicit platform(const platform_id_t &platform_id);
   platform(const platform &) = default;
   platform(platform &&) = default;
   virtual ~platform() {}
@@ -77,7 +76,7 @@ public:
   bool operator==(const platform &other) const { return id_ == other.id_; }
   bool operator!=(const platform &other) const { return id_ != other.id_; }
 
-  static const platform &get(const platform_id_t &platform_id);
+  static const platform &get(platform_id_t platform_id);
   static const platforms_t &get_all();
   static const platform &get_default();
   static const platform &set_default(const platform &plat);

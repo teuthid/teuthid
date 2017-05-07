@@ -31,12 +31,7 @@ using namespace teuthid::clb;
 std::mutex platform::mutex_;
 platforms_t platform::platforms_;
 
-platform::platform(const platform_id_t &platform_id) {
-  assert(platform_id);
-  *this = platform::get(platform_id);
-}
-
-const platform &platform::get(const platform_id_t &platform_id) {
+const platform &platform::get(platform_id_t platform_id) {
   assert(platform_id);
   try {
     if (platform::count() > 0) {

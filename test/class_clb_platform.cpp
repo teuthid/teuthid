@@ -58,7 +58,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_platform) {
     BOOST_TEST((__plat == __platform), "operator==");
     BOOST_TEST(!(__plat != __platform), "operator!=");
     BOOST_TEST(__plat.id(), "id()");
-    __plat = platform(__platform.id());
+    __plat = platform(__platform);
     BOOST_TEST(__plat.id(), "id()");
     BOOST_TEST(!__plat.version().empty(), "version()");
   }

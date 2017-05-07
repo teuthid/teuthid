@@ -97,17 +97,6 @@ running system has OpenCL-capable hardware and drivers.
 */
 
  
-/*! 
-\fn platform::platform(const platform_id_t &platform_id)
-\brief Constructs a new object of class clb::platform.
-@param[in] platform_id the ID for the OpenCL platform.
-\throw invalid_platform if \c platform_id is invalid and points to a 
-non-existent OpenCL platform or is equal to \c nullptr.
-\note The Teuthid framework must be compiled with enabled \c BUILD_WITH_OPENCL 
-option to be able to use the OpenCL platforms and devices.
-\see id(), platform::get(), platform::get_all(), platform::get_default().
-*/
-
 /*!
 \fn template <platparam_t value> platform_param<value>::value_type platform::info() const
 \brief Gets specific information about the platform.
@@ -115,6 +104,7 @@ option to be able to use the OpenCL platforms and devices.
 \throw invalid_platform if \c value is an invalid parameter.
 \return the platform's parameter.
 */
+
 
 /*! 
 \fn const platform_id_t &platform::id() const
