@@ -219,8 +219,8 @@ public:
   typename device_param<value>::value_type info() const;
 
   device_id_t id() const noexcept { return id_; }
-  device_id_t parent_id() const;
-  bool is_subdevice() const { return (parent_id() != nullptr); }
+  device_id_t parent_id() const noexcept { return parent_id_; }
+  bool is_subdevice() const noexcept { return (parent_id_ != nullptr); }
   devices_t subdevices_equally(std::size_t units) const;
   const platform &get_platform() const { return device::get_platform(id_); }
 
@@ -277,9 +277,11 @@ protected:
 
 private:
   device() {}
-  explicit device(device_id_t subdevice_id, platform_id_t platform_id)
-      : id_(subdevice_id), platform_id_(platform_id) {}
+  explicit device(device_id_t subdevice_id, device_id_t device_id,
+                  platform_id_t platform_id)
+      : id_(subdevice_id), parent_id_(device_id), platform_id_(platform_id) {}
   device_id_t id_;            // device ID
+  device_id_t parent_id_;     // parent device ID
   platform_id_t platform_id_; // platform ID
 };
 

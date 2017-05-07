@@ -156,6 +156,12 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
         devices_t __subdevices;
         __subdevices = __dev.subdevices_equally(1);
         BOOST_TEST(__subdevices.size() == __dev.max_subdevices());
+        for (const device &__subdev : __subdevices) {
+          BOOST_TEST(__subdev.id(), "id()");
+          BOOST_TEST(__subdev.id() != __dev.id(), "id()");
+          BOOST_TEST(__subdev.parent_id() == __dev.id(), "parent_id()");
+          BOOST_TEST(__subdev.is_subdevice(), "is_subdevice()");
+        }
       }
     }
   }

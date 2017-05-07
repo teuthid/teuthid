@@ -104,7 +104,7 @@ devices_t device::subdevices(const cl_device_partition_property *props) const {
   }
   devices_t __devices;
   for (auto __dev : __cl_subdevices)
-    __devices.push_back(device(__dev(), platform_id_));
+    __devices.push_back(device(__dev(), id_, platform_id_));
   __devices.shrink_to_fit();
   return __devices;
 }
@@ -240,10 +240,6 @@ __TEUTHID_CLB_DEVICE_INFO(PARTITION_MAX_SUB_DEVICES);
 __TEUTHID_CLB_DEVICE_INFO(PRINTF_BUFFER_SIZE);
 #undef __TEUTHID_CLB_DEVICE_INFO
 #endif // DOXYGEN_SHOULD_SKIP_THIS
-
-device_id_t device::parent_id() const {
-  return info<devparam_t::PARENT_DEVICE>();
-}
 
 uint32_t device::address_bits() const {
   return info<devparam_t::ADDRESS_BITS>();

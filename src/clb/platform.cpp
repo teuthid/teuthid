@@ -100,6 +100,7 @@ void platform::detect_devices_(platform &plat) {
     for (std::size_t __i = 0; __i < __cl_devices.size(); __i++) {
       plat.devices_.push_back(device());
       plat.devices_[__i].id_ = __cl_devices[__i]();
+      plat.devices_[__i].parent_id_ = nullptr;
       plat.devices_[__i].platform_id_ = plat.id_;
     }
   } catch (const cl::Error &__e) {
