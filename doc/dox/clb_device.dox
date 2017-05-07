@@ -961,39 +961,35 @@ clb::device.
 */
 
 
+/*! 
+\class teuthid::clb::device device.hpp <teuthid/clb/device.hpp>
+\brief This class holds specific information about the OpenCL devices for a 
+particular OpenCL \ref teuthid::clb::platform "platform".
+\details <a href="https://www.khronos.org/opencl/">OpenCL</a> is used as an 
+interface for executing code on parallel devices such as GPUs and multi-core 
+CPUs.
+\note The Teuthid framework must be compiled with enabled \c BUILD_WITH_OPENCL 
+option to be able to use the OpenCL platforms and devices.
+\see device::get_default(), platform::devices().
+*/
 
 
-/*! \class teuthid::clb::device device.hpp <teuthid/clb/device.hpp>
- * \brief This class holds specific information about the OpenCL
- * devices for a particular OpenCL \ref teuthid::compute_platform "platform".
- *
- * <a href="https://www.khronos.org/opencl/">OpenCL</a> is used as an interface 
- * for executing code on parallel devices such as GPUs and multi-core CPUs.
- * \note The Teuthid framework must be compiled with enabled 
- * \c BUILD_WITH_OPENCL option to be able to use the OpenCL platforms and 
- * devices.
- * \see compute_platform::devices().
- */
-
-/*! \fn teuthid::compute_device::compute_device()
- * \brief Constructs a new object of class compute_device.
- *
- * The new object is empty and <b>does not</b> contain information about any
- * OpenCL device.
- */
-
-/*! \fn compute_device::~compute_device()
- * \brief Destructs an object of class compute_device.
- */
+/*!
+\fn template <devparam_t value> device_param<value>::value_type device::info() const
+\brief Gets specific information about the device.
+@param value a device query - see clb::devparam_t.
+\throw invalid_device if \c value is an invalid parameter.
+\return the device's parameter.
+*/
 
 
-/*! \fn const compute_device_id_t &compute_device::id() const
- * \brief Returns the identifier for this device.
- *
- * \return the identifier for this OpenCL device. The returned value is the 
- * equivalent of \c cl_device_id. If it is equal to \c NULL, this OpenCL device 
- * is undetermined.
- */
+/*! 
+\fn device_id_t device::id() const noexcept
+\brief Returns the identifier for this device.
+\return the identifier for this OpenCL device. The returned value is the 
+equivalent of \c cl_device_id.
+\see device::find_by_id(), device::parent_id().
+*/
 
 
 /*! \fn const compute_profile_t &compute_device::profile() const
