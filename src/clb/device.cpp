@@ -120,7 +120,13 @@ devices_t device::subdevices(std::vector<std::size_t> units) const {
   for (auto __i : units)
     if (__i < 1)
       throw invalid_device("invalid number of subdevices");
-  //
+  std::vector<cl_device_partition_property> properties;
+  properties.push_back(CL_DEVICE_PARTITION_BY_COUNTS);
+  for (auto __count : units)
+    properties.push_back(static_cast<cl_device_partition_property>(__count));
+  properties.push_back(CL_DEVICE_PARTITION_BY_COUNTS_LIST_END);
+  properties.push_back(0);
+  return subdevices_(properties.data());
 }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
