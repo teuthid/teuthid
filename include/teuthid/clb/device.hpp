@@ -89,7 +89,6 @@ enum class devparam_t : uint64_t { // cl_device_info
   NATIVE_VECTOR_WIDTH_DOUBLE = CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE,
   NATIVE_VECTOR_WIDTH_HALF = CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF,
   OPENCL_C_VERSION = CL_DEVICE_OPENCL_C_VERSION,
-  PARENT_DEVICE = CL_DEVICE_PARENT_DEVICE,
   PARTITION_AFFINITY_DOMAIN = CL_DEVICE_PARTITION_AFFINITY_DOMAIN,
   PARTITION_MAX_SUB_DEVICES = CL_DEVICE_PARTITION_MAX_SUB_DEVICES,
   PARTITION_PROPERTIES = CL_DEVICE_PARTITION_PROPERTIES,
@@ -277,9 +276,9 @@ protected:
 
 private:
   device() {}
-  explicit device(device_id_t subdevice_id, device_id_t device_id,
+  explicit device(device_id_t device_id, device_id_t parent_id,
                   platform_id_t platform_id)
-      : id_(subdevice_id), parent_id_(device_id), platform_id_(platform_id) {}
+      : id_(device_id), parent_id_(parent_id), platform_id_(platform_id) {}
   device_id_t id_;            // device ID
   device_id_t parent_id_;     // parent device ID
   platform_id_t platform_id_; // platform ID
@@ -349,7 +348,6 @@ __TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_LONG, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_FLOAT, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_DOUBLE, uint32_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(NATIVE_VECTOR_WIDTH_HALF, uint32_t)
-__TEUTHID_CLB_DEVICE_INFO_SPEC(PARENT_DEVICE, device_id_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(OPENCL_C_VERSION, std::string)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(PARTITION_AFFINITY_DOMAIN, devaffinity_domain_t)
 __TEUTHID_CLB_DEVICE_INFO_SPEC(PARTITION_PROPERTIES, partition_properties_t)

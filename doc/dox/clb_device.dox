@@ -387,13 +387,6 @@ compiler for this device. This is equivalent to \c CL_DEVICE_OPENCL_C_VERSION.
 See device::c_version().
 */
 /*! 
-\var teuthid::clb::devparam_t::PARENT_DEVICE
-\hideinitializer
-Returns the clb::device_id_t of the parent device to which this sub-device 
-belongs. If device is a root-level device, a \c NULL value is returned. This is 
-equivalent to \c CL_DEVICE_PARENT_DEVICE. See device::parent_id().
-*/
-/*! 
 \var teuthid::clb::devparam_t::PARTITION_AFFINITY_DOMAIN
 \hideinitializer
 Returns the list of supported affinity domains for partitioning the device. 
