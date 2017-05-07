@@ -274,8 +274,8 @@ it returns \c false.
 
 
 /*!
-\fn const platform &platform::get(const platform_id_t &platform_id)
-\brief Returns the platform by its identifier.
+\fn const platform &platform::find_by_id(platform_id_t platform_id)
+\brief Finds the platform by its identifier.
 \return a reference to the OpenCL platform by its identifier.
 @param[in] platform_id the ID of the OpenCL platform.
 \throw invalid_platform if the platform with the specified identifier does not 

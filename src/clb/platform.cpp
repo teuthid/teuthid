@@ -31,7 +31,7 @@ using namespace teuthid::clb;
 std::mutex platform::mutex_;
 platforms_t platform::platforms_;
 
-const platform &platform::get(platform_id_t platform_id) {
+const platform &platform::find_by_id(platform_id_t platform_id) {
   assert(platform_id);
   try {
     if (platform::count() > 0) {
@@ -57,7 +57,7 @@ const platforms_t &platform::get_all() {
 
 const platform &platform::get_default() {
   try {
-    return platform::get(cl::Platform::getDefault()());
+    return platform::find_by_id(cl::Platform::getDefault()());
   } catch (const cl::Error &) {
     throw invalid_platform("invalid default platform");
   }
@@ -66,7 +66,7 @@ const platform &platform::get_default() {
 const platform &platform::set_default(const platform &plat) {
   try {
     cl::Platform __plat = cl::Platform::setDefault(cl::Platform(plat.id()));
-    return platform::get(__plat());
+    return platform::find_by_id(__plat());
   } catch (const cl::Error &) {
     throw invalid_platform("invalid default platform");
   }

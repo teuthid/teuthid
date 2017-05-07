@@ -34,8 +34,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_platform) {
 
   for (auto __platform : __platforms) {
     BOOST_TEST(__platform.id(), "id()");
-    BOOST_TEST((__platform == platform::get(__platform.id())),
-               "platform::get()");
+    BOOST_TEST((__platform == platform::find_by_id(__platform.id())),
+               "platform::find_by_id()");
     BOOST_TEST(
         (__platform.is_full_profile() || __platform.is_embedded_profile()),
         "is_full_profile(), is_embedded_profile()");
