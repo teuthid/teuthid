@@ -86,8 +86,8 @@ const platform &device::get_platform() const {
   return __teuthid_clb_get(id_).first;
 }
 
-devices_t device::subdevices(const cl_device_partition_property *props) const {
-  if (max_subdevices() < 2)
+devices_t device::subdevices_(const cl_device_partition_property *props) const {
+  if ((max_subdevices() < 2) || is_subdevice())
     throw invalid_device("cannot create subdevices");
   std::vector<cl::Device> __cl_subdevices;
   cl::Device __cl_device(id_);
@@ -103,14 +103,24 @@ devices_t device::subdevices(const cl_device_partition_property *props) const {
   return __devices;
 }
 
-devices_t device::subdevices_equally(std::size_t units) const {
+devices_t device::subdevices(std::size_t units) const {
   assert(max_subdevices() > 1);
   if (units < 1)
     throw invalid_device("invalid number of subdevices");
   cl_device_partition_property properties[] = {
       CL_DEVICE_PARTITION_EQUALLY,
       static_cast<cl_device_partition_property>(units), 0};
-  return subdevices(properties);
+  return subdevices_(properties);
+}
+
+devices_t device::subdevices(std::vector<std::size_t> units) const {
+  assert(max_subdevices() > 1);
+  if (units.size() < 1)
+    throw invalid_device("invalid number of subdevices");
+  for (auto __i : units)
+    if (__i < 1)
+      throw invalid_device("invalid number of subdevices");
+  //
 }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS

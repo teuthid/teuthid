@@ -169,11 +169,6 @@ enum class devmem_cache_t : uint64_t { // cl_device_mem_cache_type
   READ_WRITE_CACHE = CL_READ_WRITE_CACHE,
   NONE = CL_NONE ///< No global memory cache supported.
 };
-enum class devpartition_property_t : uint64_t { // cl_device_partition_property
-  EQUALLY = CL_DEVICE_PARTITION_EQUALLY,
-  BY_COUNTS = CL_DEVICE_PARTITION_BY_COUNTS,
-  BY_AFFINITY_DOMAIN = CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN
-};
 enum class devprofile_t { FULL, EMBEDDED };
 enum class devsvm_capabilities_t : uint64_t { // cl_device_svm_capabilities
   COARSE_GRAIN_BUFFER = CL_DEVICE_SVM_COARSE_GRAIN_BUFFER,
@@ -219,7 +214,8 @@ public:
   device_id_t id() const noexcept { return id_; }
   device_id_t parent_id() const noexcept { return parent_id_; }
   bool is_subdevice() const noexcept { return (parent_id_ != nullptr); }
-  devices_t subdevices_equally(std::size_t units) const;
+  devices_t subdevices(std::size_t units) const;
+  devices_t subdevices(std::vector<std::size_t> units) const;
   const platform &get_platform() const;
 
   uint32_t address_bits() const;
@@ -269,14 +265,12 @@ public:
   static const device &find_by_id(device_id_t device_id);
   static devices_t find_by_type(devtype_t dev_type);
 
-protected:
-  devices_t subdevices(const cl_device_partition_property *props) const;
-
 private:
   device() {}
-  explicit device(device_id_t device_id, device_id_t parent_id,
-                  platform_id_t platform_id)
+  device(device_id_t device_id, device_id_t parent_id,
+         platform_id_t platform_id)
       : id_(device_id), parent_id_(parent_id), platform_id_(platform_id) {}
+  devices_t subdevices_(const cl_device_partition_property *props) const;
   device_id_t id_;            // device ID
   device_id_t parent_id_;     // parent device ID
   platform_id_t platform_id_; // platform ID

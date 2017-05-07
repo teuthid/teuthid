@@ -821,41 +821,6 @@ This is equivalent to \c CL_READ_WRITE_CACHE.
 \hideinitializer
 */
 
-/*! 
-\enum teuthid::clb::devpartition_property_t
-\brief This enumeration includes named constants that identifies partitioning 
-schemes.
-\details This is equivalent to \c cl_device_partition_property.
-*/
-/*! 
-\var teuthid::clb::devpartition_property_t::EQUALLY
-\hideinitializer
-Split the aggregate device into as many smaller aggregate devices as can be 
-created, each containing \e n compute units. The value \e n is passed as the 
-value accompanying this property. If \e n does not divide evenly into 
-devparam_t::MAX_COMPUTE_UNITS, then the remaining compute units are not used. 
-This is equivalent to \c CL_DEVICE_PARTITION_EQUALLY.
-*/ 
-/*! 
-\var teuthid::clb::devpartition_property_t::BY_COUNTS
-\hideinitializer
-This property is followed by a devpartition_property_t::BY_COUNTS_LIST_END 
-terminated list of compute unit counts. For each nonzero count \e m in the list,
-a sub-device is created with \e m compute units in it. The number of non-zero 
-count entries in the list may not exceed devparam_t::PARTITION_MAX_SUB_DEVICES.
-The total number of compute units specified may not exceed 
-devparam_t::MAX_COMPUTE_UNITS. This is equivalent to 
-\c CL_DEVICE_PARTITION_BY_COUNTS.
-*/
-/*! 
-\var teuthid::clb::devpartition_property_t::BY_AFFINITY_DOMAIN
-\hideinitializer
-Split the device into smaller aggregate devices containing one or more compute 
-units that all share part of a cache hierarchy. The value accompanying this 
-property may be drawn from clb::devaffinity_domain_t. This is equivalent to 
-\c CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN.
-*/
-
 
 /*! 
 \enum teuthid::clb::devprofile_t
