@@ -82,9 +82,8 @@ devices_t device::find_by_type(devtype_t dev_type) {
   return __devs;
 }
 
-const platform &device::get_platform(device_id_t device_id) {
-  assert(device_id);
-  return __teuthid_clb_get(device_id).first;
+const platform &device::get_platform() const {
+  return __teuthid_clb_get(id_).first;
 }
 
 devices_t device::subdevices(const cl_device_partition_property *props) const {
