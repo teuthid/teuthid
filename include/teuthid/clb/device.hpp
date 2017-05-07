@@ -207,7 +207,6 @@ class device {
   friend class platform;
 
 public:
-  explicit device(device_id_t device_id);
   device(const device &) = default;
   device(device &&) = default;
   virtual ~device() {}

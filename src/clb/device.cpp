@@ -30,11 +30,6 @@
 
 using namespace teuthid::clb;
 
-device::device(device_id_t device_id) {
-  assert(device_id);
-  *this = device::get(device_id);
-}
-
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 std::pair<const platform &, const device &>
 __teuthid_clb_get(device_id_t device_id) {

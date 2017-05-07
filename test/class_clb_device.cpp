@@ -144,9 +144,6 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
       BOOST_TEST(__dev.id() == __device.id(), "id()");
       BOOST_TEST((__dev == __device), "operator==");
       BOOST_TEST(!(__dev != __device), "operator!=");
-      __dev = device(__device.id());
-      BOOST_TEST(__dev.id(), "id()");
-      BOOST_TEST(__dev.id() == __device.id(), "id()");
       BOOST_TEST(device::get(__dev.id()).id() == __device.id(),
                  "device::get()");
       BOOST_TEST(__dev.get_platform().id() == __platform.id(),
