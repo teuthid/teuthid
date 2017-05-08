@@ -1062,6 +1062,63 @@ exceed device::max_compute_units().
 */
 
 
+/*!
+\fn const platform &device::get_platform() const
+\brief Gets the platform associated with this device.
+\return a reference to the platform associated with this device.
+*/
+
+
+/*!
+\fn uint32_t device::address_bits() const
+\brief Gets the default compute device address space size.
+\return the default compute device address space size specified as \c uint32_t 
+value in bits. Currently supported values are 32 or 64 bits. The returned value 
+is the equivalent of \c CL_DEVICE_ADDRESS_BITS.
+*/
+
+
+/*!
+\fn bool device::is_available() const
+\brief Checks if this device is available.
+\return \c true if this device is available and \c false otherwise. A device is 
+considered to be available if the device can be expected to successfully 
+execute commands enqueued to the device. The returned value is the equivalent 
+of \c CL_DEVICE_AVAILABLE.
+*/
+
+
+/*!
+\fn built_in_kernels_t device::built_in_kernels() const
+\brief Gets the vector of built-in kernels supported by this device.
+\return a vector containing built-in kernels supported by this device. An empty 
+vector is returned if no built-in kernels are supported by the device. The 
+returned value is the equivalent of \c CL_DEVICE_BUILT_IN_KERNELS.
+*/
+
+
+/*!
+\fn std::string device::c_version() const
+\brief Gets OpenCL C version string. 
+\return the highest OpenCL C version supported by the compiler for this device 
+that is not of type devtype_t::CUSTOM. This version string has the following 
+format: 
+<em><major_version.minor_version><space><vendor-specific information></em>.
+The returned value is the equivalent of \c CL_DEVICE_OPENCL_C_VERSION.
+*/
+
+
+/*!
+\fn bool device::is_compiler_available() const
+\brief Checks if the compiler is available.
+\return \c false if the implementation does not have a compiler available to 
+compile the program source. Returns \c true if the compiler is available. This 
+can be \c false for the embedded platform profile only. The returned value is 
+the equivalent of \c CL_DEVICE_COMPILER_AVAILABLE.
+*/
+
+
+
 
 
 /*! \fn const compute_profile_t &compute_device::profile() const
@@ -1168,19 +1225,6 @@ exceed device::max_compute_units().
  *
  * \return the OpenCL software driver version of this OpenCL device.
  * The returned value is the equivalent of \c CL_DRIVER_VERSION.
- * If it is an empty string, a version is undetermined.
- * \see version().
- */
-
-
-/*! \fn const std::string &compute_device::c_version() const
- * \brief Returns the OpenCL C version string.
- *
- * \return the highest OpenCL C version supported by the compiler for this 
- * device that is not of type \c CL_DEVICE_TYPE_CUSTOM. \n
- * This version string has the following format:
- * \e "OpenCL<space>C<space><major_version.minor_version><space><vendor-specific information>".\n
- * The returned value is the equivalent of \c CL_DEVICE_OPENCL_C_VERSION.
  * If it is an empty string, a version is undetermined.
  * \see version().
  */
