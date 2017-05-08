@@ -1007,11 +1007,23 @@ option to be able to use the OpenCL platforms and devices.
 
 /*! 
 \fn device_id_t device::id() const noexcept
-\brief Returns the identifier for this device.
+\brief Returns the identifier of this device.
 \return the identifier for this OpenCL device. The returned value is the 
 equivalent of \c cl_device_id.
 \see device::find_by_id(), device::parent_id().
 */
+
+
+/*!
+\fn device_id_t device::parent_id() const noexcept
+\brief Returns the identifier of the parent device. 
+\return Returns the identifier of the parent device to which this sub-device 
+belongs. If this device is a root-level device, a \c nullptr value is returned.
+\see device::is_subdevice(), device::id().
+*/
+
+
+
 
 
 /*! \fn const compute_profile_t &compute_device::profile() const
