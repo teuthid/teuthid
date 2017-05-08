@@ -1023,6 +1023,44 @@ belongs. If this device is a root-level device, a \c nullptr value is returned.
 */
 
 
+/*!
+\fn bool device::is_subdevice() const noexcept
+\brief Checks that this device is a sub-device.
+\return \c true if this device is a sub-device. Otherwise returns \c false.
+\see device::parent_id(), device::subdevices().
+*/
+
+
+/*!
+\fn devices_t device::subdevices(std::size_t units) const
+\brief Creates an array of sub-devices that each reference a non-intersecting 
+set of compute units within this device.
+\details Splits the aggregate device into as many smaller aggregate devices as 
+can be created, each containing compute \c units. If \c units does not divide 
+evenly into device::max_compute_units(), then the remaining compute units are 
+not used.
+\return a vector containing of sub-devices.
+@param[in] units count of compute units for every sub-device.
+\throw invalid_device if cannot create sub-devices.
+\see device::is_subdevice(), device::parent_id(), device::max_subdevices().
+*/
+
+
+/*!
+\fn devices_t device::subdevices(std::vector<std::size_t> units) const
+\brief Creates an array of sub-devices that each reference a non-intersecting 
+set of compute units within this device.
+\details For each nonzero count <em>units[n]</em> in the vector \c units, a 
+sub-device is created with <em>units[n]</em> compute units in it. The number of 
+non-zero count entries in the vector \c units may not exceed 
+device::max_subdevices(). The total number of compute units specified may not 
+exceed device::max_compute_units().
+\return a vector containing of sub-devices.
+@param[in] units a vector of counts of compute units for each sub-device.
+\throw invalid_device if cannot create sub-devices.
+\see device::is_subdevice(), device::parent_id().
+*/
+
 
 
 
