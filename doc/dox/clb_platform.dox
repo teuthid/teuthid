@@ -96,7 +96,29 @@ option to be able to use the OpenCL platforms and devices.
 running system has OpenCL-capable hardware and drivers.
 */
 
- 
+
+/*!
+\fn teuthid::clb::platform::platform(const platform &)
+\brief Default copy constructor.
+*/
+/*!
+\fn teuthid::clb::platform::platform(platform &&)
+\brief Default move constructor.
+*/
+/*!
+\fn platform::~platform()
+\brief Default destructor.
+*/
+/*!
+\fn platform &teuthid::clb::platform::operator=(const platform &)
+\brief Default copy assignment operator.
+*/
+/*!
+\fn platform &teuthid::clb::platform::operator=(platform &&)
+\brief Default move assignment operator.
+*/
+
+
 /*!
 \fn template <platparam_t value> platform_param<value>::value_type platform::info() const
 \brief Gets specific information about the platform.

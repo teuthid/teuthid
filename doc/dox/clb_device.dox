@@ -975,6 +975,28 @@ option to be able to use the OpenCL platforms and devices.
 
 
 /*!
+\fn teuthid::clb::device::device(const device &)
+\brief Default copy constructor.
+*/
+/*!
+\fn teuthid::clb::device::device(device &&)
+\brief Default move constructor.
+*/
+/*!
+\fn device::~device()
+\brief Default destructor.
+*/
+/*!
+\fn device &teuthid::clb::device::operator=(const device &)
+\brief Default copy assignment operator.
+*/
+/*!
+\fn device &teuthid::clb::device::operator=(device &&)
+\brief Default move assignment operator.
+*/
+
+
+/*!
 \fn template <devparam_t value> device_param<value>::value_type device::info() const
 \brief Gets specific information about the device.
 @param value a device query - see clb::devparam_t.
