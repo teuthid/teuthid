@@ -297,7 +297,11 @@ uint64_t device::global_mem_cache_size() const {
   return info<devparam_t::GLOBAL_MEM_CACHE_SIZE>();
 }
 
-uint32_t device::global_mem_cache_line_size() const {
+devmem_cache_t device::global_mem_cache_type() const {
+  return info<devparam_t::GLOBAL_MEM_CACHE_TYPE>();
+}
+
+uint32_t device::global_mem_cacheline_size() const {
   return info<devparam_t::GLOBAL_MEM_CACHELINE_SIZE>();
 }
 

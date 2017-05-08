@@ -57,8 +57,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
       BOOST_TEST(__device.global_mem_size() > 0, "global_mem_size()");
       BOOST_TEST(__device.global_mem_cache_size() > 0,
                  "global_mem_cache_size()");
-      BOOST_TEST(__device.global_mem_cache_line_size() > 0,
-                 "global_mem_cache_line_size()");
+      BOOST_TEST(__device.global_mem_cacheline_size() > 0,
+                 "global_mem_cacheline_size()");
       BOOST_TEST(__device.info<devparam_t::IMAGE2D_MAX_HEIGHT>() > 0,
                  "info<devparam_t::IMAGE2D_MAX_HEIGHT>()");
       BOOST_TEST(__device.info<devparam_t::IMAGE2D_MAX_WIDTH>() > 0,

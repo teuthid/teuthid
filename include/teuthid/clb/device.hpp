@@ -228,7 +228,8 @@ public:
   extensions_t extensions() const;
   bool has_extension(const std::string &ext_name) const;
   uint64_t global_mem_cache_size() const;
-  uint32_t global_mem_cache_line_size() const;
+  devmem_cache_t global_mem_cache_type() const;
+  uint32_t global_mem_cacheline_size() const;
   uint64_t global_mem_size() const;
   uint64_t local_mem_size() const;
   uint32_t max_clock_frequency() const;

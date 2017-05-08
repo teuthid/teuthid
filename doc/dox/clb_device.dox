@@ -1118,6 +1118,68 @@ the equivalent of \c CL_DEVICE_COMPILER_AVAILABLE.
 */
 
 
+/*!
+\fn devfp_config_t device::double_fp_config() const
+\brief Checks double precision floating-point capability of this device.
+\return a clb::devfp_config_t value that describes double precision floating-point capability of this device. Double precision is an optional feature. The returned value is the equivalent of \c CL_DEVICE_DOUBLE_FP_CONFIG.
+\see device::has_double_precision().
+*/
+
+
+/*!
+\fn bool device::has_double_precision() const
+\brief Checks double precision floating-point capability of this device.
+\return \c true if this device has support for double precision floating-point.
+Otherwise returns \c false. 
+\see device::double_fp_config(), device::has_single_precision().
+*/
+
+
+/*!
+\fn extensions_t device::extensions() const
+\brief Gets of extension names supported by this device.
+\return a vector containing extension names supported by this device. The 
+vector of extension names returned can be vendor supported extension names and 
+one or more of the Khronos approved extension names.
+\see device::has_extension().
+*/
+
+
+/*!
+\fn bool device::has_extension(const std::string &ext_name) const
+\brief Check if this device support the extension.
+\return \c true if this device support the extension with name \c ext_name. 
+Otherwise returns \c false.
+@param[in] ext_name a string containing the checked extension name.
+\see device::extensions().
+*/
+
+
+/*!
+\fn uint64_t device::global_mem_cache_size() const
+\brief Gets the size of global memory cache.
+\return the size of global memory cache in bytes. The returned value is the 
+equivalent of \c CL_DEVICE_GLOBAL_MEM_CACHE_SIZE.
+*/
+
+
+/*!
+\fn devmem_cache_t device::global_mem_cache_type() const
+\brief Checks the type of global memory cache supported.
+\return a value of type clb::devmem_cache_t that describes the type of global 
+memory cache supported. The returned value is the equivalent of 
+\c CL_DEVICE_GLOBAL_MEM_CACHE_TYPE.
+*/
+
+
+/*!
+\fn uint32_t device::global_mem_cacheline_size() const
+\brief Gets the size of global memory cache line.
+\return the size of global memory cache line in bytes. The returned value is 
+the equivalent of \c CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE.
+*/
+
+
 
 
 
@@ -1186,16 +1248,6 @@ the equivalent of \c CL_DEVICE_COMPILER_AVAILABLE.
  */
 
 
-/*! \fn bool compute_device::is_devtype_accelerator() const
- * \brief Returns \c true if this device's type is 
- * \ref teuthid::COMPUTE_DEVICE_ACCELERATOR "COMPUTE_DEVICE_ACCELERATOR".
- * \return \c true if this OpenCL device's type is 
- * \ref teuthid::COMPUTE_DEVICE_ACCELERATOR "COMPUTE_DEVICE_ACCELERATOR". 
- * Otherwise returns \c false.
- * \see devtype().
- */
-
-
 /*! \fn const std::string &compute_device::name() const
  * \brief Return the name of this device.
  *
@@ -1238,17 +1290,3 @@ the equivalent of \c CL_DEVICE_COMPILER_AVAILABLE.
  * The returned value is the equivalent of \c CL_DEVICE_MAX_COMPUTE_UNITS.
  * If it is equal to \c 0, a number of units is undetermined.
  */
-
-
-/*! \fn const std::string &compute_device::extensions() const
- * \brief Returns the space-separated list of extension names.
- *
- * \return the space separated list of extension names (the extension names 
- * themselves do not contain any spaces) supported by this device. The list of 
- * extension names returned can be vendor supported extension names and one or 
- * more of the Khronos approved extension names. \n
- * The returned value is the equivalent of \c CL_DEVICE_EXTENSIONS.
- * If it is an empty string, these extensions are undetermined.
- */
-
-
