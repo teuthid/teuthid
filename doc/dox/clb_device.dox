@@ -1180,6 +1180,69 @@ the equivalent of \c CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE.
 */
 
 
+/*!
+\fn uint64_t device::global_mem_size() const
+\brief Gets the size of global device memory.
+\return the size of global device memory in bytes. The returned value is the 
+equivalent of \c CL_DEVICE_GLOBAL_MEM_SIZE.
+*/
+
+
+/*!
+\fn uint64_t device::local_mem_size() const
+\brief Gets the size of local memory region.
+\return the size of local memory region in bytes. The minimum value is 32 KB 
+for devices that are not of type devtype_t::CUSTOM. The returned value is the 
+equivalent of \c CL_DEVICE_LOCAL_MEM_SIZE.
+*/
+
+
+/*!
+\fn devlocal_mem_t device::local_mem_type() const
+\brief Checks the type of local memory supported.
+\return devlocal_mem_t::LOCAL implying dedicated local memory storage such as 
+SRAM, or devlocal_mem_t::GLOBAL. For custom devices, devlocal_mem_t::NONE can 
+also be returned indicating no local memory support. The returned value is the 
+equivalent of \c CL_DEVICE_LOCAL_MEM_TYPE.
+*/
+
+
+/*!
+\fn uint32_t device::max_clock_frequency() const
+\brief Gets the maximum configured clock frequency.
+\return the maximum configured clock frequency of this device in MHz. The 
+returned value is the equivalent of \c CL_DEVICE_MAX_CLOCK_FREQUENCY.
+*/
+
+/*!
+\fn uint32_t device::max_compute_units() const
+\brief Gets the number of parallel compute units.
+\return the number of parallel compute units on this OpenCL device. A 
+work-group executes on a single compute unit. The minimum value is \c 1. The 
+returned value is the equivalent of \c CL_DEVICE_MAX_COMPUTE_UNITS.
+*/
+
+
+/*!
+\fn uint32_t device::max_constant_args() const
+\brief Gets the maximum number of arguments declared with the \c __constant 
+qualifier in a kernel.
+\return the maximum number of arguments declared with the \c __constant 
+qualifier in a kernel. The minimum value is \c 8 for devices that are not of 
+type devtype_t::CUSTOM. The returned value is the equivalent of 
+\c CL_DEVICE_MAX_CONSTANT_ARGS.
+*/
+
+
+/*!
+\fn uint64_t device::max_constant_buffer_size() const
+\brief Gets the maximum size of a constant buffer allocation.
+\return the maximum size in bytes of a constant buffer allocation. The minimum 
+value is 64 KB for devices that are not of type devtype_t::CUSTOM. The returned 
+value is the equivalent of \c CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE.
+*/
+
+
 
 
 

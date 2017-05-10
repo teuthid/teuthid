@@ -232,8 +232,11 @@ public:
   uint32_t global_mem_cacheline_size() const;
   uint64_t global_mem_size() const;
   uint64_t local_mem_size() const;
+  devlocal_mem_t local_mem_type() const;
   uint32_t max_clock_frequency() const;
   uint32_t max_compute_units() const;
+  uint32_t max_constant_args() const;
+  uint64_t max_constant_buffer_size() const;
   uint64_t max_mem_alloc_size() const;
   uint32_t max_subdevices() const;
   std::size_t max_work_group_size() const;

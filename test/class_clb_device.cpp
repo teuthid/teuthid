@@ -71,10 +71,9 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
                  "info<devparam_t::IMAGE3D_MAX_WIDTH>()");
       BOOST_TEST(__device.local_mem_size() > 0, "local_mem_size()");
       BOOST_TEST(__device.max_clock_frequency() > 0, "max_clock_frequency()");
-      BOOST_TEST(__device.info<devparam_t::MAX_CONSTANT_ARGS>() > 0,
-                 "info<devparam_t::MAX_CONSTANT_ARGS>()");
-      BOOST_TEST(__device.info<devparam_t::MAX_CONSTANT_BUFFER_SIZE>() > 0,
-                 "info<devparam_t::MAX_CONSTANT_BUFFER_SIZE>()");
+      BOOST_TEST(__device.max_constant_args() > 0, "max_constant_args()");
+      BOOST_TEST(__device.max_constant_buffer_size() > 0,
+                 "max_constant_buffer_size()");
       BOOST_TEST(__device.max_mem_alloc_size() > 0, "max_mem_alloc_size()");
       BOOST_TEST(__device.info<devparam_t::MAX_PARAMETER_SIZE>() > 0,
                  "info<devparam_t::MAX_PARAMETER_SIZE>()");

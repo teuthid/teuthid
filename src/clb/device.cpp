@@ -313,12 +313,24 @@ uint64_t device::local_mem_size() const {
   return info<devparam_t::LOCAL_MEM_SIZE>();
 }
 
+devlocal_mem_t device::local_mem_type() const {
+  return info<devparam_t::LOCAL_MEM_TYPE>();
+}
+
 uint32_t device::max_clock_frequency() const {
   return info<devparam_t::MAX_CLOCK_FREQUENCY>();
 }
 
 uint32_t device::max_compute_units() const {
   return info<devparam_t::MAX_COMPUTE_UNITS>();
+}
+
+uint32_t device::max_constant_args() const {
+  return info<devparam_t::MAX_CONSTANT_ARGS>();
+}
+
+uint64_t device::max_constant_buffer_size() const {
+  return info<devparam_t::MAX_CONSTANT_BUFFER_SIZE>();
 }
 
 uint64_t device::max_mem_alloc_size() const {
