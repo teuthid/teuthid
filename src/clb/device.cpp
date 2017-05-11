@@ -337,6 +337,14 @@ uint64_t device::max_mem_alloc_size() const {
   return info<devparam_t::MAX_MEM_ALLOC_SIZE>();
 }
 
+uint32_t device::max_on_device_events() const {
+  return info<devparam_t::MAX_ON_DEVICE_EVENTS>();
+}
+
+uint32_t device::max_on_device_queues() const {
+  return info<devparam_t::MAX_ON_DEVICE_QUEUES>();
+}
+
 uint32_t device::max_subdevices() const {
   return info<devparam_t::PARTITION_MAX_SUB_DEVICES>();
 }

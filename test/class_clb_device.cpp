@@ -75,6 +75,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
       BOOST_TEST(__device.max_constant_buffer_size() > 0,
                  "max_constant_buffer_size()");
       BOOST_TEST(__device.max_mem_alloc_size() > 0, "max_mem_alloc_size()");
+      BOOST_TEST(__device.max_on_device_events() > 0, "max_on_device_events()");
+      BOOST_TEST(__device.max_on_device_queues() > 0, "max_on_device_queues()");
       BOOST_TEST(__device.info<devparam_t::MAX_PARAMETER_SIZE>() > 0,
                  "info<devparam_t::MAX_PARAMETER_SIZE>()");
       BOOST_TEST(__device.info<devparam_t::MAX_SAMPLERS>() > 0,

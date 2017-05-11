@@ -238,6 +238,8 @@ public:
   uint32_t max_constant_args() const;
   uint64_t max_constant_buffer_size() const;
   uint64_t max_mem_alloc_size() const;
+  uint32_t max_on_device_events() const;
+  uint32_t max_on_device_queues() const;
   uint32_t max_subdevices() const;
   std::size_t max_work_group_size() const;
   uint32_t max_work_item_dimensions() const;

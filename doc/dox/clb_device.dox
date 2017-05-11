@@ -1243,6 +1243,37 @@ value is the equivalent of \c CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE.
 */
 
 
+/*!
+\fn uint64_t device::max_mem_alloc_size() const
+\brief Gets the maximum size of memory object allocation.
+\return the maximum size of memory object allocation in bytes. The minimum 
+value is 
+<em>max(min(1024*1024*1024, 1/4th of global_mem_size()), 32*1024*1024)</em> for 
+devices that are not of type devtype_t::CUSTOM. The returned value is the 
+equivalent of \c CL_DEVICE_MAX_MEM_ALLOC_SIZE.
+*/
+
+
+/*!
+\fn uint32_t device::max_on_device_events() const
+\brief Gets the maximum number of events in use.
+\return the maximum number of events in use by a device queue. These refer to 
+events returned by the \c enqueue_ built-in functions to a device queue or user 
+events returned by the \c create_user_event built-in function that have not 
+been released. The minimum value is \c 1024. The returned value is the 
+equivalent of \c CL_DEVICE_MAX_ON_DEVICE_EVENTS.
+*/
+
+
+/*!
+\fn uint32_t device::max_on_device_queues() const
+\brief Gets the maximum number of device queues that can be created per context.
+\return the maximum number of device queues that can be created per context. 
+The minimum value is \c 1. The returned value is the equivalent of 
+\c CL_DEVICE_MAX_ON_DEVICE_QUEUES.
+*/
+
+
 
 
 
