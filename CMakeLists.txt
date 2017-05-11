@@ -64,6 +64,7 @@ option(BUILD_DOCS "Build the documentation" ON)
 option(BUILD_EXAMPLES "Build examples" ON)
 
 include(TeuthidHelpers)
+include(TeuthidCheckOpenMP)
 include(TeuthidCheckBoost)
 include(TeuthidCheckMPFR)
 list(REMOVE_DUPLICATES teuthid_link_libraries)

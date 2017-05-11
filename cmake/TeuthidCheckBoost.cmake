@@ -1,4 +1,4 @@
-if (BUILD_WITH_OPENCL AND (NOT BUILD_WITH_ARRAYFIRE))
+if (BUILD_WITH_OPENCL)
   list(APPEND Boost_REQUIRED_COMPONENTS filesystem)
 endif()
 
@@ -7,7 +7,7 @@ if (BUILD_TESTS)
 endif(BUILD_TESTS)
 
 set(Boost_USE_MULTITHREADED ON)
-find_package(Boost ${Boost_REQUIRED_VERSION} QUIET REQUIRED 
+find_package(Boost ${Boost_REQUIRED_VERSION} REQUIRED 
   COMPONENTS ${Boost_REQUIRED_COMPONENTS}
   OPTIONAL_COMPONENTS ${boost_optional_components_}) 
 
