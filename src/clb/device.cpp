@@ -365,6 +365,14 @@ uint32_t device::max_work_item_dimensions() const {
   return info<devparam_t::MAX_WORK_ITEM_DIMENSIONS>();
 }
 
+max_work_item_sizes_t device::max_work_item_sizes() const {
+  return info<devparam_t::MAX_WORK_ITEM_SIZES>();
+}
+
+uint32_t device::mem_base_addr_align() const {
+  return info<devparam_t::MEM_BASE_ADDR_ALIGN>();
+}
+
 std::string device::name() const { return info<devparam_t::NAME>(); }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS

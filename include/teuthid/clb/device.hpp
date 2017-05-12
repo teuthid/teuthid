@@ -245,6 +245,8 @@ public:
   uint32_t max_subdevices() const;
   std::size_t max_work_group_size() const;
   uint32_t max_work_item_dimensions() const;
+  max_work_item_sizes_t max_work_item_sizes() const;
+  uint32_t mem_base_addr_align() const;
   std::string name() const;
   template <typename T> uint32_t native_vector_width() const { return 0; }
   template <typename T> uint32_t preferred_vector_width() const { return 0; }

@@ -1315,6 +1315,41 @@ value is \c 1. The returned value is the equivalent of
 */
 
 
+/*!
+\fn uint32_t device::max_work_item_dimensions() const
+\brief Gets the maximum dimensions that specify the global and local work-item 
+IDs.
+\return the maximum dimensions that specify the global and local work-item IDs 
+used by the data parallel execution model. The minimum value is \c 3 for 
+devices that are not of type devtype_t::CUSTOM. The returned value is the 
+equivalent of \c CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS.
+*/
+
+
+/*!
+\fn max_work_item_sizes_t device::max_work_item_sizes() const
+\brief Gets the maximum number of work-items that can be specified in each 
+dimension of the work-group to execute a kernel on this device.
+\return the maximum number of work-items that can be specified in each 
+dimension of the work-group to execute a kernel on this device. Returns \e n 
+\c std::size_t entries, where \e n is the value returned by the query for 
+device::max_work_item_dimensions(). The minimum value is <tt>(1, 1, 1)</tt> for 
+devices that are not of type devtype_t::CUSTOM. The returned value is the 
+equivalent of \c CL_DEVICE_MAX_WORK_ITEM_SIZES.
+*/
+
+
+/*!
+\fn uint32_t device::mem_base_addr_align() const
+\brief Gets the alignment in bits of the base address of any allocated memory 
+object.
+\return the minimum value is the size (in bits) of the largest OpenCL built-in 
+data type supported by this device for devices that are not of type 
+devtype_t::CUSTOM. The returned value is the equivalent of 
+\c CL_DEVICE_MEM_BASE_ADDR_ALIGN.
+*/
+
+
 
 
 

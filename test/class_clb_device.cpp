@@ -84,10 +84,9 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
       BOOST_TEST(__device.max_work_group_size() > 0, "max_work_group_size()");
       BOOST_TEST(__device.max_work_item_dimensions() > 0,
                  "max_work_item_dimensions()");
-      BOOST_TEST(!__device.info<devparam_t::MAX_WORK_ITEM_SIZES>().empty(),
-                 "info<devparam_t::MAX_WORK_ITEM_SIZES>()");
-      BOOST_TEST(__device.info<devparam_t::MEM_BASE_ADDR_ALIGN>() > 0,
-                 "info<devparam_t::MEM_BASE_ADDR_ALIGN>()");
+      BOOST_TEST(!__device.max_work_item_sizes().empty(),
+                 "max_work_item_sizes()");
+      BOOST_TEST(__device.mem_base_addr_align() > 0, "mem_base_addr_align()");
 
       BOOST_TEST(__device.native_vector_width<bool>() == 0,
                  "native_vector_width<>()");
