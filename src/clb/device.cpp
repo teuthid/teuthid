@@ -345,6 +345,14 @@ uint32_t device::max_on_device_queues() const {
   return info<devparam_t::MAX_ON_DEVICE_QUEUES>();
 }
 
+std::size_t device::max_parameter_size() const {
+  return info<devparam_t::MAX_PARAMETER_SIZE>();
+}
+
+uint32_t device::max_pipe_args() const {
+  return info<devparam_t::MAX_PIPE_ARGS>();
+}
+
 uint32_t device::max_subdevices() const {
   return info<devparam_t::PARTITION_MAX_SUB_DEVICES>();
 }

@@ -77,8 +77,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
       BOOST_TEST(__device.max_mem_alloc_size() > 0, "max_mem_alloc_size()");
       BOOST_TEST(__device.max_on_device_events() > 0, "max_on_device_events()");
       BOOST_TEST(__device.max_on_device_queues() > 0, "max_on_device_queues()");
-      BOOST_TEST(__device.info<devparam_t::MAX_PARAMETER_SIZE>() > 0,
-                 "info<devparam_t::MAX_PARAMETER_SIZE>()");
+      BOOST_TEST(__device.max_parameter_size() > 0, "max_parameter_size()");
+      BOOST_TEST(__device.max_pipe_args() > 0, "max_pipe_args()");
       BOOST_TEST(__device.info<devparam_t::MAX_SAMPLERS>() > 0,
                  "info<devparam_t::MAX_SAMPLERS>()");
       BOOST_TEST(__device.max_work_group_size() > 0, "max_work_group_size()");
@@ -150,7 +150,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
 
       if (__dev.max_subdevices() > 1) {
         devices_t __subdevices = __dev.subdevices(1);
-        BOOST_TEST(__subdevices.size() == __dev.max_subdevices());
+        BOOST_TEST(__subdevices.size() == __dev.max_subdevices(),
+                   "max_subdevices");
         for (const device &__subdev : __subdevices) {
           BOOST_TEST(__subdev.id(), "id()");
           BOOST_TEST(__subdev.id() != __dev.id(), "id()");
@@ -164,6 +165,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
         for (auto __i = 0; __i < __dev.max_subdevices(); __i++)
           __units.push_back(1);
         devices_t __subdevices = __dev.subdevices(__units);
+        BOOST_TEST(__subdevices.size() == __dev.max_subdevices(),
+                   "max_subdevices");
         for (const device &__subdev : __subdevices) {
           BOOST_TEST(__subdev.id(), "id()");
           BOOST_TEST(__subdev.id() != __dev.id(), "id()");

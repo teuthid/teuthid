@@ -240,6 +240,8 @@ public:
   uint64_t max_mem_alloc_size() const;
   uint32_t max_on_device_events() const;
   uint32_t max_on_device_queues() const;
+  std::size_t max_parameter_size() const;
+  uint32_t max_pipe_args() const;
   uint32_t max_subdevices() const;
   std::size_t max_work_group_size() const;
   uint32_t max_work_item_dimensions() const;

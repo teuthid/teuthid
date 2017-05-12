@@ -1274,6 +1274,47 @@ The minimum value is \c 1. The returned value is the equivalent of
 */
 
 
+/*!
+\fn std::size_t device::max_parameter_size() const
+\brief Gets the maximum size of all arguments that can be passed to a kernel.
+\return the maximum size in bytes of all arguments that can be passed to a 
+kernel. The minimum value is \c 1024 for devices that are not of type 
+devtype_t::CUSTOM. For this minimum value, only a maximum of \c 128 arguments 
+can be passed to a kernel. The returned value is the equivalent of 
+\c CL_DEVICE_MAX_PARAMETER_SIZE.
+*/
+
+
+/*!
+\fn uint32_t device::max_pipe_args() const
+\brief Gets the maximum number of pipe objects that can be passed as arguments 
+to a kernel.
+\return the maximum number of pipe objects that can be passed as arguments to a 
+kernel. The minimum value is \c 16. The returned value is the equivalent of 
+\c CL_DEVICE_MAX_PIPE_ARGS.
+*/
+
+
+/*!
+\fn uint32_t device::max_subdevices() const
+\brief Gets the maximum number of sub-devices.
+\return the maximum number of sub-devices that can be created when this device 
+is partitioned. The value returned cannot exceed device::max_compute_units().
+The returned value is the equivalent of \c CL_DEVICE_PARTITION_MAX_SUB_DEVICES.
+*/
+
+
+/*!
+\fn std::size_t device::max_work_group_size() const
+\brief Gets the maximum number of work-items in a work-group executing a kernel 
+on a single compute unit.
+\return the maximum number of work-items in a work-group executing a kernel on 
+a single compute unit, using the data parallel execution model. The minimum 
+value is \c 1. The returned value is the equivalent of 
+\c CL_DEVICE_MAX_WORK_GROUP_SIZE.
+*/
+
+
 
 
 
@@ -1373,14 +1414,4 @@ The minimum value is \c 1. The returned value is the equivalent of
  * The returned value is the equivalent of \c CL_DRIVER_VERSION.
  * If it is an empty string, a version is undetermined.
  * \see version().
- */
-
-
-/*! \fn uint32_t compute_device::max_compute_units() const
- * \brief Returns the number of parallel compute units.
- *
- * \return the number of parallel compute units on this OpenCL device. 
- * A work-group executes on a single compute unit. The minimum value is \c 1.\n
- * The returned value is the equivalent of \c CL_DEVICE_MAX_COMPUTE_UNITS.
- * If it is equal to \c 0, a number of units is undetermined.
  */
