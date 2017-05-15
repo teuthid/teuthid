@@ -45,8 +45,8 @@
 #cmakedefine TEUTHID_HAVE_NATIVE_FLOAT_80
 #cmakedefine TEUTHID_HAVE_NATIVE_FLOAT_128
 
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
 namespace teuthid {
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 constexpr std::size_t float16_prec = 11;
 constexpr std::size_t float32_prec = 24;
@@ -100,8 +100,15 @@ using float128_t = teuthid::float128_t;
 using float256_t = teuthid::float256_t;
 }
 #endif // TEUTHID_WITH_OPENCL
-
+#endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace teuthid
+
+
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+#define TEUTHID_ENUM_CLASS_OPS(NAME, UTYPE)                                    \
+  inline NAME operator&(NAME x, NAME y) {                                      \
+    return static_cast<NAME>(static_cast<UTYPE>(x) & static_cast<UTYPE>(y));   \
+  };
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 #endif // TEUTHID_CONFIG_HPP

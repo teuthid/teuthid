@@ -185,6 +185,8 @@ enum class devtype_t : uint64_t { // cl_device_type
   ALL = CL_DEVICE_TYPE_ALL
 };
 
+TEUTHID_ENUM_CLASS_OPS(devtype_t, uint64_t)
+
 template <devparam_t> struct device_param { typedef void value_type; };
 
 class device;
