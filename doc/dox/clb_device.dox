@@ -1367,6 +1367,7 @@ supported, returns \c 0. The returned value is the equivalent of
 \c CL_DEVICE_NATIVE_ VECTOR_WIDTH_XXX, where \c XXX is a scalar type.
 */
 
+
 /*!
 \fn template <typename T> uint32_t device::preferred_vector_width() const
 \brief Gets the preferred native vector width size for built-in scalar types.
@@ -1378,43 +1379,56 @@ returns \c 0. The returned value is the equivalent of
 */
 
 
+/*! 
+\fn devprofile_t device::profile() const
+\brief Gets this device's profile.
+\return the profile supported by this device. The returned value is the 
+equivalent of \c CL_DEVICE_PROFILE.
+\see device::is_full_profile(), device::is_embedded_profile().
+*/
+
+
+/*! 
+\fn bool device::is_full_profile() const
+\brief Checks if this device's profile is a full profile.
+\return \c true if this device's profile is devprofile_t::FULL. Otherwise 
+returns \c false.
+\see device::profile().
+*/
+
+
+/*! 
+\fn bool device::is_embedded_profile() const
+\brief Checks if this device's profile is an embedded profile.
+\return \c true if this device's profile is devprofile_t::EMBEDDED. Otherwise 
+returns \c false.
+\see device::profile().
+*/
+
+
+/*!
+\fn size_t device::profiling_timer_resolution() const
+\brief Gets the resolution of this device timer.
+\return the resolution of this device timer. This is measured in nanoseconds.
+The returned value is the equivalent of \c CL_DEVICE_PROFILING_TIMER_RESOLUTION.
+*/
+
+
+/*!
+\fn devfp_config_t device::single_fp_config() const
+\brief Checks single precision floating-point capability of this device.
+\return a clb::devfp_config_t value that describes single precision 
+floating-point capability of this device. The mandated minimum floating-point 
+capability for devices that are not of type devtype_t::CUSTOM is 
+devfp_config_t::ROUND_TO_NEAREST | devfp_config_t::INF_NAN. The returned value 
+is the equivalent of \c CL_DEVICE_SINGLE_FP_CONFIG.
+\see device::has_single_precision().
+*/
 
 
 
 
 
-/*! \fn const compute_profile_t &compute_device::profile() const
- * \brief Returns the OpenCL device's profile.
- *
- * \return the OpenCL profile supported by this OpenCL device. It can be one 
- * of the following: 
- * \ref teuthid::COMPUTE_FULL_PROFILE "COMPUTE_FULL_PROFILE",
- * \ref teuthid::COMPUTE_EMBEDDED_PROFILE "COMPUTE_EMBEDDED_PROFILE", or
- * \ref teuthid::COMPUTE_UNKNOWN_PROFILE "COMPUTE_UNKNOWN_PROFILE".
- * The returned value is the equivalent of \c CL_DEVICE_PROFILE.
- * \see is_full_profile(), is_embedded_profile().
- */
-
-/*! \fn bool compute_device::is_full_profile() const
- * \brief Returns \c true if this device's profile is 
- * \ref teuthid::COMPUTE_FULL_PROFILE "COMPUTE_FULL_PROFILE".
- * 
- * \return \c true if this OpenCL device's profile is 
- * \ref teuthid::COMPUTE_FULL_PROFILE "COMPUTE_FULL_PROFILE". Otherwise returns 
- * \c false.
- * \see profile().
- */
-
-
-/*! \fn bool compute_device::is_embedded_profile() const
- * \brief Returns \c true if the device's profile is 
- * \ref teuthid::COMPUTE_EMBEDDED_PROFILE "COMPUTE_EMBEDDED_PROFILE".
- * 
- * \return \c true if this OpenCL device's profile is 
- * \ref teuthid::COMPUTE_EMBEDDED_PROFILE "COMPUTE_EMBEDDED_PROFILE". Otherwise 
- * returns \c false.
- * \see profile().
- */
 
 
 /*! \fn const compute_devtype_t &compute_device::devtype() const
