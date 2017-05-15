@@ -1350,6 +1350,36 @@ devtype_t::CUSTOM. The returned value is the equivalent of
 */
 
 
+/*! 
+\fn std::string device::name() const
+\brief Gets the name of this device.
+\return the name of this OpenCL device. The returned value is the equivalent of 
+\c CL_DEVICE_NAME. 
+*/
+
+
+/*!
+\fn template <typename T> uint32_t device::native_vector_width() const
+\brief Gets the native ISA vector width.
+\return the native ISA vector width. The vector width is defined as the number 
+of scalar elements that can be stored in the vector. If a type \c T is not 
+supported, returns \c 0. The returned value is the equivalent of 
+\c CL_DEVICE_NATIVE_ VECTOR_WIDTH_XXX, where \c XXX is a scalar type.
+*/
+
+/*!
+\fn template <typename T> uint32_t device::preferred_vector_width() const
+\brief Gets the preferred native vector width size for built-in scalar types.
+\return the preferred native vector width size for built-in scalar types that 
+can be put into vectors. The vector width is defined as the number of scalar 
+elements that can be stored in the vector. If a type \c T is not supported, 
+returns \c 0. The returned value is the equivalent of 
+\c CL_DEVICE_PREFERRED_VECTOR_WIDTH_XXX, where \c XXX is a scalar type.
+*/
+
+
+
+
 
 
 
@@ -1415,15 +1445,6 @@ devtype_t::CUSTOM. The returned value is the equivalent of
  * \ref teuthid::COMPUTE_DEVICE_GPU "COMPUTE_DEVICE_GPU". Otherwise returns
  * \c false.
  * \see devtype().
- */
-
-
-/*! \fn const std::string &compute_device::name() const
- * \brief Return the name of this device.
- *
- * \return the name of this OpenCL device. The returned value is the 
- * equivalent of \c CL_DEVICE_NAME. If it is an empty string, a name of this 
- * OpenCL device is undetermined.
  */
 
 

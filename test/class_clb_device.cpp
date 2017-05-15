@@ -132,8 +132,6 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
 
       BOOST_TEST(__device.profiling_timer_resolution() > 0,
                  "profiling_timer_resolution()");
-      BOOST_TEST(__device.max_compute_units() >= __device.max_subdevices(),
-                 "max_compute_units()");
 
       BOOST_TEST(__device.get_platform().id() == __platform.id(),
                  "get_platform()");
@@ -146,6 +144,9 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
                  "device::find_by_id()");
       BOOST_TEST(__dev.get_platform().id() == __platform.id(),
                  "get_platform()");
+
+      BOOST_TEST(__device.max_compute_units() >= __device.max_subdevices(),
+                 "max_compute_units()");
 
       if (__dev.max_subdevices() > 1) {
         devices_t __subdevices = __dev.subdevices(1);
