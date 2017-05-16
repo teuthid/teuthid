@@ -110,31 +110,34 @@ using float256_t = teuthid::float256_t;
   inline NAME operator&(NAME x, NAME y) {                                      \
     typedef typename std::underlying_type<NAME>::type UTYPE;                   \
     return static_cast<NAME>(static_cast<UTYPE>(x) & static_cast<UTYPE>(y));   \
-  };                                                                           \
+  }                                                                            \
   inline NAME operator|(NAME x, NAME y) {                                      \
     typedef typename std::underlying_type<NAME>::type UTYPE;                   \
     return static_cast<NAME>(static_cast<UTYPE>(x) | static_cast<UTYPE>(y));   \
-  };                                                                           \
+  }                                                                            \
   inline NAME operator^(NAME x, NAME y) {                                      \
     typedef typename std::underlying_type<NAME>::type UTYPE;                   \
     return static_cast<NAME>(static_cast<UTYPE>(x) ^ static_cast<UTYPE>(y));   \
-  };                                                                           \
+  }                                                                            \
   inline NAME operator~(NAME x) {                                              \
     typedef typename std::underlying_type<NAME>::type UTYPE;                   \
     return static_cast<NAME>(~static_cast<UTYPE>(x));                          \
-  };                                                                           \
+  }                                                                            \
   inline NAME &operator&=(NAME &x, NAME y) {                                   \
     x = x & y;                                                                 \
     return x;                                                                  \
-  };                                                                           \
+  }                                                                            \
   inline NAME &operator|=(NAME &x, NAME y) {                                   \
     x = x | y;                                                                 \
     return x;                                                                  \
-  };                                                                           \
+  }                                                                            \
   inline NAME &operator^=(NAME &x, NAME y) {                                   \
     x = x ^ y;                                                                 \
     return x;                                                                  \
-  };
+  }                                                                            \
+  inline constexpr bool test_##NAME(NAME x) noexcept {                         \
+    return static_cast<std::underlying_type<NAME>::type>(x);                   \
+  }
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 #endif // TEUTHID_CONFIG_HPP

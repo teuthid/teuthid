@@ -35,7 +35,7 @@ const platform &platform::find_by_id(platform_id_t platform_id) {
   assert(platform_id);
   try {
     if (platform::count() > 0) {
-      for (const platform &__platform : platform::platforms_)
+      for (const platform &__platform : platform::get_all())
         if (platform_id == __platform.id())
           return __platform;
     }

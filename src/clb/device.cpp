@@ -450,12 +450,6 @@ bool device::has_single_precision() const {
 
 devtype_t device::devtype() const { return info<devparam_t::TYPE>(); }
 
-bool device::is_devtype(devtype_t type_of_device) const {
-  cl_bitfield __devtype = static_cast<cl_bitfield>(devtype());
-  cl_bitfield __type = static_cast<cl_bitfield>(type_of_device);
-  return (__devtype & __type) > 0;
-}
-
 std::string device::vendor() const { return info<devparam_t::VENDOR>(); }
 
 std::string device::version() const {
