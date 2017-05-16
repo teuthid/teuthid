@@ -104,10 +104,36 @@ using float256_t = teuthid::float256_t;
 } // namespace teuthid
 
 
+#include <type_traits>
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-#define TEUTHID_ENUM_CLASS_OPS(NAME, UTYPE)                                    \
+#define TEUTHID_ENUM_CLASS_BITWISE_OPS(NAME)                                   \
   inline NAME operator&(NAME x, NAME y) {                                      \
+    typedef typename std::underlying_type<NAME>::type UTYPE;                   \
     return static_cast<NAME>(static_cast<UTYPE>(x) & static_cast<UTYPE>(y));   \
+  };                                                                           \
+  inline NAME operator|(NAME x, NAME y) {                                      \
+    typedef typename std::underlying_type<NAME>::type UTYPE;                   \
+    return static_cast<NAME>(static_cast<UTYPE>(x) | static_cast<UTYPE>(y));   \
+  };                                                                           \
+  inline NAME operator^(NAME x, NAME y) {                                      \
+    typedef typename std::underlying_type<NAME>::type UTYPE;                   \
+    return static_cast<NAME>(static_cast<UTYPE>(x) ^ static_cast<UTYPE>(y));   \
+  };                                                                           \
+  inline NAME operator~(NAME x) {                                              \
+    typedef typename std::underlying_type<NAME>::type UTYPE;                   \
+    return static_cast<NAME>(~static_cast<UTYPE>(x));                          \
+  };                                                                           \
+  inline NAME &operator&=(NAME &x, NAME y) {                                   \
+    x = x & y;                                                                 \
+    return x;                                                                  \
+  };                                                                           \
+  inline NAME &operator|=(NAME &x, NAME y) {                                   \
+    x = x | y;                                                                 \
+    return x;                                                                  \
+  };                                                                           \
+  inline NAME &operator^=(NAME &x, NAME y) {                                   \
+    x = x ^ y;                                                                 \
+    return x;                                                                  \
   };
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
