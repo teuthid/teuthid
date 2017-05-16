@@ -261,8 +261,8 @@ public:
   devfp_config_t single_fp_config() const;
   bool has_single_precision() const;
   devtype_t devtype() const;
-  bool is_devtype(devtype_t type_of_device) const {
-    return test_devtype_t(devtype() & type_of_device);
+  bool is_devtype(devtype_t dev_type) const {
+    return test_devtype_t(devtype() & dev_type);
   }
   bool is_cpu() const { return is_devtype(devtype_t::CPU); }
   bool is_gpu() const { return is_devtype(devtype_t::GPU); }

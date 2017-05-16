@@ -73,11 +73,10 @@ const device &device::set_default(const device &dev) {
 }
 
 devices_t device::find_by_type(devtype_t dev_type) {
-  cl_bitfield __devtype = static_cast<cl_bitfield>(dev_type);
   devices_t __devs;
   for (auto __platform : platform::get_all())
     for (auto __device : __platform.devices())
-      if (static_cast<cl_bitfield>(__device.devtype()) & __devtype)
+      if (__device.is_devtype(dev_type))
         __devs.push_back(__device);
   __devs.shrink_to_fit();
   return __devs;
