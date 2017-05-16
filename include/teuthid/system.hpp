@@ -23,7 +23,6 @@
 #include <mutex>
 #include <sstream>
 #include <string>
-#include <type_traits>
 #include <vector>
 
 #include <teuthid/config.hpp>

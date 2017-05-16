@@ -98,11 +98,10 @@ using float64_t = teuthid::float64_t;
 using float80_t = teuthid::float80_t;
 using float128_t = teuthid::float128_t;
 using float256_t = teuthid::float256_t;
-}
+} // namespace clb
 #endif // TEUTHID_WITH_OPENCL
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace teuthid
-
 
 #include <type_traits>
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
