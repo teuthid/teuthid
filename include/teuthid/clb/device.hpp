@@ -22,7 +22,7 @@
 #include <string>
 #include <vector>
 
-#include <teuthid/config.hpp>
+#include <teuthid/system.hpp>
 
 #if defined(__APPLE__)
 #include <OpenCL/opencl.h>
@@ -262,7 +262,7 @@ public:
   bool has_single_precision() const;
   devtype_t devtype() const;
   bool is_devtype(devtype_t dev_type) const {
-    return test_devtype_t(devtype() & dev_type);
+    return system::test_enumerator(devtype() & dev_type);
   }
   bool is_cpu() const { return is_devtype(devtype_t::CPU); }
   bool is_gpu() const { return is_devtype(devtype_t::GPU); }

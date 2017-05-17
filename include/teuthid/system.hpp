@@ -62,6 +62,7 @@ public:
   template <typename T> static bool equal_to(const T &x, const T &y) {
     return (x == y);
   }
+  template <typename E> static constexpr bool test_enumerator(E en) noexcept;
 
 private:
   system() {}
@@ -152,6 +153,11 @@ template <> bool system::equal_to(const double &x, const double &y);
 template <> bool system::equal_to(const long double &x, const long double &y);
 template <> bool system::equal_to(const mpfr_t &x, const mpfr_t &y);
 #endif // DOXYGEN_SHOULD_SKIP_THIS
+
+template <typename E> constexpr bool system::test_enumerator(E en) noexcept {
+  static_assert(std::is_enum<E>::value, "requires enumeration type");
+  return static_cast<typename std::underlying_type<E>::type>(en);
+}
 } // namespace teuthid
 
 #endif // TEUTHID_SYSTEM_HPP

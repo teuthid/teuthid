@@ -22,7 +22,6 @@
 
 #include <teuthid/clb/error.hpp>
 #include <teuthid/clb/platform.hpp>
-#include <teuthid/system.hpp>
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 #include "cl_bindings.hpp"
