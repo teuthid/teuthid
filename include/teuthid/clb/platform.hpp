@@ -86,7 +86,6 @@ private:
   platform() {}
   platform_id_t id_;  // platform ID
   devices_t devices_; // devices of this platform
-
   static std::mutex mutex_;
   static platforms_t platforms_; // all available platforms
   static void detect_platforms_();

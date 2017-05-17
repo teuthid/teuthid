@@ -286,12 +286,12 @@ private:
   device(device_id_t device_id, device_id_t parent_id,
          platform_id_t platform_id)
       : id_(device_id), parent_id_(parent_id), platform_id_(platform_id) {}
-  static std::pair<const platform &, const device &>
-  get_pair_(device_id_t device_id);
-  devices_t subdevices_(const cl_device_partition_property *props) const;
   device_id_t id_;            // device ID
   device_id_t parent_id_;     // parent device ID
   platform_id_t platform_id_; // platform ID
+  devices_t subdevices_(const cl_device_partition_property *props) const;
+  static std::pair<const platform &, const device &>
+  get_pair_(device_id_t device_id);
 };
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
