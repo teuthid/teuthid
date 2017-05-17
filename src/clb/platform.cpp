@@ -23,7 +23,9 @@
 #include <teuthid/clb/platform.hpp>
 #include <teuthid/system.hpp>
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #include "cl_bindings.hpp"
+#endif
 
 using namespace teuthid;
 using namespace teuthid::clb;
