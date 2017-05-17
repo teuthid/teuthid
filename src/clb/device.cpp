@@ -18,7 +18,6 @@
 
 #include <cassert>
 #include <sstream>
-#include <utility>
 
 #include <teuthid/clb/error.hpp>
 #include <teuthid/clb/platform.hpp>
@@ -30,9 +29,8 @@
 using namespace teuthid;
 using namespace teuthid::clb;
 
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
 std::pair<const platform &, const device &>
-__teuthid_clb_get(device_id_t device_id) {
+device::get_pair_(device_id_t device_id) {
   try {
     const platforms_t &__platforms = platform::get_all();
     for (std::size_t __i = 0; __i < __platforms.size(); __i++) {
@@ -47,11 +45,10 @@ __teuthid_clb_get(device_id_t device_id) {
   }
   throw invalid_device("unknown device_id_t");
 }
-#endif // DOXYGEN_SHOULD_SKIP_THIS
 
 const device &device::find_by_id(device_id_t device_id) {
   assert(device_id);
-  return __teuthid_clb_get(device_id).second;
+  return device::get_pair_(device_id).second;
 }
 
 const device &device::get_default() {
@@ -82,7 +79,7 @@ devices_t device::find_by_type(devtype_t dev_type) {
 }
 
 const platform &device::get_platform() const {
-  return __teuthid_clb_get(id_).first;
+  return device::get_pair_(id_).first;
 }
 
 devices_t device::subdevices_(const cl_device_partition_property *props) const {
@@ -274,9 +271,9 @@ devfp_config_t device::double_fp_config() const {
 }
 
 bool device::has_double_precision() const {
-  cl_bitfield __dp =
-      CL_FP_FMA | CL_FP_ROUND_TO_NEAREST | CL_FP_INF_NAN | CL_FP_DENORM;
-  return (static_cast<cl_bitfield>(double_fp_config()) & __dp) > 0;
+  devfp_config_t __dp = devfp_config_t::FMA | devfp_config_t::ROUND_TO_NEAREST |
+                        devfp_config_t::INF_NAN | devfp_config_t::DENORM;
+  return system::test_enumerator(double_fp_config() & __dp);
 }
 
 extensions_t device::extensions() const {
@@ -442,8 +439,9 @@ devfp_config_t device::single_fp_config() const {
 }
 
 bool device::has_single_precision() const {
-  cl_bitfield __dp = CL_FP_ROUND_TO_NEAREST | CL_FP_INF_NAN;
-  return (static_cast<cl_bitfield>(single_fp_config()) & __dp) > 0;
+  devfp_config_t __sp =
+      devfp_config_t::ROUND_TO_NEAREST | devfp_config_t::INF_NAN;
+  return system::test_enumerator(single_fp_config() & __sp);
 }
 
 devtype_t device::devtype() const { return info<devparam_t::TYPE>(); }

@@ -134,6 +134,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
                  "profiling_timer_resolution()");
       BOOST_TEST(__device.is_devtype(__device.devtype()), "devtype()");
       BOOST_TEST(__device.is_devtype(devtype_t::ALL), "is_devtype()");
+      BOOST_TEST(__device.has_single_precision(), "has_single_precision()");
 
       BOOST_TEST(__device.get_platform().id() == __platform.id(),
                  "get_platform()");

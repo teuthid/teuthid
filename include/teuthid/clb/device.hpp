@@ -20,6 +20,7 @@
 #define TEUTHID_CLB_DEVICE_HPP
 
 #include <string>
+#include <utility>
 #include <vector>
 
 #include <teuthid/system.hpp>
@@ -185,6 +186,7 @@ enum class devtype_t : uint64_t { // cl_device_type
   ALL = CL_DEVICE_TYPE_ALL
 };
 
+TEUTHID_ENUM_CLASS_BITWISE_OPS(devfp_config_t)
 TEUTHID_ENUM_CLASS_BITWISE_OPS(devtype_t)
 
 template <devparam_t> struct device_param { typedef void value_type; };
@@ -284,6 +286,8 @@ private:
   device(device_id_t device_id, device_id_t parent_id,
          platform_id_t platform_id)
       : id_(device_id), parent_id_(parent_id), platform_id_(platform_id) {}
+  static std::pair<const platform &, const device &>
+  get_pair_(device_id_t device_id);
   devices_t subdevices_(const cl_device_partition_property *props) const;
   device_id_t id_;            // device ID
   device_id_t parent_id_;     // parent device ID
