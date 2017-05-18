@@ -89,7 +89,7 @@ __TEUTHID_STRING_FROM_INTEGER(uint64_t, unsigned long long);
 #undef __TEUTHID_STRING_FROM_INTEGER
 
 #ifdef TEUTHID_HAVE_INT_128
-std::string __teuthid_system_uint128_to_string(const uint128_t &value) {
+std::string system::uint128_to_string_(uint128_t value) {
   unsigned __mod;
   uint128_t __div, __value = value;
   std::string __s;
@@ -100,23 +100,23 @@ std::string __teuthid_system_uint128_to_string(const uint128_t &value) {
     __value = __div;
   } while (__div > 0);
   std::reverse(__s.begin(), __s.end());
-  return std::string(__s);
+  return __s;  
 }
 
 template <> std::string system::to_string(const int128_t &value) {
   if ((value < INT64_MIN) || (value > INT64_MAX)) {
     bool __minus = (value < 0);
     uint128_t __value = (value >= 0) ? value : -value;
-    std::string __s = __teuthid_system_uint128_to_string(__value);
+    std::string __s = system::uint128_to_string_(__value);
     __s = __minus ? ("-" + __s) : __s;
-    return std::string(__s);
+    return __s;
   } else
     return std::to_string(static_cast<long long>(value));
 }
 
 template <> std::string system::to_string(const uint128_t &value) {
   if (value > UINT64_MAX)
-    return __teuthid_system_uint128_to_string(value);
+    return system::uint128_to_string_(value);
   else
     return std::to_string(static_cast<unsigned long long>(value));
 }
