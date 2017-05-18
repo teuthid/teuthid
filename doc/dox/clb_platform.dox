@@ -130,7 +130,7 @@ running system has OpenCL-capable hardware and drivers.
 
 /*! 
 \fn const platform_id_t &platform::id() const
-\brief Returns the identifier for this platform.
+\brief Gets the identifier for this platform.
 \return the identifier for this OpenCL platform. The returned value is the 
 equivalent of \c cl_platform_id.
 \see platform::get().
@@ -139,7 +139,7 @@ equivalent of \c cl_platform_id.
 
 /*! 
 \fn profile_t platform::profile() const
-\brief Returns the platform's profile.
+\brief Gets the platform's profile.
 \return the OpenCL profile supported by this OpenCL platform. The returned 
 value is the equivalent of \c CL_PLATFORM_PROFILE.
 \see is_full_profile(), is_embedded_profile().
@@ -166,7 +166,7 @@ Otherwise, it returns \c false.
 
 /*! 
 \fn std::string platform::version() const
-\brief Returns this platform's version.
+\brief Gets this platform's version.
 \return the OpenCL version supported by this platform. The returned value has 
 the following format: 
 \e "<major_version.minor_version><space><platform-specific information>". 
@@ -192,7 +192,7 @@ version is the same as required \c major).
 
 /*! 
 \fn std::string platform::name() const
-\brief Returns the platform's name.
+\brief Gets the platform's name.
 \return the name of this OpenCL platform's. The returned value is the 
 equivalent of \c CL_PLATFORM_NAME. If it is an empty string, this name is 
 undetermined.
@@ -201,7 +201,7 @@ undetermined.
 
 /*! 
 \fn std::string platform::vendor() const
-\brief Returns the platform's vendor.
+\brief Gets the platform's vendor.
 \return the vendor of this OpenCL platform. The returned value is the 
 equivalent of \c CL_PLATFORM_VENDOR. If it is an empty string, this vendor is 
 undetermined.
@@ -210,7 +210,7 @@ undetermined.
 
 /*! 
 \fn extensions_t platform::extensions() const
-\brief Returns extension names. 
+\brief Gets extension names. 
 \return the vector of extension names supported by this OpenCL platform. The 
 returned value is the equivalent of \c CL_PLATFORM_EXTENSIONS. If it is an 
 empty vector, these extensions are undetermined.
@@ -221,7 +221,7 @@ empty vector, these extensions are undetermined.
 
 /*! 
 \fn bool platform::has_extension(const std::string &ext_name) const
-\brief Returns \c true if this platform supports the extension \c ext_name.
+\brief Checks if this platform supports the extension \c ext_name.
 \return \c true if this platform supports the extension \c ext_name. Otherwise, 
 it returns \c false.
 @param[in] ext_name a name of OpenCL extension.
@@ -231,7 +231,7 @@ it returns \c false.
 
 /*!
 \fn uint64_t platform::host_timer_resolution() const
-\brief Returns the resolution of the host timer.
+\brief Gets the resolution of the host timer.
 \return the resolution of the host timer in nanoseconds. The returned value is 
 the equivalent of \c CL_PLATFORM_HOST_TIMER_RESOLUTION.
 */
@@ -239,7 +239,7 @@ the equivalent of \c CL_PLATFORM_HOST_TIMER_RESOLUTION.
 
 /*! 
 \fn std::string platform::icd_suffix_khr() const
-\brief Returns the function name suffix.
+\brief Gets the function name suffix.
 \return the function name suffix used to identify extension functions to be 
 directed to this OpenCL platform by the ICD Loader. The returned value is the 
 equivalent of \c CL_PLATFORM_ICD_SUFFIX_KHR. If it is an empty string, this 
@@ -249,7 +249,7 @@ suffix is undetermined.
 
 /*! 
 \fn const devices_t &platform::devices() const
-\brief Returns devices assigned to this platform.
+\brief Gets devices assigned to this platform.
 \return the vector containing objects of class clb::device - the OpenCL devices 
 assigned to this OpenCL platform.
 \see device_count().
@@ -260,7 +260,7 @@ option to be able to use the OpenCL platforms and devices.
 
 /*! 
 \fn std::size_t platform::device_count()
-\brief Returns the number of devices.
+\brief Gets the number of devices.
 \return the number of OpenCL devices assigned to this OpenCL platform.
 \see devices().
 */
@@ -308,7 +308,7 @@ exist.
 
 /*! 
 \fn const platforms_t &platform::get_all()
-\brief Returns all available platfoms.
+\brief Gets all available platfoms.
 \return a reference to the vector containing objects of class clb::platform.
 \throw invalid_platform if there is a problem with the proper diagnosis of the 
 available OpenCL platform(s) on the system.
@@ -322,7 +322,7 @@ option to be able to use the OpenCL platforms and devices.
 
 /*!
 \fn const platform &platform::get_default()
-\brief Returns the default platform.
+\brief Gets the default platform.
 \return a reference to the default OpenCL platform.
 \throw invalid_platform if there is a problem with the proper diagnosis of the 
 default OpenCL platform.
@@ -345,7 +345,7 @@ default OpenCL platform.
 
 /*! 
 \fn std::size_t platform::count()
-\brief Returns the number of platforms.
+\brief Gets the number of platforms.
 \return the number of OpenCL platforms supported by the system.
 \see platform::get_all().
 */
