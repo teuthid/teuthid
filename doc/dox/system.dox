@@ -33,37 +33,42 @@ versa (system::to_string(), system::from_string()). \n All functions that provid
 
 /*! 
 \fn static constexpr uint8_t system::major_version()
-\brief Returns the major version of the framework.
-\see version().
+\brief Gets the major version.
+\return the major version of the framework.
+\see system::version().
 */
 
 
 /*! 
 \fn static constexpr uint8_t system::minor_version()
-\brief Returns the minor version of the framework.
-\see version().
+\brief Gets the minor version.
+\return the minor version of the framework.
+\see system::version().
 */
 
 
 /*! 
 \fn static constexpr uint8_t system::patch_version()
-\brief Returns the patch version of the framework.
-\see version().
+\brief Gets the patch version.
+\return the patch version of the framework.
+\see system::version().
 */
 
 /*! 
 \fn static constexpr uint8_t system::soversion()
-\brief Returns the soversion of the framework shared libraries.
-\see version().
+\brief Gets the soversion of shared libraries.
+\return the soversion of the framework shared libraries.
+\see system::version().
 */
 
 
 /*! 
 \fn static const std::string &system::version()
-\brief Returns the version of the framework.
+\brief Gets the version as string.
 \return the version of the framework as a string that has the following format: 
 \e "<major_version>.<minor_version>.<patch_version>".
-\see major_version(), minor_version(), patch_version(), check_version().
+\see system::major_version(), system::minor_version(), system::patch_version(), 
+system::check_version().
 */
 
 
@@ -75,7 +80,7 @@ Otherwise return \c false.
 @param[in] major The required minimum major version of the framework.
 @param[in] minor The required minimum minor version of the framework (if the 
 major version is the same as required \c major).
-\see major_version(), minor_version(), version().
+\see system::major_version(), system::minor_version(), system::version().
 */ 
 
 
@@ -87,7 +92,7 @@ must have at least one properly working OpenCL platform with one properly
 working OpenCL device. Otherwise return \c false.
 \note The Teuthid framework must be compiled with enabled \c BUILD_WITH_OPENCL 
 option to be able to use the OpenCL platforms and devices.
-\see uses_cl_backend().
+\see system::uses_cl_backend().
 */
 
 
@@ -99,7 +104,7 @@ OpenCL compute kernels in a multithreading environment. Otherwise return
 \c false.
 \note The Teuthid framework must be compiled with enabled \c BUILD_WITH_OPENCL 
 option to be able to use the OpenCL platforms and devices.
-\see uses_cl_backend(bool), has_cl_backend().
+\see system::uses_cl_backend(bool), system::has_cl_backend().
 */
 
 
@@ -115,7 +120,7 @@ OpenCL compute kernels in a multithreading environment. Otherwise return
 \c false.
 \note The Teuthid framework must be compiled with enabled \c BUILD_WITH_OPENCL 
 option to be able to use the OpenCL platforms and devices.
-\see has_cl_backend().
+\see system::has_cl_backend().
 */
 
 
@@ -131,7 +136,7 @@ or the pointer type (like \c int*, but \c void* is allowed).
 \c void*, <tt>std::vector<std::string></tt>, \c mpfr_t. 
 \n For floating point types, the resulted string is formatted according to the 
 settings given by the function format_float_output().
-\see from_string().
+\see system::from_string().
 */
 
 
@@ -143,16 +148,16 @@ settings given by the function format_float_output().
 @param[in] delim the delimiter (default is <tt>' '</tt> - a space).
 \return a size of vector containing separated strings.
 \note The function ignores empty delimited substrings.
-\see from_string().
+\see system::from_string().
 */
 
 
 /*! 
 \fn static std::streamsize system::default_format_float_precision()
-\brief Return the default precision of floating point output.
+\brief Gets the default precision of floating point output.
 \return the default precision (i.e. how many digits are generated) of floating 
 point output performed by system::to_string().
-\see format_float_precision(), format_float_output().
+\see system::format_float_precision(), system::format_float_output().
 */
 
 
@@ -164,8 +169,8 @@ floating point output performed by system::to_string().
 @param[in] scientific if it is equal to \c true, generates floating point 
 output using a scientific notation (for example \c 6.022e+23). Otherwise using 
 a fixed notation.
-\see to_string(), default_format_float_precision(), format_float_precision(),
-format_float_scientific().
+\see system::to_string(), system::default_format_float_precision(), 
+system::format_float_precision(), system::format_float_scientific().
 */
 
 
@@ -175,7 +180,7 @@ format_float_scientific().
 @param[in] precision the precision (i.e. how many digits are generated) of 
 floating point output performed by system::to_string().
 \return the previous value of output precision for floating point numbers.
-\see format_float_output(), default_format_float_precision().
+\see system::format_float_output(), system::default_format_float_precision().
 */
 
 
@@ -186,7 +191,7 @@ floating point output performed by system::to_string().
 output using a scientific notation (for example \c 6.022e+23). Otherwise using 
 a fixed notation.
 \return the previous valut of output notation for floating point numbers.
-\see format_float_output().
+\see system::format_float_output().
 */
 
 
@@ -205,7 +210,7 @@ range of the result type \c T.
 \c int8_t, \c int16_t, \c int32_t, \c int64_t, \c int128_t, \c uint8_t, 
 \c uint16_t, \c uint32_t, \c uint64_t, \c uint128_t, \c float, \c double, 
 <tt>long double</tt>, \c mpfr_t.
-\see to_string().
+\see system::to_string().
 */
 
 
@@ -221,7 +226,7 @@ range of the result type \c T.
 according to the current format settings for to_string(). For other types, the 
 function behaves just like the \c operator== (for those types for which this 
 operator is already defined).
-\see format_float_output(), format_float_precision().
+\see system::format_float_output(), system::format_float_precision().
 */
 
 
