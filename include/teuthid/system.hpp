@@ -19,8 +19,8 @@
 #ifndef TEUTHID_SYSTEM_HPP
 #define TEUTHID_SYSTEM_HPP
 
+#include <atomic>
 #include <ios>
-#include <mutex>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -69,10 +69,11 @@ private:
   ~system() {}
   static std::string version_;
   static thread_local bool clb_;
-  static std::mutex mutex_;
   static constexpr std::streamsize default_format_float_precision_ = 10;
-  static std::streamsize format_float_precision_;
-  static bool format_float_scientific_;
+  typedef std::atomic<std::streamsize> format_float_precision_t;
+  static format_float_precision_t format_float_precision_;
+  typedef std::atomic_bool format_float_scientific_t;
+  static format_float_scientific_t format_float_scientific_;
 #ifdef TEUTHID_HAVE_INT_128
   static std::string uint128_to_string_(uint128_t value);
 #endif

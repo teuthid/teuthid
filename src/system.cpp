@@ -38,10 +38,9 @@ thread_local bool system::clb_ = false;
 #endif
 
 std::string system::version_ = std::string(TEUTHID_VERSION);
-std::mutex system::mutex_;
-std::streamsize system::format_float_precision_ =
-    system::default_format_float_precision_;
-bool system::format_float_scientific_ = false;
+system::format_float_precision_t
+    system::format_float_precision_(system::default_format_float_precision_);
+system::format_float_scientific_t system::format_float_scientific_(false);
 
 bool system::check_version(uint8_t major, uint8_t minor) noexcept {
   return (TEUTHID_MAJOR_VERSION > major ||
@@ -141,8 +140,9 @@ template <> std::string system::to_string(void *const &value) {
 template <> std::string system::to_string(const mpfr_t &value) {
   char __str[256], __precision[64];
   std::string __format =
-      (system::format_float_scientific_ ? "%%.%ldRe" : "%%.%ldRf");
-  sprintf(__precision, __format.c_str(), system::format_float_precision_);
+      (system::format_float_scientific_.load() ? "%%.%ldRe" : "%%.%ldRf");
+  sprintf(__precision, __format.c_str(),
+          system::format_float_precision_.load());
   mpfr_sprintf(__str, __precision, value);
   return std::string(__str);
 }
@@ -195,24 +195,25 @@ std::size_t system::split_string(const std::string &str,
 
 void system::format_float_output(std::streamsize precision, bool scientific) {
   assert(precision > 0);
-  std::lock_guard<std::mutex> __guard(system::mutex_);
-  system::format_float_precision_ = precision;
-  system::format_float_scientific_ = scientific;
+  // std::lock_guard<std::mutex> __guard(system::mutex_);
+  system::format_float_precision_.store(precision);
+  system::format_float_scientific_.store(scientific);
 }
 
 std::streamsize system::format_float_precision(std::streamsize precision) {
   assert(precision > 0);
-  std::lock_guard<std::mutex> __guard(system::mutex_);
-  std::streamsize __prev = system::format_float_precision_;
-  system::format_float_precision_ = precision;
-  return __prev;
+  // std::lock_guard<std::mutex> __guard(system::mutex_);
+  // std::streamsize __prev = system::format_float_precision_;
+  // system::format_float_precision_ = precision;
+  return format_float_precision_.exchange(precision);
 }
 
 bool system::format_float_scientific(bool scientific) {
-  std::lock_guard<std::mutex> __guard(system::mutex_);
-  bool __prev = system::format_float_scientific_;
-  system::format_float_scientific_ = scientific;
-  return __prev;
+  // std::lock_guard<std::mutex> __guard(system::mutex_);
+  // bool __prev = system::format_float_scientific_;
+  // system::format_float_scientific_ = scientific;
+  // return __prev;
+  return format_float_scientific_.exchange(scientific);
 }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
