@@ -195,25 +195,13 @@ std::size_t system::split_string(const std::string &str,
 
 void system::format_float_output(std::streamsize precision, bool scientific) {
   assert(precision > 0);
-  // std::lock_guard<std::mutex> __guard(system::mutex_);
   system::format_float_precision_.store(precision);
   system::format_float_scientific_.store(scientific);
 }
 
 std::streamsize system::format_float_precision(std::streamsize precision) {
   assert(precision > 0);
-  // std::lock_guard<std::mutex> __guard(system::mutex_);
-  // std::streamsize __prev = system::format_float_precision_;
-  // system::format_float_precision_ = precision;
   return format_float_precision_.exchange(precision);
-}
-
-bool system::format_float_scientific(bool scientific) {
-  // std::lock_guard<std::mutex> __guard(system::mutex_);
-  // bool __prev = system::format_float_scientific_;
-  // system::format_float_scientific_ = scientific;
-  // return __prev;
-  return format_float_scientific_.exchange(scientific);
 }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS

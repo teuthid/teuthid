@@ -56,7 +56,9 @@ public:
       std::streamsize precision = system::default_format_float_precision(),
       bool scientific = false);
   static std::streamsize format_float_precision(std::streamsize precision);
-  static bool format_float_scientific(bool scientific);
+  static bool format_float_scientific(bool scientific) {
+    return format_float_scientific_.exchange(scientific);
+  }
   template <typename T>
   static T &from_string(const std::string &str_value, T &value);
   template <typename T> static bool equal_to(const T &x, const T &y) {
