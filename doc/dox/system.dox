@@ -89,7 +89,7 @@ major version is the same as required \c major).
 \brief Checks whether the framework can use OpenCL compute kernels.
 \return \c true if the framework can use OpenCL compute kernels - the system 
 must have at least one properly working OpenCL platform with one properly 
-working OpenCL device. Otherwise return \c false.
+working OpenCL device. Otherwise, return \c false.
 \note The Teuthid framework must be compiled with enabled \c BUILD_WITH_OPENCL 
 option to be able to use the OpenCL platforms and devices.
 \see system::uses_cl_backend().
@@ -98,9 +98,8 @@ option to be able to use the OpenCL platforms and devices.
 
 /*! 
 \fn static bool teuthid::system::uses_cl_backend()
-\brief Checks whether a given thread can use OpenCL compute kernels.
-\return \c true if a given thread (a thread that call this function) can use 
-OpenCL compute kernels in a multithreading environment. Otherwise return 
+\brief Checks whether the framework uses OpenCL compute kernels.
+\return \c true if the framework uses OpenCL compute kernels. Otherwise, return 
 \c false.
 \note The Teuthid framework must be compiled with enabled \c BUILD_WITH_OPENCL 
 option to be able to use the OpenCL platforms and devices.
@@ -110,14 +109,12 @@ option to be able to use the OpenCL platforms and devices.
 
 /*! 
 \fn static bool system::uses_cl_backend(bool enabled)
-\brief Enables or disables the possibility to use OpenCL compute kernels by a 
-given thread.
+\brief Enables or disables the possibility to use OpenCL compute kernels.
 @param[in] enabled enables (if it is equal to \c true) or disables (if it is 
-equal to \c false) the possibility to use OpenCL compute kernels by a given 
-thread (a thread that call this function).
-\return \c true if a given thread (a thread that call this function) can use 
-OpenCL compute kernels in a multithreading environment. Otherwise return 
-\c false.
+equal to \c false) the possibility to use OpenCL compute kernels by the 
+framework.
+\return \c true if the framework uses OpenCL compute kernels. Otherwise, 
+return \c false.
 \note The Teuthid framework must be compiled with enabled \c BUILD_WITH_OPENCL 
 option to be able to use the OpenCL platforms and devices.
 \see system::has_cl_backend().

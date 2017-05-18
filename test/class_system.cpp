@@ -19,30 +19,10 @@
 #define BOOST_TEST_MODULE teuthid
 #define BOOST_TEST_DYN_LINK
 
-#include <chrono>
-#include <thread>
-
 #include <boost/test/unit_test.hpp>
 #include <teuthid/system.hpp>
 
 using namespace teuthid;
-
-class test_thread {
-public:
-  void test() { system::uses_cl_backend(false); }
-};
-
-class test {
-  std::thread t1, t2;
-
-public:
-  void call_threads() {
-    t1 = std::thread(&test_thread::test, test_thread());
-    t2 = std::thread(&test_thread::test, test_thread());
-    t1.join();
-    t2.join();
-  }
-};
 
 BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(system::major_version() == TEUTHID_MAJOR_VERSION,
@@ -64,16 +44,12 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(system::check_version(major_ver, minor_ver - 1),
              "check_version()");
 
-  test __test = test();
 #if defined(TEUTHID_WITH_OPENCL)
   BOOST_TEST(system::has_cl_backend(), "has_cl_backend()");
   BOOST_TEST(system::uses_cl_backend(), "uses_cl_backend()");
   BOOST_TEST(!system::uses_cl_backend(false), "uses_cl_backend(bool)");
   BOOST_TEST(!system::uses_cl_backend(), "uses_cl_backend()");
   BOOST_TEST(system::uses_cl_backend(true), "uses_cl_backend(bool)");
-  __test.call_threads();
-  std::this_thread::sleep_for(std::chrono::milliseconds(123));
-  BOOST_TEST(system::uses_cl_backend(), "uses_cl_backend()");
 #else
   BOOST_TEST(!system::has_cl_backend(), "has_cl_backend()");
   BOOST_TEST(!system::uses_cl_backend(), "uses_cl_backend()");

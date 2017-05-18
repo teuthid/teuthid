@@ -32,9 +32,9 @@
 using namespace teuthid;
 
 #if defined(TEUTHID_WITH_OPENCL)
-thread_local bool system::clb_ = system::has_cl_backend();
+system::clb_t system::clb_(system::has_cl_backend());
 #else
-thread_local bool system::clb_ = false;
+system::clb_t system::clb_(false);
 #endif
 
 std::string system::version_ = std::string(TEUTHID_VERSION);
@@ -62,8 +62,8 @@ bool system::has_cl_backend() {
 
 bool system::uses_cl_backend(bool enabled) {
   if (system::has_cl_backend())
-    system::clb_ = enabled;
-  return system::clb_;
+    system::clb_.store(enabled);
+  return system::clb_.load();
 }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS

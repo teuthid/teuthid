@@ -42,7 +42,7 @@ public:
   static const std::string &version() noexcept { return system::version_; }
   static bool check_version(uint8_t major, uint8_t minor) noexcept;
   static bool has_cl_backend();
-  static bool uses_cl_backend() noexcept { return system::clb_; }
+  static bool uses_cl_backend() noexcept { return system::clb_.load(); }
   static bool uses_cl_backend(bool enabled);
 
   template <typename T> static std::string to_string(const T &value);
@@ -70,7 +70,8 @@ private:
   system() {}
   ~system() {}
   static std::string version_;
-  static thread_local bool clb_;
+  typedef std::atomic_bool clb_t;
+  static clb_t clb_;
   static constexpr std::streamsize default_format_float_precision_ = 10;
   typedef std::atomic<std::streamsize> format_float_precision_t;
   static format_float_precision_t format_float_precision_;
