@@ -142,7 +142,7 @@ equivalent of \c cl_platform_id.
 \brief Gets the platform's profile.
 \return the OpenCL profile supported by this OpenCL platform. The returned 
 value is the equivalent of \c CL_PLATFORM_PROFILE.
-\see is_full_profile(), is_embedded_profile().
+\see platform::is_full_profile(), platform::is_embedded_profile().
 */
 
 
@@ -151,7 +151,7 @@ value is the equivalent of \c CL_PLATFORM_PROFILE.
 \brief Returns \c true if this platform has a full profile. 
 \return \c true if this OpenCL platform's profile is platprofile_t::FULL. 
 Otherwise, it returns \c false.
-\see profile().
+\see platform::profile().
 */
 
 
@@ -160,7 +160,7 @@ Otherwise, it returns \c false.
 \brief Returns \c true if this platform's has an embedded profile.
 \return \c true if this OpenCL platform's profile is platprofile_t::EMBEDDED. 
 Otherwise, it returns \c false.
-\see profile().
+\see platform::profile().
 */
  
 
@@ -174,7 +174,7 @@ The \e "major_version.minor_version" determines a version of OpenCL supported
 by this platform. The returned value is the equivalent of 
 \c CL_PLATFORM_VERSION. If it is an empty string, a version supported by this
 platform is undetermined.
-\see check_version().
+\see platform::check_version().
 */
 
 
@@ -186,7 +186,7 @@ sufficient version. Otherwise, it returns \c false.
 @param[in] major The required minimum major version of OpenCL.
 @param[in] minor The required minimum minor version of OpenCL (if the major 
 version is the same as required \c major).
-\see version().
+\see platform::version().
 */
 
 
@@ -194,8 +194,7 @@ version is the same as required \c major).
 \fn std::string platform::name() const
 \brief Gets the platform's name.
 \return the name of this OpenCL platform's. The returned value is the 
-equivalent of \c CL_PLATFORM_NAME. If it is an empty string, this name is 
-undetermined.
+equivalent of \c CL_PLATFORM_NAME.
 */
 
 
@@ -203,8 +202,7 @@ undetermined.
 \fn std::string platform::vendor() const
 \brief Gets the platform's vendor.
 \return the vendor of this OpenCL platform. The returned value is the 
-equivalent of \c CL_PLATFORM_VENDOR. If it is an empty string, this vendor is 
-undetermined.
+equivalent of \c CL_PLATFORM_VENDOR.
 */
 
 
@@ -212,10 +210,9 @@ undetermined.
 \fn extensions_t platform::extensions() const
 \brief Gets extension names. 
 \return the vector of extension names supported by this OpenCL platform. The 
-returned value is the equivalent of \c CL_PLATFORM_EXTENSIONS. If it is an 
-empty vector, these extensions are undetermined.
+returned value is the equivalent of \c CL_PLATFORM_EXTENSIONS.
 \n Extensions must be supported by all devices associated with this platform.
-\see has_extension().
+\see platform::has_extension().
 */
 
 
@@ -225,7 +222,7 @@ empty vector, these extensions are undetermined.
 \return \c true if this platform supports the extension \c ext_name. Otherwise, 
 it returns \c false.
 @param[in] ext_name a name of OpenCL extension.
-\see extensions().
+\see platform::extensions().
 */
 
 
@@ -242,8 +239,7 @@ the equivalent of \c CL_PLATFORM_HOST_TIMER_RESOLUTION.
 \brief Gets the function name suffix.
 \return the function name suffix used to identify extension functions to be 
 directed to this OpenCL platform by the ICD Loader. The returned value is the 
-equivalent of \c CL_PLATFORM_ICD_SUFFIX_KHR. If it is an empty string, this 
-suffix is undetermined.
+equivalent of \c CL_PLATFORM_ICD_SUFFIX_KHR.
 */
 
 
@@ -252,7 +248,7 @@ suffix is undetermined.
 \brief Gets devices assigned to this platform.
 \return the vector containing objects of class clb::device - the OpenCL devices 
 assigned to this OpenCL platform.
-\see device_count().
+\see platform::device_count().
 \note The Teuthid framework must be compiled with enabled \c BUILD_WITH_OPENCL 
 option to be able to use the OpenCL platforms and devices.
 */
@@ -262,7 +258,7 @@ option to be able to use the OpenCL platforms and devices.
 \fn std::size_t platform::device_count()
 \brief Gets the number of devices.
 \return the number of OpenCL devices assigned to this OpenCL platform.
-\see devices().
+\see platform::devices().
 */
 
 
@@ -277,32 +273,32 @@ OpenCL compiler for this platform.
 
 /*! 
 \fn bool platform::operator==(const platform &other) const
-\brief Returns \c true if this platform is the same as \c other.
+\brief Checks if this platform is the same as \c other.
+@param[in] other an object of class clb::platform.
 \return \c true if this OpenCL platform is the same as \c other. Otherwise, it 
 returns \c false.
-@param[in] other an object of class clb::platform.
-\see id().
+\see platform::id().
 */
 
 
 /*! 
 \fn bool platform::operator!=(const platform &other) const
-\brief Returns \c true if this platform is different from \c other.
+\brief Checks if this platform is different from \c other.
+@param[in] other an object of class clb::platform.
 \return \c true if this OpenCL platform is different from \c other. Otherwise, 
 it returns \c false.
-@param[in] other an object of class clb::platform.
-\see id().
+\see platform::id().
 */
 
 
 /*!
 \fn const platform &platform::find_by_id(platform_id_t platform_id)
 \brief Finds the platform by its identifier.
-\return a reference to the OpenCL platform by its identifier.
 @param[in] platform_id the ID of the OpenCL platform.
+\return a reference to the OpenCL platform by its identifier.
 \throw invalid_platform if the platform with the specified identifier does not 
 exist.
-\see id().
+\see platform::id().
 */
 
 
@@ -334,9 +330,9 @@ default OpenCL platform.
 \fn const platform &platform::set_default(const platform &plat)
 \brief Modify the default platform to be used by subsequent operations.
 \details Will only set the default if no default was previously created.
+@param[in] plat the default OpenCL platform.
 \return updated default platform. Should be compared to the passed value to 
 ensure that it was updated.
-@param[in] plat the default OpenCL platform.
 \throw invalid_platform if there is a problem with the proper diagnosis of the 
 default OpenCL platform.
 \see platform::get_default().

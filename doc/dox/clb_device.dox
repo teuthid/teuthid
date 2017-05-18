@@ -1472,30 +1472,106 @@ the above types, or devtype_t::CUSTOM. The returned value is the equivalent of
 */
 
 
+/*!
+\fn std::string device::vendor() const
+\brief Gets the vendor name string.
+\return the vendor name string. The returned value is the equivalent of 
+\c CL_DEVICE_VENDOR.
+*/
 
 
+/*!
+\fn std::string device::version() const
+\brief Gets the OpenCL version string.
+\return the OpenCL version supported by this device. This version string has 
+the following format: 
+\e "<major_version.minor_version><space><vendor-specific information>".
+The returned value is the equivalent of \c CL_DEVICE_VERSION.
+\see device::check_version(), device::driver_version(), device::c_version().
+*/
 
 
-/*! \fn const std::string &compute_device::version() const
- * \brief Returns the device's version.
- *
- * \return the OpenCL version supported by this OpenCL device.\n
- * The returned value has the following format:
- * \e "OpenCL<space><major_version.minor_version><space><platform-specific information>".\n
- * The \e "major_version.minor_version" determines a version of OpenCL 
- * supported by this OpenCL device.\n
- * The returned value is the equivalent of \c CL_DEVICE_VERSION.
- * If it is an empty string, an OpenCL version supported by this OpenCL device 
- * is undetermined.
- * \see driver_version(), c_version().
- */
+/*!
+\fn std::string device::driver_version() const
+\brief Gets the OpenCL software driver version string.
+\return the OpenCL software driver version string in the form 
+\e "major_number.minor_number". The returned value is the equivalent of 
+\c CL_DRIVER_VERSION.
+\see device::version(), device::c_version().
+*/
 
 
-/*! \fn const std::string &compute_device::driver_version() const
- * \brief Returns the software driver version of this device.
- *
- * \return the OpenCL software driver version of this OpenCL device.
- * The returned value is the equivalent of \c CL_DRIVER_VERSION.
- * If it is an empty string, a version is undetermined.
- * \see version().
- */
+/*! 
+\fn bool device::check_version(int major, int minor) const
+\brief Checks whether a version of OpenCL is sufficient.
+\return \c true if the version of OpenCL supported by this device is a 
+sufficient version. Otherwise, it returns \c false.
+@param[in] major The required minimum major version of OpenCL.
+@param[in] minor The required minimum minor version of OpenCL (if the major 
+version is the same as required \c major).
+\see version().
+*/
+
+
+/*! 
+\fn bool device::operator==(const device &other) const
+\brief Checks if this device is the same as \c other.
+@param[in] other an object of class clb::device.
+\return \c true if this OpenCL device is the same as \c other. Otherwise, it 
+returns \c false.
+\see device::id().
+*/
+
+
+/*! 
+\fn bool device::operator!=(const device &other) const
+\brief Checks if this device is different from \c other.
+@param[in] other an object of class clb::device.
+\return \c true if this OpenCL device is different from \c other. Otherwise, 
+it returns \c false.
+\see device::id().
+*/
+
+
+/*!
+\fn static const device &device::get_default()
+\brief Gets the default device.
+\return a reference to the default OpenCL device.
+\throw invalid_device if there is a problem with the proper diagnosis of the 
+default OpenCL device.
+\see device::set_default().
+*/
+
+
+/*!
+\fn static const device &device::set_default(const device &dev)
+\brief Modify the default device to be used by subsequent operations.
+\details Will only set the default if no default was previously created.
+@param[in] dev the default OpenCL device.
+\return updated default device. Should be compared to the passed value to 
+ensure that it was updated.
+\throw invalid_device if there is a problem with the proper diagnosis of the 
+default OpenCL device.
+\see device::get_default().
+*/
+
+
+/*!
+\fn static const device &device::find_by_id(device_id_t device_id)
+\brief Finds the device by its identifier.
+@param[in] device_id the ID of the OpenCL device.
+\return a reference to the OpenCL device by its identifier.
+\throw invalid_device if the device with the specified identifier does not 
+exist.
+\see device::id().
+*/
+
+
+/*!
+\fn static devices_t device::find_by_type(devtype_t dev_type)
+\brief Finds devices by its type.
+@param[in] dev_type the required type of OpenCL device.
+\return a vector containing objects of class clb::device that are the type of 
+\c dev_type.
+\see device::devtype().
+*/
