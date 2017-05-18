@@ -100,7 +100,7 @@ std::string system::uint128_to_string_(uint128_t value) {
     __value = __div;
   } while (__div > 0);
   std::reverse(__s.begin(), __s.end());
-  return __s;  
+  return __s;
 }
 
 template <> std::string system::to_string(const int128_t &value) {
@@ -155,15 +155,15 @@ std::string system::to_string(const std::vector<std::string> &value) {
     if ((__i + 1) < value.size())
       __str += " ";
   }
-  return std::string(__str);
+  return __str;
 }
 
 #if defined(TEUTHID_WITH_OPENCL)
 template <> std::string system::to_string(const clb::device &value) {
-  return std::string(value.name());
+  return value.name();
 }
 template <> std::string system::to_string(const clb::platform &value) {
-  return std::string(value.name());
+  return value.name();
 }
 #endif // TEUTHID_WITH_OPENCL
 
@@ -216,18 +216,19 @@ bool system::format_float_scientific(bool scientific) {
 }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-std::string __teuthid_system_validate_string(const std::string &str) {
+
+std::string system::validate_string_(const std::string &str) {
   std::string __s = str;
   if (!__s.empty()) {
     std::transform(__s.begin(), __s.end(), __s.begin(), ::tolower);
     __s.erase(std::remove_if(__s.begin(), __s.end(), ::isspace), __s.end());
   }
-  return std::string(__s);
+  return __s;
 }
 
 template <>
 bool &system::from_string(const std::string &str_value, bool &value) {
-  std::string __s = __teuthid_system_validate_string(str_value);
+  std::string __s = system::validate_string_(str_value);
   if (!__s.empty())
     if ((__s == "false") || (__s == "true") || (__s == "1") || (__s == "0")) {
       value = ((__s == "true") || (__s == "1"));
@@ -239,7 +240,7 @@ bool &system::from_string(const std::string &str_value, bool &value) {
 #define __TEUTHID_SIGNED_INTEGER_FROM_STRING(TYPE)                             \
   template <>                                                                  \
   TYPE &system::from_string(const std::string &str_value, TYPE &value) {       \
-    std::string __s = __teuthid_system_validate_string(str_value);             \
+    std::string __s = system::validate_string_(str_value);                     \
     if (!__s.empty()) {                                                        \
       long long __long = std::stoll(__s);                                      \
       TYPE __val = __long;                                                     \
@@ -260,7 +261,7 @@ __TEUTHID_SIGNED_INTEGER_FROM_STRING(int64_t);
 #define __TEUTHID_UNSIGNED_INTEGER_FROM_STRING(TYPE)                           \
   template <>                                                                  \
   TYPE &system::from_string(const std::string &str_value, TYPE &value) {       \
-    std::string __s = __teuthid_system_validate_string(str_value);             \
+    std::string __s = system::validate_string_(str_value);                     \
     if (!__s.empty()) {                                                        \
       unsigned long long __long = std::stoull(__s);                            \
       TYPE __val = __long;                                                     \
@@ -281,7 +282,7 @@ __TEUTHID_UNSIGNED_INTEGER_FROM_STRING(uint64_t);
 #define __TEUTHID_FLOAT_FROM_STRING(TYPE, FUN)                                 \
   template <>                                                                  \
   TYPE &system::from_string(const std::string &str_value, TYPE &value) {       \
-    std::string __s = __teuthid_system_validate_string(str_value);             \
+    std::string __s = system::validate_string_(str_value);                     \
     if (!__s.empty()) {                                                        \
       value = FUN(__s);                                                        \
       return value;                                                            \
@@ -296,7 +297,7 @@ __TEUTHID_FLOAT_FROM_STRING(long double, stold);
 
 template <>
 mpfr_t &system::from_string(const std::string &str_value, mpfr_t &value) {
-  std::string __s = __teuthid_system_validate_string(str_value);
+  std::string __s = system::validate_string_(str_value);
   if (!__s.empty()) {
     mpfr_clear(value);
     mpfr_init2(value, mpfr_get_default_prec());

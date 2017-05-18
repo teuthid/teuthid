@@ -75,7 +75,8 @@ private:
   static bool format_float_scientific_;
 #ifdef TEUTHID_HAVE_INT_128
   static std::string uint128_to_string_(uint128_t value);
-#endif  
+#endif
+  static std::string validate_string_(const std::string &str);
 };
 
 template <typename T> std::string system::to_string(const T &value) {
