@@ -1425,41 +1425,55 @@ is the equivalent of \c CL_DEVICE_SINGLE_FP_CONFIG.
 \see device::has_single_precision().
 */
 
+/*!
+\fn bool device::has_single_precision() const
+\brief Checks single precision floating-point capability of this device.
+\return \c true if this device has support for single precision floating-point.
+Otherwise returns \c false. 
+\see device::single_fp_config(), device::has_double_precision().
+*/
+
+
+/*!
+\fn devtype_t device::devtype() const
+\brief Gets the device type.
+\return the device type. The supported values are: devtype_t::CPU, 
+devtype_t::GPU, devtype_t::ACCELERATOR, devtype_t::DEFAULT, a combination of 
+the above types, or devtype_t::CUSTOM. The returned value is the equivalent of 
+\c CL_DEVICE_TYPE.
+\see device::is_devtype(), device::is_cpu(), device::is_gpu().
+*/
+
+
+/*!
+\fn bool device::is_devtype(devtype_t dev_type) const
+\brief Checks the device type.
+@param[in] dev_type a checked type of device.
+\return \c true if this device is a type of \c dev_type. Otherwise returns 
+\c false.
+\see device::devtype(), device::is_cpu(), device::is_gpu().
+*/
+
+
+/*!
+\fn bool device::is_cpu() const
+\brief Checks if this device is the host processor.
+\return \c true if this device is the host processor. Otherwise returns 
+\c false.
+\see device::devtype(), devtype_t::CPU.
+*/
+
+
+/*!
+\fn bool device::is_gpu() const
+\brief Checks if this device is a GPU.
+\return \c true if this device is a GPU. Otherwise returns \c false.
+\see device::devtype(), devtype_t::GPU.
+*/
 
 
 
 
-
-
-/*! \fn const compute_devtype_t &compute_device::devtype() const
- * \brief Returns a type of this device.
- * \return a type of this OpenCL device. It can be one of the following:
- * \ref teuthid::COMPUTE_DEVICE_CPU "COMPUTE_DEVICE_CPU",
- * \ref teuthid::COMPUTE_DEVICE_GPU "COMPUTE_DEVICE_GPU",
- * \ref teuthid::COMPUTE_DEVICE_ACCELERATOR "COMPUTE_DEVICE_ACCELERATOR",
- * \ref teuthid::COMPUTE_DEVICE_CPU "COMPUTE_DEVICE_UNKNOWN". 
- * \see is_devtype_cpu(), is_devtype_gpu(), is_devtype_accelerator().
- */
-
-
-/*! \fn bool compute_device::is_devtype_cpu() const
- * \brief Returns \c true if this device's type is 
- * \ref teuthid::COMPUTE_DEVICE_CPU "COMPUTE_DEVICE_CPU".
- * \return \c true if this OpenCL device's type is 
- * \ref teuthid::COMPUTE_DEVICE_CPU "COMPUTE_DEVICE_CPU". Otherwise returns
- * \c false.
- * \see devtype().
- */
-
-
-/*! \fn bool compute_device::is_devtype_gpu() const
- * \brief Returns \c true if this device's type is 
- * \ref teuthid::COMPUTE_DEVICE_GPU "COMPUTE_DEVICE_GPU".
- * \return \c true if this OpenCL device's type is 
- * \ref teuthid::COMPUTE_DEVICE_GPU "COMPUTE_DEVICE_GPU". Otherwise returns
- * \c false.
- * \see devtype().
- */
 
 
 /*! \fn const std::string &compute_device::version() const
