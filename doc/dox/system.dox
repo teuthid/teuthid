@@ -223,3 +223,12 @@ function behaves just like the \c operator== (for those types for which this
 operator is already defined).
 \see format_float_output(), format_float_precision().
 */
+
+
+/*!
+\fn template <typename E> static constexpr bool system::test_enumerator(E en) noexcept
+\brief Tests the value of enumerator.
+@param[in] en a value of enumerator. The type \c E should be a complete 
+enumeration type (scoped or unscoped). Otherwise, the behavior is undefined.
+\return \c true if \c en is different from \c 0, \c false otherwise. 
+*/
