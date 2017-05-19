@@ -37,7 +37,7 @@ public:
     what_arg_ = what_arg_.append(std::to_string(cl_error));
   }
   virtual const char *what() const noexcept { return what_arg_.c_str(); }
-  int cl_error() const noexcept { return cl_error_; }
+  virtual int cl_error() const noexcept { return cl_error_; }
 
 private:
   int cl_error_;

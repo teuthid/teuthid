@@ -46,3 +46,20 @@ that can be accessed through error::what().
 that can be accessed through error::what().
 @param[in] what_arg an explanatory string.
 */
+
+
+/*!
+\fn teuthid::clb::error::error(int cl_error)
+\brief Constructs the exception object.
+\details Constructs the exception object with \c cl_error as OpenCL error code
+that can be accessed through error::cl_error().
+@param[in] cl_error OpenCL error code.
+*/
+
+
+/*!
+\fn virtual const char *error::what() const noexcept
+\brief Gets the explanatory string.
+\return the explanatory string.
+\see error::cl_error().
+*/
