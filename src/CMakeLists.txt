@@ -4,7 +4,7 @@ set(teuthid_library_sources
 
 if (BUILD_WITH_OPENCL)
   set(teuthid_clb_library_sources
-    clb/cl2.hpp clb/platform.cpp clb/device.cpp
+    clb/cl2.hpp clb/error.cpp clb/platform.cpp clb/device.cpp
   )
   list(APPEND teuthid_library_sources ${teuthid_clb_library_sources})
 endif(BUILD_WITH_OPENCL)
