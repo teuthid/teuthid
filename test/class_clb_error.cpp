@@ -22,6 +22,12 @@
 #include <boost/test/unit_test.hpp>
 #include <teuthid/clb/error.hpp>
 
+#if defined(__APPLE__)
+#include <OpenCL/opencl.h>
+#else
+#include <CL/opencl.h>
+#endif
+
 using namespace teuthid::clb;
 
 bool is_critical(error const &) { return true; }
@@ -36,23 +42,21 @@ void some_invalid_device(int error) { throw invalid_device(error); }
 BOOST_AUTO_TEST_CASE(class_teuthid_clb_error) {
   BOOST_CHECK_EXCEPTION(some_error(), error, is_critical);
   BOOST_CHECK_EXCEPTION(some_invalid_platform(), invalid_platform, is_critical);
-  BOOST_CHECK_EXCEPTION(some_invalid_platform(13), invalid_platform,
-                        is_critical);
+  BOOST_CHECK_EXCEPTION(some_invalid_platform(CL_INVALID_PLATFORM),
+                        invalid_platform, is_critical);
   BOOST_CHECK_EXCEPTION(some_invalid_device(), invalid_device, is_critical);
-  BOOST_CHECK_EXCEPTION(some_invalid_device(13), invalid_device, is_critical);
+  BOOST_CHECK_EXCEPTION(some_invalid_device(CL_INVALID_DEVICE), invalid_device,
+                        is_critical);
   try {
-    some_invalid_platform(13);
+    some_invalid_platform(CL_INVALID_PLATFORM);
   } catch (const error &__e) {
-    BOOST_TEST(__e.cl_error() == 13, "cl_error()");
+    BOOST_TEST(__e.cl_error() == CL_INVALID_PLATFORM, "cl_error()");
+    BOOST_TEST(std::string(__e.what()) == "CL_INVALID_PLATFORM", "what()");
   }
   try {
-    some_invalid_platform(13);
-  } catch (const invalid_platform &__e) {
-    BOOST_TEST(__e.cl_error() == 13, "cl_error()");
-  }
-  try {
-    some_invalid_device(13);
+    some_invalid_device(CL_INVALID_DEVICE);
   } catch (const invalid_device &__e) {
-    BOOST_TEST(__e.cl_error() == 13, "cl_error()");
+    BOOST_TEST(__e.cl_error() == CL_INVALID_DEVICE, "cl_error()");
+    BOOST_TEST(std::string(__e.what()) == "CL_INVALID_DEVICE", "what()");
   }
 }
