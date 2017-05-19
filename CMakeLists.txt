@@ -40,7 +40,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON) # to comment out
 include(TeuthidCheckTypes)
 
 set(Boost_REQUIRED_VERSION "1.61.0")
-set(Boost_REQUIRED_COMPONENTS filesystem)
+set(Boost_REQUIRED_COMPONENTS unit_test_framework)
 set(GMP_REQUIRED_VERSION "6.1.1")
 set(MPFR_REQUIRED_VERSION "3.1.5")
 
@@ -64,8 +64,7 @@ option(BUILD_DOCS "Build the documentation" ON)
 option(BUILD_EXAMPLES "Build examples" ON)
 
 include(TeuthidHelpers)
-include(TeuthidCheckOpenMP)
-include(TeuthidCheckBoost)
+#include(TeuthidCheckOpenMP)
 include(TeuthidCheckMPFR)
 list(REMOVE_DUPLICATES teuthid_link_libraries)
 
@@ -79,12 +78,15 @@ endif(BUILD_WITH_OPENCL)
 add_subdirectory(include)
 add_subdirectory(src)
 
-if (BUILD_TESTS AND Boost_UNIT_TEST_FRAMEWORK_FOUND)
+if (BUILD_TESTS)
+  set(teuthid_tests_link_libraries, ${teuthid_link_libraries})
+  set(teuthid_tests_INCLUDE_PATH ${teuthid_INCLUDE_PATH})
+  include(TeuthidCheckBoost)
   enable_testing()
   add_subdirectory(test)
 else()
   set(BUILD_TESTS OFF)
-endif(BUILD_TESTS AND Boost_UNIT_TEST_FRAMEWORK_FOUND)
+endif(BUILD_TESTS)
 
 if (BUILD_DOCS)
   find_package(Doxygen QUIET)
@@ -128,7 +130,8 @@ endforeach()
 string(REPLACE ";" ", " libname_list_ "${libname_list_}")
 msg_status("Linked libraries: " "${libname_list_}")
 
-msg_status("Build the unit tests: " "${BUILD_TESTS}")
+msg_status("Build the unit tests: " 
+  "${BUILD_TESTS} (using Boost components: ${Boost_REQUIRED_COMPONENTS})")
 msg_status("Build the documentation: " "${BUILD_DOCS}")
 msg_status("Build the examples: " "${BUILD_EXAMPLES}")
 msg_status("Install directory: " "${CMAKE_INSTALL_PREFIX}")
