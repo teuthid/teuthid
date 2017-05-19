@@ -22,10 +22,11 @@ This project requires:
   * CMake v3.5.0 or higher.
   * GNU Make or equivalent.
   * GCC or an alternative, reasonably conformant C++11 compiler.
-  * Boost C++ headers and libraries, version @Boost_REQUIRED_VERSION@ or higher.
   * GMP library, version @GMP_REQUIRED_VERSION@ or higher.
   * MPFR library, version @MPFR_REQUIRED_VERSION@ or higher.
   * [optional] OpenCL library and OpenCL C++ bindings.
+  * [optional - for building unit tests] Boost C++ headers and libraries, 
+    version @Boost_REQUIRED_VERSION@ or higher.
   
   
 == 2. BUILDING ==

@@ -27,13 +27,6 @@
 
 #cmakedefine TEUTHID_WITH_OPENCL
 
-#cmakedefine TEUTHID_USE_BOOST_COMPUTE
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-#cmakedefine BOOST_COMPUTE_HAVE_THREAD_LOCAL
-#cmakedefine BOOST_COMPUTE_THREAD_SAFE
-#cmakedefine BOOST_COMPUTE_USE_OFFLINE_CACHE
-#endif // DOXYGEN_SHOULD_SKIP_THIS
-
 #include <cstddef>
 #include <cstdint>
 #include <mpfr.h>
