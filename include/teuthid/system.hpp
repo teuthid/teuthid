@@ -70,13 +70,10 @@ private:
   system() {}
   ~system() {}
   static std::string version_;
-  typedef std::atomic_bool clb_t;
-  static clb_t clb_;
+  static std::atomic_bool clb_;
   static constexpr std::streamsize default_format_float_precision_ = 10;
-  typedef std::atomic<std::streamsize> format_float_precision_t;
-  static format_float_precision_t format_float_precision_;
-  typedef std::atomic_bool format_float_scientific_t;
-  static format_float_scientific_t format_float_scientific_;
+  static std::atomic<std::streamsize> format_float_precision_;
+  static std::atomic_bool format_float_scientific_;
 #ifdef TEUTHID_HAVE_INT_128
   static std::string uint128_to_string_(uint128_t value);
 #endif

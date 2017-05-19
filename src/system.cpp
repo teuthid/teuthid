@@ -32,15 +32,15 @@
 using namespace teuthid;
 
 #if defined(TEUTHID_WITH_OPENCL)
-system::clb_t system::clb_(system::has_cl_backend());
+std::atomic_bool system::clb_(system::has_cl_backend());
 #else
-system::clb_t system::clb_(false);
+std::atomic_bool system::clb_(false);
 #endif
 
 std::string system::version_ = std::string(TEUTHID_VERSION);
-system::format_float_precision_t
+std::atomic<std::streamsize>
     system::format_float_precision_(system::default_format_float_precision_);
-system::format_float_scientific_t system::format_float_scientific_(false);
+std::atomic_bool system::format_float_scientific_(false);
 
 bool system::check_version(uint8_t major, uint8_t minor) noexcept {
   return (TEUTHID_MAJOR_VERSION > major ||
