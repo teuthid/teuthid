@@ -1,0 +1,48 @@
+/*
+  This file is part of the Teuthid project.
+  Copyright (C) 2016-2017 Mariusz Przygodzki (mariusz.przygodzki@gmail.com)
+
+    This library is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/*! 
+\file error.hpp 
+*/ 
+
+
+/*! 
+\class teuthid::clb::error error.hpp <teuthid/clb/error.hpp>
+\brief Defines a type of object to be thrown as exception.
+\details It reports errors that are due to events beyond the scope of the 
+program and can not be easily predicted. Exceptions of type clb::error 
+are thrown by the classes that use OpenCL platforms and devices.
+*/
+
+
+/*!
+\fn teuthid::clb::error::error(const std::string &what_arg)
+\brief Constructs the exception object.
+\details Constructs the exception object with \c what_arg as explanatory string 
+that can be accessed through error::what().
+@param[in] what_arg an explanatory string.
+*/
+
+
+/*!
+\fn teuthid::clb::error::error(const char *what_arg)
+\brief Constructs the exception object.
+\details Constructs the exception object with \c what_arg as explanatory string 
+that can be accessed through error::what().
+@param[in] what_arg an explanatory string.
+*/
