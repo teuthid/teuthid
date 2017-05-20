@@ -34,9 +34,8 @@ are thrown by the classes that use OpenCL platforms and devices.
 \fn teuthid::clb::error::error(const std::string &what_arg)
 \brief Constructs the exception object.
 \details Constructs the exception object with \c what_arg as explanatory string 
-that can be accessed through error::what().
+that can be accessed through \c what().
 @param[in] what_arg an explanatory string.
-\see error::what().
 */
 
 
@@ -44,9 +43,8 @@ that can be accessed through error::what().
 \fn teuthid::clb::error::error(const char *what_arg)
 \brief Constructs the exception object.
 \details Constructs the exception object with \c what_arg as explanatory string 
-that can be accessed through error::what().
+that can be accessed through \c what().
 @param[in] what_arg an explanatory string.
-\see error::what().
 */
 
 
@@ -61,18 +59,9 @@ that can be accessed through error::cl_error().
 
 
 /*!
-\fn virtual const char *error::what() const noexcept
-\brief Gets the explanatory string.
-\return the explanatory string.
-\see error::cl_error().
-*/
-
-
-/*!
 \fn virtual int error::cl_error() const noexcept
 \brief Gets the OpenCL error code.
 \return the OpenCL error code.
-\see error::what().
 */
 
 
@@ -90,9 +79,8 @@ devices.
 \fn teuthid::clb::invalid_platform::invalid_platform(const std::string &what_arg)
 \brief Constructs the exception object.
 \details Constructs the exception object with \c what_arg as explanatory string 
-that can be accessed through error::what().
+that can be accessed through \c what().
 @param[in] what_arg an explanatory string.
-\see error::what().
 */
 
 
@@ -100,9 +88,8 @@ that can be accessed through error::what().
 \fn teuthid::clb::invalid_platform::invalid_platform(const char *what_arg)
 \brief Constructs the exception object.
 \details Constructs the exception object with \c what_arg as explanatory string 
-that can be accessed through error::what().
+that can be accessed through \c what().
 @param[in] what_arg an explanatory string.
-\see error::what().
 */
 
 
@@ -130,9 +117,8 @@ devices.
 \fn teuthid::clb::invalid_device::invalid_device(const std::string &what_arg)
 \brief Constructs the exception object.
 \details Constructs the exception object with \c what_arg as explanatory string 
-that can be accessed through error::what().
+that can be accessed through \c what().
 @param[in] what_arg an explanatory string.
-\see error::what().
 */
 
 
@@ -140,9 +126,8 @@ that can be accessed through error::what().
 \fn teuthid::clb::invalid_device::invalid_device(const char *what_arg)
 \brief Constructs the exception object.
 \details Constructs the exception object with \c what_arg as explanatory string 
-that can be accessed through error::what().
+that can be accessed through \c what().
 @param[in] what_arg an explanatory string.
-\see error::what().
 */
 
 

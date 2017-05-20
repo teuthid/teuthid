@@ -43,7 +43,7 @@ const platform &platform::find_by_id(platform_id_t platform_id) {
   } catch (const error &__e) {
     throw invalid_platform(__e.cl_error());
   }
-  throw invalid_platform("invalid platform_id_t");
+  throw invalid_platform(CL_INVALID_PLATFORM);
 }
 
 const platforms_t &platform::get_all() {
@@ -58,8 +58,8 @@ const platforms_t &platform::get_all() {
 const platform &platform::get_default() {
   try {
     return platform::find_by_id(cl::Platform::getDefault()());
-  } catch (const cl::Error &) {
-    throw invalid_platform("invalid default platform");
+  } catch (const cl::Error &__e) {
+    throw invalid_platform(__e.err());
   }
 }
 
@@ -67,8 +67,8 @@ const platform &platform::set_default(const platform &plat) {
   try {
     cl::Platform __plat = cl::Platform::setDefault(cl::Platform(plat.id()));
     return platform::find_by_id(__plat());
-  } catch (const cl::Error &) {
-    throw invalid_platform("invalid default platform");
+  } catch (const cl::Error &__e) {
+    throw invalid_platform(__e.err());
   }
 }
 
@@ -116,8 +116,8 @@ bool platform::unload_compiler() {
       return static_cast<platform_param<platparam_t::PARAM>::value_type>(      \
           __cl_plattform                                                       \
               .getInfo<static_cast<cl_bitfield>(platparam_t::PARAM)>());       \
-    } catch (const cl::Error &) {                                              \
-      throw invalid_platform("invalid platform parameter");                    \
+    } catch (const cl::Error &__e) {                                           \
+      throw invalid_platform(__e.err());                                       \
     }                                                                          \
   }
 
@@ -141,8 +141,6 @@ __TEUTHID_CLB_PLATFORM_INFO(ICD_SUFFIX_KHR);
                           sizeof(__param), &__param, NULL);                    \
     if (__result == CL_SUCCESS)                                                \
       return __param;                                                          \
-    else if (__result == CL_INVALID_VALUE)                                     \
-      throw invalid_platform("invalid platform parameter");                    \
     else                                                                       \
       throw invalid_platform(__result);                                        \
   }
@@ -158,7 +156,7 @@ platprofile_t platform::profile() const {
   else if (__s == std::string("EMBEDDED_PROFILE"))
     return platprofile_t::EMBEDDED;
   else
-    throw invalid_platform("invalid platform profile");
+    throw invalid_platform(CL_INVALID_VALUE);
 }
 
 std::string platform::version() const {

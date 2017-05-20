@@ -43,7 +43,7 @@ device::get_pair_(device_id_t device_id) {
   } catch (const error &__e) {
     throw invalid_device(__e.cl_error());
   }
-  throw invalid_device("unknown device_id_t");
+  throw invalid_device(CL_INVALID_DEVICE);
 }
 
 const device &device::find_by_id(device_id_t device_id) {
@@ -54,8 +54,8 @@ const device &device::find_by_id(device_id_t device_id) {
 const device &device::get_default() {
   try {
     return device::find_by_id(cl::Device::getDefault()());
-  } catch (const cl::Error &) {
-    throw invalid_device("unknown a default device");
+  } catch (const cl::Error &__e) {
+    throw invalid_device(__e.err());
   }
 }
 
@@ -63,8 +63,8 @@ const device &device::set_default(const device &dev) {
   try {
     cl::Device __dev = cl::Device::setDefault(cl::Device(dev.id()));
     return device::find_by_id(__dev());
-  } catch (const cl::Error &) {
-    throw invalid_device("unknown a default device");
+  } catch (const cl::Error &__e) {
+    throw invalid_device(__e.err());
   }
 }
 
@@ -84,13 +84,13 @@ const platform &device::get_platform() const {
 
 devices_t device::subdevices_(const cl_device_partition_property *props) const {
   if ((max_subdevices() < 2) || is_subdevice())
-    throw invalid_device("cannot create subdevices");
+    throw invalid_device(CL_INVALID_DEVICE_PARTITION_COUNT);
   std::vector<cl::Device> __cl_subdevices;
   cl::Device __cl_device(id_);
   try {
     __cl_device.createSubDevices(props, &__cl_subdevices);
-  } catch (const cl::Error &) {
-    throw invalid_device("cannot create subdevices");
+  } catch (const cl::Error &__e) {
+    throw invalid_device(__e.err());
   }
   devices_t __devices;
   for (auto __dev : __cl_subdevices)
@@ -102,7 +102,7 @@ devices_t device::subdevices_(const cl_device_partition_property *props) const {
 devices_t device::subdevices(std::size_t units) const {
   assert(max_subdevices() > 1);
   if (units < 1)
-    throw invalid_device("invalid number of subdevices");
+    throw invalid_device(CL_INVALID_DEVICE_PARTITION_COUNT);
   cl_device_partition_property properties[] = {
       CL_DEVICE_PARTITION_EQUALLY,
       static_cast<cl_device_partition_property>(units), 0};
@@ -112,10 +112,10 @@ devices_t device::subdevices(std::size_t units) const {
 devices_t device::subdevices(std::vector<std::size_t> units) const {
   assert(max_subdevices() > 1);
   if (units.size() < 1)
-    throw invalid_device("invalid number of subdevices");
+    throw invalid_device(CL_INVALID_DEVICE_PARTITION_COUNT);
   for (auto __i : units)
     if (__i < 1)
-      throw invalid_device("invalid number of subdevices");
+      throw invalid_device(CL_INVALID_DEVICE_PARTITION_COUNT);
   std::vector<cl_device_partition_property> properties;
   properties.push_back(CL_DEVICE_PARTITION_BY_COUNTS);
   for (auto __count : units)
@@ -134,8 +134,8 @@ devices_t device::subdevices(std::vector<std::size_t> units) const {
       cl::Device __cl_device(id_);                                             \
       return static_cast<device_param<devparam_t::PARAM>::value_type>(         \
           __cl_device.getInfo<static_cast<cl_bitfield>(devparam_t::PARAM)>()); \
-    } catch (const cl::Error &) {                                              \
-      throw invalid_device("invalid device parameter");                        \
+    } catch (const cl::Error &__e) {                                           \
+      throw invalid_device(__e.err());                                         \
     }                                                                          \
   }
 
@@ -227,8 +227,6 @@ __TEUTHID_CLB_DEVICE_INFO(DRIVER_VERSION);
                         sizeof(__param), &__param, NULL);                      \
     if (__result == CL_SUCCESS)                                                \
       return __param;                                                          \
-    else if (__result == CL_INVALID_VALUE)                                     \
-      throw invalid_device("invalid device parameter");                        \
     else                                                                       \
       throw invalid_device(__result);                                          \
   }
@@ -427,7 +425,7 @@ devprofile_t device::profile() const {
   else if (__s == std::string("EMBEDDED_PROFILE"))
     return devprofile_t::EMBEDDED;
   else
-    throw invalid_device("unknown device profile");
+    throw invalid_device(CL_INVALID_VALUE);
 }
 
 size_t device::profiling_timer_resolution() const {
