@@ -28,20 +28,17 @@ namespace clb {
 class error : public std::runtime_error {
 public:
   explicit error(const std::string &what_arg)
-      : std::runtime_error(what_arg), what_arg_(what_arg), cl_error_(0) {}
+      : std::runtime_error(what_arg), cl_error_(0) {}
   explicit error(const char *what_arg)
-      : std::runtime_error(what_arg), what_arg_(what_arg), cl_error_(0) {}
-  error(int cl_error) : std::runtime_error(""), cl_error_(cl_error) {
-    what_arg_ = error::code_to_string(cl_error);
-  }
-  virtual const char *what() const noexcept { return what_arg_.c_str(); }
-  virtual int cl_error() const noexcept { return cl_error_; }
+      : std::runtime_error(what_arg), cl_error_(0) {}
+  error(int cl_error)
+      : std::runtime_error(code_to_string_(cl_error)), cl_error_(cl_error) {}
 
-  static std::string code_to_string(int cl_error);
+  virtual int cl_error() const noexcept { return cl_error_; }
 
 private:
   int cl_error_;
-  std::string what_arg_;
+  static std::string code_to_string_(int cl_error);
 };
 
 class invalid_platform : public error {

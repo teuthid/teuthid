@@ -91,7 +91,7 @@ std::map<int, std::string> __teuthid_cl_error_codes = {
     {CL_INVALID_PIPE_SIZE, "CL_INVALID_PIPE_SIZE"},
     {CL_INVALID_DEVICE_QUEUE, "CL_INVALID_DEVICE_QUEUE"}};
 
-std::string error::code_to_string(int cl_error) {
+std::string error::code_to_string_(int cl_error) {
   auto __search = __teuthid_cl_error_codes.find(cl_error);
   if (__search != __teuthid_cl_error_codes.end())
     return __search->second;
