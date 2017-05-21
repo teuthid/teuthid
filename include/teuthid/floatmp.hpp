@@ -20,14 +20,27 @@
 #define TEUTHID_FLOATMP_HPP
 
 #include <mpfr.h>
-
 #include <teuthid/config.hpp>
 
 namespace teuthid {
 
+enum class floatmp_round_t : int {
+  RNDN = MPFR_RNDN, // round to nearest, with ties to even
+  RNDZ = MPFR_RNDZ, // round toward zero
+  RNDU = MPFR_RNDU, // round toward +Inf
+  RNDD = MPFR_RNDD, // round toward -Inf
+  RNDA = MPFR_RNDA, // round away from zero
+  // RNDF = MPFR_RNDF,  // faithful rounding (not implemented yet)
+  RNDNA = MPFR_RNDNA // round to nearest, with ties away from zero
+};
+
 template <std::size_t Precision> class floatmp {
 public:
-  std::size_t precision() noexcept { return Precision; }
+  constexpr std::size_t precision() const noexcept { return Precision; }
+
+  static constexpr floatmp_round_t rounding_mode() {
+    return static_cast<floatmp_round_t>(mpfr_get_default_rounding_mode());
+  }
 
 private:
   mpfr_t value_;

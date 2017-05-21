@@ -1,7 +1,7 @@
 include(CTest)
 
 set(teuthid_tests
-  class_system
+  class_floatmp class_system
 )
 
 if (BUILD_WITH_OPENCL)

@@ -1,5 +1,5 @@
 set(teuthid_library_sources
-  system.cpp
+  floatmp.cpp system.cpp
 )
 
 if (BUILD_WITH_OPENCL)
