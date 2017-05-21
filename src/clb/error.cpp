@@ -28,6 +28,7 @@
 
 using namespace teuthid::clb;
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 std::map<int, std::string> __teuthid_cl_error_codes = {
     {CL_DEVICE_NOT_FOUND, "CL_DEVICE_NOT_FOUND"},
     {CL_DEVICE_NOT_AVAILABLE, "CL_DEVICE_NOT_AVAILABLE"},
@@ -90,6 +91,7 @@ std::map<int, std::string> __teuthid_cl_error_codes = {
     {CL_INVALID_DEVICE_PARTITION_COUNT, "CL_INVALID_DEVICE_PARTITION_COUNT"},
     {CL_INVALID_PIPE_SIZE, "CL_INVALID_PIPE_SIZE"},
     {CL_INVALID_DEVICE_QUEUE, "CL_INVALID_DEVICE_QUEUE"}};
+#endif // DOXYGEN_SHOULD_SKIP_THIS    
 
 std::string error::code_to_string_(int cl_error) {
   auto __search = __teuthid_cl_error_codes.find(cl_error);
