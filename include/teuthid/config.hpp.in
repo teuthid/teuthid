@@ -62,12 +62,14 @@ constexpr std::size_t float256_prec = 237;
 @typedef_intptr_t@
 @typedef_uintptr_t@
 
+template <std::size_t Precision> class floatmp;
+
 @typedef_float_16_t@
 @typedef_float_32_t@
 @typedef_float_64_t@
 @typedef_float_80_t@
 @typedef_float_128_t@
-typedef mpfr_t float256_t;
+typedef floatmp<float256_prec> float256_t;
 
 #if defined(TEUTHID_WITH_OPENCL)
 namespace clb {

@@ -25,7 +25,7 @@
 #include <string>
 #include <vector>
 
-#include <teuthid/config.hpp>
+#include <teuthid/floatmp.hpp>
 
 namespace teuthid {
 
