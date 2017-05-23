@@ -31,6 +31,7 @@ using namespace teuthid;
 using namespace teuthid::clb;
 
 platforms_t platform::platforms_;
+std::mutex platform::detect_mutex_;
 
 const platform &platform::find_by_id(platform_id_t platform_id) {
   assert(platform_id);
@@ -47,6 +48,7 @@ const platform &platform::find_by_id(platform_id_t platform_id) {
 }
 
 const platforms_t &platform::get_all() {
+  std::lock_guard<std::mutex> lock(platform::detect_mutex_);
   if (platform::platforms_.empty()) {
     platform::detect_platforms_();
     for (std::size_t __i = 0; __i < platform::platforms_.size(); __i++)
@@ -77,8 +79,7 @@ void platform::detect_platforms_() {
     std::vector<cl::Platform> __cl_platforms;
     cl::Platform::get(&__cl_platforms);
     for (std::size_t __i = 0; __i < __cl_platforms.size(); __i++) {
-      platform::platforms_.push_back(platform());
-      platform::platforms_[__i].id_ = __cl_platforms[__i]();
+      platform::platforms_.push_back(platform(__cl_platforms[__i]()));
       assert(platform::platforms_[__i].id_);
     }
   } catch (const cl::Error &__e) {

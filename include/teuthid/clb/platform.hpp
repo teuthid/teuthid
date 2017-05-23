@@ -19,6 +19,7 @@
 #ifndef TEUTHID_CLB_PLATFORM_HPP
 #define TEUTHID_CLB_PLATFORM_HPP
 
+#include <mutex>
 #include <string>
 #include <vector>
 
@@ -83,9 +84,11 @@ public:
 
 private:
   platform() {}
-  platform_id_t id_;  // platform ID
-  devices_t devices_; // devices of this platform
+  platform(platform_id_t id) : id_(id) {}
+  platform_id_t id_;             // platform ID
+  devices_t devices_;            // devices of this platform
   static platforms_t platforms_; // all available platforms
+  static std::mutex detect_mutex_;
   static void detect_platforms_();
   static void detect_devices_(platform &);
 };
