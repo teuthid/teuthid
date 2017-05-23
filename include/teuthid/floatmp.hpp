@@ -19,6 +19,8 @@
 #ifndef TEUTHID_FLOATMP_HPP
 #define TEUTHID_FLOATMP_HPP
 
+#include <mutex>
+
 #include <mpfr.h>
 #include <teuthid/config.hpp>
 
@@ -34,13 +36,26 @@ enum class floatmp_round_t : int {
   RNDNA = MPFR_RNDNA // round to nearest, with ties away from zero
 };
 
-template <std::size_t Precision> class floatmp {
+class floatmp_base {
 public:
-  constexpr std::size_t precision() const noexcept { return Precision; }
+  floatmp_base() = default;
+  // floatmp_base(const floatmp_base &) = default;
+  // floatmp_base(floatmp_base &&) = default;
+  virtual ~floatmp_base() {}
+  // floatmp_base &operator=(const floatmp_base &) = default;
+  // floatmp_base &operator=(floatmp_base &&) = default;
 
-  static constexpr floatmp_round_t rounding_mode() {
-    return static_cast<floatmp_round_t>(mpfr_get_default_rounding_mode());
-  }
+  static floatmp_round_t rounding_mode();
+
+private:
+  static std::mutex round_mode_mutex_;
+};
+
+template <std::size_t Precision> class floatmp : public floatmp_base {
+public:
+  floatmp() {}
+  virtual ~floatmp() {}
+  constexpr std::size_t precision() const noexcept { return Precision; }
 
 private:
   mpfr_t value_;

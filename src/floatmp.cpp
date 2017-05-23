@@ -20,3 +20,9 @@
 
 using namespace teuthid;
 
+std::mutex floatmp_base::round_mode_mutex_;
+
+floatmp_round_t floatmp_base::rounding_mode() {
+  std::lock_guard<std::mutex> lock(floatmp_base::round_mode_mutex_);
+  return static_cast<floatmp_round_t>(mpfr_get_default_rounding_mode());
+}
