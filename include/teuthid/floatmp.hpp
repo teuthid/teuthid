@@ -45,7 +45,14 @@ public:
   // floatmp_base &operator=(const floatmp_base &) = default;
   // floatmp_base &operator=(floatmp_base &&) = default;
 
+  static constexpr std::size_t max_precision() noexcept {
+    return MPFR_PREC_MAX;
+  }
+  static constexpr std::size_t min_precision() noexcept {
+    return MPFR_PREC_MIN;
+  }
   static floatmp_round_t rounding_mode();
+  static floatmp_round_t rounding_mode(floatmp_round_t mode);
 
 private:
   static std::mutex round_mode_mutex_;
