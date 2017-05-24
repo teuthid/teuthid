@@ -20,6 +20,7 @@
 
 using namespace teuthid;
 
+mpfr_rnd_t floatmp_base::round_mode_ = mpfr_get_default_rounding_mode();
 std::mutex floatmp_base::round_mode_mutex_;
 
 floatmp_base::floatmp_base(std::size_t precision) {
@@ -31,12 +32,12 @@ floatmp_base::~floatmp_base() { mpfr_clear(value_); }
 
 floatmp_round_t floatmp_base::rounding_mode() {
   std::lock_guard<std::mutex> lock(floatmp_base::round_mode_mutex_);
-  return static_cast<floatmp_round_t>(mpfr_get_default_rounding_mode());
+  return static_cast<floatmp_round_t>(floatmp_base::round_mode_);
 }
 
 floatmp_round_t floatmp_base::rounding_mode(floatmp_round_t mode) {
   std::lock_guard<std::mutex> lock(floatmp_base::round_mode_mutex_);
-  mpfr_rnd_t __prev = mpfr_get_default_rounding_mode();
-  mpfr_set_default_rounding_mode(static_cast<mpfr_rnd_t>(mode));
-  return static_cast<floatmp_round_t>(__prev);
+  mpfr_rnd_t __prev = floatmp_base::round_mode_;
+  floatmp_base::round_mode_ = static_cast<mpfr_rnd_t>(mode);
+  return static_cast<floatmp_round_t>(floatmp_base::round_mode_);
 }

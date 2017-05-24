@@ -57,6 +57,7 @@ public:
 private:
   floatmp_base() {}
   mpfr_t value_;
+  static mpfr_rnd_t round_mode_;
   static std::mutex round_mode_mutex_;
 };
 
