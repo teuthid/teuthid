@@ -29,7 +29,6 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <mpfr.h>
 
 #cmakedefine TEUTHID_HAVE_INT_128
 #cmakedefine TEUTHID_HAVE_NATIVE_FLOAT_16
@@ -58,7 +57,6 @@ constexpr std::size_t float256_prec = 237;
 @typedef_uint32_t@
 @typedef_uint64_t@
 @typedef_uint128_t@
-
 @typedef_intptr_t@
 @typedef_uintptr_t@
 
@@ -83,10 +81,8 @@ using uint16_t = teuthid::uint16_t;
 using uint32_t = teuthid::uint32_t;
 using uint64_t = teuthid::uint64_t;
 using uint128_t = teuthid::uint128_t;
-
 using intptr_t = teuthid::intptr_t;
 using uintptr_t = teuthid::uintptr_t;
-
 using float16_t = teuthid::float16_t;
 using float32_t = teuthid::float32_t;
 using float64_t = teuthid::float64_t;

@@ -38,10 +38,10 @@ enum class floatmp_round_t : int {
 
 class floatmp_base {
 public:
-  floatmp_base() = default;
+  floatmp_base(std::size_t precision);
   // floatmp_base(const floatmp_base &) = default;
   // floatmp_base(floatmp_base &&) = default;
-  virtual ~floatmp_base() {}
+  virtual ~floatmp_base();
   // floatmp_base &operator=(const floatmp_base &) = default;
   // floatmp_base &operator=(floatmp_base &&) = default;
 
@@ -55,17 +55,24 @@ public:
   static floatmp_round_t rounding_mode(floatmp_round_t mode);
 
 private:
+  floatmp_base() {}
+  mpfr_t value_;
   static std::mutex round_mode_mutex_;
 };
 
+#define TEUTHID_CHECK_FLOATMP_PRECISION(PRECISION)                             \
+  static_assert((PRECISION >= floatmp_base::min_precision()),                  \
+                "Too low floatmp precision.");                                 \
+  static_assert((PRECISION < floatmp_base::max_precision()),                   \
+                "Too high floatmp precision.");
+
 template <std::size_t Precision> class floatmp : public floatmp_base {
 public:
-  floatmp() {}
+  floatmp() : floatmp_base(Precision) {
+    TEUTHID_CHECK_FLOATMP_PRECISION(Precision);
+  }
   virtual ~floatmp() {}
   constexpr std::size_t precision() const noexcept { return Precision; }
-
-private:
-  mpfr_t value_;
 };
 
 } // namespace teuthid
