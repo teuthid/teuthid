@@ -1,3 +1,1 @@
-+ implement class mpfn<std:size_t precision>
-+ implement class n_scalar<T value_t> 
-+ implement class n_array<T value_t> 
++ implement class neuron<T value_t> 
