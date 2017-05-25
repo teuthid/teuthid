@@ -110,6 +110,7 @@ template <> std::string system::to_string(const char *const &value);
 template <> std::string system::to_string(const std::string &value);
 template <> std::string system::to_string(void *const &value);
 template <> std::string system::to_string(const mpfr_t &value);
+template <> std::string system::to_string(const floatmp_base &value);
 template <>
 std::string system::to_string(const std::vector<std::string> &value);
 

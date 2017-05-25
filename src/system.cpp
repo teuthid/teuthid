@@ -147,6 +147,10 @@ template <> std::string system::to_string(const mpfr_t &value) {
   return std::string(__str);
 }
 
+template <> std::string system::to_string(const floatmp_base &value) {
+  return system::to_string(value.c_mpfr());
+}
+
 template <>
 std::string system::to_string(const std::vector<std::string> &value) {
   std::string __str;

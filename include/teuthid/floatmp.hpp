@@ -45,6 +45,7 @@ public:
   // floatmp_base &operator=(const floatmp_base &) = default;
   // floatmp_base &operator=(floatmp_base &&) = default;
 
+  const mpfr_t &c_mpfr() const noexcept { return value_; }
   static constexpr std::size_t max_precision() noexcept {
     return MPFR_PREC_MAX;
   }
@@ -73,7 +74,10 @@ public:
     TEUTHID_CHECK_FLOATMP_PRECISION(Precision);
   }
   virtual ~floatmp() {}
+
   constexpr std::size_t precision() const noexcept { return Precision; }
+
+  //operator floatmp_base() const { return static_cast<floatmp_base>(*this); }
 };
 
 } // namespace teuthid
