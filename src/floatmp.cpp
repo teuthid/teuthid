@@ -17,6 +17,7 @@
 */
 
 #include <teuthid/floatmp.hpp>
+#include <teuthid/system.hpp>
 
 using namespace teuthid;
 
@@ -35,6 +36,10 @@ floatmp_base::floatmp_base(std::size_t precision, const floatmp_base &value) {
 }
 
 floatmp_base::~floatmp_base() { mpfr_clear(value_); }
+
+bool floatmp_base::equal_to(const floatmp_base& value) const {
+  return system::equal_to(value_, value.c_mpfr());
+}
 
 floatmp_round_t floatmp_base::rounding_mode() {
   std::lock_guard<std::mutex> lock(floatmp_base::round_mode_mutex_);

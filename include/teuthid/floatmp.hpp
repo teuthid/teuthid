@@ -41,7 +41,7 @@ public:
   floatmp_base(std::size_t precision);
   floatmp_base(std::size_t precision, const floatmp_base &value);
   virtual ~floatmp_base();
-#ifndef DOXYGEN_SHOULD_SKIP_THIS  
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
   floatmp_base(const floatmp_base &) = delete;
   floatmp_base(floatmp_base &&) = delete;
   floatmp_base &operator=(const floatmp_base &) = delete;
@@ -49,6 +49,11 @@ public:
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
   const mpfr_t &c_mpfr() const noexcept { return value_; }
+  bool equal_to(const floatmp_base &value) const;
+
+  bool operator==(const floatmp_base &other) const { return equal_to(other); }
+  bool operator!=(const floatmp_base &other) const { return !equal_to(other); }
+
   static constexpr std::size_t max_precision() noexcept {
     return MPFR_PREC_MAX;
   }
