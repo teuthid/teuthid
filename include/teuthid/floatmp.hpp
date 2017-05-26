@@ -36,6 +36,7 @@ enum class floatmp_round_t : int {
   RNDNA = MPFR_RNDNA // round to nearest, with ties away from zero
 };
 
+/******************************************************************************/
 class floatmp_base {
 public:
   floatmp_base(std::size_t precision);
@@ -48,6 +49,7 @@ public:
   floatmp_base &operator=(floatmp_base &&) = delete;
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
+  template <typename T> void assign(T value);
   const mpfr_t &c_mpfr() const noexcept { return value_; }
   bool equal_to(const floatmp_base &value) const;
 
@@ -67,6 +69,12 @@ private:
   static std::mutex round_mode_mutex_;
 };
 
+// specializations of floatmp_base::assign<T>()
+template <> void floatmp_base::assign(int value);
+template <> void floatmp_base::assign(unsigned int value);
+template <> void floatmp_base::assign(long value);
+template <> void floatmp_base::assign(unsigned long value);
+
 inline bool operator==(const floatmp_base &lhs, const floatmp_base &rhs) {
   return lhs.equal_to(rhs);
 }
@@ -80,6 +88,7 @@ inline bool operator!=(const floatmp_base &lhs, const floatmp_base &rhs) {
   static_assert((PRECISION < floatmp_base::max_precision()),                   \
                 "Too high floatmp precision.");
 
+/******************************************************************************/
 template <std::size_t Precision> class floatmp : public floatmp_base {
 public:
   floatmp() : floatmp_base(Precision) {
@@ -92,6 +101,9 @@ public:
   }
   virtual ~floatmp() {}
 
+  template <typename T> void assign(T value) {
+    floatmp_base::assign(value);
+  }
   constexpr std::size_t precision() const noexcept { return Precision; }
 };
 

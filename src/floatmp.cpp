@@ -37,7 +37,25 @@ floatmp_base::floatmp_base(std::size_t precision, const floatmp_base &value) {
 
 floatmp_base::~floatmp_base() { mpfr_clear(value_); }
 
-bool floatmp_base::equal_to(const floatmp_base& value) const {
+template <> void floatmp_base::assign(int value) {
+  assign(static_cast<long>(value));
+}
+
+template <> void floatmp_base::assign(unsigned int value) {
+  assign(static_cast<unsigned long>(value));
+}
+
+template <> void floatmp_base::assign(long value) {
+  std::lock_guard<std::mutex> lock(floatmp_base::round_mode_mutex_);
+  mpfr_set_si(value_, value, round_mode_);
+}
+
+template <> void floatmp_base::assign(unsigned long value) {
+  std::lock_guard<std::mutex> lock(floatmp_base::round_mode_mutex_);
+  mpfr_set_ui(value_, value, round_mode_);
+}
+
+bool floatmp_base::equal_to(const floatmp_base &value) const {
   return system::equal_to(value_, value.c_mpfr());
 }
 
