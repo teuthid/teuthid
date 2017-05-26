@@ -69,11 +69,13 @@ private:
   static std::mutex round_mode_mutex_;
 };
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 // specializations of floatmp_base::assign<T>()
 template <> void floatmp_base::assign(int value);
 template <> void floatmp_base::assign(unsigned int value);
 template <> void floatmp_base::assign(long value);
 template <> void floatmp_base::assign(unsigned long value);
+#endif // DOXYGEN_SHOULD_SKIP_THIS
 
 inline bool operator==(const floatmp_base &lhs, const floatmp_base &rhs) {
   return lhs.equal_to(rhs);
