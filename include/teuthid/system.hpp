@@ -86,16 +86,6 @@ private:
   static std::string validate_string_(const std::string &str);
 };
 
-template <typename T> std::string system::to_string(const T &value) {
-  static_assert(!std::is_pointer<T>::value, "requires non-pointer type");
-  static_assert(!std::is_array<T>::value, "requires non-array type");
-  std::ostringstream __os;
-  __os.precision(system::format_float_precision_);
-  __os << (system::format_float_scientific_ ? std::scientific : std::fixed);
-  __os << value;
-  return __os.str();
-}
-
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 // specializations of system::to_string<T>()
 template <> std::string system::to_string(const bool &value);
@@ -115,6 +105,9 @@ template <> std::string system::to_string(const char &value);
 template <> std::string system::to_string(const char *const &value);
 template <> std::string system::to_string(const std::string &value);
 template <> std::string system::to_string(void *const &value);
+template <> std::string system::to_string(const float &value);
+template <> std::string system::to_string(const double &value);
+template <> std::string system::to_string(const long double &value);
 template <> std::string system::to_string(const mpfr_t &value);
 template <> std::string system::to_string(const floatmp_base &value);
 template <>

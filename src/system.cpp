@@ -137,6 +137,21 @@ template <> std::string system::to_string(void *const &value) {
   return system::to_string(reinterpret_cast<uintptr_t>(value));
 }
 
+#define __TEUTHID_STRING_FROM_FLOAT(TYPE)                                      \
+  template <> std::string system::to_string(const TYPE &value) {               \
+    std::ostringstream __os;                                                   \
+    __os.precision(system::format_float_precision_.load());                    \
+    __os << (system::format_float_scientific_.load() ? std::scientific         \
+                                                     : std::fixed);            \
+    __os << value;                                                             \
+    return __os.str();                                                         \
+  }
+
+__TEUTHID_STRING_FROM_FLOAT(float);
+__TEUTHID_STRING_FROM_FLOAT(double);
+__TEUTHID_STRING_FROM_FLOAT(long double);
+#undef __TEUTHID_STRING_FROM_FLOAT
+
 template <> std::string system::to_string(const mpfr_t &value) {
   char __str[256], __precision[64];
   std::string __format =
