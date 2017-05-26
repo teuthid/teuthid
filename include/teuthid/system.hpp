@@ -46,6 +46,12 @@ public:
   static bool uses_cl_backend(bool enabled);
 
   template <typename T> static std::string to_string(const T &value);
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+  template <std::size_t Precision>
+  static std::string to_string(const floatmp<Precision> &value) {
+    return system::to_string(value.c_mpfr());
+  }
+#endif // DOXYGEN_SHOULD_SKIP_THIS
   static std::size_t split_string(const std::string &str,
                                   std::vector<std::string> &vec,
                                   char delim = ' ');

@@ -119,7 +119,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
              "system::format_float_output(10, true)");
 
   float256_t __floatmp;
-  //BOOST_TEST(!system::to_string(__floatmp).empty());
+  BOOST_TEST(!system::to_string(__floatmp).empty());
 
   bool __boolval;
   BOOST_TEST(!system::from_string("F A L S E", __boolval),

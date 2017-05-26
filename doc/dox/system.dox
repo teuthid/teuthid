@@ -130,7 +130,8 @@ or the pointer type (like \c int*, but \c void* is allowed).
 \note The function has specializations for the following types: \c bool, 
 \c int8_t, \c int16_t, \c int32_t, \c int64_t, \c int128_t, \c uint8_t, 
 \c uint16_t, \c uint32_t, \c uint64_t, \c uint128_t, \c char, \c char*, 
-\c void*, <tt>std::vector<std::string></tt>, \c mpfr_t. 
+\c void*, <tt>std::vector<std::string></tt>, \c mpfr_t, \c floatmp_base and
+\c floatmp<Precision>. 
 \n For floating point types, the resulted string is formatted according to the 
 settings given by the function format_float_output().
 \see system::from_string().
