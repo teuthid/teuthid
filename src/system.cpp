@@ -20,6 +20,7 @@
 #include <cassert>
 #include <cctype>
 #include <cmath>
+#include <sstream>
 #include <stdexcept>
 
 #include <teuthid/system.hpp>

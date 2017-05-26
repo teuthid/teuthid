@@ -85,7 +85,8 @@ public:
   floatmp() : floatmp_base(Precision) {
     TEUTHID_CHECK_FLOATMP_PRECISION(Precision);
   }
-  floatmp(const floatmp &value)
+  template <std::size_t P2>
+  floatmp(const floatmp<P2> &value)
       : floatmp_base(Precision, static_cast<const floatmp_base &>(value)) {
     TEUTHID_CHECK_FLOATMP_PRECISION(Precision);
   }
