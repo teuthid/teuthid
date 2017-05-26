@@ -51,9 +51,6 @@ public:
   const mpfr_t &c_mpfr() const noexcept { return value_; }
   bool equal_to(const floatmp_base &value) const;
 
-  bool operator==(const floatmp_base &other) const { return equal_to(other); }
-  bool operator!=(const floatmp_base &other) const { return !equal_to(other); }
-
   static constexpr std::size_t max_precision() noexcept {
     return MPFR_PREC_MAX;
   }
@@ -70,6 +67,13 @@ private:
   static std::mutex round_mode_mutex_;
 };
 
+inline bool operator==(const floatmp_base &lhs, const floatmp_base &rhs) {
+  return lhs.equal_to(rhs);
+}
+inline bool operator!=(const floatmp_base &lhs, const floatmp_base &rhs) {
+  return !(lhs == rhs);
+}
+
 #define TEUTHID_CHECK_FLOATMP_PRECISION(PRECISION)                             \
   static_assert((PRECISION >= floatmp_base::min_precision()),                  \
                 "Too low floatmp precision.");                                 \
@@ -82,13 +86,22 @@ public:
     TEUTHID_CHECK_FLOATMP_PRECISION(Precision);
   }
   floatmp(const floatmp &value)
-      : floatmp_base(Precision, static_cast<floatmp_base>(value)) {
+      : floatmp_base(Precision, static_cast<const floatmp_base &>(value)) {
     TEUTHID_CHECK_FLOATMP_PRECISION(Precision);
   }
   virtual ~floatmp() {}
 
   constexpr std::size_t precision() const noexcept { return Precision; }
 };
+
+template <std::size_t P1, std::size_t P2>
+inline bool operator==(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {
+  return lhs.equal_to(static_cast<const floatmp_base &>(rhs));
+}
+template <std::size_t P1, std::size_t P2>
+inline bool operator!=(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {
+  return !(lhs == rhs);
+}
 
 } // namespace teuthid
 

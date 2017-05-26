@@ -129,7 +129,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(!system::to_string(__fmp1).empty(), "system::to_string(floatmp)");
   BOOST_TEST(system::to_string(__fmp1) == system::to_string(__fmp2),
              "system::to_string(floatmp)");
-  //BOOST_TEST(system::equal_to(__fmp1, __fmp2));
+  BOOST_TEST(system::equal_to(__fmp1, __fmp2));
 
   bool __boolval;
   BOOST_TEST(!system::from_string("F A L S E", __boolval),

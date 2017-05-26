@@ -72,10 +72,6 @@ public:
   template <typename T> static bool equal_to(const T &x, const T &y) {
     return (x == y);
   }
-  template <std::size_t P1, std::size_t P2>
-  static bool equal_to(const floatmp<P1> &x, const floatmp<P2> &y) {
-    return system::equal_to(x.c_mpfr(), y.c_mpfr());
-  }
   template <typename E> static constexpr bool test_enumerator(E en) noexcept;
 
 private:
