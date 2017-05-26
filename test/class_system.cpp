@@ -75,17 +75,23 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
              "to_string(uint64_t)");
 #ifdef TEUTHID_HAVE_INT_128
   int128_t __int_128 = (int128_t)INT64_MIN;
-  BOOST_TEST(!system::to_string(__int_128).empty());
+  BOOST_TEST(!system::to_string(__int_128).empty(),
+             "system::to_string(int128_t)");
   __int_128 = (int128_t)INT64_MAX;
-  BOOST_TEST(!system::to_string(__int_128).empty());
+  BOOST_TEST(!system::to_string(__int_128).empty(),
+             "system::to_string(int128_t)");
   __int_128 = (int128_t)INT64_MIN * 10;
-  BOOST_TEST(!system::to_string(__int_128).empty());
+  BOOST_TEST(!system::to_string(__int_128).empty(),
+             "system::to_string(int128_t)");
   __int_128 = (int128_t)INT64_MAX * 10;
-  BOOST_TEST(!system::to_string(__int_128).empty());
+  BOOST_TEST(!system::to_string(__int_128).empty(),
+             "system::to_string(int128_t)");
   uint128_t __uint_128 = (uint128_t)UINT64_MAX;
-  BOOST_TEST(!system::to_string(__uint_128).empty());
+  BOOST_TEST(!system::to_string(__uint_128).empty(),
+             "system::to_string(int128_t)");
   __uint_128 = (uint128_t)UINT64_MAX * 10;
-  BOOST_TEST(!system::to_string(__uint_128).empty());
+  BOOST_TEST(!system::to_string(__uint_128).empty(),
+             "system::to_string(int128_t)");
 #endif
   bool __false = false;
   bool __true = true;
@@ -118,46 +124,46 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST((system::to_string(__mpfr) == "1.2345000000e+00"),
              "system::format_float_output(10, true)");
 
-  float256_t __floatmp;
-  BOOST_TEST(!system::to_string(__floatmp).empty());
+  float256_t __fmp1, __fmp2;
+  BOOST_TEST(!system::to_string(__fmp1).empty(), "system::to_string(floatmp)");
+  BOOST_TEST(system::to_string(__fmp1) == system::to_string(__fmp2),
+             "system::to_string(floatmp)");
 
   bool __boolval;
   BOOST_TEST(!system::from_string("F A L S E", __boolval),
-             "system::from_string(, bool)");
+             "system::from_string(bool)");
   BOOST_TEST(system::from_string("true", __boolval),
-             "system::from_string(, bool)");
-  BOOST_TEST(system::from_string("1", __boolval),
-             "system::from_string(, bool)");
-  BOOST_TEST(!system::from_string("0", __boolval),
-             "system::from_string(, bool)");
+             "system::from_string(bool)");
+  BOOST_TEST(system::from_string("1", __boolval), "system::from_string(bool)");
+  BOOST_TEST(!system::from_string("0", __boolval), "system::from_string(bool)");
 
   int8_t __int8_val;
   BOOST_TEST(system::from_string("-127", __int8_val) == -127,
-             "system::from_string(, int8_t)");
+             "system::from_string(int8_t)");
   int16_t __int16_val;
   BOOST_TEST(system::from_string("-32768", __int16_val) == -32768,
-             "system::from_string(, int16_t)");
+             "system::from_string(int16_t)");
   int32_t __int32_val;
   BOOST_TEST(system::from_string("-2147483648", __int32_val) == -2147483648,
-             "system::from_string(, int32_t)");
+             "system::from_string(int32_t)");
   int64_t __int64_val;
   BOOST_TEST(system::from_string("-9223372036854775807", __int64_val) ==
                  -9223372036854775807,
-             "system::from_string(, int64_t)");
+             "system::from_string(int64_t)");
 
   uint8_t __uint8_val;
   BOOST_TEST(system::from_string("255", __uint8_val) == 255,
-             "system::from_string(, uint8_t)");
+             "system::from_string(uint8_t)");
   uint16_t __uint16_val;
   BOOST_TEST(system::from_string("65535", __uint16_val) == 65535,
-             "system::from_string(, uint16_t)");
+             "system::from_string(uint16_t)");
   uint32_t __uint32_val;
   BOOST_TEST(system::from_string("4294967295", __uint32_val) == 4294967295,
-             "system::from_string(, uint32_t)");
+             "system::from_string(uint32_t)");
   uint64_t __uint64_val;
   BOOST_TEST(system::from_string("9223372036854775807", __uint64_val) ==
                  9223372036854775807,
-             "system::from_string(, uint64_t)");
+             "system::from_string(uint64_t)");
 
   float __float_val;
   system::from_string("1.2345", __float_val);

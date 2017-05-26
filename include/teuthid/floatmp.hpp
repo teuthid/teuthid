@@ -44,9 +44,9 @@ public:
 #ifndef DOXYGEN_SHOULD_SKIP_THIS  
   floatmp_base(const floatmp_base &) = delete;
   floatmp_base(floatmp_base &&) = delete;
+  floatmp_base &operator=(const floatmp_base &) = delete;
+  floatmp_base &operator=(floatmp_base &&) = delete;
 #endif // DOXYGEN_SHOULD_SKIP_THIS
-  // floatmp_base &operator=(const floatmp_base &) = default;
-  // floatmp_base &operator=(floatmp_base &&) = default;
 
   const mpfr_t &c_mpfr() const noexcept { return value_; }
   static constexpr std::size_t max_precision() noexcept {

@@ -34,7 +34,8 @@ public:
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   system(const system &) = delete;
   system(system &&) = delete;
-  void operator=(system const &) = delete;
+  system& operator=(const system &) = delete;
+  system& operator=(system &&) = delete;
 #endif // DOXYGEN_SHOULD_SKIP_THIS
   static constexpr uint8_t major_version() { return TEUTHID_MAJOR_VERSION; }
   static constexpr uint8_t minor_version() { return TEUTHID_MINOR_VERSION; }
