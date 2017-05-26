@@ -39,9 +39,12 @@ enum class floatmp_round_t : int {
 class floatmp_base {
 public:
   floatmp_base(std::size_t precision);
-  // floatmp_base(const floatmp_base &) = default;
-  // floatmp_base(floatmp_base &&) = default;
+  floatmp_base(std::size_t precision, const floatmp_base &value);
   virtual ~floatmp_base();
+#ifndef DOXYGEN_SHOULD_SKIP_THIS  
+  floatmp_base(const floatmp_base &) = delete;
+  floatmp_base(floatmp_base &&) = delete;
+#endif // DOXYGEN_SHOULD_SKIP_THIS
   // floatmp_base &operator=(const floatmp_base &) = default;
   // floatmp_base &operator=(floatmp_base &&) = default;
 
@@ -73,11 +76,13 @@ public:
   floatmp() : floatmp_base(Precision) {
     TEUTHID_CHECK_FLOATMP_PRECISION(Precision);
   }
+  floatmp(const floatmp &value)
+      : floatmp_base(Precision, static_cast<floatmp_base>(value)) {
+    TEUTHID_CHECK_FLOATMP_PRECISION(Precision);
+  }
   virtual ~floatmp() {}
 
   constexpr std::size_t precision() const noexcept { return Precision; }
-
-  //operator floatmp_base() const { return static_cast<floatmp_base>(*this); }
 };
 
 } // namespace teuthid

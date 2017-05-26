@@ -32,7 +32,8 @@ namespace teuthid {
 class system final {
 public:
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-  system(system const &) = delete;
+  system(const system &) = delete;
+  system(system &&) = delete;
   void operator=(system const &) = delete;
 #endif // DOXYGEN_SHOULD_SKIP_THIS
   static constexpr uint8_t major_version() { return TEUTHID_MAJOR_VERSION; }

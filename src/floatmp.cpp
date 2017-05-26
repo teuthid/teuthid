@@ -28,6 +28,12 @@ floatmp_base::floatmp_base(std::size_t precision) {
   mpfr_set_zero(value_, 1);
 }
 
+floatmp_base::floatmp_base(std::size_t precision, const floatmp_base &value) {
+  mpfr_init2(value_, precision);
+  std::lock_guard<std::mutex> lock(floatmp_base::round_mode_mutex_);
+  mpfr_set(value_, value.c_mpfr(), round_mode_);
+}
+
 floatmp_base::~floatmp_base() { mpfr_clear(value_); }
 
 floatmp_round_t floatmp_base::rounding_mode() {
