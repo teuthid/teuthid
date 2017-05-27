@@ -82,6 +82,7 @@ template <> void floatmp_base::assign(const uint64_t &value);
 template <> void floatmp_base::assign(const float &value);
 template <> void floatmp_base::assign(const double &value);
 template <> void floatmp_base::assign(const long double &value);
+template <> void floatmp_base::assign(const mpfr_t &value);
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 inline bool operator==(const floatmp_base &lhs, const floatmp_base &rhs) {

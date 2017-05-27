@@ -56,6 +56,7 @@ __TEUTHID_FLOATMP_ASSIGN_NUMBER(uint64_t, mpfr_set_uj);
 __TEUTHID_FLOATMP_ASSIGN_NUMBER(float, mpfr_set_flt);
 __TEUTHID_FLOATMP_ASSIGN_NUMBER(double, mpfr_set_d);
 __TEUTHID_FLOATMP_ASSIGN_NUMBER(long double, mpfr_set_ld);
+__TEUTHID_FLOATMP_ASSIGN_NUMBER(mpfr_t, mpfr_set);
 #undef __TEUTHID_FLOATMP_ASSIGN_NUMBER
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS

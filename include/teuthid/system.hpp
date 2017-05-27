@@ -45,7 +45,10 @@ public:
   static bool uses_cl_backend() noexcept { return system::clb_.load(); }
   static bool uses_cl_backend(bool enabled);
 
-  template <typename T> static std::string to_string(const T &value);
+  template <typename T> static std::string to_string(const T &value) {
+    static_assert(assert_false<T>::value,
+                  "system::to_string() is not defined for this type");
+  }
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   template <std::size_t Precision>
   static std::string to_string(const floatmp<Precision> &value) {

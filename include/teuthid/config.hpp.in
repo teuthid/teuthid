@@ -29,6 +29,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <type_traits>
 
 #cmakedefine TEUTHID_HAVE_INT_128
 #cmakedefine TEUTHID_HAVE_NATIVE_FLOAT_16
@@ -94,8 +95,10 @@ using float256_t = teuthid::float256_t;
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace teuthid
 
-#include <type_traits>
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
+
+template <typename T> struct assert_false : std::false_type {};
+
 #define TEUTHID_ENUM_CLASS_BITWISE_OPS(NAME)                                   \
   inline NAME operator&(NAME x, NAME y) {                                      \
     typedef typename std::underlying_type<NAME>::type UTYPE;                   \
@@ -125,6 +128,7 @@ using float256_t = teuthid::float256_t;
     x = x ^ y;                                                                 \
     return x;                                                                  \
   }
+
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 #endif // TEUTHID_CONFIG_HPP
