@@ -103,7 +103,9 @@ public:
   }
   virtual ~floatmp() {}
 
-  template <typename T> void assign(T value) { floatmp_base::assign(value); }
+  template <typename T> void assign(const T &value) {
+    floatmp_base::assign(value);
+  }
   constexpr std::size_t precision() const noexcept { return Precision; }
 };
 
