@@ -99,6 +99,9 @@ using float256_t = teuthid::float256_t;
 
 template <typename T> struct assert_false : std::false_type {};
 
+#define TETHID_CHECK_TYPE_SPECIALIZATION(TYPE)                                 \
+  static_assert(assert_false<TYPE>::value, "Not defined for this type");
+
 #define TEUTHID_ENUM_CLASS_BITWISE_OPS(NAME)                                   \
   inline NAME operator&(NAME x, NAME y) {                                      \
     typedef typename std::underlying_type<NAME>::type UTYPE;                   \

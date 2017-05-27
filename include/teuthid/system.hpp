@@ -46,8 +46,7 @@ public:
   static bool uses_cl_backend(bool enabled);
 
   template <typename T> static std::string to_string(const T &value) {
-    static_assert(assert_false<T>::value,
-                  "system::to_string() is not defined for this type");
+    TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   template <std::size_t Precision>
@@ -69,7 +68,9 @@ public:
     return format_float_scientific_.exchange(scientific);
   }
   template <typename T>
-  static T &from_string(const std::string &str_value, T &value);
+  static T &from_string(const std::string &str_value, T &value) {
+    TETHID_CHECK_TYPE_SPECIALIZATION(T);
+  }
   template <typename T> static bool equal_to(const T &x, const T &y) {
     return (x == y);
   }

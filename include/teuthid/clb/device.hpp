@@ -252,8 +252,12 @@ public:
   max_work_item_sizes_t max_work_item_sizes() const;
   uint32_t mem_base_addr_align() const;
   std::string name() const;
-  template <typename T> uint32_t native_vector_width() const { return 0; }
-  template <typename T> uint32_t preferred_vector_width() const { return 0; }
+  template <typename T> uint32_t native_vector_width() const {
+    TETHID_CHECK_TYPE_SPECIALIZATION(T);
+  }
+  template <typename T> uint32_t preferred_vector_width() const {
+    TETHID_CHECK_TYPE_SPECIALIZATION(T);
+  }
   devprofile_t profile() const;
   bool is_full_profile() const { return (profile() == devprofile_t::FULL); }
   bool is_embedded_profile() const {

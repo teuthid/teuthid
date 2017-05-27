@@ -88,8 +88,6 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
                  "max_work_item_sizes()");
       BOOST_TEST(__device.mem_base_addr_align() > 0, "mem_base_addr_align()");
 
-      BOOST_TEST(__device.native_vector_width<bool>() == 0,
-                 "native_vector_width<>()");
       BOOST_TEST(__device.native_vector_width<int8_t>() > 0,
                  "native_vector_width<int8_t>()");
       BOOST_TEST(__device.native_vector_width<uint8_t>() > 0,
@@ -109,8 +107,6 @@ BOOST_AUTO_TEST_CASE(class_teuthid_clb_device) {
       BOOST_TEST(__device.native_vector_width<float32_t>() > 0,
                  "native_vector_width<float32_t>()");
 
-      BOOST_TEST(__device.preferred_vector_width<bool>() == 0,
-                 "preferred_vector_width<>()");
       BOOST_TEST(__device.preferred_vector_width<int8_t>() > 0,
                  "preferred_vector_width<int8_t>()");
       BOOST_TEST(__device.preferred_vector_width<uint8_t>() > 0,

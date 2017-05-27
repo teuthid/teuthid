@@ -49,7 +49,9 @@ public:
   floatmp_base &operator=(floatmp_base &&) = delete;
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
-  template <typename T> void assign(const T &value);
+  template <typename T> void assign(const T &value) {
+    TETHID_CHECK_TYPE_SPECIALIZATION(T);
+  }
   const mpfr_t &c_mpfr() const noexcept { return value_; }
   bool equal_to(const floatmp_base &value) const;
 
