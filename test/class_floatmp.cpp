@@ -21,19 +21,21 @@
 
 #include <boost/test/unit_test.hpp>
 #include <teuthid/floatmp.hpp>
+#include <teuthid/system.hpp>
 
 using namespace teuthid;
 
 BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   float256_t __x1, __x2;
   floatmp<100> __x3;
-  
+
   BOOST_TEST(__x1.precision() == float256_prec, "precision()");
   floatmp_round_t __rmode = __x1.rounding_mode();
   BOOST_TEST(static_cast<int>(__x1.rounding_mode(__rmode)) ==
                  static_cast<int>(__rmode),
              "floatmp::rounding_mode()");
-  
+
+  system::format_float_output();
   BOOST_TEST((__x1 == __x2), "operator==");
   BOOST_TEST((__x1 == __x3), "operator==");
   __x1.assign(-13);
@@ -41,5 +43,14 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   __x1.assign(12345);
   __x2.assign(12345);
   BOOST_TEST((__x1 == __x2), "operator==");
+  __x3.assign(-12345);
+  BOOST_TEST((__x1 != __x3), "operator!=");
+  __x1.assign((float)1.234);
+  __x3.assign((float)1.234);
+  BOOST_TEST((__x1 == __x3), "operator==");
+  __x1.assign((long double)1.23456);
+  __x3.assign((long double)1.23456);
+  BOOST_TEST((__x1 == __x3), "operator==");
+  
   //
 }

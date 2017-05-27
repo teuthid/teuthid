@@ -39,17 +39,24 @@ floatmp_base::~floatmp_base() { mpfr_clear(value_); }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-#define __TEUTHID_FLOATMP_ASSIGN_INTEGER(TYPE, FUN)                            \
+#define __TEUTHID_FLOATMP_ASSIGN_NUMBER(TYPE, FUN)                             \
   template <> void floatmp_base::assign(const TYPE &value) {                   \
     std::lock_guard<std::mutex> lock(floatmp_base::round_mode_mutex_);         \
     FUN(value_, value, round_mode_);                                           \
   }
 
-__TEUTHID_FLOATMP_ASSIGN_INTEGER(int8_t, mpfr_set_sj);
-__TEUTHID_FLOATMP_ASSIGN_INTEGER(int16_t, mpfr_set_sj);
-__TEUTHID_FLOATMP_ASSIGN_INTEGER(int32_t, mpfr_set_sj);
-__TEUTHID_FLOATMP_ASSIGN_INTEGER(int64_t, mpfr_set_sj);
-#undef __TEUTHID_FLOATMP_ASSIGN_INTEGER
+__TEUTHID_FLOATMP_ASSIGN_NUMBER(int8_t, mpfr_set_sj);
+__TEUTHID_FLOATMP_ASSIGN_NUMBER(int16_t, mpfr_set_sj);
+__TEUTHID_FLOATMP_ASSIGN_NUMBER(int32_t, mpfr_set_sj);
+__TEUTHID_FLOATMP_ASSIGN_NUMBER(int64_t, mpfr_set_sj);
+__TEUTHID_FLOATMP_ASSIGN_NUMBER(uint8_t, mpfr_set_uj);
+__TEUTHID_FLOATMP_ASSIGN_NUMBER(uint16_t, mpfr_set_uj);
+__TEUTHID_FLOATMP_ASSIGN_NUMBER(uint32_t, mpfr_set_uj);
+__TEUTHID_FLOATMP_ASSIGN_NUMBER(uint64_t, mpfr_set_uj);
+__TEUTHID_FLOATMP_ASSIGN_NUMBER(float, mpfr_set_flt);
+__TEUTHID_FLOATMP_ASSIGN_NUMBER(double, mpfr_set_d);
+__TEUTHID_FLOATMP_ASSIGN_NUMBER(long double, mpfr_set_ld);
+#undef __TEUTHID_FLOATMP_ASSIGN_NUMBER
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
