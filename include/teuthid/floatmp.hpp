@@ -49,7 +49,7 @@ public:
   floatmp_base &operator=(floatmp_base &&) = delete;
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
-  template <typename T> void assign(T value);
+  template <typename T> void assign(const T &value);
   const mpfr_t &c_mpfr() const noexcept { return value_; }
   bool equal_to(const floatmp_base &value) const;
 
@@ -71,10 +71,10 @@ private:
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 // specializations of floatmp_base::assign<T>()
-template <> void floatmp_base::assign(int value);
-template <> void floatmp_base::assign(unsigned int value);
-template <> void floatmp_base::assign(long value);
-template <> void floatmp_base::assign(unsigned long value);
+template <> void floatmp_base::assign(const int8_t &value);
+template <> void floatmp_base::assign(const int16_t &value);
+template <> void floatmp_base::assign(const int32_t &value);
+template <> void floatmp_base::assign(const int64_t &value);
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 inline bool operator==(const floatmp_base &lhs, const floatmp_base &rhs) {
@@ -103,9 +103,7 @@ public:
   }
   virtual ~floatmp() {}
 
-  template <typename T> void assign(T value) {
-    floatmp_base::assign(value);
-  }
+  template <typename T> void assign(T value) { floatmp_base::assign(value); }
   constexpr std::size_t precision() const noexcept { return Precision; }
 };
 

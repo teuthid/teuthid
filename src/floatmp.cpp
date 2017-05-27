@@ -37,23 +37,21 @@ floatmp_base::floatmp_base(std::size_t precision, const floatmp_base &value) {
 
 floatmp_base::~floatmp_base() { mpfr_clear(value_); }
 
-template <> void floatmp_base::assign(int value) {
-  assign(static_cast<long>(value));
-}
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-template <> void floatmp_base::assign(unsigned int value) {
-  assign(static_cast<unsigned long>(value));
-}
+#define __TEUTHID_FLOATMP_ASSIGN_INTEGER(TYPE, FUN)                            \
+  template <> void floatmp_base::assign(const TYPE &value) {                   \
+    std::lock_guard<std::mutex> lock(floatmp_base::round_mode_mutex_);         \
+    FUN(value_, value, round_mode_);                                           \
+  }
 
-template <> void floatmp_base::assign(long value) {
-  std::lock_guard<std::mutex> lock(floatmp_base::round_mode_mutex_);
-  mpfr_set_si(value_, value, round_mode_);
-}
+__TEUTHID_FLOATMP_ASSIGN_INTEGER(int8_t, mpfr_set_sj);
+__TEUTHID_FLOATMP_ASSIGN_INTEGER(int16_t, mpfr_set_sj);
+__TEUTHID_FLOATMP_ASSIGN_INTEGER(int32_t, mpfr_set_sj);
+__TEUTHID_FLOATMP_ASSIGN_INTEGER(int64_t, mpfr_set_sj);
+#undef __TEUTHID_FLOATMP_ASSIGN_INTEGER
 
-template <> void floatmp_base::assign(unsigned long value) {
-  std::lock_guard<std::mutex> lock(floatmp_base::round_mode_mutex_);
-  mpfr_set_ui(value_, value, round_mode_);
-}
+#endif // DOXYGEN_SHOULD_SKIP_THIS
 
 bool floatmp_base::equal_to(const floatmp_base &value) const {
   return system::equal_to(value_, value.c_mpfr());
