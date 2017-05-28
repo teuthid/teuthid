@@ -55,5 +55,18 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   __x1.assign((long double)1.23456);
   __x3.assign(__x1);
   BOOST_TEST((__x1 == __x3), "operator==");
+
+#ifdef TEUTHID_HAVE_INT_128
+  __x1.assign(static_cast<int128_t>(INT64_MAX) * 10);
+  __x3.assign(__x1);
+  BOOST_TEST(!system::to_string(__x1).empty());
+  BOOST_TEST(!system::to_string(__x3).empty());
+  BOOST_TEST((__x1 == __x3), "operator==");
+  __x1.assign(static_cast<uint128_t>(UINT64_MAX) * 10);
+  __x3.assign(__x1);
+  BOOST_TEST(!system::to_string(__x1).empty());
+  BOOST_TEST(!system::to_string(__x3).empty());
+  BOOST_TEST((__x1 == __x3), "operator==");
+#endif // TEUTHID_HAVE_INT_128
   //
 }

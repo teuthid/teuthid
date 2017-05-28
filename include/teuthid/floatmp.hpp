@@ -87,6 +87,10 @@ template <> void floatmp_base::assign(const uint8_t &value);
 template <> void floatmp_base::assign(const uint16_t &value);
 template <> void floatmp_base::assign(const uint32_t &value);
 template <> void floatmp_base::assign(const uint64_t &value);
+#ifdef TEUTHID_HAVE_INT_128
+template <> void floatmp_base::assign(const int128_t &value);
+template <> void floatmp_base::assign(const uint128_t &value);
+#endif // TEUTHID_HAVE_INT_128
 template <> void floatmp_base::assign(const float &value);
 template <> void floatmp_base::assign(const double &value);
 template <> void floatmp_base::assign(const long double &value);

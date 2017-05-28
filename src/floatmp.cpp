@@ -59,6 +59,30 @@ __TEUTHID_FLOATMP_ASSIGN_NUMBER(long double, mpfr_set_ld);
 __TEUTHID_FLOATMP_ASSIGN_NUMBER(mpfr_t, mpfr_set);
 #undef __TEUTHID_FLOATMP_ASSIGN_NUMBER
 
+#ifdef TEUTHID_HAVE_INT_128
+template <> void floatmp_base::assign(const int128_t &value) {
+  mpfr_t __result;
+  mpfr_init2(__result, mpfr_get_prec(value_));
+  int64_t __mod = value % INT64_MAX;
+  std::lock_guard<std::mutex> lock(floatmp_base::round_mode_mutex_);
+  mpfr_set_sj(value_, INT64_MAX, round_mode_);
+  mpfr_mul_si(__result, value_, __mod, round_mode_);
+  mpfr_set(value_, __result, round_mode_);
+  mpfr_clear(__result);
+}
+
+template <> void floatmp_base::assign(const uint128_t &value) {
+  mpfr_t __result;
+  mpfr_init2(__result, mpfr_get_prec(value_));
+  uint64_t __mod = value % UINT64_MAX;
+  std::lock_guard<std::mutex> lock(floatmp_base::round_mode_mutex_);
+  mpfr_set_uj(value_, UINT64_MAX, round_mode_);
+  mpfr_mul_ui(__result, value_, __mod, round_mode_);
+  mpfr_set(value_, __result, round_mode_);
+  mpfr_clear(__result);
+}
+#endif // TEUTHID_HAVE_INT_128
+
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 bool floatmp_base::equal_to(const floatmp_base &value) const {
