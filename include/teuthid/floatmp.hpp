@@ -37,6 +37,9 @@ enum class floatmp_round_t : int {
 };
 
 /******************************************************************************/
+
+template <std::size_t Precision> class floatmp;
+
 class floatmp_base {
 public:
   floatmp_base(std::size_t precision);
@@ -52,6 +55,9 @@ public:
   template <typename T> void assign(const T &value) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+  template <std::size_t Precision> void assign(const floatmp<Precision> &value);
+#endif // DOXYGEN_SHOULD_SKIP_THIS
   const mpfr_t &c_mpfr() const noexcept { return value_; }
   bool equal_to(const floatmp_base &value) const;
 
@@ -85,6 +91,10 @@ template <> void floatmp_base::assign(const float &value);
 template <> void floatmp_base::assign(const double &value);
 template <> void floatmp_base::assign(const long double &value);
 template <> void floatmp_base::assign(const mpfr_t &value);
+template <std::size_t Precision>
+void floatmp_base::assign(const floatmp<Precision> &value) {
+  assign(value.c_mpfr());
+}
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 inline bool operator==(const floatmp_base &lhs, const floatmp_base &rhs) {
@@ -101,6 +111,7 @@ inline bool operator!=(const floatmp_base &lhs, const floatmp_base &rhs) {
                 "Too high floatmp precision.");
 
 /******************************************************************************/
+
 template <std::size_t Precision> class floatmp : public floatmp_base {
 public:
   floatmp() : floatmp_base(Precision) {

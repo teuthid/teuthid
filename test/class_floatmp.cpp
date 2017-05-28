@@ -46,13 +46,13 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   __x3.assign(-12345);
   BOOST_TEST((__x1 != __x3), "operator!=");
   __x1.assign((float)1.234);
-  __x3.assign((float)1.234);
+  __x3.assign(__x1);
   BOOST_TEST((__x1 == __x3), "operator==");
   __x1.assign((double)1.2345);
-  __x3.assign((double)1.2345);
+  __x3.assign(__x1);
   BOOST_TEST((__x1 == __x3), "operator==");
   __x1.assign((long double)1.23456);
-  __x3.assign((long double)1.23456);
+  __x3.assign(__x1);
   BOOST_TEST((__x1 == __x3), "operator==");
   //
 }
