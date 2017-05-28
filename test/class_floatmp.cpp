@@ -27,9 +27,10 @@ using namespace teuthid;
 
 BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   float256_t __x1, __x2;
-  floatmp<100> __x3;
+  floatmp<100> __x3(__x1);
 
   BOOST_TEST(__x1.precision() == float256_prec, "precision()");
+  BOOST_TEST(__x3.precision() == 100, "precision()");
   floatmp_round_t __rmode = __x1.rounding_mode();
   BOOST_TEST(static_cast<int>(__x1.rounding_mode(__rmode)) ==
                  static_cast<int>(__rmode),
