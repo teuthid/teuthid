@@ -74,6 +74,9 @@ public:
   template <typename T> static bool equal_to(const T &x, const T &y) {
     return (x == y);
   }
+  template <typename T> static bool less_than(const T &x, const T &y) {
+    return (x < y);
+  }  
   template <typename E> static constexpr bool test_enumerator(E en) noexcept;
 
 private:
