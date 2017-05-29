@@ -337,4 +337,11 @@ template <> bool system::equal_to(const mpfr_t &x, const mpfr_t &y) {
     return (system::to_string(x).compare(system::to_string(y)) == 0);
 }
 
+template <> bool system::less_than(const float &x, const float &y) {
+  if (std::isfinite(x) && std::isfinite(y))
+    if (!system::equal_to(x, y))
+      return (x < y);
+  return false;
+}
+
 #endif // DOXYGEN_SHOULD_SKIP_THIS

@@ -164,6 +164,9 @@ template <> bool system::equal_to(const float &x, const float &y);
 template <> bool system::equal_to(const double &x, const double &y);
 template <> bool system::equal_to(const long double &x, const long double &y);
 template <> bool system::equal_to(const mpfr_t &x, const mpfr_t &y);
+
+// specializations of system::less_than<T>()
+template <> bool system::less_than(const float &x, const float &y);
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 template <typename E> constexpr bool system::test_enumerator(E en) noexcept {
