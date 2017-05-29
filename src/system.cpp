@@ -349,4 +349,12 @@ __TEUTHID_FLOAT_LESS_THAN(float);
 __TEUTHID_FLOAT_LESS_THAN(double);
 __TEUTHID_FLOAT_LESS_THAN(long double);
 #undef __TEUTHID_FLOAT_LESS_THAN
+
+template <> bool system::less_than(const mpfr_t &x, const mpfr_t &y) {
+  if ((mpfr_number_p(x) != 0) && (mpfr_number_p(y) != 0))
+    if (system::to_string(x).compare(system::to_string(y)) != 0)
+      return (mpfr_less_p(x, y) != 0);
+  return false;
+}
+
 #endif // DOXYGEN_SHOULD_SKIP_THIS
