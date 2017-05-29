@@ -19,7 +19,7 @@
 #ifndef TEUTHID_FLOATMP_HPP
 #define TEUTHID_FLOATMP_HPP
 
-#include <mutex>
+#include <atomic>
 
 #include <mpfr.h>
 #include <teuthid/config.hpp>
@@ -67,14 +67,18 @@ public:
   static constexpr std::size_t min_precision() noexcept {
     return MPFR_PREC_MIN;
   }
-  static floatmp_round_t rounding_mode();
-  static floatmp_round_t rounding_mode(floatmp_round_t mode);
+  static floatmp_round_t rounding_mode() {
+    return static_cast<floatmp_round_t>(round_mode_.load());
+  }
+  static floatmp_round_t rounding_mode(floatmp_round_t mode) {
+    return static_cast<floatmp_round_t>(
+        round_mode_.exchange(static_cast<int>(mode)));
+  }
 
 private:
   floatmp_base() {}
   mpfr_t value_;
-  static mpfr_rnd_t round_mode_;
-  static std::mutex round_mode_mutex_;
+  static std::atomic_int round_mode_;
 };
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS

@@ -21,8 +21,7 @@
 
 using namespace teuthid;
 
-mpfr_rnd_t floatmp_base::round_mode_ = mpfr_get_default_rounding_mode();
-std::mutex floatmp_base::round_mode_mutex_;
+std::atomic_int floatmp_base::round_mode_(mpfr_get_default_rounding_mode());
 
 floatmp_base::floatmp_base(std::size_t precision) {
   mpfr_init2(value_, precision);
@@ -31,8 +30,7 @@ floatmp_base::floatmp_base(std::size_t precision) {
 
 floatmp_base::floatmp_base(std::size_t precision, const floatmp_base &value) {
   mpfr_init2(value_, precision);
-  std::lock_guard<std::mutex> lock(floatmp_base::round_mode_mutex_);
-  mpfr_set(value_, value.c_mpfr(), round_mode_);
+  mpfr_set(value_, value.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
 }
 
 floatmp_base::~floatmp_base() { mpfr_clear(value_); }
@@ -41,8 +39,7 @@ floatmp_base::~floatmp_base() { mpfr_clear(value_); }
 
 #define __TEUTHID_FLOATMP_ASSIGN_NUMBER(TYPE, FUN)                             \
   template <> void floatmp_base::assign(const TYPE &value) {                   \
-    std::lock_guard<std::mutex> lock(floatmp_base::round_mode_mutex_);         \
-    FUN(value_, value, round_mode_);                                           \
+    FUN(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));              \
   }
 
 __TEUTHID_FLOATMP_ASSIGN_NUMBER(int8_t, mpfr_set_sj);
@@ -64,10 +61,10 @@ template <> void floatmp_base::assign(const int128_t &value) {
   mpfr_t __result;
   mpfr_init2(__result, mpfr_get_prec(value_));
   int64_t __mod = value % INT64_MAX;
-  std::lock_guard<std::mutex> lock(floatmp_base::round_mode_mutex_);
-  mpfr_set_sj(value_, INT64_MAX, round_mode_);
-  mpfr_mul_si(__result, value_, __mod, round_mode_);
-  mpfr_set(value_, __result, round_mode_);
+  mpfr_set_sj(value_, INT64_MAX, static_cast<mpfr_rnd_t>(rounding_mode()));
+  mpfr_mul_si(__result, value_, __mod,
+              static_cast<mpfr_rnd_t>(rounding_mode()));
+  mpfr_set(value_, __result, static_cast<mpfr_rnd_t>(rounding_mode()));
   mpfr_clear(__result);
 }
 
@@ -75,10 +72,10 @@ template <> void floatmp_base::assign(const uint128_t &value) {
   mpfr_t __result;
   mpfr_init2(__result, mpfr_get_prec(value_));
   uint64_t __mod = value % UINT64_MAX;
-  std::lock_guard<std::mutex> lock(floatmp_base::round_mode_mutex_);
-  mpfr_set_uj(value_, UINT64_MAX, round_mode_);
-  mpfr_mul_ui(__result, value_, __mod, round_mode_);
-  mpfr_set(value_, __result, round_mode_);
+  mpfr_set_uj(value_, UINT64_MAX, static_cast<mpfr_rnd_t>(rounding_mode()));
+  mpfr_mul_ui(__result, value_, __mod,
+              static_cast<mpfr_rnd_t>(rounding_mode()));
+  mpfr_set(value_, __result, static_cast<mpfr_rnd_t>(rounding_mode()));
   mpfr_clear(__result);
 }
 #endif // TEUTHID_HAVE_INT_128
@@ -87,16 +84,4 @@ template <> void floatmp_base::assign(const uint128_t &value) {
 
 bool floatmp_base::equal_to(const floatmp_base &value) const {
   return system::equal_to(value_, value.c_mpfr());
-}
-
-floatmp_round_t floatmp_base::rounding_mode() {
-  std::lock_guard<std::mutex> lock(floatmp_base::round_mode_mutex_);
-  return static_cast<floatmp_round_t>(floatmp_base::round_mode_);
-}
-
-floatmp_round_t floatmp_base::rounding_mode(floatmp_round_t mode) {
-  std::lock_guard<std::mutex> lock(floatmp_base::round_mode_mutex_);
-  mpfr_rnd_t __prev = floatmp_base::round_mode_;
-  floatmp_base::round_mode_ = static_cast<mpfr_rnd_t>(mode);
-  return static_cast<floatmp_round_t>(floatmp_base::round_mode_);
 }
