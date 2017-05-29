@@ -71,7 +71,10 @@ public:
   template <typename T> static bool less_than(const T &x, const T &y) {
     return (x < y);
   }
-  template <typename E> static constexpr bool test_enumerator(E en) noexcept;
+  template <typename E> static constexpr bool test_enumerator(E en) noexcept {
+    static_assert(std::is_enum<E>::value, "requires enumeration type");
+    return static_cast<typename std::underlying_type<E>::type>(en);
+  }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   static std::string to_string(const bool &value) {
@@ -190,10 +193,6 @@ template <> bool system::less_than(const long double &x, const long double &y);
 template <> bool system::less_than(const mpfr_t &x, const mpfr_t &y);
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
-template <typename E> constexpr bool system::test_enumerator(E en) noexcept {
-  static_assert(std::is_enum<E>::value, "requires enumeration type");
-  return static_cast<typename std::underlying_type<E>::type>(en);
-}
 } // namespace teuthid
 
 #endif // TEUTHID_SYSTEM_HPP
