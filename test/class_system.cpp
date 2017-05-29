@@ -171,28 +171,52 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   system::from_string("1.2345", __float_val);
   BOOST_TEST(system::equal_to(__float_val, __float_val),
              "system::from_string(float)");
+  BOOST_TEST(!system::less_than(__float_val, __float_val),
+             "system::from_string(float)");
   BOOST_TEST(system::equal_to(__float_val, (float)1.2345),
-             "system::from_string(float)");
+             "system::equal_to(float)");
+  BOOST_TEST(!system::less_than(__float_val, (float)1.2345),
+             "system::less_than(float)");
   BOOST_TEST(!system::equal_to(__float_val, (float)1.2346),
-             "system::from_string(float)");
+             "system::equal_to(float)");
+  BOOST_TEST(system::less_than(__float_val, (float)1.2346),
+             "system::less_than(float)");
+  BOOST_TEST(!system::less_than((float)1.2346, __float_val),
+             "system::less_than(float)");
 
   double __double_val;
   system::from_string("1.23456", __double_val);
   BOOST_TEST(system::equal_to(__double_val, __double_val),
              "system::from_string(double)");
+  BOOST_TEST(!system::less_than(__double_val, __double_val),
+             "system::from_string(double)");
   BOOST_TEST(system::equal_to(__double_val, (double)1.23456),
-             "system::from_string(double)");
+             "system::equal_to(double)");
+  BOOST_TEST(!system::less_than(__double_val, (double)1.23456),
+             "system::less_than(double)");
   BOOST_TEST(!system::equal_to(__double_val, (double)1.23457),
-             "system::from_string(double)");
+             "system::equal_to(double)");
+  BOOST_TEST(system::less_than(__double_val, (double)1.23457),
+             "system::less_than(double)");
+  BOOST_TEST(!system::less_than((double)1.23457, __double_val),
+             "system::less_than(double)");
 
   long double __ldouble_val;
   system::from_string("1.234567", __ldouble_val);
   BOOST_TEST(system::equal_to(__ldouble_val, __ldouble_val),
              "system::from_string(long double)");
+  BOOST_TEST(!system::less_than(__ldouble_val, __ldouble_val),
+             "system::from_string(long double)");
   BOOST_TEST(system::equal_to(__ldouble_val, (long double)1.234567),
-             "system::from_string(long double)");
+             "system::equal_to(long double)");
+  BOOST_TEST(!system::less_than(__ldouble_val, (long double)1.234567),
+             "system::less_than(long double)");
   BOOST_TEST(!system::equal_to(__ldouble_val, (long double)1.234568),
-             "system::from_string(long double)");
+             "system::equal_to(long double)");
+  BOOST_TEST(system::less_than(__ldouble_val, (long double)1.234568),
+             "system::less_than(long double)");
+  BOOST_TEST(!system::less_than((long double)1.234568, __ldouble_val),
+             "system::less_than(long double)");
 
   system::from_string("1.2345", __mpfr);
   BOOST_TEST(mpfr_cmp_ld(__mpfr, (long double)1.2345) == 0,

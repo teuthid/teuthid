@@ -76,7 +76,7 @@ public:
   }
   template <typename T> static bool less_than(const T &x, const T &y) {
     return (x < y);
-  }  
+  }
   template <typename E> static constexpr bool test_enumerator(E en) noexcept;
 
 private:
@@ -167,6 +167,8 @@ template <> bool system::equal_to(const mpfr_t &x, const mpfr_t &y);
 
 // specializations of system::less_than<T>()
 template <> bool system::less_than(const float &x, const float &y);
+template <> bool system::less_than(const double &x, const double &y);
+template <> bool system::less_than(const long double &x, const long double &y);
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 template <typename E> constexpr bool system::test_enumerator(E en) noexcept {
