@@ -89,6 +89,30 @@ public:
   static std::string to_string(const int64_t &value) {
     return std::to_string(value);
   }
+  static std::string to_string(const uint8_t &value) {
+    return std::to_string(value);
+  }
+  static std::string to_string(const uint16_t &value) {
+    return std::to_string(value);
+  }
+  static std::string to_string(const uint32_t &value) {
+    return std::to_string(value);
+  }
+  static std::string to_string(const uint64_t &value) {
+    return std::to_string(value);
+  }
+  static std::string to_string(const char &value) {
+    return std::string(1, value);
+  }
+  static std::string to_string(const char *const &value) {
+    return std::string(value);
+  }
+  static std::string to_string(const std::string &value) {
+    return std::string(value);
+  }
+  static std::string to_string(void *const &value) {
+    return system::to_string(reinterpret_cast<uintptr_t>(value));
+  }
   template <std::size_t Precision>
   static std::string to_string(const floatmp<Precision> &value) {
     return system::to_string(value.c_mpfr());
@@ -111,18 +135,10 @@ private:
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 // specializations of system::to_string<T>()
-template <> std::string system::to_string(const uint8_t &value);
-template <> std::string system::to_string(const uint16_t &value);
-template <> std::string system::to_string(const uint32_t &value);
-template <> std::string system::to_string(const uint64_t &value);
 #ifdef TEUTHID_HAVE_INT_128
 template <> std::string system::to_string(const int128_t &value);
 template <> std::string system::to_string(const uint128_t &value);
 #endif // TEUTHID_HAVE_INT_128
-template <> std::string system::to_string(const char &value);
-template <> std::string system::to_string(const char *const &value);
-template <> std::string system::to_string(const std::string &value);
-template <> std::string system::to_string(void *const &value);
 template <> std::string system::to_string(const float &value);
 template <> std::string system::to_string(const double &value);
 template <> std::string system::to_string(const long double &value);
@@ -130,15 +146,6 @@ template <> std::string system::to_string(const mpfr_t &value);
 template <> std::string system::to_string(const floatmp_base &value);
 template <>
 std::string system::to_string(const std::vector<std::string> &value);
-
-#if defined(TEUTHID_WITH_OPENCL)
-namespace clb {
-class device;
-class platform;
-}
-template <> std::string system::to_string(const clb::device &value);
-template <> std::string system::to_string(const clb::platform &value);
-#endif // TEUTHID_WITH_OPENCL
 
 // specializations of system::from_string<T>()
 // may throw: std::invalid_argument, std::out_of_range

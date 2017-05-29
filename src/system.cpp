@@ -69,17 +69,6 @@ bool system::uses_cl_backend(bool enabled) {
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-#define __TEUTHID_STRING_FROM_INTEGER(TYPE, CAST_TYPE)                         \
-  template <> std::string system::to_string(const TYPE &value) {               \
-    return std::to_string(static_cast<CAST_TYPE>(value));                      \
-  }
-
-__TEUTHID_STRING_FROM_INTEGER(uint8_t, unsigned long long);
-__TEUTHID_STRING_FROM_INTEGER(uint16_t, unsigned long long);
-__TEUTHID_STRING_FROM_INTEGER(uint32_t, unsigned long long);
-__TEUTHID_STRING_FROM_INTEGER(uint64_t, unsigned long long);
-#undef __TEUTHID_STRING_FROM_INTEGER
-
 #ifdef TEUTHID_HAVE_INT_128
 std::string system::uint128_to_string_(uint128_t value) {
   unsigned __mod;
@@ -113,22 +102,6 @@ template <> std::string system::to_string(const uint128_t &value) {
     return std::to_string(static_cast<unsigned long long>(value));
 }
 #endif // TEUTHID_HAVE_INT_128
-
-template <> std::string system::to_string(const char &value) {
-  return std::string(1, value);
-}
-
-template <> std::string system::to_string(const char *const &value) {
-  return std::string(value);
-}
-
-template <> std::string system::to_string(const std::string &value) {
-  return std::string(value);
-}
-
-template <> std::string system::to_string(void *const &value) {
-  return system::to_string(reinterpret_cast<uintptr_t>(value));
-}
 
 #define __TEUTHID_STRING_FROM_FLOAT(TYPE)                                      \
   template <> std::string system::to_string(const TYPE &value) {               \
@@ -169,15 +142,6 @@ std::string system::to_string(const std::vector<std::string> &value) {
   }
   return __str;
 }
-
-#if defined(TEUTHID_WITH_OPENCL)
-template <> std::string system::to_string(const clb::device &value) {
-  return value.name();
-}
-template <> std::string system::to_string(const clb::platform &value) {
-  return value.name();
-}
-#endif // TEUTHID_WITH_OPENCL
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
