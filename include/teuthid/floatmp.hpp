@@ -60,6 +60,7 @@ public:
 #endif // DOXYGEN_SHOULD_SKIP_THIS
   const mpfr_t &c_mpfr() const noexcept { return value_; }
   bool equal_to(const floatmp_base &value) const;
+  bool less_than(const floatmp_base &value) const;
 
   static constexpr std::size_t max_precision() noexcept {
     return MPFR_PREC_MAX;
@@ -111,6 +112,18 @@ inline bool operator==(const floatmp_base &lhs, const floatmp_base &rhs) {
 inline bool operator!=(const floatmp_base &lhs, const floatmp_base &rhs) {
   return !(lhs == rhs);
 }
+inline bool operator<(const floatmp_base &lhs, const floatmp_base &rhs) {
+  return lhs.less_than(rhs);
+}
+inline bool operator>(const floatmp_base &lhs, const floatmp_base &rhs) {
+  return rhs < lhs;
+}
+inline bool operator<=(const floatmp_base &lhs, const floatmp_base &rhs) {
+  return !(lhs > rhs);
+}
+inline bool operator>=(const floatmp_base &lhs, const floatmp_base &rhs) {
+  return !(lhs < rhs);
+}
 
 #define TEUTHID_CHECK_FLOATMP_PRECISION(PRECISION)                             \
   static_assert((PRECISION >= floatmp_base::min_precision()),                  \
@@ -145,6 +158,22 @@ inline bool operator==(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {
 template <std::size_t P1, std::size_t P2>
 inline bool operator!=(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {
   return !(lhs == rhs);
+}
+template <std::size_t P1, std::size_t P2>
+inline bool operator<(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {
+  return lhs.less_than(static_cast<const floatmp_base &>(rhs));
+}
+template <std::size_t P1, std::size_t P2>
+inline bool operator>(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {
+  return rhs < lhs;
+}
+template <std::size_t P1, std::size_t P2>
+inline bool operator<=(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {
+  return !(lhs > rhs);
+}
+template <std::size_t P1, std::size_t P2>
+inline bool operator>=(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {
+  return !(lhs < rhs);
 }
 
 } // namespace teuthid

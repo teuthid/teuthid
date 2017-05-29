@@ -85,3 +85,7 @@ template <> void floatmp_base::assign(const uint128_t &value) {
 bool floatmp_base::equal_to(const floatmp_base &value) const {
   return system::equal_to(value_, value.c_mpfr());
 }
+
+bool floatmp_base::less_than(const floatmp_base &value) const {
+  return system::less_than(value_, value.c_mpfr());
+}
