@@ -106,6 +106,8 @@ void floatmp_base::assign(const floatmp<Precision> &value) {
 }
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
+/******************************************************************************/
+
 inline bool operator==(const floatmp_base &lhs, const floatmp_base &rhs) {
   return lhs.equal_to(rhs);
 }
@@ -125,13 +127,13 @@ inline bool operator>=(const floatmp_base &lhs, const floatmp_base &rhs) {
   return !(lhs < rhs);
 }
 
+/******************************************************************************/
+
 #define TEUTHID_CHECK_FLOATMP_PRECISION(PRECISION)                             \
   static_assert((PRECISION >= floatmp_base::min_precision()),                  \
                 "Too low floatmp precision.");                                 \
   static_assert((PRECISION < floatmp_base::max_precision()),                   \
                 "Too high floatmp precision.");
-
-/******************************************************************************/
 
 template <std::size_t Precision> class floatmp : public floatmp_base {
 public:
@@ -150,6 +152,8 @@ public:
   }
   constexpr std::size_t precision() const noexcept { return Precision; }
 };
+
+/******************************************************************************/
 
 template <std::size_t P1, std::size_t P2>
 inline bool operator==(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {

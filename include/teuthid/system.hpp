@@ -48,12 +48,6 @@ public:
   template <typename T> static std::string to_string(const T &value) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-  template <std::size_t Precision>
-  static std::string to_string(const floatmp<Precision> &value) {
-    return system::to_string(value.c_mpfr());
-  }
-#endif // DOXYGEN_SHOULD_SKIP_THIS
   static std::size_t split_string(const std::string &str,
                                   std::vector<std::string> &vec,
                                   char delim = ' ');
@@ -79,6 +73,28 @@ public:
   }
   template <typename E> static constexpr bool test_enumerator(E en) noexcept;
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+  static std::string to_string(const bool &value) {
+    return (value ? std::string("true") : std::string("false"));
+  }
+  static std::string to_string(const int8_t &value) {
+    return std::to_string(value);
+  }
+  static std::string to_string(const int16_t &value) {
+    return std::to_string(value);
+  }
+  static std::string to_string(const int32_t &value) {
+    return std::to_string(value);
+  }
+  static std::string to_string(const int64_t &value) {
+    return std::to_string(value);
+  }
+  template <std::size_t Precision>
+  static std::string to_string(const floatmp<Precision> &value) {
+    return system::to_string(value.c_mpfr());
+  }
+#endif // DOXYGEN_SHOULD_SKIP_THIS
+
 private:
   system() {}
   ~system() {}
@@ -95,11 +111,6 @@ private:
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 // specializations of system::to_string<T>()
-template <> std::string system::to_string(const bool &value);
-template <> std::string system::to_string(const int8_t &value);
-template <> std::string system::to_string(const int16_t &value);
-template <> std::string system::to_string(const int32_t &value);
-template <> std::string system::to_string(const int64_t &value);
 template <> std::string system::to_string(const uint8_t &value);
 template <> std::string system::to_string(const uint16_t &value);
 template <> std::string system::to_string(const uint32_t &value);

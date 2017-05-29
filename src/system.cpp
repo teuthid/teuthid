@@ -69,19 +69,11 @@ bool system::uses_cl_backend(bool enabled) {
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-template <> std::string system::to_string(const bool &value) {
-  return (value ? std::string("true") : std::string("false"));
-}
-
 #define __TEUTHID_STRING_FROM_INTEGER(TYPE, CAST_TYPE)                         \
   template <> std::string system::to_string(const TYPE &value) {               \
     return std::to_string(static_cast<CAST_TYPE>(value));                      \
   }
 
-__TEUTHID_STRING_FROM_INTEGER(int8_t, long long);
-__TEUTHID_STRING_FROM_INTEGER(int16_t, long long);
-__TEUTHID_STRING_FROM_INTEGER(int32_t, long long);
-__TEUTHID_STRING_FROM_INTEGER(int64_t, long long);
 __TEUTHID_STRING_FROM_INTEGER(uint8_t, unsigned long long);
 __TEUTHID_STRING_FROM_INTEGER(uint16_t, unsigned long long);
 __TEUTHID_STRING_FROM_INTEGER(uint32_t, unsigned long long);
