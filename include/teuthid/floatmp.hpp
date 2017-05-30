@@ -54,7 +54,6 @@ public:
   }
   virtual ~floatmp_base() { mpfr_clear(value_); }
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-  // floatmp_base(const floatmp_base &) = delete;
   floatmp_base(floatmp_base &&) = delete;
   floatmp_base &operator=(const floatmp_base &) = delete;
   floatmp_base &operator=(floatmp_base &&) = delete;
@@ -120,14 +119,12 @@ public:
   }
   template <std::size_t Precision>
   void assign(const floatmp<Precision> &value) {
-    mpfr_set(value_, value.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+    mpfr_set(value_, value.value_, static_cast<mpfr_rnd_t>(rounding_mode()));
   }
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 private:
-  floatmp_base() {
-    mpfr_init2(value_, mpfr_get_default_prec());
-  }
+  floatmp_base() { mpfr_init2(value_, mpfr_get_default_prec()); }
   floatmp_base(const floatmp_base &value) {
     mpfr_init2(value_, mpfr_get_prec(value.value_));
     mpfr_set(value_, value.value_, static_cast<mpfr_rnd_t>(rounding_mode()));
@@ -186,6 +183,10 @@ public:
   floatmp &operator=(const floatmp &other) {
     if (this != &other)
       mpfr_set(value_, other.value_, static_cast<mpfr_rnd_t>(rounding_mode()));
+    return *this;
+  }
+  template <std::size_t P> floatmp &operator=(const floatmp<P> &other) {
+    mpfr_set(value_, other.value_, static_cast<mpfr_rnd_t>(rounding_mode()));
     return *this;
   }
 
