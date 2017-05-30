@@ -174,8 +174,8 @@ public:
   floatmp() : floatmp_base(Precision) {
     TEUTHID_CHECK_FLOATMP_PRECISION(Precision);
   }
-  template <std::size_t P2>
-  floatmp(const floatmp<P2> &value)
+  template <std::size_t P>
+  floatmp(const floatmp<P> &value)
       : floatmp_base(Precision, static_cast<const floatmp_base &>(value)) {
     TEUTHID_CHECK_FLOATMP_PRECISION(Precision);
   }
@@ -189,6 +189,13 @@ public:
     mpfr_set(value_, other.value_, static_cast<mpfr_rnd_t>(rounding_mode()));
     return *this;
   }
+  template <typename T> floatmp &operator=(const T &value) {
+    floatmp_base::assign(value);
+  }
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+  template <std::size_t P> floatmp(floatmp<P> &&value) = delete;
+  template <std::size_t P> floatmp &operator=(floatmp<P> &&other) = delete;
+#endif // DOXYGEN_SHOULD_SKIP_THIS
 
   template <typename T> void assign(const T &value) {
     floatmp_base::assign(value);
