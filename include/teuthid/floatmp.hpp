@@ -42,9 +42,15 @@ template <std::size_t Precision> class floatmp;
 
 class floatmp_base {
 public:
-  floatmp_base(std::size_t precision);
-  floatmp_base(std::size_t precision, const floatmp_base &value);
-  virtual ~floatmp_base();
+  floatmp_base(std::size_t precision) {
+    mpfr_init2(value_, precision);
+    mpfr_set_zero(value_, 1);
+  }
+  floatmp_base(std::size_t precision, const floatmp_base &value) {
+    mpfr_init2(value_, precision);
+    mpfr_set(value_, value.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
+  virtual ~floatmp_base() { mpfr_clear(value_); }
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   floatmp_base(const floatmp_base &) = delete;
   floatmp_base(floatmp_base &&) = delete;
@@ -55,9 +61,6 @@ public:
   template <typename T> void assign(const T &value) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-  template <std::size_t Precision> void assign(const floatmp<Precision> &value);
-#endif // DOXYGEN_SHOULD_SKIP_THIS
   const mpfr_t &c_mpfr() const noexcept { return value_; }
   bool equal_to(const floatmp_base &value) const;
   bool less_than(const floatmp_base &value) const;
@@ -76,6 +79,49 @@ public:
         round_mode_.exchange(static_cast<int>(mode)));
   }
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+  void assign(const int8_t &value) {
+    mpfr_set_sj(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
+  void assign(const int16_t &value) {
+    mpfr_set_sj(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
+  void assign(const int32_t &value) {
+    mpfr_set_sj(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
+  void assign(const int64_t &value) {
+    mpfr_set_sj(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
+  void assign(const uint8_t &value) {
+    mpfr_set_uj(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
+  void assign(const uint16_t &value) {
+    mpfr_set_uj(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
+  void assign(const uint32_t &value) {
+    mpfr_set_uj(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
+  void assign(const uint64_t &value) {
+    mpfr_set_uj(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
+  void assign(const float &value) {
+    mpfr_set_flt(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
+  void assign(const double &value) {
+    mpfr_set_d(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
+  void assign(const long double &value) {
+    mpfr_set_ld(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
+  void assign(const mpfr_t &value) {
+    mpfr_set(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
+  template <std::size_t Precision>
+  void assign(const floatmp<Precision> &value) {
+    mpfr_set(value_, value.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
+#endif // DOXYGEN_SHOULD_SKIP_THIS
+
 private:
   floatmp_base() {}
   mpfr_t value_;
@@ -83,27 +129,10 @@ private:
 };
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-// specializations of floatmp_base::assign<T>()
-template <> void floatmp_base::assign(const int8_t &value);
-template <> void floatmp_base::assign(const int16_t &value);
-template <> void floatmp_base::assign(const int32_t &value);
-template <> void floatmp_base::assign(const int64_t &value);
-template <> void floatmp_base::assign(const uint8_t &value);
-template <> void floatmp_base::assign(const uint16_t &value);
-template <> void floatmp_base::assign(const uint32_t &value);
-template <> void floatmp_base::assign(const uint64_t &value);
 #ifdef TEUTHID_HAVE_INT_128
 template <> void floatmp_base::assign(const int128_t &value);
 template <> void floatmp_base::assign(const uint128_t &value);
 #endif // TEUTHID_HAVE_INT_128
-template <> void floatmp_base::assign(const float &value);
-template <> void floatmp_base::assign(const double &value);
-template <> void floatmp_base::assign(const long double &value);
-template <> void floatmp_base::assign(const mpfr_t &value);
-template <std::size_t Precision>
-void floatmp_base::assign(const floatmp<Precision> &value) {
-  assign(value.c_mpfr());
-}
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 /******************************************************************************/

@@ -23,39 +23,7 @@ using namespace teuthid;
 
 std::atomic_int floatmp_base::round_mode_(mpfr_get_default_rounding_mode());
 
-floatmp_base::floatmp_base(std::size_t precision) {
-  mpfr_init2(value_, precision);
-  mpfr_set_zero(value_, 1);
-}
-
-floatmp_base::floatmp_base(std::size_t precision, const floatmp_base &value) {
-  mpfr_init2(value_, precision);
-  mpfr_set(value_, value.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
-}
-
-floatmp_base::~floatmp_base() { mpfr_clear(value_); }
-
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-
-#define __TEUTHID_FLOATMP_ASSIGN_NUMBER(TYPE, FUN)                             \
-  template <> void floatmp_base::assign(const TYPE &value) {                   \
-    FUN(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));              \
-  }
-
-__TEUTHID_FLOATMP_ASSIGN_NUMBER(int8_t, mpfr_set_sj);
-__TEUTHID_FLOATMP_ASSIGN_NUMBER(int16_t, mpfr_set_sj);
-__TEUTHID_FLOATMP_ASSIGN_NUMBER(int32_t, mpfr_set_sj);
-__TEUTHID_FLOATMP_ASSIGN_NUMBER(int64_t, mpfr_set_sj);
-__TEUTHID_FLOATMP_ASSIGN_NUMBER(uint8_t, mpfr_set_uj);
-__TEUTHID_FLOATMP_ASSIGN_NUMBER(uint16_t, mpfr_set_uj);
-__TEUTHID_FLOATMP_ASSIGN_NUMBER(uint32_t, mpfr_set_uj);
-__TEUTHID_FLOATMP_ASSIGN_NUMBER(uint64_t, mpfr_set_uj);
-__TEUTHID_FLOATMP_ASSIGN_NUMBER(float, mpfr_set_flt);
-__TEUTHID_FLOATMP_ASSIGN_NUMBER(double, mpfr_set_d);
-__TEUTHID_FLOATMP_ASSIGN_NUMBER(long double, mpfr_set_ld);
-__TEUTHID_FLOATMP_ASSIGN_NUMBER(mpfr_t, mpfr_set);
-#undef __TEUTHID_FLOATMP_ASSIGN_NUMBER
-
 #ifdef TEUTHID_HAVE_INT_128
 template <> void floatmp_base::assign(const int128_t &value) {
   mpfr_t __result;
@@ -79,7 +47,6 @@ template <> void floatmp_base::assign(const uint128_t &value) {
   mpfr_clear(__result);
 }
 #endif // TEUTHID_HAVE_INT_128
-
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 bool floatmp_base::equal_to(const floatmp_base &value) const {
