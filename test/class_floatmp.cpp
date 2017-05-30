@@ -26,7 +26,8 @@
 using namespace teuthid;
 
 BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
-  float256_t __x1, __x2;
+  float256_t __x1;
+  float256_t __x2 = __x1;
   floatmp<100> __x3(__x1);
 
   BOOST_TEST(__x1.precision() == float256_prec, "precision()");
@@ -50,31 +51,31 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST(!(__x1 > __x3), "operator>");
   BOOST_TEST(!(__x1 >= __x3), "operator>=");
   __x1.assign(12345);
-  __x2.assign(12345);
+  __x2 = __x1;
   BOOST_TEST((__x1 == __x2), "operator==");
   __x3.assign(-12345);
   BOOST_TEST((__x1 != __x3), "operator!=");
   BOOST_TEST((__x1 > __x3), "operator>");
   BOOST_TEST((__x3 < __x1), "operator<");
   __x1.assign((float)1.234);
-  __x3.assign(__x1);
+  __x3 = __x1;
   BOOST_TEST((__x1 == __x3), "operator==");
   __x1.assign((double)1.2345);
-  __x3.assign(__x1);
+  __x3 = __x1;
   BOOST_TEST((__x1 == __x3), "operator==");
   __x1.assign((long double)1.23456);
-  __x3.assign(__x1);
+  __x3 = __x1;
   BOOST_TEST((__x1 == __x3), "operator==");
 
 #ifdef TEUTHID_HAVE_INT_128
   __x1.assign(static_cast<int128_t>(INT64_MAX) * 10);
-  __x3.assign(__x1);
+  __x3 = __x1;
   BOOST_TEST(!system::to_string(__x1).empty());
   BOOST_TEST(!system::to_string(__x3).empty());
   BOOST_TEST((__x1 == __x3), "operator==");
   BOOST_TEST(!(__x1 < __x3), "operator<");
   __x1.assign(static_cast<uint128_t>(UINT64_MAX) * 10);
-  __x3.assign(__x1);
+  __x3 = __x1;
   BOOST_TEST(!system::to_string(__x1).empty());
   BOOST_TEST(!system::to_string(__x3).empty());
   BOOST_TEST((__x1 == __x3), "operator==");

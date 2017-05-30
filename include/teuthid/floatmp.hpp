@@ -41,6 +41,8 @@ enum class floatmp_round_t : int {
 template <std::size_t Precision> class floatmp;
 
 class floatmp_base {
+  template <std::size_t Precision> friend class floatmp;
+
 public:
   floatmp_base(std::size_t precision) {
     mpfr_init2(value_, precision);
@@ -48,11 +50,11 @@ public:
   }
   floatmp_base(std::size_t precision, const floatmp_base &value) {
     mpfr_init2(value_, precision);
-    mpfr_set(value_, value.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+    mpfr_set(value_, value.value_, static_cast<mpfr_rnd_t>(rounding_mode()));
   }
   virtual ~floatmp_base() { mpfr_clear(value_); }
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-  floatmp_base(const floatmp_base &) = delete;
+  // floatmp_base(const floatmp_base &) = delete;
   floatmp_base(floatmp_base &&) = delete;
   floatmp_base &operator=(const floatmp_base &) = delete;
   floatmp_base &operator=(floatmp_base &&) = delete;
@@ -123,7 +125,13 @@ public:
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 private:
-  floatmp_base() {}
+  floatmp_base() {
+    mpfr_init2(value_, mpfr_get_default_prec());
+  }
+  floatmp_base(const floatmp_base &value) {
+    mpfr_init2(value_, mpfr_get_prec(value.value_));
+    mpfr_set(value_, value.value_, static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
   mpfr_t value_;
   static std::atomic_int round_mode_;
 };
@@ -175,6 +183,11 @@ public:
     TEUTHID_CHECK_FLOATMP_PRECISION(Precision);
   }
   virtual ~floatmp() {}
+  floatmp &operator=(const floatmp &other) {
+    if (this != &other)
+      mpfr_set(value_, other.value_, static_cast<mpfr_rnd_t>(rounding_mode()));
+    return *this;
+  }
 
   template <typename T> void assign(const T &value) {
     floatmp_base::assign(value);
