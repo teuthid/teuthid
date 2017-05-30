@@ -120,6 +120,9 @@ public:
   static std::string to_string(const floatmp<Precision> &value) {
     return system::to_string(value.c_mpfr());
   }
+  template <std::size_t Precision>
+  static floatmp<Precision> &from_string(const std::string &str_value,
+                                         floatmp<Precision> &value);
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 private:
@@ -179,7 +182,15 @@ long double &system::from_string(const std::string &str_value,
                                  long double &value);
 template <>
 mpfr_t &system::from_string(const std::string &str_value, mpfr_t &value);
-
+template <>
+floatmp_base &system::from_string(const std::string &str_value,
+                                  floatmp_base &value);
+template <std::size_t Precision>
+floatmp<Precision> &system::from_string(const std::string &str_value,
+                                        floatmp<Precision> &value) {
+  return dynamic_cast<floatmp<Precision> &>(
+      system::from_string(str_value, static_cast<floatmp_base &>(value)));
+}
 // specializations of system::equal_to<T>()
 template <> bool system::equal_to(const float &x, const float &y);
 template <> bool system::equal_to(const double &x, const double &y);

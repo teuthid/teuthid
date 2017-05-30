@@ -263,13 +263,27 @@ __TEUTHID_FLOAT_FROM_STRING(long double, stold);
 template <>
 mpfr_t &system::from_string(const std::string &str_value, mpfr_t &value) {
   std::string __s = system::validate_string_(str_value);
-  if (!__s.empty()) {
-    mpfr_clear(value);
-    mpfr_init2(value, mpfr_get_default_prec());
+  if (!__s.empty())
     if (mpfr_set_str(value, __s.c_str(), 10,
                      mpfr_get_default_rounding_mode()) == 0)
       return value;
-  }
+  throw std::invalid_argument("empty or invalid string");
+}
+
+template <>
+floatmp_base &system::from_string(const std::string &str_value,
+                                  floatmp_base &value) {
+  std::string __s = system::validate_string_(str_value);
+  mpfr_t __result;
+  mpfr_init2(__result, mpfr_get_prec(value.c_mpfr()));
+  if (!__s.empty())
+    if (mpfr_set_str(__result, __s.c_str(), 10,
+                     static_cast<mpfr_rnd_t>(floatmp_base::rounding_mode())) ==
+        0) {
+      value.assign(__result);
+      mpfr_clear(__result);
+      return value;
+    }
   throw std::invalid_argument("empty or invalid string");
 }
 

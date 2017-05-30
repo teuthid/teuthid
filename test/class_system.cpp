@@ -223,7 +223,14 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
              "system::from_string(mpfr_t)");
   BOOST_TEST(system::equal_to(__mpfr, __mpfr), "system::equal_to(mpfr_t)");
   BOOST_TEST(!system::less_than(__mpfr, __mpfr), "system::less_than(mpfr_t)");
-  
+  floatmp<100> __floatmp1, __floatmp2;
+  BOOST_TEST((system::from_string("1.2345", __floatmp1) ==
+              (system::from_string("1.2345", __floatmp2))),
+             "system::from_string(floatmp<>)");
+  BOOST_TEST((system::from_string("1.2345", __floatmp1) !=
+              (system::from_string("1.2346", __floatmp2))),
+             "system::from_string(floatmp<>)");
+
   std::string __text = "";
   std::vector<std::string> __strvector;
   system::split_string(__text, __strvector);
