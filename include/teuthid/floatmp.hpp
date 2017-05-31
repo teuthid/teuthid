@@ -105,7 +105,7 @@ public:
   __TEUTHID_FLOATMP_ASSIGN_NUMBER_SPEC(double, mpfr_set_d)
   __TEUTHID_FLOATMP_ASSIGN_NUMBER_SPEC(long double, mpfr_set_ld)
   __TEUTHID_FLOATMP_ASSIGN_NUMBER_SPEC(mpfr_t, mpfr_set)
-#undef __TEUTHID_FLOATMP_ASSIGN_NUMBER
+#undef __TEUTHID_FLOATMP_ASSIGN_NUMBER_SPEC
 
   template <std::size_t Precision>
   void assign(const floatmp<Precision> &value) {
