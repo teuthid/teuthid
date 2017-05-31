@@ -225,6 +225,7 @@ public:
   }
   template <typename T> floatmp &operator=(const T &value) {
     floatmp_base::assign(value);
+    return *this;
   }
 
   template <typename T> void assign(const T &value) {
