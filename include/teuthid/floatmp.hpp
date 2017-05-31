@@ -52,6 +52,9 @@ public:
     mpfr_init2(value_, precision);
     mpfr_set(value_, value.value_, static_cast<mpfr_rnd_t>(rounding_mode()));
   }
+  template <typename T> floatmp_base(std::size_t precision, const T &value) {
+    TETHID_CHECK_TYPE_SPECIALIZATION(T);
+  }
   virtual ~floatmp_base() { mpfr_clear(value_); }
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   floatmp_base(floatmp_base &&) = delete;

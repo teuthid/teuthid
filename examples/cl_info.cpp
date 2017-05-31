@@ -151,9 +151,6 @@ int main() {
 #endif // TEUTHID_WITH_OPENCL
   } else
     std::cout << "Build without OpenCL." << std::endl;
-
-  // ...
-  // std::cout << std::endl;
   std::cout << std::endl;
   return 0;
 }

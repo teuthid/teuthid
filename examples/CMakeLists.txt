@@ -1,4 +1,5 @@
 set(teuthid_examples
+  floating_mp
 )
 
 if (BUILD_WITH_OPENCL)
