@@ -84,42 +84,29 @@ public:
   }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-  void assign(const int8_t &value) {
-    mpfr_set_sj(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
+#define __TEUTHID_FLOATMP_ASSIGN_NUMBER_SPEC(TYPE, FUN)                        \
+  floatmp_base(std::size_t precision, const TYPE &value) {                     \
+    mpfr_init2(value_, precision);                                             \
+    FUN(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));              \
+  }                                                                            \
+  void assign(const TYPE &value) {                                             \
+    FUN(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));              \
   }
-  void assign(const int16_t &value) {
-    mpfr_set_sj(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
-  }
-  void assign(const int32_t &value) {
-    mpfr_set_sj(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
-  }
-  void assign(const int64_t &value) {
-    mpfr_set_sj(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
-  }
-  void assign(const uint8_t &value) {
-    mpfr_set_uj(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
-  }
-  void assign(const uint16_t &value) {
-    mpfr_set_uj(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
-  }
-  void assign(const uint32_t &value) {
-    mpfr_set_uj(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
-  }
-  void assign(const uint64_t &value) {
-    mpfr_set_uj(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
-  }
-  void assign(const float &value) {
-    mpfr_set_flt(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
-  }
-  void assign(const double &value) {
-    mpfr_set_d(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
-  }
-  void assign(const long double &value) {
-    mpfr_set_ld(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
-  }
-  void assign(const mpfr_t &value) {
-    mpfr_set(value_, value, static_cast<mpfr_rnd_t>(rounding_mode()));
-  }
+
+  __TEUTHID_FLOATMP_ASSIGN_NUMBER_SPEC(int8_t, mpfr_set_sj)
+  __TEUTHID_FLOATMP_ASSIGN_NUMBER_SPEC(int16_t, mpfr_set_sj)
+  __TEUTHID_FLOATMP_ASSIGN_NUMBER_SPEC(int32_t, mpfr_set_sj)
+  __TEUTHID_FLOATMP_ASSIGN_NUMBER_SPEC(int64_t, mpfr_set_sj)
+  __TEUTHID_FLOATMP_ASSIGN_NUMBER_SPEC(uint8_t, mpfr_set_uj)
+  __TEUTHID_FLOATMP_ASSIGN_NUMBER_SPEC(uint16_t, mpfr_set_uj)
+  __TEUTHID_FLOATMP_ASSIGN_NUMBER_SPEC(uint32_t, mpfr_set_uj)
+  __TEUTHID_FLOATMP_ASSIGN_NUMBER_SPEC(uint64_t, mpfr_set_uj)
+  __TEUTHID_FLOATMP_ASSIGN_NUMBER_SPEC(float, mpfr_set_flt)
+  __TEUTHID_FLOATMP_ASSIGN_NUMBER_SPEC(double, mpfr_set_d)
+  __TEUTHID_FLOATMP_ASSIGN_NUMBER_SPEC(long double, mpfr_set_ld)
+  __TEUTHID_FLOATMP_ASSIGN_NUMBER_SPEC(mpfr_t, mpfr_set)
+#undef __TEUTHID_FLOATMP_ASSIGN_NUMBER
+
   template <std::size_t Precision>
   void assign(const floatmp<Precision> &value) {
     mpfr_set(value_, value.value_, static_cast<mpfr_rnd_t>(rounding_mode()));
@@ -180,6 +167,10 @@ public:
   template <std::size_t P>
   floatmp(const floatmp<P> &value)
       : floatmp_base(Precision, static_cast<const floatmp_base &>(value)) {
+    TEUTHID_CHECK_FLOATMP_PRECISION(Precision);
+  }
+  template <typename T>
+  floatmp(const T &value) : floatmp_base(Precision, value) {
     TEUTHID_CHECK_FLOATMP_PRECISION(Precision);
   }
   virtual ~floatmp() {}

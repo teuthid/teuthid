@@ -32,7 +32,7 @@ int main() {
             << "." << system::to_string(system::minor_version()) << std::endl;
   std::cout << "  --" << std::endl;
 
-  //floatmp<10> __f10(__value);
+  floatmp<10> __f10(__value);
 
   //
   std::cout << std::endl;

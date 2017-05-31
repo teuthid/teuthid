@@ -28,7 +28,7 @@ using namespace teuthid;
 BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   float256_t __x1;
   float256_t __x2 = __x1;
-  floatmp<100> __x3(__x1);
+  floatmp<100> __x3((int8_t)0);
 
   BOOST_TEST(__x1.precision() == float256_prec, "precision()");
   BOOST_TEST(__x3.precision() == 100, "precision()");
