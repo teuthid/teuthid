@@ -120,7 +120,16 @@ private:
     mpfr_set(value_, value.value_, static_cast<mpfr_rnd_t>(rounding_mode()));
   }
 #ifdef TEUTHID_HAVE_INT_128
-  static long double int128_to_ldouble_(const int128_t &value);
+  static long double int128_to_ldouble_(const int128_t &value) {
+    return static_cast<long double>(INT64_MAX) *
+               static_cast<long double>(value / INT64_MAX) +
+           static_cast<long double>(value % INT64_MAX);
+  }
+  static long double uint128_to_ldouble_(const uint128_t &value) {
+    return static_cast<long double>(UINT64_MAX) *
+               static_cast<long double>(value / UINT64_MAX) +
+           static_cast<long double>(value % UINT64_MAX);
+  }
 #endif // TEUTHID_HAVE_INT_128
   mpfr_t value_;
   static std::atomic_int round_mode_;
@@ -129,9 +138,27 @@ private:
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 #ifdef TEUTHID_HAVE_INT_128
 template <>
-floatmp_base::floatmp_base(std::size_t precision, const int128_t &value);
-template <> void floatmp_base::assign(const int128_t &value);
-template <> void floatmp_base::assign(const uint128_t &value);
+inline floatmp_base::floatmp_base(std::size_t precision,
+                                  const int128_t &value) {
+  mpfr_init2(value_, precision);
+  mpfr_set_ld(value_, floatmp_base::int128_to_ldouble_(value),
+              static_cast<mpfr_rnd_t>(rounding_mode()));
+}
+template <>
+inline floatmp_base::floatmp_base(std::size_t precision,
+                                  const uint128_t &value) {
+  mpfr_init2(value_, precision);
+  mpfr_set_ld(value_, floatmp_base::uint128_to_ldouble_(value),
+              static_cast<mpfr_rnd_t>(rounding_mode()));
+}
+template <> inline void floatmp_base::assign(const int128_t &value) {
+  mpfr_set_ld(value_, floatmp_base::int128_to_ldouble_(value),
+              static_cast<mpfr_rnd_t>(rounding_mode()));
+}
+template <> inline void floatmp_base::assign(const uint128_t &value) {
+  mpfr_set_ld(value_, floatmp_base::uint128_to_ldouble_(value),
+              static_cast<mpfr_rnd_t>(rounding_mode()));
+}
 #endif // TEUTHID_HAVE_INT_128
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
