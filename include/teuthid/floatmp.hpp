@@ -62,6 +62,10 @@ public:
   floatmp_base &operator=(floatmp_base &&) = delete;
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
+  operator float() const {
+    return mpfr_get_flt(value_, static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
+
   template <typename T> void assign(const T &value) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
@@ -131,6 +135,7 @@ private:
            static_cast<long double>(value % UINT64_MAX);
   }
 #endif // TEUTHID_HAVE_INT_128
+
   mpfr_t value_;
   static std::atomic_int round_mode_;
 };
