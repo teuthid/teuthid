@@ -64,6 +64,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   __x1 = (double)1.2345;
   __x3 = __x1;
   BOOST_TEST((__x1 == __x3), "operator==");
+  BOOST_TEST(system::equal_to(double(__x1), double(__x3)));
   __x1 = (long double)1.23456;
   __x3 = __x1;
   BOOST_TEST((__x1 == __x3), "operator==");
