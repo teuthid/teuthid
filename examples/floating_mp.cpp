@@ -31,12 +31,38 @@ int main() {
   std::cout << "Teuthid Version " << system::to_string(system::major_version())
             << "." << system::to_string(system::minor_version()) << std::endl;
   std::cout << "  --" << std::endl;
+  system::format_float_output(15);
 
-  floatmp<100> __f100 = static_cast<int128_t>(INT64_MAX) + 1;
-  //__f100 = INT64_MAX;
-  //__f100 = static_cast<int128_t>(INT64_MAX) + 1;
-  std::cout << system::to_string(__f100) << std::endl;
-  //
+  floatmp<5> __f5 = __value;
+  std::cout << "floatmp<5>   x=0.123456789  to_string(x) => "
+            << system::to_string(__f5) << std::endl;
+  std::cout << "  --" << std::endl;
+
+  floatmp<10> __f10 = __value;
+  std::cout << "floatmp<10>  x=0.123456789  to_string(x) => "
+            << system::to_string(__f10) << std::endl;
+  std::cout << "  --" << std::endl;
+  
+  floatmp<20> __f20 = __value;
+  std::cout << "floatmp<20>  x=0.123456789  to_string(x) => "
+            << system::to_string(__f20) << std::endl;
+  std::cout << "  --" << std::endl;
+  
+  floatmp<50> __f50 = __value;
+  std::cout << "floatmp<50>  x=0.123456789  to_string(x) => "
+            << system::to_string(__f50) << std::endl;
+  std::cout << "  --" << std::endl;
+
+  floatmp<100> __f100 = __value;
+  std::cout << "floatmp<100> x=0.123456789  to_string(x) => "
+            << system::to_string(__f100) << std::endl;
+  std::cout << "  --" << std::endl;
+
+  floatmp<200> __f200 = __value;
+  std::cout << "floatmp<200> x=0.123456789  to_string(x) => "
+            << system::to_string(__f200) << std::endl;
+  std::cout << "  --" << std::endl;
+  
   std::cout << std::endl;
   return 0;
 }
