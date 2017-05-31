@@ -25,21 +25,31 @@ std::atomic_int floatmp_base::round_mode_(mpfr_get_default_rounding_mode());
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 #ifdef TEUTHID_HAVE_INT_128
-template <> void floatmp_base::assign(const int128_t &value) {
-  mpfr_t __result;
-  mpfr_init2(__result, mpfr_get_prec(value_));
-  int64_t __mod = value % INT64_MAX;
-  mpfr_set_sj(value_, INT64_MAX, static_cast<mpfr_rnd_t>(rounding_mode()));
-  mpfr_mul_si(__result, value_, __mod,
+
+long double floatmp_base::int128_to_ldouble_(const int128_t &value) {
+  long double __div = static_cast<long double>(value / INT64_MAX);
+  long double __mod = static_cast<long double>(value % INT64_MAX);
+  long double __result = static_cast<long double>(INT64_MAX);
+  __result = __result * __div + __mod;
+  return __result;
+}
+
+template <>
+floatmp_base::floatmp_base(std::size_t precision, const int128_t &value) {
+  mpfr_init2(value_, precision);
+  mpfr_set_ld(value_, floatmp_base::int128_to_ldouble_(value),
               static_cast<mpfr_rnd_t>(rounding_mode()));
-  mpfr_set(value_, __result, static_cast<mpfr_rnd_t>(rounding_mode()));
-  mpfr_clear(__result);
+}
+
+template <> void floatmp_base::assign(const int128_t &value) {
+  mpfr_set_ld(value_, floatmp_base::int128_to_ldouble_(value),
+              static_cast<mpfr_rnd_t>(rounding_mode()));
 }
 
 template <> void floatmp_base::assign(const uint128_t &value) {
   mpfr_t __result;
   mpfr_init2(__result, mpfr_get_prec(value_));
-  uint64_t __mod = value % UINT64_MAX;
+  uint64_t __mod = value / UINT64_MAX;
   mpfr_set_uj(value_, UINT64_MAX, static_cast<mpfr_rnd_t>(rounding_mode()));
   mpfr_mul_ui(__result, value_, __mod,
               static_cast<mpfr_rnd_t>(rounding_mode()));

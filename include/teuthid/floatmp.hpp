@@ -119,12 +119,17 @@ private:
     mpfr_init2(value_, mpfr_get_prec(value.value_));
     mpfr_set(value_, value.value_, static_cast<mpfr_rnd_t>(rounding_mode()));
   }
+#ifdef TEUTHID_HAVE_INT_128
+  static long double int128_to_ldouble_(const int128_t &value);
+#endif // TEUTHID_HAVE_INT_128
   mpfr_t value_;
   static std::atomic_int round_mode_;
 };
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 #ifdef TEUTHID_HAVE_INT_128
+template <>
+floatmp_base::floatmp_base(std::size_t precision, const int128_t &value);
 template <> void floatmp_base::assign(const int128_t &value);
 template <> void floatmp_base::assign(const uint128_t &value);
 #endif // TEUTHID_HAVE_INT_128
@@ -186,10 +191,6 @@ public:
   template <typename T> floatmp &operator=(const T &value) {
     floatmp_base::assign(value);
   }
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-  template <std::size_t P> floatmp(floatmp<P> &&value) = delete;
-  template <std::size_t P> floatmp &operator=(floatmp<P> &&other) = delete;
-#endif // DOXYGEN_SHOULD_SKIP_THIS
 
   template <typename T> void assign(const T &value) {
     floatmp_base::assign(value);

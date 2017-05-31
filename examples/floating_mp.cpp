@@ -32,8 +32,10 @@ int main() {
             << "." << system::to_string(system::minor_version()) << std::endl;
   std::cout << "  --" << std::endl;
 
-  floatmp<10> __f10(__value);
-
+  floatmp<100> __f100 = static_cast<int128_t>(INT64_MAX) + 1;
+  //__f100 = INT64_MAX;
+  //__f100 = static_cast<int128_t>(INT64_MAX) + 1;
+  std::cout << system::to_string(__f100) << std::endl;
   //
   std::cout << std::endl;
   return 0;

@@ -119,7 +119,7 @@ __TEUTHID_STRING_FROM_FLOAT(long double);
 #undef __TEUTHID_STRING_FROM_FLOAT
 
 template <> std::string system::to_string(const mpfr_t &value) {
-  char __str[256], __precision[64];
+  char __str[512], __precision[64];
   std::string __format =
       (system::format_float_scientific_.load() ? "%%.%ldRe" : "%%.%ldRf");
   sprintf(__precision, __format.c_str(),
