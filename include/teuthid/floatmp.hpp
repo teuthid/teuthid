@@ -36,7 +36,6 @@ enum class floatmp_round_t : int {
   RNDNA = MPFR_RNDNA // round to nearest, with ties away from zero
 };
 
-/******************************************************************************/
 #define TEUTHID_CHECK_FLOATMP_PRECISION(PRECISION)                             \
   static_assert((PRECISION >= floatmp_base::min_precision()),                  \
                 "Too low floatmp precision.");                                 \
