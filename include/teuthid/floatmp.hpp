@@ -37,6 +37,11 @@ enum class floatmp_round_t : int {
 };
 
 /******************************************************************************/
+#define TEUTHID_CHECK_FLOATMP_PRECISION(PRECISION)                             \
+  static_assert((PRECISION >= floatmp_base::min_precision()),                  \
+                "Too low floatmp precision.");                                 \
+  static_assert((PRECISION < floatmp_base::max_precision()),                   \
+                "Too high floatmp precision.");
 
 template <std::size_t Precision> class floatmp;
 
@@ -72,6 +77,9 @@ public:
     return mpfr_get_ld(value_, static_cast<mpfr_rnd_t>(rounding_mode()));
   }
 
+  template <typename T> void add(const T &value) {
+    TETHID_CHECK_TYPE_SPECIALIZATION(T);
+  }
   template <typename T> void assign(const T &value) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
@@ -117,8 +125,8 @@ public:
   __TEUTHID_FLOATMP_ASSIGN_NUMBER_SPEC(mpfr_t, mpfr_set)
 #undef __TEUTHID_FLOATMP_ASSIGN_NUMBER_SPEC
 
-  template <std::size_t Precision>
-  void assign(const floatmp<Precision> &value) {
+  template <std::size_t P> void assign(const floatmp<P> &value) {
+    TEUTHID_CHECK_FLOATMP_PRECISION(P);
     mpfr_set(value_, value.value_, static_cast<mpfr_rnd_t>(rounding_mode()));
   }
 #endif // DOXYGEN_SHOULD_SKIP_THIS
@@ -196,12 +204,6 @@ inline bool operator>=(const floatmp_base &lhs, const floatmp_base &rhs) {
 
 /******************************************************************************/
 
-#define TEUTHID_CHECK_FLOATMP_PRECISION(PRECISION)                             \
-  static_assert((PRECISION >= floatmp_base::min_precision()),                  \
-                "Too low floatmp precision.");                                 \
-  static_assert((PRECISION < floatmp_base::max_precision()),                   \
-                "Too high floatmp precision.");
-
 template <std::size_t Precision> class floatmp : public floatmp_base {
 public:
   floatmp() : floatmp_base(Precision) {
@@ -236,10 +238,6 @@ public:
     return floatmp<P>(*this);
   }
 
-
-  template <typename T> void assign(const T &value) {
-    floatmp_base::assign(value);
-  }
   constexpr std::size_t precision() const noexcept { return Precision; }
 };
 
