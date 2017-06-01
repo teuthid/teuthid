@@ -129,6 +129,8 @@ int main() {
             << "  float128_t(x) => " << system::to_string(float128_t(__f200))
             << "  float256_t(x) => " << system::to_string(float256_t(__f200))
             << std::endl;
+  __f200.add((int64_t)-10000);
+  std::cout << "  x.add(-10000) => " << system::to_string(__f200) << std::endl;
   std::cout << "  --" << std::endl;
 
   std::cout << std::endl;
