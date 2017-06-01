@@ -123,7 +123,6 @@ public:
   __TEUTHID_FLOATMP_ASSIGN_SPEC(long double, mpfr_set_ld)
   __TEUTHID_FLOATMP_ASSIGN_SPEC(mpfr_t, mpfr_set)
 #undef __TEUTHID_FLOATMP_ASSIGN_SPEC
-
   template <std::size_t P> void assign(const floatmp<P> &value) {
     TEUTHID_CHECK_FLOATMP_PRECISION(P);
     mpfr_set(value_, value.value_, static_cast<mpfr_rnd_t>(rounding_mode()));
@@ -137,7 +136,25 @@ public:
   __TEUTHID_FLOATMP_ADD_SPEC(int16_t, mpfr_add_si)
   __TEUTHID_FLOATMP_ADD_SPEC(int32_t, mpfr_add_si)
   __TEUTHID_FLOATMP_ADD_SPEC(int64_t, mpfr_add_si)
+  __TEUTHID_FLOATMP_ADD_SPEC(uint8_t, mpfr_add_ui)
+  __TEUTHID_FLOATMP_ADD_SPEC(uint16_t, mpfr_add_ui)
+  __TEUTHID_FLOATMP_ADD_SPEC(uint32_t, mpfr_add_ui)
+  __TEUTHID_FLOATMP_ADD_SPEC(uint64_t, mpfr_add_ui)
+  __TEUTHID_FLOATMP_ADD_SPEC(float, mpfr_add_d)
+  __TEUTHID_FLOATMP_ADD_SPEC(double, mpfr_add_d)
+  __TEUTHID_FLOATMP_ADD_SPEC(mpfr_t, mpfr_add)
 #undef __TEUTHID_FLOATMP_ADD_SPEC
+  void add(const long double &value) {
+    mpfr_t __v;
+    mpfr_init_set_ld(__v, value, static_cast<mpfr_rnd_t>(rounding_mode()));
+    mpfr_add(value_, c_mpfr(), __v, static_cast<mpfr_rnd_t>(rounding_mode()));
+    mpfr_clear(__v);
+  }
+  template <std::size_t P> void add(const floatmp<P> &value) {
+    TEUTHID_CHECK_FLOATMP_PRECISION(P);
+    mpfr_add(value_, c_mpfr(), value.value_,
+             static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 private:

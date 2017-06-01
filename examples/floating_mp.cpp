@@ -44,6 +44,8 @@ int main() {
             << "  float128_t(x) => " << system::to_string(float128_t(__f5))
             << "  float256_t(x) => " << system::to_string(float256_t(__f5))
             << std::endl;
+  __f5.add(__f5);
+  std::cout << "  x.add(x) => " << system::to_string(__f5) << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<10> __f10 = __value;
@@ -61,6 +63,8 @@ int main() {
             << "  float128_t(x) => " << system::to_string(float128_t(__f10))
             << "  float256_t(x) => " << system::to_string(float256_t(__f10))
             << std::endl;
+  __f10.add(__f10);
+  std::cout << "  x.add(x) => " << system::to_string(__f10) << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<20> __f20 = __value;
@@ -78,6 +82,8 @@ int main() {
             << "  float128_t(x) => " << system::to_string(float128_t(__f20))
             << "  float256_t(x) => " << system::to_string(float256_t(__f20))
             << std::endl;
+  __f20.add(__f20);
+  std::cout << "  x.add(x) => " << system::to_string(__f20) << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<50> __f50 = __value;
@@ -95,6 +101,8 @@ int main() {
             << "  float128_t(x) => " << system::to_string(float128_t(__f50))
             << "  float256_t(x) => " << system::to_string(float256_t(__f50))
             << std::endl;
+  __f50.add(__f50);
+  std::cout << "  x.add(x) => " << system::to_string(__f50) << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<100> __f100 = __value;
@@ -112,6 +120,8 @@ int main() {
             << "  float128_t(x) => " << system::to_string(float128_t(__f100))
             << "  float256_t(x) => " << system::to_string(float256_t(__f100))
             << std::endl;
+  __f100.add(__f100);
+  std::cout << "  x.add(x) => " << system::to_string(__f100) << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<200> __f200 = __value;
@@ -129,8 +139,8 @@ int main() {
             << "  float128_t(x) => " << system::to_string(float128_t(__f200))
             << "  float256_t(x) => " << system::to_string(float256_t(__f200))
             << std::endl;
-  __f200.add((int64_t)-10000);
-  std::cout << "  x.add(-10000) => " << system::to_string(__f200) << std::endl;
+  __f200.add(__f200);
+  std::cout << "  x.add(x) => " << system::to_string(__f200) << std::endl;
   std::cout << "  --" << std::endl;
 
   std::cout << std::endl;

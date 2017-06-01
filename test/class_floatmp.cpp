@@ -100,8 +100,9 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((__x1 < __x2), "operator!=");
 #endif // TEUTHID_HAVE_INT_128
 
-  __x1 = 1.0;
-  __x2 = 2.0;
-  __x1.add((int8_t)1);
-  BOOST_TEST((__x1 == __x2));
+  __x1 = 100.0;
+  __x2 = 200.0;
+  __x3 = 300.0;
+  __x1.add(__x2);
+  BOOST_TEST((__x1 == __x3), "add()");
 }
