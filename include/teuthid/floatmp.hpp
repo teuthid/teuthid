@@ -62,13 +62,13 @@ public:
   floatmp_base &operator=(floatmp_base &&) = delete;
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
-  operator float() const {
+  explicit operator float() const {
     return mpfr_get_flt(value_, static_cast<mpfr_rnd_t>(rounding_mode()));
   }
-  operator double() const {
+  explicit operator double() const {
     return mpfr_get_d(value_, static_cast<mpfr_rnd_t>(rounding_mode()));
   }
-  operator long double() const {
+  explicit operator long double() const {
     return mpfr_get_ld(value_, static_cast<mpfr_rnd_t>(rounding_mode()));
   }
 
@@ -223,6 +223,7 @@ public:
     return *this;
   }
   template <std::size_t P> floatmp &operator=(const floatmp<P> &other) {
+    TEUTHID_CHECK_FLOATMP_PRECISION(P);
     mpfr_set(value_, other.value_, static_cast<mpfr_rnd_t>(rounding_mode()));
     return *this;
   }
@@ -230,6 +231,11 @@ public:
     floatmp_base::assign(value);
     return *this;
   }
+  template <std::size_t P> operator floatmp<P>() const {
+    TEUTHID_CHECK_FLOATMP_PRECISION(P);
+    return floatmp<P>(*this);
+  }
+
 
   template <typename T> void assign(const T &value) {
     floatmp_base::assign(value);
