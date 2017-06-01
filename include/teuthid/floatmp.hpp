@@ -68,6 +68,9 @@ public:
   operator double() const {
     return mpfr_get_d(value_, static_cast<mpfr_rnd_t>(rounding_mode()));
   }
+  operator long double() const {
+    return mpfr_get_ld(value_, static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
 
   template <typename T> void assign(const T &value) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);

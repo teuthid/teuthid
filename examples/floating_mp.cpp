@@ -25,7 +25,7 @@ std::string yesno(bool value) {
   return (value ? std::string("YES") : std::string("NO"));
 }
 
-long double __value = 0.123456789;
+long double __value = 0.0123456789;
 
 int main() {
   std::cout << "Teuthid Version " << system::to_string(system::major_version())
@@ -34,51 +34,57 @@ int main() {
   system::format_float_output();
 
   floatmp<5> __f5 = __value;
-  std::cout << "floatmp<5>   x=0.123456789  to_string(x) => "
+  std::cout << "floatmp<5>   x=0.0123456789  to_string(x) => "
             << system::to_string(__f5) << std::endl;
   std::cout << "  float(x) => " << system::to_string(float(__f5))
             << "  double(x) => " << system::to_string(double(__f5))
+            << "  long double(x) => " << system::to_string((long double)(__f5))
             << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<10> __f10 = __value;
-  std::cout << "floatmp<10>  x=0.123456789  to_string(x) => "
+  std::cout << "floatmp<10>  x=0.0123456789  to_string(x) => "
             << system::to_string(__f10) << std::endl;
   std::cout << "  float(x) => " << system::to_string(float(__f10))
             << "  double(x) => " << system::to_string(double(__f10))
+            << "  long double(x) => " << system::to_string((long double)(__f10))
             << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<20> __f20 = __value;
-  std::cout << "floatmp<20>  x=0.123456789  to_string(x) => "
+  std::cout << "floatmp<20>  x=0.0123456789  to_string(x) => "
             << system::to_string(__f20) << std::endl;
   std::cout << "  float(x) => " << system::to_string(float(__f20))
             << "  double(x) => " << system::to_string(double(__f20))
+            << "  long double(x) => " << system::to_string((long double)(__f20))
             << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<50> __f50 = __value;
-  std::cout << "floatmp<50>  x=0.123456789  to_string(x) => "
+  std::cout << "floatmp<50>  x=0.0123456789  to_string(x) => "
             << system::to_string(__f50) << std::endl;
   std::cout << "  float(x) => " << system::to_string(float(__f50))
             << "  double(x) => " << system::to_string(double(__f50))
+            << "  long double(x) => " << system::to_string((long double)(__f50))
             << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<100> __f100 = __value;
-  std::cout << "floatmp<100> x=0.123456789  to_string(x) => "
+  std::cout << "floatmp<100> x=0.0123456789  to_string(x) => "
             << system::to_string(__f100) << std::endl;
   std::cout << "  float(x) => " << system::to_string(float(__f100))
             << "  double(x) => " << system::to_string(double(__f100))
-            << std::endl;
+            << "  long double(x) => "
+            << system::to_string((long double)(__f100)) << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<200> __f200 = __value;
-  std::cout << "floatmp<200> x=0.123456789  to_string(x) => "
+  std::cout << "floatmp<200> x=0.0123456789  to_string(x) => "
             << system::to_string(__f200) << std::endl;
   std::cout << "  float(x) => " << system::to_string(float(__f200))
             << "  double(x) => " << system::to_string(double(__f200))
-            << std::endl;
+            << "  long double(x) => "
+            << system::to_string((long double)(__f200)) << std::endl;
   std::cout << "  --" << std::endl;
 
   std::cout << std::endl;
