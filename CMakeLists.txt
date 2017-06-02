@@ -57,7 +57,7 @@ msg_status("Threads: " "${CMAKE_THREAD_LIBS_INIT}")
 
 set(BUILD_SHARED_LIBS ON)
 option(BUILD_STATIC_LIBS "Build the static library" ON)
-option(BUILD_WITH_OPENCL "Build with OpenCL" ON)
+option(BUILD_WITH_OPENCL "Build with OpenCL" OFF)
 option(CHECK_OPENCL_DEVICES "Check for working OpenCL platforms/devices" OFF)
 option(BUILD_TESTS "Build unit test" ON)
 option(BUILD_DOCS "Build the documentation" ON)

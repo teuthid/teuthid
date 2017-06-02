@@ -61,7 +61,7 @@ public:
   }
   virtual ~floatmp_base() { mpfr_clear(value_); }
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-  floatmp_base(floatmp_base &&) = delete;
+  //floatmp_base(floatmp_base &&) = delete;
   floatmp_base &operator=(const floatmp_base &) = delete;
   floatmp_base &operator=(floatmp_base &&) = delete;
 #endif // DOXYGEN_SHOULD_SKIP_THIS
@@ -270,6 +270,10 @@ public:
     return floatmp<P>(*this);
   }
 
+  template <typename T> bool equal_to(const T &value) const {
+    return floatmp_base::equal_to(
+        static_cast<floatmp_base>(floatmp<Precision>(value)));
+  }
   constexpr std::size_t precision() const noexcept { return Precision; }
 };
 
