@@ -186,28 +186,28 @@ template <>
 inline floatmp_base::floatmp_base(std::size_t precision,
                                   const int128_t &value) {
   mpfr_init2(value_, precision);
-  mpfr_set_ld(value_, floatmp_base::int128_to_ldouble_(value),
+  mpfr_set_ld(value_, int128_to_ldouble_(value),
               static_cast<mpfr_rnd_t>(rounding_mode()));
 }
 template <>
 inline floatmp_base::floatmp_base(std::size_t precision,
                                   const uint128_t &value) {
   mpfr_init2(value_, precision);
-  mpfr_set_ld(value_, floatmp_base::uint128_to_ldouble_(value),
+  mpfr_set_ld(value_, uint128_to_ldouble_(value),
               static_cast<mpfr_rnd_t>(rounding_mode()));
 }
 template <> inline void floatmp_base::add(const int128_t &value) {
-  add(floatmp_base::int128_to_ldouble_(value));
+  add(int128_to_ldouble_(value));
 }
 template <> inline void floatmp_base::add(const uint128_t &value) {
-  add(floatmp_base::uint128_to_ldouble_(value));
+  add(uint128_to_ldouble_(value));
 }
 template <> inline void floatmp_base::assign(const int128_t &value) {
-  mpfr_set_ld(value_, floatmp_base::int128_to_ldouble_(value),
+  mpfr_set_ld(value_, int128_to_ldouble_(value),
               static_cast<mpfr_rnd_t>(rounding_mode()));
 }
 template <> inline void floatmp_base::assign(const uint128_t &value) {
-  mpfr_set_ld(value_, floatmp_base::uint128_to_ldouble_(value),
+  mpfr_set_ld(value_, uint128_to_ldouble_(value),
               static_cast<mpfr_rnd_t>(rounding_mode()));
 }
 #endif // TEUTHID_HAVE_INT_128
