@@ -77,17 +77,30 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST(system::equal_to(float256_t(__x1), float256_t(__x3)),
              "operator float256_t()");
 
+  __x1 = 100.0;
+  __x2 = 200.0;
+  __x3 = 300.0;
+  __x1.add(__x2);
+  BOOST_TEST((__x1 == __x3), "add()");
+
 #ifdef TEUTHID_HAVE_INT_128
   __x1 = static_cast<int128_t>(INT64_MAX) * 10;
   __x2 = static_cast<int128_t>(INT64_MAX) * 10;
   BOOST_TEST(!system::to_string(__x1).empty());
   BOOST_TEST(!system::to_string(__x2).empty());
   BOOST_TEST((__x1 == __x2), "operator==");
+  __x2 = 0;
+  __x2.add(static_cast<int128_t>(INT64_MAX) * 10);
+  BOOST_TEST((__x1 == __x2), "add()");
   __x2 = static_cast<int128_t>(INT64_MAX) * 11;
   BOOST_TEST((__x1 < __x2), "operator!=");
+  
   __x1 = static_cast<int128_t>(INT64_MIN) * 10;
   __x2 = static_cast<int128_t>(INT64_MIN) * 10;
   BOOST_TEST((__x1 == __x2), "operator==");
+  __x2 = 0;
+  __x2.add(static_cast<int128_t>(INT64_MIN) * 10);
+  BOOST_TEST((__x1 == __x2), "add()");
   __x2 = static_cast<int128_t>(INT64_MIN) * 11;
   BOOST_TEST((__x1 > __x2), "operator!=");
 
@@ -99,10 +112,4 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   __x2 = static_cast<uint128_t>(UINT64_MAX) * 11;
   BOOST_TEST((__x1 < __x2), "operator!=");
 #endif // TEUTHID_HAVE_INT_128
-
-  __x1 = 100.0;
-  __x2 = 200.0;
-  __x3 = 300.0;
-  __x1.add(__x2);
-  BOOST_TEST((__x1 == __x3), "add()");
 }

@@ -145,7 +145,8 @@ public:
 #undef __TEUTHID_FLOATMP_ADD_SPEC
   void add(const long double &value) {
     mpfr_t __v;
-    mpfr_init_set_ld(__v, value, static_cast<mpfr_rnd_t>(rounding_mode()));
+    mpfr_init2(__v, mpfr_get_prec(value_));
+    mpfr_set_ld(__v, value, static_cast<mpfr_rnd_t>(rounding_mode()));
     mpfr_add(value_, c_mpfr(), __v, static_cast<mpfr_rnd_t>(rounding_mode()));
     mpfr_clear(__v);
   }
@@ -194,6 +195,12 @@ inline floatmp_base::floatmp_base(std::size_t precision,
   mpfr_init2(value_, precision);
   mpfr_set_ld(value_, floatmp_base::uint128_to_ldouble_(value),
               static_cast<mpfr_rnd_t>(rounding_mode()));
+}
+template <> inline void floatmp_base::add(const int128_t &value) {
+  add(floatmp_base::int128_to_ldouble_(value));
+}
+template <> inline void floatmp_base::add(const uint128_t &value) {
+  add(floatmp_base::uint128_to_ldouble_(value));
 }
 template <> inline void floatmp_base::assign(const int128_t &value) {
   mpfr_set_ld(value_, floatmp_base::int128_to_ldouble_(value),
