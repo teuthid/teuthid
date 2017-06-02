@@ -46,6 +46,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((__x1 == __x3), "operator==");
   __x1 = -13;
   BOOST_TEST(__x1.equal_to(-13), "equal_to()");
+  BOOST_TEST(__x1.less_than(__x3), "less_than()");
   BOOST_TEST((__x1 != __x3), "operator!=");
   BOOST_TEST((__x1 < __x3), "operator<");
   BOOST_TEST((__x1 <= __x3), "operator<=");
@@ -56,6 +57,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   __x2 = __x1;
   BOOST_TEST((__x1 == __x2), "operator==");
   __x3 = -0.9999999999;
+  BOOST_TEST(__x3.less_than(__x1), "less_than()");
   BOOST_TEST((__x1 != __x3), "operator!=");
   BOOST_TEST((__x1 > __x3), "operator>");
   BOOST_TEST((__x3 < __x1), "operator<");
@@ -84,11 +86,14 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   __x1 = 100.0;
   __x2 = 200.0;
   __x3 = 300.0;
+  BOOST_TEST(__x1.less_than(300), "less_than()");
+  BOOST_TEST(__x1.less_than(300.0), "less_than()");
   __x1.add(__x2);
   BOOST_TEST((__x1 == __x3), "add()");
   BOOST_TEST(__x1.equal_to(300), "equal_to()");
   BOOST_TEST(__x1.equal_to(300.0), "equal_to()");
   BOOST_TEST(__x1.equal_to(__x3), "equal_to()");
+  BOOST_TEST(__x2.less_than(__x1), "less_than()");
 
 #ifdef TEUTHID_HAVE_INT_128
   __x1 = static_cast<int128_t>(INT64_MAX) * 10;
@@ -99,9 +104,13 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST(!system::to_string(__x2).empty());
   BOOST_TEST((__x1 == __x2), "operator==");
   __x2 = 0;
+  BOOST_TEST(__x2.less_than(static_cast<int128_t>(INT64_MAX) * 10),
+             "less_than()");
   __x2.add(static_cast<int128_t>(INT64_MAX) * 10);
   BOOST_TEST((__x1 == __x2), "add()");
   __x2 = static_cast<int128_t>(INT64_MAX) * 11;
+  BOOST_TEST(__x1.less_than(static_cast<int128_t>(INT64_MAX) * 11),
+             "less_than()");
   BOOST_TEST((__x1 < __x2), "operator!=");
 
   __x1 = static_cast<int128_t>(INT64_MIN) * 10;

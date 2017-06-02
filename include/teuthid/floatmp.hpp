@@ -61,7 +61,6 @@ public:
   }
   virtual ~floatmp_base() { mpfr_clear(value_); }
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-  //floatmp_base(floatmp_base &&) = delete;
   floatmp_base &operator=(const floatmp_base &) = delete;
   floatmp_base &operator=(floatmp_base &&) = delete;
 #endif // DOXYGEN_SHOULD_SKIP_THIS
@@ -83,8 +82,6 @@ public:
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
   const mpfr_t &c_mpfr() const noexcept { return value_; }
-  bool equal_to(const floatmp_base &value) const;
-  bool less_than(const floatmp_base &value) const;
 
   static constexpr std::size_t max_precision() noexcept {
     return MPFR_PREC_MAX;
@@ -163,6 +160,14 @@ private:
     mpfr_init2(value_, mpfr_get_prec(value.value_));
     mpfr_set(value_, value.value_, static_cast<mpfr_rnd_t>(rounding_mode()));
   }
+  floatmp_base(floatmp_base &&value) {
+    mpfr_init2(value_, mpfr_get_prec(value.value_));
+    mpfr_swap(value_, value.value_);
+  }
+
+  bool equal_to(const floatmp_base &value) const;
+  bool less_than(const floatmp_base &value) const;
+
 #ifdef TEUTHID_HAVE_INT_128
   static long double int128_to_ldouble_(const int128_t &value) {
     return static_cast<long double>(INT64_MAX) *
@@ -215,27 +220,6 @@ template <> inline void floatmp_base::assign(const uint128_t &value) {
 
 /******************************************************************************/
 
-inline bool operator==(const floatmp_base &lhs, const floatmp_base &rhs) {
-  return lhs.equal_to(rhs);
-}
-inline bool operator!=(const floatmp_base &lhs, const floatmp_base &rhs) {
-  return !(lhs == rhs);
-}
-inline bool operator<(const floatmp_base &lhs, const floatmp_base &rhs) {
-  return lhs.less_than(rhs);
-}
-inline bool operator>(const floatmp_base &lhs, const floatmp_base &rhs) {
-  return rhs < lhs;
-}
-inline bool operator<=(const floatmp_base &lhs, const floatmp_base &rhs) {
-  return !(lhs > rhs);
-}
-inline bool operator>=(const floatmp_base &lhs, const floatmp_base &rhs) {
-  return !(lhs < rhs);
-}
-
-/******************************************************************************/
-
 template <std::size_t Precision> class floatmp : public floatmp_base {
 public:
   floatmp() : floatmp_base(Precision) {
@@ -274,6 +258,10 @@ public:
     return floatmp_base::equal_to(
         static_cast<floatmp_base>(floatmp<Precision>(value)));
   }
+  template <typename T> bool less_than(const T &value) const {
+    return floatmp_base::less_than(
+        static_cast<floatmp_base>(floatmp<Precision>(value)));
+  }
   constexpr std::size_t precision() const noexcept { return Precision; }
 };
 
@@ -281,7 +269,7 @@ public:
 
 template <std::size_t P1, std::size_t P2>
 inline bool operator==(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {
-  return lhs.equal_to(static_cast<const floatmp_base &>(rhs));
+  return lhs.equal_to(rhs);
 }
 template <std::size_t P1, std::size_t P2>
 inline bool operator!=(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {
@@ -289,7 +277,7 @@ inline bool operator!=(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {
 }
 template <std::size_t P1, std::size_t P2>
 inline bool operator<(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {
-  return lhs.less_than(static_cast<const floatmp_base &>(rhs));
+  return lhs.less_than(rhs);
 }
 template <std::size_t P1, std::size_t P2>
 inline bool operator>(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {
