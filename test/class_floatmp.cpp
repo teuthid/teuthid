@@ -41,6 +41,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   system::format_float_output();
 
   BOOST_TEST((__x1 == __x2), "operator==");
+  BOOST_TEST((__x1 == (double)__x2), "operator==");
+  BOOST_TEST(((double)__x1 == __x2), "operator==");
   BOOST_TEST(!(__x1 < __x2), "operator<");
   BOOST_TEST(!(__x1 > __x2), "operator>");
   BOOST_TEST((__x1 <= __x2), "operator<=");
@@ -82,9 +84,11 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   __x1 += __x2;
   BOOST_TEST((__x1 == __x3), "add()");
   BOOST_TEST(__x1.equal_to(3), "equal_to()");
-  BOOST_TEST((3 == __x1), "equal_to()");
+  BOOST_TEST((3 == __x1), "operator==()");
+  BOOST_TEST((3.1 != __x1), "operator!=()");
   BOOST_TEST(__x1.equal_to(3.0), "equal_to()");
-  BOOST_TEST((__x1 == 3.0), "equal_to()");
+  BOOST_TEST((__x1 == 3.0), "operator==()");
+  BOOST_TEST((__x1 != 2.9999999999), "operator!=()");
   BOOST_TEST(__x1.equal_to(__x3), "equal_to()");
   BOOST_TEST(__x2.less_than(__x1), "less_than()");
   __x1 += 0.1;
@@ -113,7 +117,9 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   __x2 = static_cast<int128_t>(INT64_MIN) * 10;
   BOOST_TEST((__x1 == __x2), "operator==");
   BOOST_TEST((__x1 == (static_cast<int128_t>(INT64_MIN)) * 10), "operator==");
+  BOOST_TEST((__x1 != (static_cast<int128_t>(INT64_MIN)) * 11), "operator!=");
   BOOST_TEST((((static_cast<int128_t>(INT64_MIN)) * 10) == __x2), "operator==");
+  BOOST_TEST((((static_cast<int128_t>(INT64_MIN)) * 9) != __x2), "operator!=");
   __x3 = 0;
   __x3 += (static_cast<int128_t>(INT64_MIN) * 10);
   BOOST_TEST((__x1 == __x3), "add()");
