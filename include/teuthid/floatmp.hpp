@@ -267,6 +267,15 @@ public:
         static_cast<floatmp_base>(floatmp<Precision>(value)));
   }
   constexpr std::size_t precision() const noexcept { return Precision; }
+
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+  template <std::size_t P> bool equal_to(const floatmp<P> &value) const {
+    return floatmp_base::equal_to(static_cast<const floatmp_base &>(value));
+  }
+  template <std::size_t P> bool less_than(const floatmp<P> &value) const {
+    return floatmp_base::less_than(static_cast<const floatmp_base &>(value));
+  }
+#endif // DOXYGEN_SHOULD_SKIP_THIS
 };
 
 /******************************************************************************/
