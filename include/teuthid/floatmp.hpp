@@ -280,10 +280,20 @@ public:
 
 /******************************************************************************/
 
+// operator==
 template <std::size_t P1, std::size_t P2>
 inline bool operator==(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {
   return lhs.equal_to(rhs);
 }
+template <typename T, std::size_t P>
+inline bool operator==(const floatmp<P> &lhs, const T &rhs) {
+  return lhs.equal_to(rhs);
+}
+template <typename T, std::size_t P>
+inline bool operator==(const T &lhs, const floatmp<P> &rhs) {
+  return rhs.equal_to(lhs);
+}
+// operator !=
 template <std::size_t P1, std::size_t P2>
 inline bool operator!=(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {
   return !(lhs == rhs);
