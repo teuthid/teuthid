@@ -253,6 +253,10 @@ public:
     TEUTHID_CHECK_FLOATMP_PRECISION(P);
     return floatmp<P>(*this);
   }
+  template <typename T> floatmp &operator+=(const T &value) {
+    floatmp_base::add(value);
+    return *this;
+  }
 
   template <typename T> bool equal_to(const T &value) const {
     return floatmp_base::equal_to(
