@@ -308,23 +308,59 @@ inline bool operator!=(const T &lhs, const floatmp<P> &rhs) {
   return !(lhs == rhs);
 }
 
+// operator <
 template <std::size_t P1, std::size_t P2>
 inline bool operator<(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {
   return lhs.less_than(rhs);
 }
+template <typename T, std::size_t P>
+inline bool operator<(const floatmp<P> &lhs, const T &rhs) {
+  return lhs.less_than(rhs);
+}
+template <typename T, std::size_t P>
+inline bool operator<(const T &lhs, const floatmp<P> &rhs) {
+  return floatmp<P>(lhs).less_than(rhs);
+}
 
+// operator >
 template <std::size_t P1, std::size_t P2>
 inline bool operator>(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {
   return rhs < lhs;
 }
+template <typename T, std::size_t P>
+inline bool operator>(const floatmp<P> &lhs, const T &rhs) {
+  return rhs < lhs;
+}
+template <typename T, std::size_t P>
+inline bool operator>(const T &lhs, const floatmp<P> &rhs) {
+  return rhs.less_than(lhs);
+}
 
+// operator <=
 template <std::size_t P1, std::size_t P2>
 inline bool operator<=(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {
   return !(lhs > rhs);
 }
+template <typename T, std::size_t P>
+inline bool operator<=(const floatmp<P> &lhs, const T &rhs) {
+  return !(lhs > rhs);
+}
+template <typename T, std::size_t P>
+inline bool operator<=(const T &lhs, const floatmp<P> &rhs) {
+  return !(lhs > rhs);
+}
 
+// operator >=
 template <std::size_t P1, std::size_t P2>
 inline bool operator>=(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {
+  return !(lhs < rhs);
+}
+template <typename T, std::size_t P>
+inline bool operator>=(const floatmp<P> &lhs, const T &rhs) {
+  return !(lhs < rhs);
+}
+template <typename T, std::size_t P>
+inline bool operator>=(const T &lhs, const floatmp<P> &rhs) {
   return !(lhs < rhs);
 }
 
