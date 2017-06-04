@@ -21,7 +21,7 @@ The sources are available from https://github.com/teuthid/teuthid.
 This project requires:
   * CMake v3.5.0 or higher.
   * GNU Make or equivalent.
-  * GCC or an alternative, reasonably conformant C++11 compiler.
+  * GCC or an alternative, reasonably conformant C++14 compiler.
   * GMP library, version @GMP_REQUIRED_VERSION@ or higher.
   * MPFR library, version @MPFR_REQUIRED_VERSION@ or higher.
   * [optional] OpenCL library and OpenCL C++ bindings.
@@ -42,12 +42,12 @@ by CMake - it has not, so please do not delete that file.
 Available CMake options for building the framework are:
   * BUILD_SHARED_LIBS - Build shared libraries. Default is ON.
   * BUILD_STATIC_LIBS - Build static libraries. Default is OFF.
-  * BUILD_WITH_OPENCL - Build with OpenCL. Default is ON.
+  * BUILD_WITH_OPENCL - Build with OpenCL. Default is OFF.
   * CHECK_OPENCL_DEVICES - Check for working OpenCL platforms/devices. 
                            Default is OFF.
   * BUILD_TESTS - Build unit tests. Default is ON.
   * BUILD_DOCS - Build HTML documentation using Doxygen. Default is ON.
-  * BUILD_EXAMPLES - Build examples. Default is OFF.
+  * BUILD_EXAMPLES - Build examples. Default is ON.
 
 Special options for x86 and x86-64 architectures:
   * ENABLE_AVX_SSE - Enable AVX or SSE compiler options. Default is OFF.
@@ -78,4 +78,4 @@ Copyright (C) 2016-2017 Mariusz Przygodzki (mariusz.przygodzki@gmail.com)
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
     You should have received a copy of the GNU General Public License
-    along with Teuthid.  If not, see <http://www.gnu.org/licenses/>.
+    along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.

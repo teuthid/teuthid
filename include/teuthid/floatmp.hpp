@@ -19,6 +19,7 @@
 #ifndef TEUTHID_FLOATMP_HPP
 #define TEUTHID_FLOATMP_HPP
 
+#include <algorithm>
 #include <atomic>
 
 #include <mpfr.h>
@@ -258,6 +259,10 @@ public:
     return *this;
   }
 
+  template <typename T> floatmp &add(const T &value) {
+    floatmp_base::add(value);
+    return *this;
+  }
   template <typename T> bool equal_to(const T &value) const {
     return floatmp_base::equal_to(
         static_cast<floatmp_base>(floatmp<Precision>(value)));
@@ -362,6 +367,13 @@ inline bool operator>=(const floatmp<P> &lhs, const T &rhs) {
 template <typename T, std::size_t P>
 inline bool operator>=(const T &lhs, const floatmp<P> &rhs) {
   return !(lhs < rhs);
+}
+
+// operator +
+template <std::size_t P1, std::size_t P2>
+inline const floatmp<std::max(P1, P2)> operator+(const floatmp<P1> &lhs,
+                                                 const floatmp<P2> &rhs) {
+  return floatmp<std::max(P1, P2)>(lhs).add(rhs);
 }
 
 } // namespace teuthid

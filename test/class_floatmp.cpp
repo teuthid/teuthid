@@ -104,6 +104,10 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   __x1 += 0.1;
   BOOST_TEST(__x3.less_than(__x1), "less_than()");
 
+  __x1 = 1.111;
+  __x2 = 2.222;
+  __x3 = __x1 + __x2;
+
 #ifdef TEUTHID_HAVE_INT_128
   __x1 = static_cast<int128_t>(INT64_MAX) * 10;
   __x2 = static_cast<int128_t>(INT64_MAX) * 10;

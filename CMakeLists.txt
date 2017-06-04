@@ -31,7 +31,7 @@ if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     "default install path" FORCE)
 endif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_EXTENSIONS False)
 SET(CMAKE_COLOR_MAKEFILE ON)
@@ -39,9 +39,9 @@ set(CMAKE_VERBOSE_MAKEFILE ON) # to comment out
 
 include(TeuthidCheckTypes)
 
-set(Boost_REQUIRED_VERSION "1.61.0")
+set(Boost_REQUIRED_VERSION "1.63.0")
 set(Boost_REQUIRED_COMPONENTS unit_test_framework)
-set(GMP_REQUIRED_VERSION "6.1.1")
+set(GMP_REQUIRED_VERSION "6.1.2")
 set(MPFR_REQUIRED_VERSION "3.1.5")
 
 option(ENABLE_AVX_SSE "Enable AVX or SSE compiler options" OFF)
@@ -56,7 +56,7 @@ set(teuthid_link_libraries ${CMAKE_THREAD_LIBS_INIT})
 msg_status("Threads: " "${CMAKE_THREAD_LIBS_INIT}")
 
 set(BUILD_SHARED_LIBS ON)
-option(BUILD_STATIC_LIBS "Build the static library" ON)
+option(BUILD_STATIC_LIBS "Build the static library" OFF)
 option(BUILD_WITH_OPENCL "Build with OpenCL" OFF)
 option(CHECK_OPENCL_DEVICES "Check for working OpenCL platforms/devices" OFF)
 option(BUILD_TESTS "Build unit test" ON)
