@@ -83,6 +83,9 @@ public:
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
   const mpfr_t &c_mpfr() const noexcept { return value_; }
+  template <typename T> void sub(const T &value) {
+    TETHID_CHECK_TYPE_SPECIALIZATION(T);
+  }
 
   static constexpr std::size_t max_precision() noexcept {
     return MPFR_PREC_MAX;
@@ -125,22 +128,23 @@ public:
     mpfr_set(value_, value.value_, static_cast<mpfr_rnd_t>(rounding_mode()));
   }
 
-#define __TEUTHID_FLOATMP_ADD_SPEC(TYPE, FUN)                                  \
-  void add(const TYPE &value) {                                                \
+#define __TEUTHID_FLOATMP_ARITHMETIC_SPEC(OPER, TYPE, FUN)                     \
+  void OPER(const TYPE &value) {                                               \
     FUN(value_, c_mpfr(), value, static_cast<mpfr_rnd_t>(rounding_mode()));    \
   }
-  __TEUTHID_FLOATMP_ADD_SPEC(int8_t, mpfr_add_si)
-  __TEUTHID_FLOATMP_ADD_SPEC(int16_t, mpfr_add_si)
-  __TEUTHID_FLOATMP_ADD_SPEC(int32_t, mpfr_add_si)
-  __TEUTHID_FLOATMP_ADD_SPEC(int64_t, mpfr_add_si)
-  __TEUTHID_FLOATMP_ADD_SPEC(uint8_t, mpfr_add_ui)
-  __TEUTHID_FLOATMP_ADD_SPEC(uint16_t, mpfr_add_ui)
-  __TEUTHID_FLOATMP_ADD_SPEC(uint32_t, mpfr_add_ui)
-  __TEUTHID_FLOATMP_ADD_SPEC(uint64_t, mpfr_add_ui)
-  __TEUTHID_FLOATMP_ADD_SPEC(float, mpfr_add_d)
-  __TEUTHID_FLOATMP_ADD_SPEC(double, mpfr_add_d)
-  __TEUTHID_FLOATMP_ADD_SPEC(mpfr_t, mpfr_add)
-#undef __TEUTHID_FLOATMP_ADD_SPEC
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, int8_t, mpfr_add_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, int16_t, mpfr_add_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, int32_t, mpfr_add_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, int64_t, mpfr_add_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, uint8_t, mpfr_add_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, uint16_t, mpfr_add_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, uint32_t, mpfr_add_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, uint64_t, mpfr_add_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, float, mpfr_add_d)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, double, mpfr_add_d)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, mpfr_t, mpfr_add)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, int8_t, mpfr_sub_si)
+#undef __TEUTHID_FLOATMP_ARITHMETIC_SPEC
   void add(const long double &value) {
     mpfr_t __v;
     mpfr_init2(__v, mpfr_get_prec(value_));
@@ -375,16 +379,15 @@ inline bool operator>=(const T &lhs, const floatmp<P> &rhs) {
 
 // operator +
 template <std::size_t P1, std::size_t P2>
-inline const floatmp<std::max(P1, P2)> operator+(const floatmp<P1> &lhs,
-                                                 const floatmp<P2> &rhs) {
+inline auto operator+(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {
   return floatmp<std::max(P1, P2)>(lhs).add(rhs);
 }
 template <typename T, std::size_t P>
-inline const floatmp<P> operator+(const floatmp<P> &lhs, const T &rhs) {
+inline auto operator+(const floatmp<P> &lhs, const T &rhs) {
   return floatmp<P>(lhs).add(rhs);
 }
 template <typename T, std::size_t P>
-inline const floatmp<P> operator+(const T &lhs, const floatmp<P> &rhs) {
+inline auto operator+(const T &lhs, const floatmp<P> &rhs) {
   return floatmp<P>(lhs).add(rhs);
 }
 
