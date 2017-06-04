@@ -263,9 +263,9 @@ public:
     floatmp_base::add(value);
     return *this;
   }
-  template <typename T> floatmp& assign(const T &value) {
+  template <typename T> floatmp &assign(const T &value) {
     floatmp_base::assign(value);
-    return *this;    
+    return *this;
   }
   template <typename T> bool equal_to(const T &value) const {
     return floatmp_base::equal_to(
@@ -378,6 +378,14 @@ template <std::size_t P1, std::size_t P2>
 inline const floatmp<std::max(P1, P2)> operator+(const floatmp<P1> &lhs,
                                                  const floatmp<P2> &rhs) {
   return floatmp<std::max(P1, P2)>(lhs).add(rhs);
+}
+template <typename T, std::size_t P>
+inline const floatmp<P> operator+(const floatmp<P> &lhs, const T &rhs) {
+  return floatmp<P>(lhs).add(rhs);
+}
+template <typename T, std::size_t P>
+inline const floatmp<P> operator+(const T &lhs, const floatmp<P> &rhs) {
+  return floatmp<P>(lhs).add(rhs);
 }
 
 } // namespace teuthid

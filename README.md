@@ -3,7 +3,7 @@
 #### Features: ####
 * Multilayer artificial neural network libraries in C++14.
 * Multiple-precision floating-point computation (requires [MPFR](http://www.mpfr.org/) and [GMP](https://gmplib.org/) libraries).
-* Thread-safe components with support for C++11 thread-local storage.
+* Thread-safe components with support for C++14 thread-local storage.
 * Versatile (possible to adjust many parameters and features).
 * Use OpenCL (optionally) as its interface for executing code on parallel devices such as GPUs and multi-core CPUs.
 * Language bindings to C.
