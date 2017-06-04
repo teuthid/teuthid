@@ -104,6 +104,13 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST(__x2.less_than(__x1), "less_than()");
   __x1 += 0.1;
   BOOST_TEST(__x3.less_than(__x1), "less_than()");
+  __x1 = 1.111;
+  __x1 = -__x1;
+  BOOST_TEST((__x1 == -1.111), "operator-");
+  __x2 = -__x1;
+  BOOST_TEST((__x2 == 1.111), "operator-");
+  BOOST_TEST(__x1.precision() == float256_prec, "precision()");
+  BOOST_TEST(__x2.precision() == 500, "precision()");
 
   __x1 = 1.111;
   __x2 = 2.222;
@@ -116,7 +123,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((__x3 == 3.333), "operator+");
   __x3 = 1.111 + __x2;
   BOOST_TEST((__x3 == 3.333), "operator+");
-    
+
 #ifdef TEUTHID_HAVE_INT_128
   __x1 = static_cast<int128_t>(INT64_MAX) * 10;
   __x2 = static_cast<int128_t>(INT64_MAX) * 10;
