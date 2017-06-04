@@ -287,6 +287,10 @@ public:
     floatmp_base::add(value);
     return *this;
   }
+  template <typename T> floatmp &operator-=(const T &value) {
+    floatmp_base::sub(value);
+    return *this;
+  }
 
   template <typename T> floatmp &add(const T &value) {
     floatmp_base::add(value);
@@ -406,19 +410,22 @@ inline bool operator>=(const T &lhs, const floatmp<P> &rhs) {
   return !(lhs < rhs);
 }
 
-// operator +
-template <std::size_t P1, std::size_t P2>
-inline auto operator+(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {
-  return floatmp<std::max(P1, P2)>(lhs).add(rhs);
-}
-template <typename T, std::size_t P>
-inline auto operator+(const floatmp<P> &lhs, const T &rhs) {
-  return floatmp<P>(lhs).add(rhs);
-}
-template <typename T, std::size_t P>
-inline auto operator+(const T &lhs, const floatmp<P> &rhs) {
-  return floatmp<P>(lhs).add(rhs);
-}
+#define __TEUTHID_FLOATMP_ARITHMETIC_SPEC(OPER, FUN)                           \
+  template <std::size_t P1, std::size_t P2>                                    \
+  inline auto OPER(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {           \
+    return floatmp<std::max(P1, P2)>(lhs).FUN(rhs);                            \
+  }                                                                            \
+  template <typename T, std::size_t P>                                         \
+  inline auto OPER(const floatmp<P> &lhs, const T &rhs) {                      \
+    return floatmp<P>(lhs).FUN(rhs);                                           \
+  }                                                                            \
+  template <typename T, std::size_t P>                                         \
+  inline auto OPER(const T &lhs, const floatmp<P> &rhs) {                      \
+    return floatmp<P>(lhs).FUN(rhs);                                           \
+  }
+__TEUTHID_FLOATMP_ARITHMETIC_SPEC(operator+, add)
+__TEUTHID_FLOATMP_ARITHMETIC_SPEC(operator-, sub)
+#undef __TEUTHID_FLOATMP_ARITHMETIC_SPEC
 
 } // namespace teuthid
 
