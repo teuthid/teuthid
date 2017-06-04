@@ -107,6 +107,10 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   __x1 = 1.111;
   __x2 = 2.222;
   __x3 = __x1 + __x2;
+  BOOST_TEST((__x3 == 3.333), "operator+");
+  BOOST_TEST(__x3.precision() == 100, "operator+");
+  BOOST_TEST((__x2 == 2.222), "operator+");
+  BOOST_TEST(__x2.precision() == 500, "operator+");
 
 #ifdef TEUTHID_HAVE_INT_128
   __x1 = static_cast<int128_t>(INT64_MAX) * 10;

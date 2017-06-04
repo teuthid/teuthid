@@ -263,6 +263,10 @@ public:
     floatmp_base::add(value);
     return *this;
   }
+  template <typename T> floatmp& assign(const T &value) {
+    floatmp_base::assign(value);
+    return *this;    
+  }
   template <typename T> bool equal_to(const T &value) const {
     return floatmp_base::equal_to(
         static_cast<floatmp_base>(floatmp<Precision>(value)));
