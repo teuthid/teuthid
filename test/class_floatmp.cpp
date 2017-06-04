@@ -131,8 +131,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   __x3 = __x2 - __x1;
   BOOST_TEST((__x3 == 2.222), "operator-");
   BOOST_TEST(__x3.precision() == 100, "operator-");
-  BOOST_TEST((__x2 == 3.333), "operator+");
-  BOOST_TEST(__x2.precision() == 500, "operator+");
+  BOOST_TEST((__x2 == 3.333), "operator-");
+  BOOST_TEST(__x2.precision() == 500, "operator-");
   __x3 = __x2 - 2.222;
   BOOST_TEST((__x3 == 1.111), "operator-");
   __x3 = 4.444 - __x2;
