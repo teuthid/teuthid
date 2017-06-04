@@ -144,14 +144,30 @@ public:
   __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, double, mpfr_add_d)
   __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, mpfr_t, mpfr_add)
   __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, int8_t, mpfr_sub_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, int16_t, mpfr_sub_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, int32_t, mpfr_sub_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, int64_t, mpfr_sub_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, uint8_t, mpfr_sub_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, uint16_t, mpfr_sub_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, uint32_t, mpfr_sub_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, uint64_t, mpfr_sub_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, float, mpfr_sub_d)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, double, mpfr_sub_d)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, mpfr_t, mpfr_sub)
 #undef __TEUTHID_FLOATMP_ARITHMETIC_SPEC
-  void add(const long double &value) {
-    mpfr_t __v;
-    mpfr_init2(__v, mpfr_get_prec(value_));
-    mpfr_set_ld(__v, value, static_cast<mpfr_rnd_t>(rounding_mode()));
-    mpfr_add(value_, c_mpfr(), __v, static_cast<mpfr_rnd_t>(rounding_mode()));
-    mpfr_clear(__v);
+
+#define __TEUTHID_FLOATMP_ARITHMETIC_LDOUBLE(OPER, FUN)                        \
+  void OPER(const long double &value) {                                        \
+    mpfr_t __v;                                                                \
+    mpfr_init2(__v, mpfr_get_prec(value_));                                    \
+    mpfr_set_ld(__v, value, static_cast<mpfr_rnd_t>(rounding_mode()));         \
+    FUN(value_, c_mpfr(), __v, static_cast<mpfr_rnd_t>(rounding_mode()));      \
+    mpfr_clear(__v);                                                           \
   }
+__TEUTHID_FLOATMP_ARITHMETIC_LDOUBLE(add, mpfr_add)
+__TEUTHID_FLOATMP_ARITHMETIC_LDOUBLE(sub, mpfr_sub)
+#undef __TEUTHID_FLOATMP_ARITHMETIC_LDOUBLE
+
   template <std::size_t P> void add(const floatmp<P> &value) {
     TEUTHID_CHECK_FLOATMP_PRECISION(P);
     mpfr_add(value_, c_mpfr(), value.value_,
