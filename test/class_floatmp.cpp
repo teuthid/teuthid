@@ -38,6 +38,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST(static_cast<int>(__x1.rounding_mode(__rmode)) ==
                  static_cast<int>(__rmode),
              "floatmp::rounding_mode()");
+  BOOST_TEST(__x1.isfinite(), "isfinite()");
+  BOOST_TEST(system::isfinite(__x2), "system::isfinite()");
 
   system::format_float_output();
 

@@ -20,6 +20,7 @@
 #define TEUTHID_SYSTEM_HPP
 
 #include <atomic>
+#include <cmath>
 #include <string>
 #include <vector>
 
@@ -75,6 +76,9 @@ public:
     static_assert(std::is_enum<E>::value, "requires enumeration type");
     return static_cast<typename std::underlying_type<E>::type>(en);
   }
+  template <typename T> static bool isfinite(const T &value) {
+    TETHID_CHECK_TYPE_SPECIALIZATION(T);
+  }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   static std::string to_string(const bool &value) {
@@ -123,6 +127,10 @@ public:
   template <std::size_t Precision>
   static floatmp<Precision> &from_string(const std::string &str_value,
                                          floatmp<Precision> &value);
+  template <std::size_t Precision>
+  static bool isfinite(const floatmp<Precision> &value) {
+    return value.isfinite();
+  }
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 private:
@@ -137,7 +145,7 @@ private:
   static std::string uint128_to_string_(uint128_t value);
 #endif
   static std::string validate_string_(const std::string &str);
-};
+}; // class system
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 // specializations of system::to_string<T>()
@@ -202,6 +210,33 @@ template <> bool system::less_than(const float &x, const float &y);
 template <> bool system::less_than(const double &x, const double &y);
 template <> bool system::less_than(const long double &x, const long double &y);
 template <> bool system::less_than(const mpfr_t &x, const mpfr_t &y);
+
+// specialization of system::isfinite<T>()
+#define __TEUTHID_SYSTEM_ISFINITE(TYPE)                                        \
+  template <> inline bool system::isfinite(const TYPE &value) {                \
+    return std::isfinite(value);                                               \
+  }
+__TEUTHID_SYSTEM_ISFINITE(bool)
+__TEUTHID_SYSTEM_ISFINITE(char)
+__TEUTHID_SYSTEM_ISFINITE(int8_t)
+__TEUTHID_SYSTEM_ISFINITE(int16_t)
+__TEUTHID_SYSTEM_ISFINITE(int32_t)
+__TEUTHID_SYSTEM_ISFINITE(int64_t)
+__TEUTHID_SYSTEM_ISFINITE(uint8_t)
+__TEUTHID_SYSTEM_ISFINITE(uint16_t)
+__TEUTHID_SYSTEM_ISFINITE(uint32_t)
+__TEUTHID_SYSTEM_ISFINITE(uint64_t)
+__TEUTHID_SYSTEM_ISFINITE(float)
+__TEUTHID_SYSTEM_ISFINITE(double)
+__TEUTHID_SYSTEM_ISFINITE(long double)
+#undef __TEUTHID_SYSTEM_ISFINITE
+template <> inline bool system::isfinite(const mpfr_t &value) {
+  return (mpfr_number_p(value) != 0);
+}
+template <> inline bool system::isfinite(const floatmp_base &value) {
+  return value.isfinite();
+}
+
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 } // namespace teuthid

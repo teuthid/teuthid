@@ -92,6 +92,9 @@ public:
   template <typename T> void sub(const T &value) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
+  bool isfinite() const {
+    return (mpfr_number_p(value_) != 0);
+  }
 
   static constexpr std::size_t max_precision() noexcept {
     return MPFR_PREC_MAX;
@@ -233,7 +236,7 @@ private:
 
   mpfr_t value_;
   static std::atomic_int round_mode_;
-};
+}; // class floatmp_base
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 #ifdef TEUTHID_HAVE_INT_128
@@ -370,7 +373,7 @@ public:
     return floatmp_base::less_than(static_cast<const floatmp_base &>(value));
   }
 #endif // DOXYGEN_SHOULD_SKIP_THIS
-};
+}; // class floatmp
 
 /******************************************************************************/
 

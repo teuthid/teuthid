@@ -134,6 +134,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   bool __boolval;
   BOOST_TEST(!system::from_string("F A L S E", __boolval),
              "system::from_string(bool)");
+  BOOST_TEST(system::isfinite(__boolval), "system::isfinite()");
   BOOST_TEST(system::from_string("true", __boolval),
              "system::from_string(bool)");
   BOOST_TEST(system::from_string("1", __boolval), "system::from_string(bool)");
@@ -142,33 +143,42 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   int8_t __int8_val;
   BOOST_TEST(system::from_string("-127", __int8_val) == -127,
              "system::from_string(int8_t)");
+  BOOST_TEST(system::isfinite(__int8_val), "system::isfinite()");
   int16_t __int16_val;
   BOOST_TEST(system::from_string("-32768", __int16_val) == -32768,
              "system::from_string(int16_t)");
+  BOOST_TEST(system::isfinite(__int16_val), "system::isfinite()");
   int32_t __int32_val;
   BOOST_TEST(system::from_string("-2147483648", __int32_val) == -2147483648,
              "system::from_string(int32_t)");
+  BOOST_TEST(system::isfinite(__int32_val), "system::isfinite()");
   int64_t __int64_val;
   BOOST_TEST(system::from_string("-9223372036854775807", __int64_val) ==
                  -9223372036854775807,
              "system::from_string(int64_t)");
+  BOOST_TEST(system::isfinite(__int64_val), "system::isfinite()");
 
   uint8_t __uint8_val;
   BOOST_TEST(system::from_string("255", __uint8_val) == 255,
              "system::from_string(uint8_t)");
+  BOOST_TEST(system::isfinite(__uint8_val), "system::isfinite()");
   uint16_t __uint16_val;
   BOOST_TEST(system::from_string("65535", __uint16_val) == 65535,
              "system::from_string(uint16_t)");
+  BOOST_TEST(system::isfinite(__uint16_val), "system::isfinite()");
   uint32_t __uint32_val;
   BOOST_TEST(system::from_string("4294967295", __uint32_val) == 4294967295,
              "system::from_string(uint32_t)");
+  BOOST_TEST(system::isfinite(__uint32_val), "system::isfinite()");
   uint64_t __uint64_val;
   BOOST_TEST(system::from_string("9223372036854775807", __uint64_val) ==
                  9223372036854775807,
              "system::from_string(uint64_t)");
+  BOOST_TEST(system::isfinite(__uint64_val), "system::isfinite()");
 
   float __float_val;
   system::from_string("1.2345", __float_val);
+  BOOST_TEST(system::isfinite(__float_val), "system::isfinite()");
   BOOST_TEST(system::equal_to(__float_val, __float_val),
              "system::from_string(float)");
   BOOST_TEST(!system::less_than(__float_val, __float_val),
@@ -186,6 +196,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
 
   double __double_val;
   system::from_string("1.23456", __double_val);
+  BOOST_TEST(system::isfinite(__double_val), "system::isfinite()");
   BOOST_TEST(system::equal_to(__double_val, __double_val),
              "system::from_string(double)");
   BOOST_TEST(!system::less_than(__double_val, __double_val),
@@ -203,6 +214,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
 
   long double __ldouble_val;
   system::from_string("1.234567", __ldouble_val);
+  BOOST_TEST(system::isfinite(__ldouble_val), "system::isfinite()");
   BOOST_TEST(system::equal_to(__ldouble_val, __ldouble_val),
              "system::from_string(long double)");
   BOOST_TEST(!system::less_than(__ldouble_val, __ldouble_val),
@@ -219,6 +231,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
              "system::less_than(long double)");
 
   system::from_string("1.2345", __mpfr);
+  BOOST_TEST(system::isfinite(__mpfr), "system::isfinite()");
   BOOST_TEST(mpfr_cmp_ld(__mpfr, (long double)1.2345) == 0,
              "system::from_string(mpfr_t)");
   BOOST_TEST(system::equal_to(__mpfr, __mpfr), "system::equal_to(mpfr_t)");
