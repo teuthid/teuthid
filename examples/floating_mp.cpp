@@ -22,6 +22,7 @@
 using namespace teuthid;
 
 long double __value = 0.9876543219;
+long double __v2 = 0.12345;
 
 int main() {
   std::cout << "Teuthid Version " << system::to_string(system::major_version())
@@ -44,8 +45,16 @@ int main() {
             << "  float128_t(x) => " << system::to_string(float128_t(__f5))
             << "  float256_t(x) => " << system::to_string(float256_t(__f5))
             << std::endl;
-  __f5.add(__f5);
-  std::cout << "  x.add(x) => " << system::to_string(__f5) << std::endl;
+  __f5 += __v2;
+  std::cout << "  x.add(0.12345) => " << system::to_string(__f5);
+  __f5 -= __v2;
+  std::cout << "  x.sub(0.12345) => " << system::to_string(__f5);
+  std::cout << std::endl;
+  __f5 *= 100000;
+  std::cout << "  x.mul(100000) => " << system::to_string(__f5);
+  __f5 /= 100000;
+  std::cout << "  x.div(100000) => " << system::to_string(__f5);
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<10> __f10 = __value;
@@ -63,8 +72,16 @@ int main() {
             << "  float128_t(x) => " << system::to_string(float128_t(__f10))
             << "  float256_t(x) => " << system::to_string(float256_t(__f10))
             << std::endl;
-  __f10.add(__f10);
-  std::cout << "  x.add(x) => " << system::to_string(__f10) << std::endl;
+  __f10 += __v2;
+  std::cout << "  x.add(0.12345) => " << system::to_string(__f10);
+  __f10 -= __v2;
+  std::cout << "  x.sub(0.12345) => " << system::to_string(__f10);
+  std::cout << std::endl;
+  __f10 *= 100000;
+  std::cout << "  x.mul(100000) => " << system::to_string(__f10);
+  __f10 /= 100000;
+  std::cout << "  x.div(100000) => " << system::to_string(__f10);
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<20> __f20 = __value;
@@ -82,8 +99,16 @@ int main() {
             << "  float128_t(x) => " << system::to_string(float128_t(__f20))
             << "  float256_t(x) => " << system::to_string(float256_t(__f20))
             << std::endl;
-  __f20.add(__f20);
-  std::cout << "  x.add(x) => " << system::to_string(__f20) << std::endl;
+  __f20 += __v2;
+  std::cout << "  x.add(0.12345) => " << system::to_string(__f20);
+  __f20 -= __v2;
+  std::cout << "  x.sub(0.12345) => " << system::to_string(__f20);
+  std::cout << std::endl;
+  __f20 *= 100000;
+  std::cout << "  x.mul(100000) => " << system::to_string(__f20);
+  __f20 /= 100000;
+  std::cout << "  x.div(100000) => " << system::to_string(__f20);
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<50> __f50 = __value;
@@ -101,8 +126,16 @@ int main() {
             << "  float128_t(x) => " << system::to_string(float128_t(__f50))
             << "  float256_t(x) => " << system::to_string(float256_t(__f50))
             << std::endl;
-  __f50.add(__f50);
-  std::cout << "  x.add(x) => " << system::to_string(__f50) << std::endl;
+  __f50 += __v2;
+  std::cout << "  x.add(0.12345) => " << system::to_string(__f50);
+  __f50 -= __v2;
+  std::cout << "  x.sub(0.12345) => " << system::to_string(__f50);
+  std::cout << std::endl;
+  __f50 *= 100000;
+  std::cout << "  x.mul(100000) => " << system::to_string(__f50);
+  __f50 /= 100000;
+  std::cout << "  x.div(100000) => " << system::to_string(__f50);
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<100> __f100 = __value;
@@ -120,8 +153,16 @@ int main() {
             << "  float128_t(x) => " << system::to_string(float128_t(__f100))
             << "  float256_t(x) => " << system::to_string(float256_t(__f100))
             << std::endl;
-  __f100.add(__f100);
-  std::cout << "  x.add(x) => " << system::to_string(__f100) << std::endl;
+  __f100 += __v2;
+  std::cout << "  x.add(0.12345) => " << system::to_string(__f100);
+  __f100 -= __v2;
+  std::cout << "  x.sub(0.12345) => " << system::to_string(__f100);
+  std::cout << std::endl;
+  __f100 *= 100000;
+  std::cout << "  x.mul(100000) => " << system::to_string(__f100);
+  __f100 /= 100000;
+  std::cout << "  x.div(100000) => " << system::to_string(__f100);
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<200> __f200 = __value;
@@ -139,8 +180,16 @@ int main() {
             << "  float128_t(x) => " << system::to_string(float128_t(__f200))
             << "  float256_t(x) => " << system::to_string(float256_t(__f200))
             << std::endl;
-  __f200.add(__f200);
-  std::cout << "  x.add(x) => " << system::to_string(__f200) << std::endl;
+  __f200 += __v2;
+  std::cout << "  x.add(0.12345) => " << system::to_string(__f200);
+  __f200 -= __v2;
+  std::cout << "  x.sub(0.12345) => " << system::to_string(__f200);
+  std::cout << std::endl;
+  __f200 *= 100000;
+  std::cout << "  x.mul(100000) => " << system::to_string(__f200);
+  __f200 /= 100000;
+  std::cout << "  x.div(100000) => " << system::to_string(__f200);
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   std::cout << std::endl;
