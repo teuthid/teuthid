@@ -83,6 +83,9 @@ public:
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
   const mpfr_t &c_mpfr() const noexcept { return value_; }
+  template <typename T> void mul(const T &value) {
+    TETHID_CHECK_TYPE_SPECIALIZATION(T);
+  }
   template <typename T> void sub(const T &value) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
@@ -154,6 +157,17 @@ public:
   __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, float, mpfr_sub_d)
   __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, double, mpfr_sub_d)
   __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, mpfr_t, mpfr_sub)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, int8_t, mpfr_mul_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, int16_t, mpfr_mul_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, int32_t, mpfr_mul_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, int64_t, mpfr_mul_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, uint8_t, mpfr_mul_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, uint16_t, mpfr_mul_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, uint32_t, mpfr_mul_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, uint64_t, mpfr_mul_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, float, mpfr_mul_d)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, double, mpfr_mul_d)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, mpfr_t, mpfr_mul)
 #undef __TEUTHID_FLOATMP_ARITHMETIC_SPEC
 
 #define __TEUTHID_FLOATMP_ARITHMETIC_SPEC(OPER, FUN)                           \
@@ -171,6 +185,7 @@ public:
   }
   __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, mpfr_add)
   __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, mpfr_sub)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, mpfr_mul)
 #undef __TEUTHID_FLOATMP_ARITHMETIC_SPEC
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -239,6 +254,7 @@ template <> inline void floatmp_base::assign(const uint128_t &value) {
   }
 __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add)
 __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub)
+__TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul)
 #undef __TEUTHID_FLOATMP_ARITHMETIC_SPEC
 #endif // TEUTHID_HAVE_INT_128
 #endif // DOXYGEN_SHOULD_SKIP_THIS
@@ -307,6 +323,10 @@ public:
   template <typename T> bool less_than(const T &value) const {
     return floatmp_base::less_than(
         static_cast<floatmp_base>(floatmp<Precision>(value)));
+  }
+  template <typename T> floatmp &mul(const T &value) {
+    floatmp_base::mul(value);
+    return *this;
   }
   constexpr std::size_t precision() const noexcept { return Precision; }
   template <typename T> floatmp &sub(const T &value) {
@@ -425,6 +445,7 @@ inline bool operator>=(const T &lhs, const floatmp<P> &rhs) {
   }
 __TEUTHID_FLOATMP_ARITHMETIC_SPEC(operator+, add)
 __TEUTHID_FLOATMP_ARITHMETIC_SPEC(operator-, sub)
+__TEUTHID_FLOATMP_ARITHMETIC_SPEC(operator*, mul)
 #undef __TEUTHID_FLOATMP_ARITHMETIC_SPEC
 
 } // namespace teuthid
