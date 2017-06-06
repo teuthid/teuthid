@@ -76,28 +76,25 @@ public:
     return mpfr_get_ld(value_, static_cast<mpfr_rnd_t>(rounding_mode()));
   }
 
-  template <typename T> void add(const T &value) {
-    TETHID_CHECK_TYPE_SPECIALIZATION(T);
-  }
   template <typename T> void assign(const T &value) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
-  const mpfr_t &c_mpfr() const noexcept { return value_; }
-  template <typename T> void div(const T &value) {
-    TETHID_CHECK_TYPE_SPECIALIZATION(T);
-  }
-  template <typename T> void mul(const T &value) {
+  template <typename T> void add(const T &value) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
   template <typename T> void sub(const T &value) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
-  bool is_finite() const {
-    return (mpfr_number_p(value_) != 0);
+  template <typename T> void mul(const T &value) {
+    TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
-  bool is_infinite() const {
-    return (mpfr_inf_p(value_) != 0);
+  template <typename T> void div(const T &value) {
+    TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
+  const mpfr_t &c_mpfr() const noexcept { return value_; }
+  bool is_finite() const { return (mpfr_number_p(value_) != 0); }
+  bool is_infinite() const { return (mpfr_inf_p(value_) != 0); }
+  bool is_nan() const { return (mpfr_nan_p(value_) != 0); }
 
   static constexpr std::size_t max_precision() noexcept {
     return MPFR_PREC_MAX;
@@ -338,16 +335,8 @@ public:
     return *this;
   }
 
-  template <typename T> floatmp &add(const T &value) {
-    floatmp_base::add(value);
-    return *this;
-  }
   template <typename T> floatmp &assign(const T &value) {
     floatmp_base::assign(value);
-    return *this;
-  }
-  template <typename T> floatmp &div(const T &value) {
-    floatmp_base::div(value);
     return *this;
   }
   template <typename T> bool equal_to(const T &value) const {
@@ -358,15 +347,23 @@ public:
     return floatmp_base::less_than(
         static_cast<floatmp_base>(floatmp<Precision>(value)));
   }
-  template <typename T> floatmp &mul(const T &value) {
-    floatmp_base::mul(value);
+  template <typename T> floatmp &add(const T &value) {
+    floatmp_base::add(value);
     return *this;
   }
-  constexpr std::size_t precision() const noexcept { return Precision; }
   template <typename T> floatmp &sub(const T &value) {
     floatmp_base::sub(value);
     return *this;
   }
+  template <typename T> floatmp &mul(const T &value) {
+    floatmp_base::mul(value);
+    return *this;
+  }
+  template <typename T> floatmp &div(const T &value) {
+    floatmp_base::div(value);
+    return *this;
+  }
+  constexpr std::size_t precision() const noexcept { return Precision; }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   template <std::size_t P> bool equal_to(const floatmp<P> &value) const {
@@ -376,7 +373,7 @@ public:
     return floatmp_base::less_than(static_cast<const floatmp_base &>(value));
   }
 #endif // DOXYGEN_SHOULD_SKIP_THIS
-}; // class floatmp
+};     // class floatmp
 
 /******************************************************************************/
 

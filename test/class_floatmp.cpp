@@ -42,6 +42,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST(system::is_finite(__x2), "system::is_finite()");
   BOOST_TEST(!__x2.is_infinite(), "is_infinite()");
   BOOST_TEST(!system::is_infinite(__x3), "system::is_infinite()");
+  BOOST_TEST(!__x1.is_nan(), "is_nan()");
+  BOOST_TEST(!system::is_nan(__x2), "system::is_nan()");
 
   system::format_float_output();
 

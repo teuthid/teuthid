@@ -82,6 +82,9 @@ public:
   template <typename T> static bool is_infinite(const T &value) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
+  template <typename T> static bool is_nan(const T &value) {
+    TETHID_CHECK_TYPE_SPECIALIZATION(T);
+  }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   static std::string to_string(const bool &value) {
@@ -137,6 +140,10 @@ public:
   template <std::size_t Precision>
   static bool is_infinite(const floatmp<Precision> &value) {
     return value.is_infinite();
+  }
+  template <std::size_t Precision>
+  static bool is_nan(const floatmp<Precision> &value) {
+    return value.is_nan();
   }
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -218,7 +225,7 @@ template <> bool system::less_than(const double &x, const double &y);
 template <> bool system::less_than(const long double &x, const long double &y);
 template <> bool system::less_than(const mpfr_t &x, const mpfr_t &y);
 
-// specialization of system::isfinite<T>()
+// specialization of system::is_finite<T>()
 #define __TEUTHID_SYSTEM_IS_FINITE(TYPE)                                       \
   template <> inline bool system::is_finite(const TYPE &value) {               \
     return std::isfinite(value);                                               \
@@ -244,7 +251,7 @@ template <> inline bool system::is_finite(const floatmp_base &value) {
   return value.is_finite();
 }
 
-// specialization of system::isinfinite<T>()
+// specialization of system::is_infinite<T>()
 #define __TEUTHID_SYSTEM_IS_INFINITE(TYPE)                                     \
   template <> inline bool system::is_infinite(const TYPE &value) {             \
     return std::isinf(value);                                                  \
@@ -268,6 +275,32 @@ template <> inline bool system::is_infinite(const mpfr_t &value) {
 }
 template <> inline bool system::is_infinite(const floatmp_base &value) {
   return value.is_infinite();
+}
+
+// specialization of system::is_nan<T>()
+#define __TEUTHID_SYSTEM_IS_NAN(TYPE)                                          \
+  template <> inline bool system::is_nan(const TYPE &value) {                  \
+    return std::isnan(value);                                                  \
+  }
+__TEUTHID_SYSTEM_IS_NAN(bool)
+__TEUTHID_SYSTEM_IS_NAN(char)
+__TEUTHID_SYSTEM_IS_NAN(int8_t)
+__TEUTHID_SYSTEM_IS_NAN(int16_t)
+__TEUTHID_SYSTEM_IS_NAN(int32_t)
+__TEUTHID_SYSTEM_IS_NAN(int64_t)
+__TEUTHID_SYSTEM_IS_NAN(uint8_t)
+__TEUTHID_SYSTEM_IS_NAN(uint16_t)
+__TEUTHID_SYSTEM_IS_NAN(uint32_t)
+__TEUTHID_SYSTEM_IS_NAN(uint64_t)
+__TEUTHID_SYSTEM_IS_NAN(float)
+__TEUTHID_SYSTEM_IS_NAN(double)
+__TEUTHID_SYSTEM_IS_NAN(long double)
+#undef __TEUTHID_SYSTEM_IS_NAN
+template <> inline bool system::is_nan(const mpfr_t &value) {
+  return (mpfr_nan_p(value) != 0);
+}
+template <> inline bool system::is_nan(const floatmp_base &value) {
+  return value.is_nan();
 }
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
