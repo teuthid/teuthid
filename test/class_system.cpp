@@ -137,6 +137,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(system::is_finite(__boolval), "system::is_finite()");
   BOOST_TEST(!system::is_infinite(__boolval), "system::is_infinite()");
   BOOST_TEST(!system::is_nan(__boolval), "system::is_nan()");
+  BOOST_TEST(system::is_zero(__boolval), "system::is_zero()");
   BOOST_TEST(system::from_string("true", __boolval),
              "system::from_string(bool)");
   BOOST_TEST(system::from_string("1", __boolval), "system::from_string(bool)");
@@ -148,18 +149,21 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(system::is_finite(__int8_val), "system::is_finite()");
   BOOST_TEST(!system::is_infinite(__int8_val), "system::is_infinite()");
   BOOST_TEST(!system::is_nan(__int8_val), "system::is_nan()");
+  BOOST_TEST(!system::is_zero(__int8_val), "system::is_zero()");
   int16_t __int16_val;
   BOOST_TEST(system::from_string("-32768", __int16_val) == -32768,
              "system::from_string(int16_t)");
   BOOST_TEST(system::is_finite(__int16_val), "system::is_finite()");
   BOOST_TEST(!system::is_infinite(__int16_val), "system::is_infinite()");
   BOOST_TEST(!system::is_nan(__int16_val), "system::is_nan()");
+  BOOST_TEST(!system::is_zero(__int16_val), "system::is_zero()");
   int32_t __int32_val;
   BOOST_TEST(system::from_string("-2147483648", __int32_val) == -2147483648,
              "system::from_string(int32_t)");
   BOOST_TEST(system::is_finite(__int32_val), "system::is_finite()");
   BOOST_TEST(!system::is_infinite(__int32_val), "system::is_infinite()");
   BOOST_TEST(!system::is_nan(__int32_val), "system::is_nan()");
+  BOOST_TEST(!system::is_zero(__int32_val), "system::is_zero()");
   int64_t __int64_val;
   BOOST_TEST(system::from_string("-9223372036854775807", __int64_val) ==
                  -9223372036854775807,
@@ -167,6 +171,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(system::is_finite(__int64_val), "system::is_finite()");
   BOOST_TEST(!system::is_infinite(__int64_val), "system::is_infinite()");
   BOOST_TEST(!system::is_nan(__int64_val), "system::is_nan()");
+  BOOST_TEST(!system::is_zero(__int64_val), "system::is_zero()");
 
   uint8_t __uint8_val;
   BOOST_TEST(system::from_string("255", __uint8_val) == 255,
@@ -174,18 +179,21 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(system::is_finite(__uint8_val), "system::is_finite()");
   BOOST_TEST(!system::is_infinite(__uint8_val), "system::is_infinite()");
   BOOST_TEST(!system::is_nan(__uint8_val), "system::is_nan()");
+  BOOST_TEST(!system::is_zero(__uint8_val), "system::is_zero()");
   uint16_t __uint16_val;
   BOOST_TEST(system::from_string("65535", __uint16_val) == 65535,
              "system::from_string(uint16_t)");
   BOOST_TEST(system::is_finite(__uint16_val), "system::is_finite()");
   BOOST_TEST(!system::is_infinite(__uint16_val), "system::is_infinite()");
   BOOST_TEST(!system::is_nan(__uint16_val), "system::is_nan()");
+  BOOST_TEST(!system::is_zero(__uint16_val), "system::is_zero()");
   uint32_t __uint32_val;
   BOOST_TEST(system::from_string("4294967295", __uint32_val) == 4294967295,
              "system::from_string(uint32_t)");
   BOOST_TEST(system::is_finite(__uint32_val), "system::is_finite()");
   BOOST_TEST(!system::is_infinite(__uint32_val), "system::is_infinite()");
   BOOST_TEST(!system::is_nan(__uint32_val), "system::is_nan()");
+  BOOST_TEST(!system::is_zero(__uint32_val), "system::is_zero()");
   uint64_t __uint64_val;
   BOOST_TEST(system::from_string("9223372036854775807", __uint64_val) ==
                  9223372036854775807,
@@ -193,12 +201,14 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(system::is_finite(__uint64_val), "system::is_finite()");
   BOOST_TEST(!system::is_infinite(__uint64_val), "system::is_infinite()");
   BOOST_TEST(!system::is_nan(__uint64_val), "system::is_nan()");
+  BOOST_TEST(!system::is_zero(__uint64_val), "system::is_zero()");
 
   float __float_val;
   system::from_string("1.2345", __float_val);
   BOOST_TEST(system::is_finite(__float_val), "system::is_finite()");
   BOOST_TEST(!system::is_infinite(__float_val), "system::is_infinite()");
   BOOST_TEST(!system::is_nan(__float_val), "system::is_nan()");
+  BOOST_TEST(!system::is_zero(__float_val), "system::is_zero()");
   BOOST_TEST(system::equal_to(__float_val, __float_val),
              "system::from_string(float)");
   BOOST_TEST(!system::less_than(__float_val, __float_val),
@@ -219,6 +229,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(system::is_finite(__double_val), "system::is_finite()");
   BOOST_TEST(!system::is_infinite(__double_val), "system::is_infinite()");
   BOOST_TEST(!system::is_nan(__double_val), "system::is_nan()");
+  BOOST_TEST(!system::is_zero(__double_val), "system::is_zero()");
   BOOST_TEST(system::equal_to(__double_val, __double_val),
              "system::from_string(double)");
   BOOST_TEST(!system::less_than(__double_val, __double_val),
@@ -239,6 +250,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(system::is_finite(__ldouble_val), "system::is_finite()");
   BOOST_TEST(!system::is_infinite(__ldouble_val), "system::is_infinite()");
   BOOST_TEST(!system::is_nan(__ldouble_val), "system::is_nan()");
+  BOOST_TEST(!system::is_zero(__ldouble_val), "system::is_zero()");
   BOOST_TEST(system::equal_to(__ldouble_val, __ldouble_val),
              "system::from_string(long double)");
   BOOST_TEST(!system::less_than(__ldouble_val, __ldouble_val),

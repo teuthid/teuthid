@@ -44,6 +44,9 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST(!system::is_infinite(__x3), "system::is_infinite()");
   BOOST_TEST(!__x1.is_nan(), "is_nan()");
   BOOST_TEST(!system::is_nan(__x2), "system::is_nan()");
+  BOOST_TEST(__x1.is_zero(), "is_zero()");
+  BOOST_TEST(__x2.is_zero(), "is_zero()");
+  BOOST_TEST(__x3.is_zero(), "is_zero()");
 
   system::format_float_output();
 
@@ -94,6 +97,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   __x1 = 1.0;
   __x2 = 2.0;
   __x3 = 3.0;
+  BOOST_TEST(!__x1.is_zero(), "is_zero()");
   BOOST_TEST(__x1.less_than(2), "less_than()");
   BOOST_TEST(__x1.less_than(3.0), "less_than()");
   BOOST_TEST((__x1 < 3), "operator<");
@@ -136,6 +140,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((__x3 == 3.333), "operator+");
   __x3 = 1.111 + __x2;
   BOOST_TEST((__x3 == 3.333), "operator+");
+  BOOST_TEST(!__x3.is_zero(), "is_zero()");
 
   __x1 = 1.111;
   __x2 = 3.333;
@@ -148,6 +153,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((__x3 == 1.111), "operator-");
   __x3 = 4.444 - __x2;
   BOOST_TEST((__x3 == 1.111), "operator-");
+  BOOST_TEST(!__x3.is_zero(), "is_zero()");
 
   __x1 = 1.111;
   __x2 = 2;
@@ -158,16 +164,18 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((__x3 == 2.222), "operator*");
   __x3 = 2 * __x1;
   BOOST_TEST((__x3 == 2.222), "operator*");
+  BOOST_TEST(!__x3.is_zero(), "is_zero()");
 
   __x1 = 3.333;
   __x2 = 3;
   __x3 = __x1 / __x2;
   BOOST_TEST((__x3 == 1.111), "operator/");
-  BOOST_TEST(__x3.precision() == 100, "operator/");  
+  BOOST_TEST(__x3.precision() == 100, "operator/");
   __x3 = __x1 / 3.0;
   BOOST_TEST((__x3 == 1.111), "operator/");
   __x3 = 6.666 / __x2;
   BOOST_TEST((__x3 == 2.222), "operator/");
+  BOOST_TEST(!__x3.is_zero(), "is_zero()");
 
 #ifdef TEUTHID_HAVE_INT_128
   __x1 = static_cast<int128_t>(INT64_MAX) * 10;

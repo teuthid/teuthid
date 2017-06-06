@@ -85,6 +85,9 @@ public:
   template <typename T> static bool is_nan(const T &value) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
+  template <typename T> static bool is_zero(const T &value) {
+    TETHID_CHECK_TYPE_SPECIALIZATION(T);
+  }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   static std::string to_string(const bool &value) {
@@ -301,6 +304,33 @@ template <> inline bool system::is_nan(const mpfr_t &value) {
 }
 template <> inline bool system::is_nan(const floatmp_base &value) {
   return value.is_nan();
+}
+
+// specialization of system::is_zero<T>()
+template <> inline bool system::is_zero(const bool &value) { return !value; }
+template <> inline bool system::is_zero(const char &value) { return !value; }
+template <> inline bool system::is_zero(const int8_t &value) { return !value; }
+template <> inline bool system::is_zero(const int16_t &value) { return !value; }
+template <> inline bool system::is_zero(const int32_t &value) { return !value; }
+template <> inline bool system::is_zero(const int64_t &value) { return !value; }
+template <> inline bool system::is_zero(const uint8_t &value) { return !value; }
+template <> inline bool system::is_zero(const uint16_t &value) {
+  return !value;
+}
+template <> inline bool system::is_zero(const uint32_t &value) {
+  return !value;
+}
+template <> inline bool system::is_zero(const uint64_t &value) {
+  return !value;
+}
+template <> inline bool system::is_zero(const float &value) {
+  return system::equal_to(value, static_cast<float>(0));
+}
+template <> inline bool system::is_zero(const double &value) {
+  return system::equal_to(value, static_cast<double>(0));
+}
+template <> inline bool system::is_zero(const long double &value) {
+  return system::equal_to(value, static_cast<long double>(0));
 }
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
