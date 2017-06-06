@@ -79,6 +79,9 @@ public:
   template <typename T> static bool is_finite(const T &value) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
+  template <typename T> static bool is_infinite(const T &value) {
+    TETHID_CHECK_TYPE_SPECIALIZATION(T);
+  }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   static std::string to_string(const bool &value) {
@@ -130,6 +133,10 @@ public:
   template <std::size_t Precision>
   static bool is_finite(const floatmp<Precision> &value) {
     return value.is_finite();
+  }
+  template <std::size_t Precision>
+  static bool is_infinite(const floatmp<Precision> &value) {
+    return value.is_infinite();
   }
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -235,6 +242,32 @@ template <> inline bool system::is_finite(const mpfr_t &value) {
 }
 template <> inline bool system::is_finite(const floatmp_base &value) {
   return value.is_finite();
+}
+
+// specialization of system::isinfinite<T>()
+#define __TEUTHID_SYSTEM_IS_INFINITE(TYPE)                                     \
+  template <> inline bool system::is_infinite(const TYPE &value) {             \
+    return std::isinf(value);                                                  \
+  }
+__TEUTHID_SYSTEM_IS_INFINITE(bool)
+__TEUTHID_SYSTEM_IS_INFINITE(char)
+__TEUTHID_SYSTEM_IS_INFINITE(int8_t)
+__TEUTHID_SYSTEM_IS_INFINITE(int16_t)
+__TEUTHID_SYSTEM_IS_INFINITE(int32_t)
+__TEUTHID_SYSTEM_IS_INFINITE(int64_t)
+__TEUTHID_SYSTEM_IS_INFINITE(uint8_t)
+__TEUTHID_SYSTEM_IS_INFINITE(uint16_t)
+__TEUTHID_SYSTEM_IS_INFINITE(uint32_t)
+__TEUTHID_SYSTEM_IS_INFINITE(uint64_t)
+__TEUTHID_SYSTEM_IS_INFINITE(float)
+__TEUTHID_SYSTEM_IS_INFINITE(double)
+__TEUTHID_SYSTEM_IS_INFINITE(long double)
+#undef __TEUTHID_SYSTEM_IS_INFINITE
+template <> inline bool system::is_infinite(const mpfr_t &value) {
+  return (mpfr_inf_p(value) != 0);
+}
+template <> inline bool system::is_infinite(const floatmp_base &value) {
+  return value.is_infinite();
 }
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS

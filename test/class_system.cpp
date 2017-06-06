@@ -135,6 +135,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(!system::from_string("F A L S E", __boolval),
              "system::from_string(bool)");
   BOOST_TEST(system::is_finite(__boolval), "system::is_finite()");
+  BOOST_TEST(!system::is_infinite(__boolval), "system::is_infinite()");
   BOOST_TEST(system::from_string("true", __boolval),
              "system::from_string(bool)");
   BOOST_TEST(system::from_string("1", __boolval), "system::from_string(bool)");
@@ -144,19 +145,23 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(system::from_string("-127", __int8_val) == -127,
              "system::from_string(int8_t)");
   BOOST_TEST(system::is_finite(__int8_val), "system::is_finite()");
+  BOOST_TEST(!system::is_infinite(__int8_val), "system::is_infinite()");
   int16_t __int16_val;
   BOOST_TEST(system::from_string("-32768", __int16_val) == -32768,
              "system::from_string(int16_t)");
   BOOST_TEST(system::is_finite(__int16_val), "system::is_finite()");
+  BOOST_TEST(!system::is_infinite(__int16_val), "system::is_infinite()");
   int32_t __int32_val;
   BOOST_TEST(system::from_string("-2147483648", __int32_val) == -2147483648,
              "system::from_string(int32_t)");
   BOOST_TEST(system::is_finite(__int32_val), "system::is_finite()");
+  BOOST_TEST(!system::is_infinite(__int32_val), "system::is_infinite()");
   int64_t __int64_val;
   BOOST_TEST(system::from_string("-9223372036854775807", __int64_val) ==
                  -9223372036854775807,
              "system::from_string(int64_t)");
   BOOST_TEST(system::is_finite(__int64_val), "system::is_finite()");
+  BOOST_TEST(!system::is_infinite(__int64_val), "system::is_infinite()");
 
   uint8_t __uint8_val;
   BOOST_TEST(system::from_string("255", __uint8_val) == 255,

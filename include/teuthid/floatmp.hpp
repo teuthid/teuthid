@@ -95,6 +95,9 @@ public:
   bool is_finite() const {
     return (mpfr_number_p(value_) != 0);
   }
+  bool is_infinite() const {
+    return (mpfr_inf_p(value_) != 0);
+  }
 
   static constexpr std::size_t max_precision() noexcept {
     return MPFR_PREC_MAX;
