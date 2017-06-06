@@ -253,3 +253,14 @@ operator is already defined).
 enumeration type (scoped or unscoped). Otherwise, the behavior is undefined.
 \return \c true if \c en is different from \c 0, \c false otherwise. 
 */
+
+
+/*!
+\fn template <typename T> static bool system::is_finite(const T &value)
+\brief Determines if the floating point number has finite value.
+\details Determines if the given floating point number \c value has finite 
+value i.e. it is normal, subnormal or zero, but not infinite or NaN.
+@param[in] value a floating point value
+\return \c true value if \c value has finite value, \c false if \c value is 
+infinite or NaN.
+*/
