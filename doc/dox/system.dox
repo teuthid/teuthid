@@ -221,7 +221,8 @@ range of the result type \c T.
 @param[in] y a value of type \c T to compare.
 \return \c true if \c x == \c y, \c false otherwise.
 \note The function has specializations for the following types: \c float, 
-\c double, <tt>long double</tt>, \c mpfr_t. 
+\c double, <tt>long double</tt>, \c mpfr_t and 
+\ref teuthid::floatmp "floatmp<Precision>".
 \n To compare floating point types, this function converts numbers to strings 
 according to the current format settings for to_string(). For other types, the 
 function behaves just like the \c operator== (for those types for which this 
@@ -237,7 +238,8 @@ operator is already defined).
 @param[in] y a value of type \c T to compare.
 \return \c true if \c x < \c y, \c false otherwise.
 \note The function has specializations for the following types: \c float, 
-\c double, <tt>long double</tt>, \c mpfr_t. 
+\c double, <tt>long double</tt>, \c mpfr_t and 
+\ref teuthid::floatmp "floatmp<Precision>".
 \n To compare floating point types, this function converts numbers to strings 
 according to the current format settings for to_string(). For other types, the 
 function behaves just like the \c operator< (for those types for which this 
@@ -263,6 +265,9 @@ value i.e. it is normal, subnormal or zero, but not infinite or NaN.
 @param[in] value a floating point value
 \return \c true value if \c value has finite value, \c false if \c value is 
 infinite or NaN.
+\note The function has specializations for the following types: \c float, 
+\c double, <tt>long double</tt>, \c mpfr_t, 
+\ref teuthid::floatmp "floatmp<Precision>" and integral types.
 \see system::is_infinite(), system::is_nan().
 */
 
@@ -273,6 +278,9 @@ infinite or NaN.
 infinity.
 @param[in] value a floating point value
 \return \c true if \c value is infinite, \c false otherwise.
+\note The function has specializations for the following types: \c float, 
+\c double, <tt>long double</tt>, \c mpfr_t, 
+\ref teuthid::floatmp "floatmp<Precision>" and integral types.
 \see system::is_finite().
 */
 
@@ -282,5 +290,8 @@ infinity.
 \brief Determines if the given floating point number is NaN.
 @param[in] value a floating point value
 \return \c true if \c value is a NaN, \c false otherwise.
+\note The function has specializations for the following types: \c float, 
+\c double, <tt>long double</tt>, \c mpfr_t, 
+\ref teuthid::floatmp "floatmp<Precision>" and integral types.
 \see system::is_finite().
 */
