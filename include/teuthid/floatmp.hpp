@@ -92,7 +92,7 @@ public:
   template <typename T> void sub(const T &value) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
-  bool isfinite() const {
+  bool is_finite() const {
     return (mpfr_number_p(value_) != 0);
   }
 
