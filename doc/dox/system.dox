@@ -263,4 +263,24 @@ value i.e. it is normal, subnormal or zero, but not infinite or NaN.
 @param[in] value a floating point value
 \return \c true value if \c value has finite value, \c false if \c value is 
 infinite or NaN.
+\see system::is_infinite(), system::is_nan().
+*/
+
+
+/*!
+\fn template <typename T> static bool system::is_infinite(const T &value)
+\brief Determines if the given floating point number is a positive or negative 
+infinity.
+@param[in] value a floating point value
+\return \c true if \c value is infinite, \c false otherwise.
+\see system::is_finite().
+*/
+
+
+/*!
+\fn template <typename T> static bool system::is_nan(const T &value)
+\brief Determines if the given floating point number is NaN.
+@param[in] value a floating point value
+\return \c true if \c value is a NaN, \c false otherwise.
+\see system::is_finite().
 */
