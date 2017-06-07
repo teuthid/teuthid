@@ -47,6 +47,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST(__x1.is_zero(), "is_zero()");
   BOOST_TEST(__x2.is_zero(), "is_zero()");
   BOOST_TEST(__x3.is_zero(), "is_zero()");
+  BOOST_TEST(system::is_zero(__x2), "system::is_zero()");
 
   system::format_float_output();
 
