@@ -27,7 +27,9 @@
 provide information about its settings. 
 \details In addition, this class also includes a set of general-purpose 
 functions such as functions for converting numeric values to strings and vice 
-versa (system::to_string(), system::from_string()). \n All functions that provides class teuthid::system are static.
+versa (system::to_string(), system::from_string()), math functions 
+(system::equal_to(), system::less_than(), system::is_finite()). 
+\n All functions that provides class teuthid::system are static.
 */
 
 
@@ -227,7 +229,8 @@ range of the result type \c T.
 according to the current format settings for to_string(). For other types, the 
 function behaves just like the \c operator== (for those types for which this 
 operator is already defined).
-\see system::format_float_output(), system::format_float_precision().
+\see system::format_float_output(), system::format_float_precision(), 
+system::less_than().
 */
 
 
@@ -244,7 +247,8 @@ operator is already defined).
 according to the current format settings for to_string(). For other types, the 
 function behaves just like the \c operator< (for those types for which this 
 operator is already defined).
-\see system::format_float_output(), system::format_float_precision().
+\see system::format_float_output(), system::format_float_precision(), 
+system::equal_to().
 */
 
 
@@ -268,13 +272,13 @@ infinite or NaN.
 \note The function has specializations for the following types: \c float, 
 \c double, <tt>long double</tt>, \c mpfr_t, 
 \ref teuthid::floatmp "floatmp<Precision>" and integral types.
-\see system::is_infinite(), system::is_nan().
+\see system::is_infinite(), system::is_nan(), system::is_zero().
 */
 
 
 /*!
 \fn template <typename T> static bool system::is_infinite(const T &value)
-\brief Determines if the given floating point number is a positive or negative 
+\brief Determines if the floating point number is a positive or negative 
 infinity.
 @param[in] value a floating point value
 \return \c true if \c value is infinite, \c false otherwise.
@@ -287,11 +291,22 @@ infinity.
 
 /*!
 \fn template <typename T> static bool system::is_nan(const T &value)
-\brief Determines if the given floating point number is NaN.
+\brief Determines if the floating point number is NaN.
 @param[in] value a floating point value
 \return \c true if \c value is a NaN, \c false otherwise.
 \note The function has specializations for the following types: \c float, 
 \c double, <tt>long double</tt>, \c mpfr_t, 
 \ref teuthid::floatmp "floatmp<Precision>" and integral types.
 \see system::is_finite().
+*/
+
+/*!
+\fn template <typename T> static bool system::is_zero(const T &value)
+\brief Determines if the floating point number has zero value.
+@param[in] value a floating point value
+\return \c true value if \c value has zero value, \c false otherwise.
+\note The function has specializations for the following types: \c float, 
+\c double, <tt>long double</tt>, \c mpfr_t, 
+\ref teuthid::floatmp "floatmp<Precision>" and integral types.
+\see system::equal_to(), system::is_finite().
 */
