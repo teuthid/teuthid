@@ -257,6 +257,14 @@ template <> inline bool system::is_finite(const mpfr_t &value) {
 template <> inline bool system::is_finite(const floatmp_base &value) {
   return value.is_finite();
 }
+#ifdef TEUTHID_HAVE_INT_128
+template <> inline bool system::is_finite(const int128_t &value) {
+  return system::is_finite(floatmp_base::int128_to_ldouble_(value));
+}
+template <> inline bool system::is_finite(const uint128_t &value) {
+  return system::is_finite(floatmp_base::uint128_to_ldouble_(value));
+}
+#endif // TEUTHID_HAVE_INT_128
 
 // specialization of system::is_infinite<T>()
 #define __TEUTHID_SYSTEM_IS_INFINITE(TYPE)                                     \
@@ -283,6 +291,14 @@ template <> inline bool system::is_infinite(const mpfr_t &value) {
 template <> inline bool system::is_infinite(const floatmp_base &value) {
   return value.is_infinite();
 }
+#ifdef TEUTHID_HAVE_INT_128
+template <> inline bool system::is_infinite(const int128_t &value) {
+  return system::is_infinite(floatmp_base::int128_to_ldouble_(value));
+}
+template <> inline bool system::is_infinite(const uint128_t &value) {
+  return system::is_infinite(floatmp_base::uint128_to_ldouble_(value));
+}
+#endif // TEUTHID_HAVE_INT_128
 
 // specialization of system::is_nan<T>()
 #define __TEUTHID_SYSTEM_IS_NAN(TYPE)                                          \
@@ -309,6 +325,14 @@ template <> inline bool system::is_nan(const mpfr_t &value) {
 template <> inline bool system::is_nan(const floatmp_base &value) {
   return value.is_nan();
 }
+#ifdef TEUTHID_HAVE_INT_128
+template <> inline bool system::is_nan(const int128_t &value) {
+  return system::is_nan(floatmp_base::int128_to_ldouble_(value));
+}
+template <> inline bool system::is_nan(const uint128_t &value) {
+  return system::is_nan(floatmp_base::uint128_to_ldouble_(value));
+}
+#endif // TEUTHID_HAVE_INT_128
 
 // specialization of system::is_zero<T>()
 template <> inline bool system::is_zero(const bool &value) { return !value; }
@@ -327,6 +351,14 @@ template <> inline bool system::is_zero(const uint32_t &value) {
 template <> inline bool system::is_zero(const uint64_t &value) {
   return !value;
 }
+#ifdef TEUTHID_HAVE_INT_128
+template <> inline bool system::is_zero(const int128_t &value) {
+  return !value;
+}
+template <> inline bool system::is_zero(const uint128_t &value) {
+  return !value;
+}
+#endif // TEUTHID_HAVE_INT_128
 template <> inline bool system::is_zero(const float &value) {
   return system::equal_to(value, static_cast<float>(0));
 }

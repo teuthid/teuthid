@@ -73,6 +73,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   uint64_t __uint64 = (uint64_t)9223372036854775807;
   BOOST_TEST((system::to_string(__uint64) == "9223372036854775807"),
              "to_string(uint64_t)");
+
 #ifdef TEUTHID_HAVE_INT_128
   int128_t __int_128 = (int128_t)INT64_MIN;
   BOOST_TEST(!system::to_string(__int_128).empty(),
@@ -92,7 +93,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   __uint_128 = (uint128_t)UINT64_MAX * 10;
   BOOST_TEST(!system::to_string(__uint_128).empty(),
              "system::to_string(int128_t)");
-#endif
+#endif // TEUTHID_HAVE_INT_128
+
   bool __false = false;
   bool __true = true;
   bool &__ref_true = __true;
@@ -202,6 +204,21 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(!system::is_infinite(__uint64_val), "system::is_infinite()");
   BOOST_TEST(!system::is_nan(__uint64_val), "system::is_nan()");
   BOOST_TEST(!system::is_zero(__uint64_val), "system::is_zero()");
+
+#ifdef TEUTHID_HAVE_INT_128
+  int128_t __int128_val = (int128_t)INT64_MAX * 10;
+  uint128_t __uint128_val = (uint128_t)UINT64_MAX * 10;
+  BOOST_TEST((__int128_val == __int128_val));
+  BOOST_TEST((__int128_val != __uint128_val));
+  BOOST_TEST(system::is_finite(__int128_val), "system::is_finite()");
+  BOOST_TEST(system::is_finite(__uint128_val), "system::is_finite()");
+  BOOST_TEST(!system::is_infinite(__int128_val), "system::is_infinite()");
+  BOOST_TEST(!system::is_infinite(__uint128_val), "system::is_infinite()");
+  BOOST_TEST(!system::is_nan(__int128_val), "system::is_nan()");
+  BOOST_TEST(!system::is_nan(__uint128_val), "system::is_nan()");
+  BOOST_TEST(!system::is_zero(__int128_val), "system::is_nan()");
+  BOOST_TEST(!system::is_zero(__uint128_val), "system::is_nan()");
+#endif // TEUTHID_HAVE_INT_128
 
   float __float_val;
   system::from_string("1.2345", __float_val);

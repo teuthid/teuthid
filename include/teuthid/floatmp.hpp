@@ -44,9 +44,11 @@ enum class floatmp_round_t : int {
                 "Too high floatmp precision.");
 
 template <std::size_t Precision> class floatmp;
+class system;
 
 class floatmp_base {
   template <std::size_t Precision> friend class floatmp;
+  friend class system;
 
 public:
   floatmp_base(std::size_t precision) {
