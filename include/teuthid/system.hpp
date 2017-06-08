@@ -220,6 +220,12 @@ floatmp<Precision> &system::from_string(const std::string &str_value,
   return dynamic_cast<floatmp<Precision> &>(
       system::from_string(str_value, static_cast<floatmp_base &>(value)));
 }
+#ifdef TEUTHID_HAVE_INT_128
+template <>
+int128_t &system::from_string(const std::string &str_value, int128_t &value);
+
+#endif // TEUTHID_HAVE_INT_128
+
 // specializations of system::equal_to<T>()
 template <> bool system::equal_to(const float &x, const float &y);
 template <> bool system::equal_to(const double &x, const double &y);

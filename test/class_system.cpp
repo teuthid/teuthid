@@ -25,6 +25,9 @@
 using namespace teuthid;
 
 BOOST_AUTO_TEST_CASE(class_teuthid_system) {
+
+  std::string __s;
+
   BOOST_TEST(system::major_version() == TEUTHID_MAJOR_VERSION,
              "major_version()");
   BOOST_TEST(system::minor_version() == TEUTHID_MINOR_VERSION,
@@ -76,11 +79,14 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
 
 #ifdef TEUTHID_HAVE_INT_128
   int128_t __int_128 = (int128_t)INT64_MIN;
+  int128_t __int_128s = 0;
   BOOST_TEST(!system::to_string(__int_128).empty(),
              "system::to_string(int128_t)");
   __int_128 = (int128_t)INT64_MAX;
-  BOOST_TEST(!system::to_string(__int_128).empty(),
-             "system::to_string(int128_t)");
+  __s = system::to_string(__int_128);
+  BOOST_TEST(!__s.empty(), "system::to_string(int128_t)");
+  system::from_string(__s, __int_128s);
+  BOOST_TEST((__int_128 == __int_128s));
   __int_128 = (int128_t)INT64_MIN * 10;
   BOOST_TEST(!system::to_string(__int_128).empty(),
              "system::to_string(int128_t)");

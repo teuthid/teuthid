@@ -19,6 +19,7 @@
 #include <algorithm>
 #include <cassert>
 #include <cctype>
+#include <cfenv>
 #include <sstream>
 #include <stdexcept>
 
@@ -111,7 +112,6 @@ template <> std::string system::to_string(const uint128_t &value) {
     __os << value;                                                             \
     return __os.str();                                                         \
   }
-
 __TEUTHID_STRING_FROM_FLOAT(float);
 __TEUTHID_STRING_FROM_FLOAT(double);
 __TEUTHID_STRING_FROM_FLOAT(long double);
@@ -215,7 +215,6 @@ bool &system::from_string(const std::string &str_value, bool &value) {
     }                                                                          \
     throw std::invalid_argument("empty or invalid string");                    \
   }
-
 __TEUTHID_SIGNED_INTEGER_FROM_STRING(int8_t);
 __TEUTHID_SIGNED_INTEGER_FROM_STRING(int16_t);
 __TEUTHID_SIGNED_INTEGER_FROM_STRING(int32_t);
@@ -236,12 +235,32 @@ __TEUTHID_SIGNED_INTEGER_FROM_STRING(int64_t);
     }                                                                          \
     throw std::invalid_argument("empty or invalid string");                    \
   }
-
 __TEUTHID_UNSIGNED_INTEGER_FROM_STRING(uint8_t);
 __TEUTHID_UNSIGNED_INTEGER_FROM_STRING(uint16_t);
 __TEUTHID_UNSIGNED_INTEGER_FROM_STRING(uint32_t);
 __TEUTHID_UNSIGNED_INTEGER_FROM_STRING(uint64_t);
 #undef __TEUTHID_UNSIGNED_INTEGER_FROM_STRING
+
+#ifdef TEUTHID_HAVE_INT_128
+template <>
+int128_t &system::from_string(const std::string &str_value, int128_t &value) {
+  long double __v;
+  system::from_string(str_value, __v);
+  int __round = std::fegetround();
+  std::fesetround(FE_TOWARDZERO);
+  if (!system::less_than(__v, static_cast<long double>(0))) {
+    value = llrint(__v / static_cast<long double>(INT64_MAX));
+    value *= INT64_MAX;
+    value += llrint(std::fmod(__v, static_cast<long double>(INT64_MAX)));
+  } else {
+  }
+  // TO FINISH:
+
+  std::fesetround(__round);
+  return value;
+}
+
+#endif // TEUTHID_HAVE_INT_128
 
 #define __TEUTHID_FLOAT_FROM_STRING(TYPE, FUN)                                 \
   template <>                                                                  \
@@ -253,7 +272,6 @@ __TEUTHID_UNSIGNED_INTEGER_FROM_STRING(uint64_t);
     }                                                                          \
     throw std::invalid_argument("empty or invalid string");                    \
   }
-
 __TEUTHID_FLOAT_FROM_STRING(float, stof);
 __TEUTHID_FLOAT_FROM_STRING(double, stod);
 __TEUTHID_FLOAT_FROM_STRING(long double, stold);
@@ -293,7 +311,6 @@ floatmp_base &system::from_string(const std::string &str_value,
     else                                                                       \
       return false;                                                            \
   }
-
 __TEUTHID_FLOAT_EQUAL_TO(float);
 __TEUTHID_FLOAT_EQUAL_TO(double);
 __TEUTHID_FLOAT_EQUAL_TO(long double);
@@ -313,7 +330,6 @@ template <> bool system::equal_to(const mpfr_t &x, const mpfr_t &y) {
         return (x < y);                                                        \
     return false;                                                              \
   }
-
 __TEUTHID_FLOAT_LESS_THAN(float);
 __TEUTHID_FLOAT_LESS_THAN(double);
 __TEUTHID_FLOAT_LESS_THAN(long double);
