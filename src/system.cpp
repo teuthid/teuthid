@@ -253,9 +253,10 @@ int128_t &system::from_string(const std::string &str_value, int128_t &value) {
     value *= INT64_MAX;
     value += llrint(std::fmod(__v, static_cast<long double>(INT64_MAX)));
   } else {
+    value = llrint(__v / static_cast<long double>(INT64_MIN));
+    value *= INT64_MIN;
+    value += llrint(std::fmod(__v, static_cast<long double>(INT64_MIN)));
   }
-  // TO FINISH:
-
   std::fesetround(__round);
   return value;
 }
