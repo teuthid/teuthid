@@ -164,6 +164,7 @@ private:
   static std::atomic_bool format_float_scientific_;
 #ifdef TEUTHID_HAVE_INT_128
   static std::string uint128_to_string_(uint128_t value);
+  static uint128_t string_to_unit128_(const std::string &s);
 #endif
   static std::string validate_string_(const std::string &str);
 }; // class system

@@ -241,6 +241,18 @@ __TEUTHID_UNSIGNED_INTEGER_FROM_STRING(uint64_t);
 #undef __TEUTHID_UNSIGNED_INTEGER_FROM_STRING
 
 #ifdef TEUTHID_HAVE_INT_128
+uint128_t system::string_to_unit128_(const std::string &s) {
+  uint128_t __value = 0;
+  for (std::size_t __i = 0; __i < s.size(); __i++)
+    if (std::isdigit(s[__i])) {
+      __value += std::stoi(s.substr(__i, 1));
+      if ((__i + 1) < s.size())
+        __value *= 10;
+    } else
+      throw std::invalid_argument("invalid string");
+  return __value;
+}
+
 template <>
 int128_t &system::from_string(const std::string &str_value, int128_t &value) {
   bool __minus = false;
@@ -251,14 +263,7 @@ int128_t &system::from_string(const std::string &str_value, int128_t &value) {
       __s = __s.substr(1);
     }
     if (!__s.empty()) {
-      value = 0;
-      for (std::size_t __i = 0; __i < __s.size(); __i++)
-        if (std::isdigit(__s[__i])) {
-          value += std::stoi(__s.substr(__i, 1));
-          if ((__i + 1) < __s.size())
-            value *= 10;
-        } else
-          throw std::invalid_argument("invalid string");
+      value = system::string_to_unit128_(__s);
       value = __minus ? -value : value;
       return value;
     }
@@ -273,14 +278,7 @@ uint128_t &system::from_string(const std::string &str_value, uint128_t &value) {
     if (__s[0] == '+')
       __s = __s.substr(1);
     if (!__s.empty()) {
-      value = 0;
-      for (std::size_t __i = 0; __i < __s.size(); __i++)
-        if (std::isdigit(__s[__i])) {
-          value += std::stoi(__s.substr(__i, 1));
-          if ((__i + 1) < __s.size())
-            value *= 10;
-        } else
-          throw std::invalid_argument("invalid string");
+      value = system::string_to_unit128_(__s);
       return value;
     }
   }
