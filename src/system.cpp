@@ -19,7 +19,6 @@
 #include <algorithm>
 #include <cassert>
 #include <cctype>
-#include <cfenv>
 #include <sstream>
 #include <stdexcept>
 
@@ -244,21 +243,27 @@ __TEUTHID_UNSIGNED_INTEGER_FROM_STRING(uint64_t);
 #ifdef TEUTHID_HAVE_INT_128
 template <>
 int128_t &system::from_string(const std::string &str_value, int128_t &value) {
-  long double __v;
-  system::from_string(str_value, __v);
-  int __round = std::fegetround();
-  std::fesetround(FE_TOWARDZERO);
-  if (!system::less_than(__v, static_cast<long double>(0))) {
-    value = llrint(__v / static_cast<long double>(INT64_MAX));
-    value *= INT64_MAX;
-    value += llrint(std::fmod(__v, static_cast<long double>(INT64_MAX)));
-  } else {
-    value = llrint(__v / static_cast<long double>(INT64_MIN));
-    value *= INT64_MIN;
-    value += llrint(std::fmod(__v, static_cast<long double>(INT64_MIN)));
+  bool __minus = false;
+  std::string __s = system::validate_string_(str_value);
+  if (!__s.empty()) {
+    if ((__s[0] == '+') || (__s[0] == '-')) {
+      __minus = (__s[0] == '-');
+      __s = __s.substr(1);
+    }
+    if (!__s.empty()) {
+      value = 0;
+      for (std::size_t __i = 0; __i < __s.size(); __i++)
+        if (std::isdigit(__s[__i])) {
+          value += std::stoi(__s.substr(__i, 1));
+          if ((__i + 1) < __s.size())
+            value *= 10;
+        } else
+          throw std::invalid_argument("invalid string");
+      value = __minus ? -value : value;
+      return value;
+    }
   }
-  std::fesetround(__round);
-  return value;
+  throw std::invalid_argument("empty or invalid string");
 }
 
 #endif // TEUTHID_HAVE_INT_128
