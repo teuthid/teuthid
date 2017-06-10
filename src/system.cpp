@@ -266,6 +266,26 @@ int128_t &system::from_string(const std::string &str_value, int128_t &value) {
   throw std::invalid_argument("empty or invalid string");
 }
 
+template <>
+uint128_t &system::from_string(const std::string &str_value, uint128_t &value) {
+  std::string __s = system::validate_string_(str_value);
+  if (!__s.empty()) {
+    if (__s[0] == '+')
+      __s = __s.substr(1);
+    if (!__s.empty()) {
+      value = 0;
+      for (std::size_t __i = 0; __i < __s.size(); __i++)
+        if (std::isdigit(__s[__i])) {
+          value += std::stoi(__s.substr(__i, 1));
+          if ((__i + 1) < __s.size())
+            value *= 10;
+        } else
+          throw std::invalid_argument("invalid string");
+      return value;
+    }
+  }
+  throw std::invalid_argument("empty or invalid string");
+}
 #endif // TEUTHID_HAVE_INT_128
 
 #define __TEUTHID_FLOAT_FROM_STRING(TYPE, FUN)                                 \

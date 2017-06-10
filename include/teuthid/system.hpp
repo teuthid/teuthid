@@ -223,7 +223,8 @@ floatmp<Precision> &system::from_string(const std::string &str_value,
 #ifdef TEUTHID_HAVE_INT_128
 template <>
 int128_t &system::from_string(const std::string &str_value, int128_t &value);
-
+template <>
+uint128_t &system::from_string(const std::string &str_value, uint128_t &value);
 #endif // TEUTHID_HAVE_INT_128
 
 // specializations of system::equal_to<T>()

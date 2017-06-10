@@ -78,14 +78,11 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
              "to_string(uint64_t)");
 
 #ifdef TEUTHID_HAVE_INT_128
-//  int128_t __int_128 = static_cast<int128_t>(INT64_MIN);
   int128_t __int_128 = static_cast<int128_t>(INT64_MIN) - 13;
   int128_t __int_128_x = 0;
   __s = system::to_string(__int_128);
   BOOST_TEST(!__s.empty(), "system::to_string(int128_t)");
-  BOOST_TEST_MESSAGE(__s);
   system::from_string(__s, __int_128_x);
-  BOOST_TEST_MESSAGE(system::to_string(__int_128_x));
   BOOST_TEST((__int_128 == __int_128_x), "system::from_string(int128_t)");
   __int_128 = static_cast<int128_t>(INT64_MAX) + 13;
   __s = system::to_string(__int_128);
@@ -102,13 +99,18 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(!__s.empty(), "system::to_string(int128_t)");
   system::from_string(__s, __int_128_x);
   BOOST_TEST((__int_128 == __int_128_x), "system::from_string(int128_t)");
-  
-  uint128_t __uint_128 = (uint128_t)UINT64_MAX;
-  BOOST_TEST(!system::to_string(__uint_128).empty(),
-             "system::to_string(int128_t)");
-  __uint_128 = (uint128_t)UINT64_MAX * 10;
-  BOOST_TEST(!system::to_string(__uint_128).empty(),
-             "system::to_string(int128_t)");
+
+  uint128_t __uint_128 = static_cast<uint128_t>(UINT64_MAX) + 13;
+  uint128_t __uint_128_x = 0;
+  __s = system::to_string(__uint_128);
+  BOOST_TEST(!__s.empty(), "system::to_string(uint128_t)");
+  system::from_string(__s, __uint_128_x);
+  BOOST_TEST((__uint_128 == __uint_128_x), "system::from_string(uint128_t)");
+  __uint_128 = static_cast<uint128_t>(UINT64_MAX) * 13;
+  __s = system::to_string(__uint_128);
+  BOOST_TEST(!__s.empty(), "system::to_string(uint128_t)");
+  system::from_string(__s, __uint_128_x);
+  BOOST_TEST((__uint_128 == __uint_128_x), "system::from_string(uint128_t)");
 #endif // TEUTHID_HAVE_INT_128
 
   bool __false = false;
