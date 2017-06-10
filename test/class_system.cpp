@@ -234,8 +234,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(!system::is_infinite(__uint128_val), "system::is_infinite()");
   BOOST_TEST(!system::is_nan(__int128_val), "system::is_nan()");
   BOOST_TEST(!system::is_nan(__uint128_val), "system::is_nan()");
-  BOOST_TEST(!system::is_zero(__int128_val), "system::is_nan()");
-  BOOST_TEST(!system::is_zero(__uint128_val), "system::is_nan()");
+  BOOST_TEST(!system::is_zero(__int128_val), "system::is_zero()");
+  BOOST_TEST(!system::is_zero(__uint128_val), "system::is_zero()");
 #endif // TEUTHID_HAVE_INT_128
 
   float __float_val;
