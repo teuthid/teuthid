@@ -155,10 +155,10 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   bool __boolval, __boolval2 = false;
   BOOST_TEST(!system::from_string("F A L S E", __boolval),
              "system::from_string(bool)");
-  BOOST_TEST(system::is_finite(__boolval), "system::is_finite()");
-  BOOST_TEST(!system::is_infinite(__boolval), "system::is_infinite()");
-  BOOST_TEST(!system::is_nan(__boolval), "system::is_nan()");
-  BOOST_TEST(system::is_zero(__boolval), "system::is_zero()");
+  BOOST_TEST(system::is_finite(__boolval), "system::is_finite(bool)");
+  BOOST_TEST(!system::is_infinite(__boolval), "system::is_infinite(bool)");
+  BOOST_TEST(!system::is_nan(__boolval), "system::is_nan(bool)");
+  BOOST_TEST(system::is_zero(__boolval), "system::is_zero(bool)");
   BOOST_TEST(system::from_string("true", __boolval),
              "system::from_string(bool)");
   BOOST_TEST(system::from_string("1", __boolval), "system::from_string(bool)");
@@ -171,10 +171,10 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   int8_t __int8_val, __int8_val2 = 13;
   BOOST_TEST(system::from_string("-127", __int8_val) == -127,
              "system::from_string(int8_t)");
-  BOOST_TEST(system::is_finite(__int8_val), "system::is_finite()");
-  BOOST_TEST(!system::is_infinite(__int8_val), "system::is_infinite()");
-  BOOST_TEST(!system::is_nan(__int8_val), "system::is_nan()");
-  BOOST_TEST(!system::is_zero(__int8_val), "system::is_zero()");
+  BOOST_TEST(system::is_finite(__int8_val), "system::is_finite(int8_t)");
+  BOOST_TEST(!system::is_infinite(__int8_val), "system::is_infinite(int8_t)");
+  BOOST_TEST(!system::is_nan(__int8_val), "system::is_nan(int8_t)");
+  BOOST_TEST(!system::is_zero(__int8_val), "system::is_zero(int8_t)");
   system::swap(__int8_val, __int8_val2);
   BOOST_TEST((__int8_val == 13), "system::swap(int8_t)");
   BOOST_TEST((__int8_val2 == -127), "system::swap(int8_t)");
@@ -182,77 +182,93 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   int16_t __int16_val;
   BOOST_TEST(system::from_string("-32768", __int16_val) == -32768,
              "system::from_string(int16_t)");
-  BOOST_TEST(system::is_finite(__int16_val), "system::is_finite()");
-  BOOST_TEST(!system::is_infinite(__int16_val), "system::is_infinite()");
-  BOOST_TEST(!system::is_nan(__int16_val), "system::is_nan()");
-  BOOST_TEST(!system::is_zero(__int16_val), "system::is_zero()");
+  BOOST_TEST(system::is_finite(__int16_val), "system::is_finite(int16_t)");
+  BOOST_TEST(!system::is_infinite(__int16_val), "system::is_infinite(int16_t)");
+  BOOST_TEST(!system::is_nan(__int16_val), "system::is_nan(int16_t)");
+  BOOST_TEST(!system::is_zero(__int16_val), "system::is_zero(int16_t)");
+
   int32_t __int32_val;
   BOOST_TEST(system::from_string("-2147483648", __int32_val) == -2147483648,
              "system::from_string(int32_t)");
-  BOOST_TEST(system::is_finite(__int32_val), "system::is_finite()");
-  BOOST_TEST(!system::is_infinite(__int32_val), "system::is_infinite()");
-  BOOST_TEST(!system::is_nan(__int32_val), "system::is_nan()");
-  BOOST_TEST(!system::is_zero(__int32_val), "system::is_zero()");
+  BOOST_TEST(system::is_finite(__int32_val), "system::is_finite(int32_t)");
+  BOOST_TEST(!system::is_infinite(__int32_val), "system::is_infinite(int32_t)");
+  BOOST_TEST(!system::is_nan(__int32_val), "system::is_nan(int32_t)");
+  BOOST_TEST(!system::is_zero(__int32_val), "system::is_zero(int32_t)");
+
   int64_t __int64_val;
   BOOST_TEST(system::from_string("-9223372036854775807", __int64_val) ==
                  -9223372036854775807,
              "system::from_string(int64_t)");
-  BOOST_TEST(system::is_finite(__int64_val), "system::is_finite()");
-  BOOST_TEST(!system::is_infinite(__int64_val), "system::is_infinite()");
-  BOOST_TEST(!system::is_nan(__int64_val), "system::is_nan()");
-  BOOST_TEST(!system::is_zero(__int64_val), "system::is_zero()");
+  BOOST_TEST(system::is_finite(__int64_val), "system::is_finite(int64_t)");
+  BOOST_TEST(!system::is_infinite(__int64_val), "system::is_infinite(int64_t)");
+  BOOST_TEST(!system::is_nan(__int64_val), "system::is_nan(int64_t)");
+  BOOST_TEST(!system::is_zero(__int64_val), "system::is_zero(int64_t)");
 
   uint8_t __uint8_val;
   BOOST_TEST(system::from_string("255", __uint8_val) == 255,
              "system::from_string(uint8_t)");
-  BOOST_TEST(system::is_finite(__uint8_val), "system::is_finite()");
-  BOOST_TEST(!system::is_infinite(__uint8_val), "system::is_infinite()");
-  BOOST_TEST(!system::is_nan(__uint8_val), "system::is_nan()");
-  BOOST_TEST(!system::is_zero(__uint8_val), "system::is_zero()");
+  BOOST_TEST(system::is_finite(__uint8_val), "system::is_finite(uint8_t)");
+  BOOST_TEST(!system::is_infinite(__uint8_val), "system::is_infinite(uint8_t)");
+  BOOST_TEST(!system::is_nan(__uint8_val), "system::is_nan(uint8_t)");
+  BOOST_TEST(!system::is_zero(__uint8_val), "system::is_zero(uint8_t)");
+
   uint16_t __uint16_val;
   BOOST_TEST(system::from_string("65535", __uint16_val) == 65535,
              "system::from_string(uint16_t)");
-  BOOST_TEST(system::is_finite(__uint16_val), "system::is_finite()");
-  BOOST_TEST(!system::is_infinite(__uint16_val), "system::is_infinite()");
-  BOOST_TEST(!system::is_nan(__uint16_val), "system::is_nan()");
-  BOOST_TEST(!system::is_zero(__uint16_val), "system::is_zero()");
+  BOOST_TEST(system::is_finite(__uint16_val), "system::is_finite(uint16_t)");
+  BOOST_TEST(!system::is_infinite(__uint16_val),
+             "system::is_infinite(uint16_t)");
+  BOOST_TEST(!system::is_nan(__uint16_val), "system::is_nan(uint16_t)");
+  BOOST_TEST(!system::is_zero(__uint16_val), "system::is_zero(uint16_t)");
+
   uint32_t __uint32_val;
   BOOST_TEST(system::from_string("4294967295", __uint32_val) == 4294967295,
              "system::from_string(uint32_t)");
-  BOOST_TEST(system::is_finite(__uint32_val), "system::is_finite()");
-  BOOST_TEST(!system::is_infinite(__uint32_val), "system::is_infinite()");
-  BOOST_TEST(!system::is_nan(__uint32_val), "system::is_nan()");
-  BOOST_TEST(!system::is_zero(__uint32_val), "system::is_zero()");
+  BOOST_TEST(system::is_finite(__uint32_val), "system::is_finite(uint32_t)");
+  BOOST_TEST(!system::is_infinite(__uint32_val),
+             "system::is_infinite(uint32_t)");
+  BOOST_TEST(!system::is_nan(__uint32_val), "system::is_nan(uint32_t)");
+  BOOST_TEST(!system::is_zero(__uint32_val), "system::is_zero(uint32_t)");
+
   uint64_t __uint64_val;
   BOOST_TEST(system::from_string("9223372036854775807", __uint64_val) ==
                  9223372036854775807,
              "system::from_string(uint64_t)");
-  BOOST_TEST(system::is_finite(__uint64_val), "system::is_finite()");
-  BOOST_TEST(!system::is_infinite(__uint64_val), "system::is_infinite()");
-  BOOST_TEST(!system::is_nan(__uint64_val), "system::is_nan()");
-  BOOST_TEST(!system::is_zero(__uint64_val), "system::is_zero()");
+  BOOST_TEST(system::is_finite(__uint64_val), "system::is_finite(uint64_t)");
+  BOOST_TEST(!system::is_infinite(__uint64_val),
+             "system::is_infinite(uint64_t)");
+  BOOST_TEST(!system::is_nan(__uint64_val), "system::is_nan(uint64_t)");
+  BOOST_TEST(!system::is_zero(__uint64_val), "system::is_zero(uint64_t)");
 
 #ifdef TEUTHID_HAVE_INT_128
   int128_t __int128_val = (int128_t)INT64_MAX * 10;
   uint128_t __uint128_val = (uint128_t)UINT64_MAX * 10;
   BOOST_TEST((__int128_val == __int128_val));
   BOOST_TEST((__int128_val != __uint128_val));
-  BOOST_TEST(system::is_finite(__int128_val), "system::is_finite()");
-  BOOST_TEST(system::is_finite(__uint128_val), "system::is_finite()");
-  BOOST_TEST(!system::is_infinite(__int128_val), "system::is_infinite()");
-  BOOST_TEST(!system::is_infinite(__uint128_val), "system::is_infinite()");
-  BOOST_TEST(!system::is_nan(__int128_val), "system::is_nan()");
-  BOOST_TEST(!system::is_nan(__uint128_val), "system::is_nan()");
-  BOOST_TEST(!system::is_zero(__int128_val), "system::is_zero()");
-  BOOST_TEST(!system::is_zero(__uint128_val), "system::is_zero()");
+  BOOST_TEST(system::is_finite(__int128_val), "system::is_finite(int128_t)");
+  BOOST_TEST(system::is_finite(__uint128_val), "system::is_finite(int128_t)");
+  BOOST_TEST(!system::is_infinite(__int128_val),
+             "system::is_infinite(int128_t)");
+  BOOST_TEST(!system::is_infinite(__uint128_val),
+             "system::is_infinite(int128_t)");
+  BOOST_TEST(!system::is_nan(__int128_val), "system::is_nan(int128_t)");
+  BOOST_TEST(!system::is_nan(__uint128_val), "system::is_nan(int128_t)");
+  BOOST_TEST(!system::is_zero(__int128_val), "system::is_zero(int128_t)");
+  BOOST_TEST(!system::is_zero(__uint128_val), "system::is_zero(int128_t)");
+  int128_t __int128_val2 = -13;
+  system::swap(__int128_val, __int128_val2);
+  BOOST_TEST((__int128_val == -13), "system::swap(int128_t)");
+  uint128_t __uint128_val2 = 13;
+  system::swap(__uint128_val, __uint128_val2);
+  BOOST_TEST((__uint128_val == 13), "system::swap(uint128_t)");
 #endif // TEUTHID_HAVE_INT_128
 
-  float __float_val;
+  float __float_val, __float_val2 = 9.9;
   system::from_string("1.2345", __float_val);
-  BOOST_TEST(system::is_finite(__float_val), "system::is_finite()");
-  BOOST_TEST(!system::is_infinite(__float_val), "system::is_infinite()");
-  BOOST_TEST(!system::is_nan(__float_val), "system::is_nan()");
-  BOOST_TEST(!system::is_zero(__float_val), "system::is_zero()");
+  BOOST_TEST(system::is_finite(__float_val), "system::is_finite(float)");
+  BOOST_TEST(!system::is_infinite(__float_val), "system::is_infinite(float)");
+  BOOST_TEST(!system::is_nan(__float_val), "system::is_nan(float)");
+  BOOST_TEST(!system::is_zero(__float_val), "system::is_zero(float)");
   BOOST_TEST(system::equal_to(__float_val, __float_val),
              "system::from_string(float)");
   BOOST_TEST(!system::less_than(__float_val, __float_val),
@@ -267,13 +283,15 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
              "system::less_than(float)");
   BOOST_TEST(!system::less_than((float)1.2346, __float_val),
              "system::less_than(float)");
+  system::swap(__float_val, __float_val2);
+  BOOST_TEST(system::equal_to(__float_val, (float)9.9), "system::swap(float)");
 
   double __double_val;
   system::from_string("1.23456", __double_val);
-  BOOST_TEST(system::is_finite(__double_val), "system::is_finite()");
-  BOOST_TEST(!system::is_infinite(__double_val), "system::is_infinite()");
-  BOOST_TEST(!system::is_nan(__double_val), "system::is_nan()");
-  BOOST_TEST(!system::is_zero(__double_val), "system::is_zero()");
+  BOOST_TEST(system::is_finite(__double_val), "system::is_finite(double)");
+  BOOST_TEST(!system::is_infinite(__double_val), "system::is_infinite(double)");
+  BOOST_TEST(!system::is_nan(__double_val), "system::is_nan(double)");
+  BOOST_TEST(!system::is_zero(__double_val), "system::is_zero(double)");
   BOOST_TEST(system::equal_to(__double_val, __double_val),
              "system::from_string(double)");
   BOOST_TEST(!system::less_than(__double_val, __double_val),
@@ -291,10 +309,12 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
 
   long double __ldouble_val;
   system::from_string("1.234567", __ldouble_val);
-  BOOST_TEST(system::is_finite(__ldouble_val), "system::is_finite()");
-  BOOST_TEST(!system::is_infinite(__ldouble_val), "system::is_infinite()");
-  BOOST_TEST(!system::is_nan(__ldouble_val), "system::is_nan()");
-  BOOST_TEST(!system::is_zero(__ldouble_val), "system::is_zero()");
+  BOOST_TEST(system::is_finite(__ldouble_val),
+             "system::is_finite(long double)");
+  BOOST_TEST(!system::is_infinite(__ldouble_val),
+             "system::is_infinite(long double)");
+  BOOST_TEST(!system::is_nan(__ldouble_val), "system::is_nan(long double)");
+  BOOST_TEST(!system::is_zero(__ldouble_val), "system::is_zero(long double)");
   BOOST_TEST(system::equal_to(__ldouble_val, __ldouble_val),
              "system::from_string(long double)");
   BOOST_TEST(!system::less_than(__ldouble_val, __ldouble_val),
@@ -311,21 +331,35 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
              "system::less_than(long double)");
 
   system::from_string("1.2345", __mpfr);
-  BOOST_TEST(system::is_finite(__mpfr), "system::is_finite()");
-  BOOST_TEST(!system::is_infinite(__mpfr), "system::is_infinite()");
-  BOOST_TEST(!system::is_nan(__mpfr), "system::is_nan()");
-  BOOST_TEST(!system::is_zero(__mpfr), "system::is_zero()");
+  BOOST_TEST(system::is_finite(__mpfr), "system::is_finite(mpfr_t)");
+  BOOST_TEST(!system::is_infinite(__mpfr), "system::is_infinite(mpfr_t)");
+  BOOST_TEST(!system::is_nan(__mpfr), "system::is_nan(mpfr_t)");
+  BOOST_TEST(!system::is_zero(__mpfr), "system::is_zero(mpfr_t)");
   BOOST_TEST(mpfr_cmp_ld(__mpfr, (long double)1.2345) == 0,
              "system::from_string(mpfr_t)");
   BOOST_TEST(system::equal_to(__mpfr, __mpfr), "system::equal_to(mpfr_t)");
   BOOST_TEST(!system::less_than(__mpfr, __mpfr), "system::less_than(mpfr_t)");
-  floatmp<100> __floatmp1, __floatmp2;
+  mpfr_t __mpfr2;
+  mpfr_init2(__mpfr2, mpfr_get_default_prec());
+  system::from_string("9.9999", __mpfr2);
+  system::swap(__mpfr, __mpfr2);
+  BOOST_TEST(mpfr_cmp_ld(__mpfr, (long double)9.9999) == 0,
+             "system::swap(mpfr_t)");
+
+  floatmp<200> __floatmp1;
+  floatmp<300> __floatmp2;
   BOOST_TEST((system::from_string("1.2345", __floatmp1) ==
               (system::from_string("1.2345", __floatmp2))),
-             "system::from_string(floatmp<>)");
+             "system::from_string(floatmp)");
   BOOST_TEST((system::from_string("1.2345", __floatmp1) !=
               (system::from_string("1.2346", __floatmp2))),
-             "system::from_string(floatmp<>)");
+             "system::from_string(floatmp)");
+  BOOST_TEST(system::is_finite(__floatmp1), "system::is_finite(floatmp)");
+  BOOST_TEST(!system::is_infinite(__floatmp1), "system::is_infinite(floatmp)");
+  BOOST_TEST(!system::is_nan(__floatmp1), "system::is_nan(floatmp)");
+  BOOST_TEST(!system::is_zero(__floatmp1), "system::is_zero(floatmp)");
+  system::swap(__floatmp1, __floatmp2);
+  BOOST_TEST((__floatmp1 == 1.2346), "system::swap(floatmp)");
 
   std::string __text = "";
   std::vector<std::string> __strvector;
@@ -356,4 +390,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   __text = "x xy 123   4";
   BOOST_TEST(system::split_string(__text, __strvector) == 4,
              "system::split_string()");
+
+  mpfr_clear(__mpfr);
+  mpfr_clear(__mpfr2);
 }

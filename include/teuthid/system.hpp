@@ -154,6 +154,10 @@ public:
   static bool is_zero(const floatmp<Precision> &value) {
     return value.is_zero();
   }
+  template <std::size_t P1, std::size_t P2>
+  static void swap(floatmp<P1> &x, floatmp<P2> &y) {
+    x.swap(y);
+  }
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 private:
@@ -382,6 +386,9 @@ template <> inline bool system::is_zero(const mpfr_t &value) {
   return (system::to_string(value).compare(
               system::to_string(static_cast<long double>(0))) == 0);
 }
+
+// specialization of system::swap<T>()
+template <> inline void system::swap(mpfr_t &x, mpfr_t &y) { mpfr_swap(x, y); }
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
