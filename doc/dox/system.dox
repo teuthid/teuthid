@@ -228,7 +228,7 @@ range of the result type \c T.
 \n To compare floating point types, this function converts numbers to strings 
 according to the current format settings for to_string(). For other types, the 
 function behaves just like the \c operator== (for those types for which this 
-operator is already defined).
+operator is defined).
 \see system::format_float_output(), system::format_float_precision(), 
 system::less_than().
 */
@@ -246,7 +246,7 @@ system::less_than().
 \n To compare floating point types, this function converts numbers to strings 
 according to the current format settings for to_string(). For other types, the 
 function behaves just like the \c operator< (for those types for which this 
-operator is already defined).
+operator is defined).
 \see system::format_float_output(), system::format_float_precision(), 
 system::equal_to().
 */
@@ -309,4 +309,15 @@ infinity.
 \c double, <tt>long double</tt>, \c mpfr_t, 
 \ref teuthid::floatmp "floatmp<Precision>" and integral types.
 \see system::equal_to(), system::is_finite().
+*/
+
+
+/*!
+\fn template <typename T> static void system::swap(T &x, T &y)
+\brief Exchanges the given values.
+@param[in,out] x the value to be swapped.
+@param[in,out] y the value to be swapped.
+\note The function has specializations for the following types: \c mpfr_t and 
+\ref teuthid::floatmp "floatmp<Precision>". For other types, the function 
+behaves just like the \c std::swap().
 */
