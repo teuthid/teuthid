@@ -369,6 +369,11 @@ public:
     return *this;
   }
   constexpr std::size_t precision() const noexcept { return Precision; }
+  template <std::size_t P> floatmp &swap(floatmp<P> &value) {
+    floatmp __tmp(value);
+    value.assign(value_);
+    return assign(__tmp);
+  }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   template <std::size_t P> bool equal_to(const floatmp<P> &value) const {
