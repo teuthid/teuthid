@@ -122,6 +122,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST((system::to_string(__ref_true) == "true"), "to_string(bool)");
   BOOST_TEST((system::to_string(__const_ref_true) == "true"),
              "to_string(bool)");
+
   char __char = 'Q';
   BOOST_TEST((system::to_string(__char)) == "Q", "to_string(char)");
   char __chars[] = {'t', 'e', 's', 't', '\0'};
@@ -151,7 +152,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
              "system::to_string(floatmp)");
   BOOST_TEST(system::equal_to(__fmp1, __fmp2));
 
-  bool __boolval;
+  bool __boolval, __boolval2 = false;
   BOOST_TEST(!system::from_string("F A L S E", __boolval),
              "system::from_string(bool)");
   BOOST_TEST(system::is_finite(__boolval), "system::is_finite()");
@@ -162,14 +163,22 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
              "system::from_string(bool)");
   BOOST_TEST(system::from_string("1", __boolval), "system::from_string(bool)");
   BOOST_TEST(!system::from_string("0", __boolval), "system::from_string(bool)");
+  __boolval = true;
+  system::swap(__boolval, __boolval2);
+  BOOST_TEST(!__boolval, "system::swap(bool)");
+  BOOST_TEST(__boolval2, "system::swap(bool)");
 
-  int8_t __int8_val;
+  int8_t __int8_val, __int8_val2 = 13;
   BOOST_TEST(system::from_string("-127", __int8_val) == -127,
              "system::from_string(int8_t)");
   BOOST_TEST(system::is_finite(__int8_val), "system::is_finite()");
   BOOST_TEST(!system::is_infinite(__int8_val), "system::is_infinite()");
   BOOST_TEST(!system::is_nan(__int8_val), "system::is_nan()");
   BOOST_TEST(!system::is_zero(__int8_val), "system::is_zero()");
+  system::swap(__int8_val, __int8_val2);
+  BOOST_TEST((__int8_val == 13), "system::swap(int8_t)");
+  BOOST_TEST((__int8_val2 == -127), "system::swap(int8_t)");
+
   int16_t __int16_val;
   BOOST_TEST(system::from_string("-32768", __int16_val) == -32768,
              "system::from_string(int16_t)");

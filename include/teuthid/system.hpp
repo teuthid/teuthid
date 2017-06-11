@@ -22,6 +22,7 @@
 #include <atomic>
 #include <cmath>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include <teuthid/floatmp.hpp>
@@ -88,6 +89,7 @@ public:
   template <typename T> static bool is_zero(const T &value) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
+  template <typename T> static void swap(T &x, T &y) { std::swap(x, y); }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   static std::string to_string(const bool &value) {
