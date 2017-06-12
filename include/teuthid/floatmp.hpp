@@ -225,6 +225,9 @@ private:
 
   bool equal_to(const floatmp_base &value) const;
   bool less_than(const floatmp_base &value) const;
+  void abs() {
+    mpfr_abs(value_, c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
 
 #ifdef TEUTHID_HAVE_INT_128
   static long double int128_to_ldouble_(const int128_t &value) {
@@ -374,6 +377,10 @@ public:
     value.assign(value_);
     return assign(__tmp);
   }
+  floatmp &abs() {
+    floatmp_base::abs();
+    return *this;
+  }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   template <std::size_t P> bool equal_to(const floatmp<P> &value) const {
@@ -497,6 +504,14 @@ namespace std {
 template <std::size_t P1, std::size_t P2>
 inline void swap(teuthid::floatmp<P1> &x, teuthid::floatmp<P2> &y) {
   x.swap(y);
+}
+template <std::size_t P>
+inline teuthid::floatmp<P> abs(const teuthid::floatmp<P> &x) {
+  return teuthid::floatmp<P>(x).abs();
+}
+template <std::size_t P>
+inline teuthid::floatmp<P> fabs(const teuthid::floatmp<P> &x) {
+  return teuthid::floatmp<P>(x).abs();
 }
 } // namespace std
 
