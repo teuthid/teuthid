@@ -185,6 +185,9 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((__x2 == 1.111), "swap()");
   BOOST_TEST(__x1.precision() == float256_prec, "precision()");
   BOOST_TEST(__x2.precision() == 500, "precision()");
+  std::swap(__x1, __x2);
+  BOOST_TEST((__x2 == 2.222), "std::swap()");
+  BOOST_TEST((__x1 == 1.111), "std::swap()");
 
 #ifdef TEUTHID_HAVE_INT_128
   __x1 = static_cast<int128_t>(INT64_MAX) * 10;

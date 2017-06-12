@@ -489,7 +489,15 @@ __TEUTHID_FLOATMP_ARITHMETIC_SPEC(operator-, sub)
 __TEUTHID_FLOATMP_ARITHMETIC_SPEC(operator*, mul)
 __TEUTHID_FLOATMP_ARITHMETIC_SPEC(operator/, div)
 #undef __TEUTHID_FLOATMP_ARITHMETIC_SPEC
-
 } // namespace teuthid
+
+/******************************************************************************/
+
+namespace std {
+template <std::size_t P1, std::size_t P2>
+inline void swap(teuthid::floatmp<P1> &x, teuthid::floatmp<P2> &y) {
+  x.swap(y);
+}
+} // namespace std
 
 #endif // TEUTHID_FLOATMP_HPP
