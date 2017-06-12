@@ -197,6 +197,14 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   __x1 = -1.111;
   BOOST_TEST((std::abs(__x1) == 1.111), "std::abs()");
 
+  __x1 = 33.33;
+  __x2 = 10;
+  BOOST_TEST((__x1.fmod(__x2) == 3.33), "fmod()");
+  __x1 = -33.33;
+  BOOST_TEST((__x1.fmod(__x2) == -3.33), "fmod()");
+  __x1 = -999.99;
+  BOOST_TEST((std::fmod(__x1, __x2) == -9.99), "std::fmod()");
+
 #ifdef TEUTHID_HAVE_INT_128
   __x1 = static_cast<int128_t>(INT64_MAX) * 10;
   __x2 = static_cast<int128_t>(INT64_MAX) * 10;

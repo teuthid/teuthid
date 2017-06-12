@@ -228,6 +228,7 @@ private:
   void abs() {
     mpfr_abs(value_, c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
   }
+  void fmod(const floatmp_base &value);
 
 #ifdef TEUTHID_HAVE_INT_128
   static long double int128_to_ldouble_(const int128_t &value) {
@@ -381,6 +382,10 @@ public:
     floatmp_base::abs();
     return *this;
   }
+  template <std::size_t P> floatmp &fmod(const floatmp<P> &divisor) {
+    floatmp_base::fmod(static_cast<const floatmp_base &>(divisor));
+    return *this;
+  }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   template <std::size_t P> bool equal_to(const floatmp<P> &value) const {
@@ -505,13 +510,15 @@ template <std::size_t P1, std::size_t P2>
 inline void swap(teuthid::floatmp<P1> &x, teuthid::floatmp<P2> &y) {
   x.swap(y);
 }
-template <std::size_t P>
-inline teuthid::floatmp<P> abs(const teuthid::floatmp<P> &x) {
+template <std::size_t P> inline auto abs(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>(x).abs();
 }
-template <std::size_t P>
-inline teuthid::floatmp<P> fabs(const teuthid::floatmp<P> &x) {
+template <std::size_t P> inline auto fabs(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>(x).abs();
+}
+template <std::size_t P1, std::size_t P2>
+inline auto fmod(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y) {
+  return teuthid::floatmp<std::max(P1, P2)>(x).fmod(y);
 }
 } // namespace std
 

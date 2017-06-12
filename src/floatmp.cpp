@@ -16,6 +16,8 @@
     along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <stdexcept>
+
 #include <teuthid/floatmp.hpp>
 #include <teuthid/system.hpp>
 
@@ -29,4 +31,12 @@ bool floatmp_base::equal_to(const floatmp_base &value) const {
 
 bool floatmp_base::less_than(const floatmp_base &value) const {
   return system::less_than(value_, value.value_);
+}
+
+void floatmp_base::fmod(const floatmp_base &value) {
+  if (value.is_zero())
+    throw std::overflow_error("zero divisor of fmod()");
+  else
+    mpfr_fmod(value_, c_mpfr(), value.value_,
+              static_cast<mpfr_rnd_t>(rounding_mode()));
 }
