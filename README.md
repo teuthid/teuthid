@@ -6,7 +6,6 @@
 * Thread-safe components with support for C++14 thread-local storage.
 * Versatile (possible to adjust many parameters and features).
 * Use OpenCL (optionally) as its interface for executing code on parallel devices such as GPUs and multi-core CPUs.
-* Language bindings to C.
 * Rigorously tested using [Boost.Test](http://www.boost.org/doc/libs/release/libs/test/) library.  
 * Open source, but can be used in commercial applications (licenced under [GNU LGPL v3](https://www.gnu.org/licenses/lgpl-3.0.en.html)).
 * ...
