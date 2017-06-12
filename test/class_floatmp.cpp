@@ -67,8 +67,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((__x1 >= (double)__x2), "operator>=");
   BOOST_TEST(((double)__x1 >= __x2), "operator>=");
   BOOST_TEST((__x1 == __x3), "operator==");
-  __x1 = 0.9999999999;
-  __x3 = -0.9999999999;
+  __x1 = 0.9999999999, __x3 = -0.9999999999;
   BOOST_TEST(!(__x1 == __x2), "operator==");
   BOOST_TEST(!(__x1 < __x2), "operator<");
   BOOST_TEST((__x1 > __x2), "operator>");
@@ -95,9 +94,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST(system::equal_to(float256_t(__x1), float256_t(__x3)),
              "operator float256_t()");
 
-  __x1 = 1.0;
-  __x2 = 2.0;
-  __x3 = 3.0;
+  __x1 = 1.0, __x2 = 2.0, __x3 = 3.0;
   BOOST_TEST(!__x1.is_zero(), "is_zero()");
   BOOST_TEST(__x1.less_than(2), "less_than()");
   BOOST_TEST(__x1.less_than(3.0), "less_than()");
@@ -115,8 +112,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST(__x2.less_than(__x1), "less_than()");
   __x1 += 0.1;
   BOOST_TEST(__x3.less_than(__x1), "less_than()");
-  __x1 = 1.111;
-  __x1 = -__x1;
+  __x1 = 1.111, __x1 = -__x1;
   BOOST_TEST((__x1 == -1.111), "operator-");
   __x2 = -__x1;
   BOOST_TEST((__x2 == 1.111), "operator-");
@@ -130,8 +126,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((__x2 == 0.111), "operator/=");
   BOOST_TEST(__x2.precision() == 500, "precision()");
 
-  __x1 = 1.111;
-  __x2 = 2.222;
+  __x1 = 1.111, __x2 = 2.222;
   __x3 = __x1 + __x2;
   BOOST_TEST((__x3 == 3.333), "operator+");
   BOOST_TEST(__x3.precision() == 100, "operator+");
@@ -143,8 +138,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((__x3 == 3.333), "operator+");
   BOOST_TEST(!__x3.is_zero(), "is_zero()");
 
-  __x1 = 1.111;
-  __x2 = 3.333;
+  __x1 = 1.111, __x2 = 3.333;
   __x3 = __x2 - __x1;
   BOOST_TEST((__x3 == 2.222), "operator-");
   BOOST_TEST(__x3.precision() == 100, "operator-");
@@ -156,8 +150,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((__x3 == 1.111), "operator-");
   BOOST_TEST(!__x3.is_zero(), "is_zero()");
 
-  __x1 = 1.111;
-  __x2 = 2;
+  __x1 = 1.111, __x2 = 2;
   __x3 = __x1 * __x2;
   BOOST_TEST((__x3 == 2.222), "operator*");
   BOOST_TEST(__x3.precision() == 100, "operator*");
@@ -167,8 +160,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((__x3 == 2.222), "operator*");
   BOOST_TEST(!__x3.is_zero(), "is_zero()");
 
-  __x1 = 3.333;
-  __x2 = 3;
+  __x1 = 3.333, __x2 = 3;
   __x3 = __x1 / __x2;
   BOOST_TEST((__x3 == 1.111), "operator/");
   BOOST_TEST(__x3.precision() == 100, "operator/");
@@ -178,8 +170,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((__x3 == 2.222), "operator/");
   BOOST_TEST(!__x3.is_zero(), "is_zero()");
 
-  __x1 = 1.111;
-  __x2 = 2.222;
+  __x1 = 1.111, __x2 = 2.222;
   __x1.swap(__x2);
   BOOST_TEST((__x1 == 2.222), "swap()");
   BOOST_TEST((__x2 == 1.111), "swap()");
@@ -197,13 +188,28 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   __x1 = -1.111;
   BOOST_TEST((std::abs(__x1) == 1.111), "std::abs()");
 
-  __x1 = 33.33;
-  __x2 = 10;
-  BOOST_TEST((__x1.fmod(__x2) == 3.33), "fmod()");
+  __x1 = 33.33, __x2 = 9.9;
+  BOOST_TEST((__x1.fmod(__x2) == std::fmod(double(__x1), double(__x2))),
+             "fmod()");
   __x1 = -33.33;
-  BOOST_TEST((__x1.fmod(__x2) == -3.33), "fmod()");
+  BOOST_TEST((__x1.fmod(__x2) == std::fmod(double(__x1), double(__x2))),
+             "fmod()");
   __x1 = -999.99;
-  BOOST_TEST((std::fmod(__x1, __x2) == -9.99), "std::fmod()");
+  BOOST_TEST((std::fmod(__x1, __x2) == std::fmod(double(__x1), double(__x2))),
+             "std::fmod()");
+
+  __x1 = 33.33, __x2 = 8.8;
+  BOOST_TEST(
+      (__x1.remainder(__x2) == std::remainder(double(__x1), double(__x2))),
+      "remainder()");
+  __x1 = -22.22;
+  BOOST_TEST(
+      (__x1.remainder(__x2) == std::remainder(double(__x1), double(__x2))),
+      "remainder()");
+  __x1 = 1.234;
+  BOOST_TEST((std::remainder(__x1, __x2) ==
+              std::remainder(double(__x1), double(__x2))),
+             "std::remainder()");
 
 #ifdef TEUTHID_HAVE_INT_128
   __x1 = static_cast<int128_t>(INT64_MAX) * 10;
