@@ -488,6 +488,7 @@ inline bool operator>=(const T &lhs, const floatmp<P> &rhs) {
   return !(lhs < rhs);
 }
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #define __TEUTHID_FLOATMP_ARITHMETIC_SPEC(OPER, FUN)                           \
   template <std::size_t P1, std::size_t P2>                                    \
   inline auto OPER(const floatmp<P1> &lhs, const floatmp<P2> &rhs) {           \
@@ -506,6 +507,7 @@ __TEUTHID_FLOATMP_ARITHMETIC_SPEC(operator-, sub)
 __TEUTHID_FLOATMP_ARITHMETIC_SPEC(operator*, mul)
 __TEUTHID_FLOATMP_ARITHMETIC_SPEC(operator/, div)
 #undef __TEUTHID_FLOATMP_ARITHMETIC_SPEC
+#endif // DOXYGEN_SHOULD_SKIP_THIS
 } // namespace teuthid
 
 /******************************************************************************/
