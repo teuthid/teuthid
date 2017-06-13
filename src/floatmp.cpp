@@ -35,7 +35,7 @@ bool floatmp_base::less_than(const floatmp_base &value) const {
 
 void floatmp_base::fmod(const floatmp_base &divisor) {
   if (divisor.is_zero())
-    throw std::overflow_error("zero divisor of fmod()");
+    throw std::domain_error("invalid divisor of fmod()");
   else
     mpfr_fmod(value_, c_mpfr(), divisor.value_,
               static_cast<mpfr_rnd_t>(rounding_mode()));
@@ -43,7 +43,7 @@ void floatmp_base::fmod(const floatmp_base &divisor) {
 
 void floatmp_base::remainder(const floatmp_base &divisor) {
   if (divisor.is_zero())
-    throw std::overflow_error("zero divisor of remainder()");
+    throw std::domain_error("invalid divisor of remainder()");
   else
     mpfr_remainder(value_, c_mpfr(), divisor.value_,
                    static_cast<mpfr_rnd_t>(rounding_mode()));

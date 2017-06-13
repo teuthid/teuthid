@@ -225,11 +225,17 @@ private:
 
   bool equal_to(const floatmp_base &value) const;
   bool less_than(const floatmp_base &value) const;
-  void abs() {
+  void abs() { // this = abs(this)
     mpfr_abs(value_, c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
   }
-  void fmod(const floatmp_base &divisor);
-  void remainder(const floatmp_base &divisor);
+  void fmod(const floatmp_base &divisor); // this = fmod(this, divisor)
+  void
+  remainder(const floatmp_base &divisor); // this = remainder(this, divisor)
+  void fma(const floatmp_base &y, const floatmp_base &z) {
+    // this = fma(this, y, z)
+    mpfr_fma(value_, c_mpfr(), y.value_, z.value_,
+             static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
 
 #ifdef TEUTHID_HAVE_INT_128
   static long double int128_to_ldouble_(const int128_t &value) {
@@ -379,16 +385,25 @@ public:
     value.assign(value_);
     return assign(__tmp);
   }
-  floatmp &abs() {
+  floatmp &abs() { // this = abs(this)
     floatmp_base::abs();
     return *this;
   }
   template <std::size_t P> floatmp &fmod(const floatmp<P> &divisor) {
+    // this = fmod(this, divisor)
     floatmp_base::fmod(static_cast<const floatmp_base &>(divisor));
     return *this;
   }
   template <std::size_t P> floatmp &remainder(const floatmp<P> &divisor) {
+    // this = remainder(this, divisor)
     floatmp_base::remainder(static_cast<const floatmp_base &>(divisor));
+    return *this;
+  }
+  template <std::size_t P1, std::size_t P2>
+  floatmp &fma(const floatmp<P1> &y, const floatmp<P2> &z) {
+    // this = fma(this, y, z)
+    floatmp_base::fma(static_cast<const floatmp_base &>(y),
+                      static_cast<const floatmp_base &>(z));
     return *this;
   }
 
@@ -532,6 +547,12 @@ inline auto remainder(const teuthid::floatmp<P1> &x,
                       const teuthid::floatmp<P2> &y) {
   return teuthid::floatmp<std::max(P1, P2)>(x).remainder(y);
 }
+template <std::size_t P1, std::size_t P2, std::size_t P3>
+inline auto fma(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y,
+                const teuthid::floatmp<P3> &z) {
+  return teuthid::floatmp<std::max(std::max(P1, P2), P3)>(x).fma(y, z);
+}
+
 } // namespace std
 
 #endif // TEUTHID_FLOATMP_HPP
