@@ -25,6 +25,18 @@
 #include <mpfr.h>
 #include <teuthid/config.hpp>
 
+// forward declarations:
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+namespace teuthid {
+class system;
+template <std::size_t Precision> class floatmp;
+}
+namespace std {
+template <std::size_t P1, std::size_t P2>
+auto fmax(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y);
+}
+#endif // DOXYGEN_SHOULD_SKIP_THIS
+
 namespace teuthid {
 
 enum class floatmp_round_t : int {
@@ -43,12 +55,14 @@ enum class floatmp_round_t : int {
   static_assert((PRECISION < floatmp_base::max_precision()),                   \
                 "Too high floatmp precision.");
 
-template <std::size_t Precision> class floatmp;
-class system;
-
 class floatmp_base {
-  template <std::size_t Precision> friend class floatmp;
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
   friend class system;
+  template <std::size_t Precision> friend class floatmp;
+  template <std::size_t P1, std::size_t P2>
+  friend auto std::fmax(const teuthid::floatmp<P1> &x,
+                        const teuthid::floatmp<P2> &y);
+#endif // DOXYGEN_SHOULD_SKIP_THIS
 
 public:
   floatmp_base(std::size_t precision) {
@@ -237,6 +251,7 @@ private:
              static_cast<mpfr_rnd_t>(rounding_mode()));
   }
 
+  static const floatmp_base &fmax(const floatmp_base &x, const floatmp_base &y);
 #ifdef TEUTHID_HAVE_INT_128
   static long double int128_to_ldouble_(const int128_t &value) {
     return static_cast<long double>(INT64_MAX) *
@@ -551,6 +566,10 @@ template <std::size_t P1, std::size_t P2, std::size_t P3>
 inline auto fma(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y,
                 const teuthid::floatmp<P3> &z) {
   return teuthid::floatmp<std::max(std::max(P1, P2), P3)>(x).fma(y, z);
+}
+template <std::size_t P1, std::size_t P2>
+inline auto fmax(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y) {
+  return teuthid::floatmp<std::max(P1, P2)>(teuthid::floatmp_base::fmax(x, y));
 }
 
 } // namespace std

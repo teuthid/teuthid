@@ -48,3 +48,8 @@ void floatmp_base::remainder(const floatmp_base &divisor) {
     mpfr_remainder(value_, c_mpfr(), divisor.value_,
                    static_cast<mpfr_rnd_t>(rounding_mode()));
 }
+
+const floatmp_base &floatmp_base::fmax(const floatmp_base &x,
+                                       const floatmp_base &y) {
+  return (system::less_than(x.value_, y.value_)) ? y : x;
+}

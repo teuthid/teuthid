@@ -222,6 +222,11 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
               std::fma(double(__x2), double(__x3), double(__x1))),
              "std::fma()");
 
+  __x1 = 1.1111, __x2 = -2.2222;
+  BOOST_TEST((std::fmax(__x1, __x2) == __x1), "std::fmax");
+  BOOST_TEST((std::fmax(__x2, __x1) == __x1), "std::fmax");
+  BOOST_TEST((std::fmax(__x2, __x2) == __x2), "std::fmax");
+
 #ifdef TEUTHID_HAVE_INT_128
   __x1 = static_cast<int128_t>(INT64_MAX) * 10;
   __x2 = static_cast<int128_t>(INT64_MAX) * 10;
