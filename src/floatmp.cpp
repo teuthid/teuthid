@@ -53,3 +53,8 @@ const floatmp_base &floatmp_base::fmax(const floatmp_base &x,
                                        const floatmp_base &y) {
   return (system::less_than(x.value_, y.value_)) ? y : x;
 }
+
+const floatmp_base &floatmp_base::fmin(const floatmp_base &x,
+                                       const floatmp_base &y) {
+  return (system::less_than(x.value_, y.value_)) ? x : y;
+}

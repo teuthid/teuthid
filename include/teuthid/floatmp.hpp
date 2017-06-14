@@ -34,6 +34,8 @@ template <std::size_t Precision> class floatmp;
 namespace std {
 template <std::size_t P1, std::size_t P2>
 auto fmax(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y);
+template <std::size_t P1, std::size_t P2>
+auto fmin(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y);
 }
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -61,6 +63,9 @@ class floatmp_base {
   template <std::size_t Precision> friend class floatmp;
   template <std::size_t P1, std::size_t P2>
   friend auto std::fmax(const teuthid::floatmp<P1> &x,
+                        const teuthid::floatmp<P2> &y);
+  template <std::size_t P1, std::size_t P2>
+  friend auto std::fmin(const teuthid::floatmp<P1> &x,
                         const teuthid::floatmp<P2> &y);
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -252,6 +257,7 @@ private:
   }
 
   static const floatmp_base &fmax(const floatmp_base &x, const floatmp_base &y);
+  static const floatmp_base &fmin(const floatmp_base &x, const floatmp_base &y);
 #ifdef TEUTHID_HAVE_INT_128
   static long double int128_to_ldouble_(const int128_t &value) {
     return static_cast<long double>(INT64_MAX) *
@@ -570,6 +576,10 @@ inline auto fma(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y,
 template <std::size_t P1, std::size_t P2>
 inline auto fmax(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y) {
   return teuthid::floatmp<std::max(P1, P2)>(teuthid::floatmp_base::fmax(x, y));
+}
+template <std::size_t P1, std::size_t P2>
+inline auto fmin(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y) {
+  return teuthid::floatmp<std::max(P1, P2)>(teuthid::floatmp_base::fmin(x, y));
 }
 
 } // namespace std
