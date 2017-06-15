@@ -41,11 +41,11 @@ void floatmp_base::fmod(const floatmp_base &x, const floatmp_base &y) {
               static_cast<mpfr_rnd_t>(rounding_mode()));
 }
 
-void floatmp_base::remainder(const floatmp_base &divisor) {
-  if (divisor.is_zero())
+void floatmp_base::remainder(const floatmp_base &x, const floatmp_base &y) {
+  if (y.is_zero())
     throw std::domain_error("invalid divisor of remainder()");
   else
-    mpfr_remainder(value_, c_mpfr(), divisor.value_,
+    mpfr_remainder(value_, x.c_mpfr(), y.c_mpfr(),
                    static_cast<mpfr_rnd_t>(rounding_mode()));
 }
 

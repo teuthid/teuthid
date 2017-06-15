@@ -200,14 +200,14 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
              "std::fmod()");
 
   __x1 = 33.33, __x2 = 8.8;
-  BOOST_TEST(
-      (__x1.remainder(__x2) == std::remainder(double(__x1), double(__x2))),
-      "remainder()");
+  BOOST_TEST((__x1.remainder(__x1, __x2) ==
+              std::remainder(double(__x1), double(__x2))),
+             "remainder()");
   __x1 = -22.22;
-  BOOST_TEST(
-      (__x1.remainder(__x2) == std::remainder(double(__x1), double(__x2))),
-      "remainder()");
-  __x1 = 1.234;
+  BOOST_TEST((__x2.remainder(__x1, __x2) ==
+              std::remainder(double(__x1), double(__x2))),
+             "remainder()");
+  __x1 = 1.234, __x2 = 8.8;
   BOOST_TEST((std::remainder(__x1, __x2) ==
               std::remainder(double(__x1), double(__x2))),
              "std::remainder()");
