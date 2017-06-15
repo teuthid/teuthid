@@ -249,9 +249,9 @@ private:
   }
   void fmod(const floatmp_base &x, const floatmp_base &y);
   void remainder(const floatmp_base &x, const floatmp_base &y);
-  void fma(const floatmp_base &y, const floatmp_base &z) {
-    // this = fma(this, y, z)
-    mpfr_fma(value_, c_mpfr(), y.value_, z.value_,
+  void fma(const floatmp_base &x, const floatmp_base &y,
+           const floatmp_base &z) {
+    mpfr_fma(value_, x.c_mpfr(), y.c_mpfr(), z.c_mpfr(),
              static_cast<mpfr_rnd_t>(rounding_mode()));
   }
   void fdim(const floatmp_base &y) { // this = fdim(this, y)
@@ -428,10 +428,11 @@ public:
                             static_cast<const floatmp_base &>(y));
     return *this;
   }
-  template <std::size_t P1, std::size_t P2>
-  floatmp &fma(const floatmp<P1> &y, const floatmp<P2> &z) {
-    // this = fma(this, y, z)
-    floatmp_base::fma(static_cast<const floatmp_base &>(y),
+  template <std::size_t P1, std::size_t P2, std::size_t P3>
+  floatmp &fma(const floatmp<P1> &x, const floatmp<P2> &y,
+               const floatmp<P3> &z) {
+    floatmp_base::fma(static_cast<const floatmp_base &>(x),
+                      static_cast<const floatmp_base &>(y),
                       static_cast<const floatmp_base &>(z));
     return *this;
   }
@@ -589,7 +590,7 @@ inline auto remainder(const teuthid::floatmp<P1> &x,
 template <std::size_t P1, std::size_t P2, std::size_t P3>
 inline auto fma(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y,
                 const teuthid::floatmp<P3> &z) {
-  return teuthid::floatmp<std::max(std::max(P1, P2), P3)>(x).fma(y, z);
+  return teuthid::floatmp<std::max(std::max(P1, P2), P3)>().fma(x, y, z);
 }
 template <std::size_t P1, std::size_t P2>
 inline auto fmax(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y) {

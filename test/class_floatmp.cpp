@@ -213,8 +213,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
              "std::remainder()");
 
   __x1 = 1.1111, __x2 = -2.2222, __x3 = 3.3333;
-  BOOST_TEST((__x1.fma(__x2, __x3) ==
-              std::fma(double(__x1), double(__x2), double(__x3))),
+  BOOST_TEST((__x1.fma(__x2, __x2, __x3) ==
+              std::fma(double(__x2), double(__x2), double(__x3))),
              "fma()");
   BOOST_TEST((std::fma(__x1, __x2, __x3) ==
               std::fma(double(__x1), double(__x2), double(__x3))),
