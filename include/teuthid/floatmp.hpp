@@ -574,7 +574,7 @@ template <std::size_t P> inline auto abs(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().abs(x);
 }
 template <std::size_t P> inline auto fabs(const teuthid::floatmp<P> &x) {
-  return teuthid::floatmp<P>(x).abs();
+  return teuthid::floatmp<P>().abs(x);
 }
 template <std::size_t P1, std::size_t P2>
 inline auto fmod(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y) {
