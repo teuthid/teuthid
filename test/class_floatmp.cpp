@@ -224,14 +224,16 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
              "std::fma()");
 
   __x1 = 1.1111, __x2 = -2.2222;
-  BOOST_TEST((std::fmax(__x1, __x2) == __x1), "std::fmax");
-  BOOST_TEST((std::fmax(__x2, __x1) == __x1), "std::fmax");
-  BOOST_TEST((std::fmax(__x2, __x2) == __x2), "std::fmax");
+  BOOST_TEST((__x1.fmax(__x1, __x2) == __x1), "fmax()");
+  BOOST_TEST((std::fmax(__x1, __x2) == __x1), "std::fmax()");
+  BOOST_TEST((std::fmax(__x2, __x1) == __x1), "std::fmax()");
+  BOOST_TEST((std::fmax(__x2, __x2) == __x2), "std::fmax()");
 
   __x1 = 1.1111, __x2 = -2.2222;
-  BOOST_TEST((std::fmin(__x1, __x2) == __x2), "std::fmin");
-  BOOST_TEST((std::fmin(__x2, __x1) == __x2), "std::fmin");
-  BOOST_TEST((std::fmin(__x2, __x2) == __x2), "std::fmin");
+  BOOST_TEST((__x2.fmin(__x1, __x2) == __x2), "fmin()");
+  BOOST_TEST((std::fmin(__x1, __x2) == __x2), "std::fmin()");
+  BOOST_TEST((std::fmin(__x2, __x1) == __x2), "std::fmin()");
+  BOOST_TEST((std::fmin(__x1, __x1) == __x1), "std::fmin()");
 
   __x1 = 9.9999, __x2 = 5.5555;
   BOOST_TEST((__x1.fdim(__x2) == std::fdim(double(__x1), double(__x2))),

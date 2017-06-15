@@ -49,12 +49,12 @@ void floatmp_base::remainder(const floatmp_base &x, const floatmp_base &y) {
                    static_cast<mpfr_rnd_t>(rounding_mode()));
 }
 
-const floatmp_base &floatmp_base::fmax(const floatmp_base &x,
-                                       const floatmp_base &y) {
-  return (system::less_than(x.value_, y.value_)) ? y : x;
+void floatmp_base::fmax(const floatmp_base &x, const floatmp_base &y) {
+  auto __max = (system::less_than(x.value_, y.value_)) ? y : x;
+  mpfr_set(value_, __max.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
 }
 
-const floatmp_base &floatmp_base::fmin(const floatmp_base &x,
-                                       const floatmp_base &y) {
-  return (system::less_than(x.value_, y.value_)) ? x : y;
+void floatmp_base::fmin(const floatmp_base &x, const floatmp_base &y) {
+  auto __min =  (system::less_than(x.value_, y.value_)) ? x : y;
+  mpfr_set(value_, __min.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
 }

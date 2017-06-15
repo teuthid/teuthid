@@ -31,12 +31,6 @@ namespace teuthid {
 class system;
 template <std::size_t Precision> class floatmp;
 }
-namespace std {
-template <std::size_t P1, std::size_t P2>
-auto fmax(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y);
-template <std::size_t P1, std::size_t P2>
-auto fmin(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y);
-}
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 namespace teuthid {
@@ -61,12 +55,6 @@ class floatmp_base {
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   friend class system;
   template <std::size_t Precision> friend class floatmp;
-  template <std::size_t P1, std::size_t P2>
-  friend auto std::fmax(const teuthid::floatmp<P1> &x,
-                        const teuthid::floatmp<P2> &y);
-  template <std::size_t P1, std::size_t P2>
-  friend auto std::fmin(const teuthid::floatmp<P1> &x,
-                        const teuthid::floatmp<P2> &y);
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 public:
@@ -254,6 +242,8 @@ private:
     mpfr_fma(value_, x.c_mpfr(), y.c_mpfr(), z.c_mpfr(),
              static_cast<mpfr_rnd_t>(rounding_mode()));
   }
+  void fmax(const floatmp_base &x, const floatmp_base &y);
+  void fmin(const floatmp_base &x, const floatmp_base &y);
   void fdim(const floatmp_base &y) { // this = fdim(this, y)
     mpfr_dim(value_, c_mpfr(), y.value_,
              static_cast<mpfr_rnd_t>(rounding_mode()));
@@ -262,8 +252,6 @@ private:
     mpfr_exp(value_, arg.value_, static_cast<mpfr_rnd_t>(rounding_mode()));
   }
 
-  static const floatmp_base &fmax(const floatmp_base &x, const floatmp_base &y);
-  static const floatmp_base &fmin(const floatmp_base &x, const floatmp_base &y);
 #ifdef TEUTHID_HAVE_INT_128
   static long double int128_to_ldouble_(const int128_t &value) {
     return static_cast<long double>(INT64_MAX) *
@@ -436,6 +424,18 @@ public:
                       static_cast<const floatmp_base &>(z));
     return *this;
   }
+  template <std::size_t P1, std::size_t P2>
+  floatmp &fmax(const floatmp<P1> &x, const floatmp<P2> &y) {
+    floatmp_base::fmax(static_cast<const floatmp_base &>(x),
+                       static_cast<const floatmp_base &>(y));
+    return *this;
+  }
+  template <std::size_t P1, std::size_t P2>
+  floatmp &fmin(const floatmp<P1> &x, const floatmp<P2> &y) {
+    floatmp_base::fmin(static_cast<const floatmp_base &>(x),
+                       static_cast<const floatmp_base &>(y));
+    return *this;
+  }
   template <std::size_t P> floatmp &fdim(const floatmp<P> &y) {
     // this = fdim(this, y)
     floatmp_base::fdim(static_cast<const floatmp_base &>(y));
@@ -594,11 +594,11 @@ inline auto fma(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y,
 }
 template <std::size_t P1, std::size_t P2>
 inline auto fmax(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y) {
-  return teuthid::floatmp<std::max(P1, P2)>(teuthid::floatmp_base::fmax(x, y));
+  return teuthid::floatmp<std::max(P1, P2)>().fmax(x, y);
 }
 template <std::size_t P1, std::size_t P2>
 inline auto fmin(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y) {
-  return teuthid::floatmp<std::max(P1, P2)>(teuthid::floatmp_base::fmin(x, y));
+  return teuthid::floatmp<std::max(P1, P2)>().fmin(x, y);
 }
 template <std::size_t P1, std::size_t P2>
 inline auto fdim(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y) {
