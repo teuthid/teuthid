@@ -181,9 +181,9 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((__x1 == 1.111), "std::swap()");
 
   __x1 = 1.111;
-  BOOST_TEST((__x1.abs() == 1.111), "abs()");
+  BOOST_TEST((__x1.abs(__x1) == 1.111), "abs()");
   __x1 = -1.111;
-  BOOST_TEST((__x1.abs() == 1.111), "abs()");
+  BOOST_TEST((__x2.abs(__x1) == 1.111), "abs()");
   BOOST_TEST((std::abs(__x1) == 1.111), "std::abs()");
   __x1 = -1.111;
   BOOST_TEST((std::abs(__x1) == 1.111), "std::abs()");

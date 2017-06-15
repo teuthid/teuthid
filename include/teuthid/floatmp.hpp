@@ -244,8 +244,8 @@ private:
 
   bool equal_to(const floatmp_base &value) const;
   bool less_than(const floatmp_base &value) const;
-  void abs() { // this = abs(this)
-    mpfr_abs(value_, c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+  void abs(const floatmp_base &x) {
+    mpfr_abs(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
   }
   void fmod(const floatmp_base &divisor); // this = fmod(this, divisor)
   void
@@ -413,8 +413,8 @@ public:
     value.assign(value_);
     return assign(__tmp);
   }
-  floatmp &abs() { // this = abs(this)
-    floatmp_base::abs();
+  template <std::size_t P> floatmp &abs(const floatmp<P> &x) {
+    floatmp_base::abs(static_cast<const floatmp_base &>(x));
     return *this;
   }
   template <std::size_t P> floatmp &fmod(const floatmp<P> &divisor) {
@@ -571,7 +571,7 @@ inline void swap(teuthid::floatmp<P1> &x, teuthid::floatmp<P2> &y) {
   x.swap(y);
 }
 template <std::size_t P> inline auto abs(const teuthid::floatmp<P> &x) {
-  return teuthid::floatmp<P>(x).abs();
+  return teuthid::floatmp<P>().abs(x);
 }
 template <std::size_t P> inline auto fabs(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>(x).abs();
