@@ -190,12 +190,12 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((std::fabs(__x1) == 1.111), "std::fabs()");
 
   __x1 = 33.33, __x2 = 9.9;
-  BOOST_TEST((__x1.fmod(__x2) == std::fmod(double(__x1), double(__x2))),
+  BOOST_TEST((__x1.fmod(__x1, __x2) == std::fmod(double(__x1), double(__x2))),
              "fmod()");
   __x1 = -33.33;
-  BOOST_TEST((__x1.fmod(__x2) == std::fmod(double(__x1), double(__x2))),
+  BOOST_TEST((__x2.fmod(__x1, __x2) == std::fmod(double(__x1), double(__x2))),
              "fmod()");
-  __x1 = -999.99;
+  __x1 = -999.99, __x2 = 9.9;
   BOOST_TEST((std::fmod(__x1, __x2) == std::fmod(double(__x1), double(__x2))),
              "std::fmod()");
 

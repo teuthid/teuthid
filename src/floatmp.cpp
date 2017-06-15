@@ -33,11 +33,11 @@ bool floatmp_base::less_than(const floatmp_base &value) const {
   return system::less_than(value_, value.value_);
 }
 
-void floatmp_base::fmod(const floatmp_base &divisor) {
-  if (divisor.is_zero())
+void floatmp_base::fmod(const floatmp_base &x, const floatmp_base &y) {
+  if (y.is_zero())
     throw std::domain_error("invalid divisor of fmod()");
   else
-    mpfr_fmod(value_, c_mpfr(), divisor.value_,
+    mpfr_fmod(value_, x.c_mpfr(), y.c_mpfr(),
               static_cast<mpfr_rnd_t>(rounding_mode()));
 }
 
