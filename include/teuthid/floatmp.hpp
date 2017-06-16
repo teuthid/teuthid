@@ -244,8 +244,8 @@ private:
   }
   void fmax(const floatmp_base &x, const floatmp_base &y);
   void fmin(const floatmp_base &x, const floatmp_base &y);
-  void fdim(const floatmp_base &y) { // this = fdim(this, y)
-    mpfr_dim(value_, c_mpfr(), y.value_,
+  void fdim(const floatmp_base &x, const floatmp_base &y) {
+    mpfr_dim(value_, x.c_mpfr(), y.c_mpfr(),
              static_cast<mpfr_rnd_t>(rounding_mode()));
   }
   void exp(const floatmp_base &arg) { // this = exp(arg)
@@ -436,9 +436,10 @@ public:
                        static_cast<const floatmp_base &>(y));
     return *this;
   }
-  template <std::size_t P> floatmp &fdim(const floatmp<P> &y) {
-    // this = fdim(this, y)
-    floatmp_base::fdim(static_cast<const floatmp_base &>(y));
+  template <std::size_t P1, std::size_t P2>
+  floatmp &fdim(const floatmp<P1> &x, const floatmp<P2> &y) {
+    floatmp_base::fdim(static_cast<const floatmp_base &>(x),
+                       static_cast<const floatmp_base &>(y));
     return *this;
   }
   template <std::size_t P> floatmp &exp(const floatmp<P> &arg) {
@@ -602,7 +603,7 @@ inline auto fmin(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y) {
 }
 template <std::size_t P1, std::size_t P2>
 inline auto fdim(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y) {
-  return teuthid::floatmp<std::max(P1, P2)>(x).fdim(y);
+  return teuthid::floatmp<std::max(P1, P2)>().fdim(x, y);
 }
 template <std::size_t P> inline auto exp(const teuthid::floatmp<P> &arg) {
   return teuthid::floatmp<P>().exp(arg);
