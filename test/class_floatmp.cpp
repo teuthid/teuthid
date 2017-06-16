@@ -245,7 +245,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((std::fdim(__x2, __x1) == std::fdim(double(__x2), double(__x1))),
              "std::fdim()");
 
-  __x2 = 9.9999;
+  __x1 = 9.9999, __x2 = -5.5555;
   BOOST_TEST((__x1.exp(__x2) == std::exp(double(__x2))), "exp()");
   BOOST_TEST((std::exp(__x2) == std::exp(double(__x2))), "std::exp()");
 

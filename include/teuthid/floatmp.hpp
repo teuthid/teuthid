@@ -248,8 +248,8 @@ private:
     mpfr_dim(value_, x.c_mpfr(), y.c_mpfr(),
              static_cast<mpfr_rnd_t>(rounding_mode()));
   }
-  void exp(const floatmp_base &arg) { // this = exp(arg)
-    mpfr_exp(value_, arg.value_, static_cast<mpfr_rnd_t>(rounding_mode()));
+  void exp(const floatmp_base &x) {
+    mpfr_exp(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
   }
 
 #ifdef TEUTHID_HAVE_INT_128
@@ -442,9 +442,8 @@ public:
                        static_cast<const floatmp_base &>(y));
     return *this;
   }
-  template <std::size_t P> floatmp &exp(const floatmp<P> &arg) {
-    // this = exp(arg)
-    floatmp_base::exp(static_cast<const floatmp_base &>(arg));
+  template <std::size_t P> floatmp &exp(const floatmp<P> &x) {
+    floatmp_base::exp(static_cast<const floatmp_base &>(x));
     return *this;
   }
 
@@ -605,8 +604,8 @@ template <std::size_t P1, std::size_t P2>
 inline auto fdim(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y) {
   return teuthid::floatmp<std::max(P1, P2)>().fdim(x, y);
 }
-template <std::size_t P> inline auto exp(const teuthid::floatmp<P> &arg) {
-  return teuthid::floatmp<P>().exp(arg);
+template <std::size_t P> inline auto exp(const teuthid::floatmp<P> &x) {
+  return teuthid::floatmp<P>().exp(x);
 }
 
 } // namespace std
