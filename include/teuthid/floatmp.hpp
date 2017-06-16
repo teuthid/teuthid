@@ -107,9 +107,11 @@ public:
   bool is_zero() const {
     return equal_to(floatmp_base(mpfr_get_prec(value_), 0));
   }
+  bool is_positive() const;
+  bool is_negative() const;
 
   static constexpr std::size_t max_precision() noexcept {
-    return MPFR_PREC_MAX;
+    return TEUTHID_FLOAT_MAX_PRECISION;
   }
   static constexpr std::size_t min_precision() noexcept {
     return MPFR_PREC_MIN;
@@ -257,6 +259,7 @@ private:
   void expm1(const floatmp_base &x) {
     mpfr_expm1(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
   }
+  void log(const floatmp_base &x);
 
 #ifdef TEUTHID_HAVE_INT_128
   static long double int128_to_ldouble_(const int128_t &value) {
@@ -273,6 +276,7 @@ private:
 
   mpfr_t value_;
   static std::atomic_int round_mode_;
+  static floatmp_base zero_value_;
 }; // class floatmp_base
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -460,6 +464,10 @@ public:
     floatmp_base::expm1(static_cast<const floatmp_base &>(x));
     return *this;
   }
+  template <std::size_t P> floatmp &log(const floatmp<P> &x) {
+    floatmp_base::log(static_cast<const floatmp_base &>(x));
+    return *this;
+  }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   template <std::size_t P> bool equal_to(const floatmp<P> &value) const {
@@ -626,6 +634,9 @@ template <std::size_t P> inline auto exp2(const teuthid::floatmp<P> &x) {
 }
 template <std::size_t P> inline auto expm1(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().expm1(x);
+}
+template <std::size_t P> inline auto log(const teuthid::floatmp<P> &x) {
+  return teuthid::floatmp<P>().log(x);
 }
 
 } // namespace std

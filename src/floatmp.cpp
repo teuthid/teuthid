@@ -24,13 +24,22 @@
 using namespace teuthid;
 
 std::atomic_int floatmp_base::round_mode_(mpfr_get_default_rounding_mode());
+floatmp_base floatmp_base::zero_value_(floatmp_base::max_precision());
 
 bool floatmp_base::equal_to(const floatmp_base &value) const {
-  return system::equal_to(value_, value.value_);
+  return system::equal_to(value_, value.c_mpfr());
 }
 
 bool floatmp_base::less_than(const floatmp_base &value) const {
-  return system::less_than(value_, value.value_);
+  return system::less_than(value_, value.c_mpfr());
+}
+
+bool floatmp_base::is_positive() const {
+  return system::less_than(floatmp_base::zero_value_.c_mpfr(), value_);
+}
+
+bool floatmp_base::is_negative() const {
+  return system::less_than(value_, floatmp_base::zero_value_.c_mpfr());
 }
 
 void floatmp_base::fmod(const floatmp_base &x, const floatmp_base &y) {
@@ -55,6 +64,13 @@ void floatmp_base::fmax(const floatmp_base &x, const floatmp_base &y) {
 }
 
 void floatmp_base::fmin(const floatmp_base &x, const floatmp_base &y) {
-  auto __min =  (system::less_than(x.value_, y.value_)) ? x : y;
+  auto __min = (system::less_than(x.value_, y.value_)) ? x : y;
   mpfr_set(value_, __min.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+}
+
+void floatmp_base::log(const floatmp_base &x) {
+  if (!x.is_positive())
+    throw std::domain_error("invalid arg of log()");
+  else
+    mpfr_log(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
 }

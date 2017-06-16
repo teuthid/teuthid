@@ -49,8 +49,15 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST(__x3.is_zero(), "is_zero()");
   BOOST_TEST(system::is_zero(__x2), "system::is_zero()");
 
-  system::format_float_output();
+  __x1 = -0.1, __x2 = 0.0, __x3 = 0.1;
+  BOOST_TEST(!__x1.is_positive(), "is_positive()");
+  BOOST_TEST(!__x2.is_positive(), "is_positive()");
+  BOOST_TEST(__x3.is_positive(), "is_positive()");
+  BOOST_TEST(__x1.is_negative(), "is_negative()");
+  BOOST_TEST(!__x2.is_negative(), "is_negative()");
+  BOOST_TEST(!__x3.is_negative(), "is_negative()");
 
+  __x1 = 0, __x2 = 0, __x3 = 0;
   BOOST_TEST((__x1 == __x2), "operator==");
   BOOST_TEST((__x1 == (double)__x2), "operator==");
   BOOST_TEST(((double)__x1 == __x2), "operator==");
@@ -245,15 +252,17 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((std::fdim(__x2, __x1) == std::fdim(double(__x2), double(__x1))),
              "std::fdim()");
 
-  __x1 = 9.9999, __x2 = -5.5555;
+  __x2 = -9.9999;
   BOOST_TEST((__x1.exp(__x2) == std::exp(double(__x2))), "exp()");
   BOOST_TEST((std::exp(__x2) == std::exp(double(__x2))), "std::exp()");
-  __x1 = 9.9999, __x2 = -5.5555;
   BOOST_TEST((__x1.exp2(__x2) == std::exp2(double(__x2))), "exp2()");
   BOOST_TEST((std::exp2(__x2) == std::exp2(double(__x2))), "std::exp2()");
-  __x1 = 9.9999, __x2 = -5.5555;
   BOOST_TEST((__x1.expm1(__x2) == std::expm1(double(__x2))), "expm1()");
   BOOST_TEST((std::expm1(__x2) == std::expm1(double(__x2))), "std::expm1()");
+
+  __x2 = 99.9999;
+  BOOST_TEST((__x1.log(__x2) == std::log(double(__x2))), "log()");
+  BOOST_TEST((std::log(__x2) == std::log(double(__x2))), "std::log()");  
 
 #ifdef TEUTHID_HAVE_INT_128
   __x1 = static_cast<int128_t>(INT64_MAX) * 10;
