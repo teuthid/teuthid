@@ -254,6 +254,9 @@ private:
   void exp2(const floatmp_base &x) {
     mpfr_exp2(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
   }
+  void expm1(const floatmp_base &x) {
+    mpfr_expm1(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
 
 #ifdef TEUTHID_HAVE_INT_128
   static long double int128_to_ldouble_(const int128_t &value) {
@@ -453,6 +456,10 @@ public:
     floatmp_base::exp2(static_cast<const floatmp_base &>(x));
     return *this;
   }
+  template <std::size_t P> floatmp &expm1(const floatmp<P> &x) {
+    floatmp_base::expm1(static_cast<const floatmp_base &>(x));
+    return *this;
+  }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   template <std::size_t P> bool equal_to(const floatmp<P> &value) const {
@@ -616,6 +623,9 @@ template <std::size_t P> inline auto exp(const teuthid::floatmp<P> &x) {
 }
 template <std::size_t P> inline auto exp2(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().exp2(x);
+}
+template <std::size_t P> inline auto expm1(const teuthid::floatmp<P> &x) {
+  return teuthid::floatmp<P>().expm1(x);
 }
 
 } // namespace std
