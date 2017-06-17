@@ -391,6 +391,19 @@ template <> inline bool system::is_negative(const uint128_t &x) {
   return false;
 }
 #endif // TEUTHID_HAVE_INT_128
+template <> inline bool system::is_negative(const float &x) {
+  return system::less_than(x, static_cast<float>(0));
+}
+template <> inline bool system::is_negative(const double &x) {
+  return system::less_than(x, static_cast<double>(0));
+}
+template <> inline bool system::is_negative(const long double &x) {
+  return system::less_than(x, static_cast<long double>(0));
+}
+template <> inline bool system::is_negative(const mpfr_t &x) {
+  return system::less_than(mpfr_get_ld(x, mpfr_get_default_rounding_mode()),
+                           static_cast<long double>(0));
+}
 
 // specialization of system::swap<T>()
 template <> inline void system::swap(mpfr_t &x, mpfr_t &y) { mpfr_swap(x, y); }

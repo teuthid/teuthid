@@ -318,6 +318,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(!system::is_nan(__float_val), "system::is_nan(float)");
   BOOST_TEST(!system::is_zero(__float_val), "system::is_zero(float)");
   BOOST_TEST(system::is_positive(__float_val), "system::is_positive(float)");
+  BOOST_TEST(!system::is_negative(__float_val), "system::is_negative(float)");
   system::swap(__float_val, __float_val2);
   BOOST_TEST(system::equal_to(__float_val, (float)9.9), "system::swap(float)");
 
@@ -342,6 +343,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(!system::is_nan(__double_val), "system::is_nan(double)");
   BOOST_TEST(!system::is_zero(__double_val), "system::is_zero(double)");
   BOOST_TEST(system::is_positive(__double_val), "system::is_positive(double)");
+  BOOST_TEST(!system::is_negative(__double_val), "system::is_negative(double)");
 
   long double __ldouble_val;
   system::from_string("1.234567", __ldouble_val);
@@ -367,6 +369,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(!system::is_zero(__ldouble_val), "system::is_zero(long double)");
   BOOST_TEST(system::is_positive(__ldouble_val),
              "system::is_positive(long double)");
+  BOOST_TEST(!system::is_negative(__ldouble_val),
+             "system::is_negative(long double)");
 
   system::from_string("1.2345", __mpfr);
   BOOST_TEST(mpfr_cmp_ld(__mpfr, (long double)1.2345) == 0,
@@ -378,6 +382,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(!system::is_nan(__mpfr), "system::is_nan(mpfr_t)");
   BOOST_TEST(!system::is_zero(__mpfr), "system::is_zero(mpfr_t)");
   BOOST_TEST(system::is_positive(__mpfr), "system::is_positive(mpfr_t)");
+  BOOST_TEST(!system::is_negative(__mpfr), "system::is_negative(mpfr_t)");
   mpfr_t __mpfr2;
   mpfr_init2(__mpfr2, mpfr_get_default_prec());
   system::from_string("9.9999", __mpfr2);
