@@ -91,6 +91,9 @@ public:
   template <typename T> static bool is_positive(const T &x) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
+  template <typename T> static bool is_negative(const T &x) {
+    TETHID_CHECK_TYPE_SPECIALIZATION(T);
+  }
   template <typename T> static void swap(T &x, T &y) { std::swap(x, y); }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -130,6 +133,9 @@ public:
   }
   template <std::size_t P> static bool is_positive(const floatmp<P> &x) {
     return x.is_positive();
+  }
+  template <std::size_t P> static bool is_negative(const floatmp<P> &x) {
+    return x.is_negative();
   }
   template <std::size_t P1, std::size_t P2>
   static void swap(floatmp<P1> &x, floatmp<P2> &y) {
@@ -367,6 +373,24 @@ template <> inline bool system::is_positive(const mpfr_t &x) {
   return system::less_than(static_cast<long double>(0),
                            mpfr_get_ld(x, mpfr_get_default_rounding_mode()));
 }
+
+// specialization of system::is_negative<T>()
+template <> inline bool system::is_negative(const bool &x) { return false; }
+template <> inline bool system::is_negative(const char &x) { return x < 0; }
+template <> inline bool system::is_negative(const int8_t &x) { return x < 0; }
+template <> inline bool system::is_negative(const int16_t &x) { return x < 0; }
+template <> inline bool system::is_negative(const int32_t &x) { return x < 0; }
+template <> inline bool system::is_negative(const int64_t &x) { return x < 0; }
+template <> inline bool system::is_negative(const uint8_t &x) { return false; }
+template <> inline bool system::is_negative(const uint16_t &x) { return false; }
+template <> inline bool system::is_negative(const uint32_t &x) { return false; }
+template <> inline bool system::is_negative(const uint64_t &x) { return false; }
+#ifdef TEUTHID_HAVE_INT_128
+template <> inline bool system::is_negative(const int128_t &x) { return x < 0; }
+template <> inline bool system::is_negative(const uint128_t &x) {
+  return false;
+}
+#endif // TEUTHID_HAVE_INT_128
 
 // specialization of system::swap<T>()
 template <> inline void system::swap(mpfr_t &x, mpfr_t &y) { mpfr_swap(x, y); }

@@ -159,6 +159,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(!system::is_infinite(__boolval), "system::is_infinite(bool)");
   BOOST_TEST(!system::is_nan(__boolval), "system::is_nan(bool)");
   BOOST_TEST(system::is_zero(__boolval), "system::is_zero(bool)");
+  BOOST_TEST(!system::is_positive(__boolval), "system::is_positive(bool)");
+  BOOST_TEST(!system::is_negative(__boolval), "system::is_negative(bool)");
   BOOST_TEST(system::from_string("true", __boolval),
              "system::from_string(bool)");
   BOOST_TEST(system::from_string("1", __boolval), "system::from_string(bool)");
@@ -177,6 +179,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(!system::is_zero(__int8_val), "system::is_zero(int8_t)");
   BOOST_TEST(!system::is_positive(__int8_val), "system::is_positive(int8_t)");
   BOOST_TEST(system::is_positive(__int8_val2), "system::is_positive(int8_t)");
+  BOOST_TEST(system::is_negative(__int8_val), "system::is_negative(int8_t)");
+  BOOST_TEST(!system::is_negative(__int8_val2), "system::is_negative(int8_t)");
   system::swap(__int8_val, __int8_val2);
   BOOST_TEST((__int8_val == 13), "system::swap(int8_t)");
   BOOST_TEST((__int8_val2 == -127), "system::swap(int8_t)");
@@ -189,6 +193,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(!system::is_nan(__int16_val), "system::is_nan(int16_t)");
   BOOST_TEST(!system::is_zero(__int16_val), "system::is_zero(int16_t)");
   BOOST_TEST(!system::is_positive(__int16_val), "system::is_positive(int16_t)");
+  BOOST_TEST(system::is_negative(__int16_val), "system::is_negative(int16_t)");
 
   int32_t __int32_val;
   BOOST_TEST(system::from_string("-2147483648", __int32_val) == -2147483648,
@@ -198,6 +203,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(!system::is_nan(__int32_val), "system::is_nan(int32_t)");
   BOOST_TEST(!system::is_zero(__int32_val), "system::is_zero(int32_t)");
   BOOST_TEST(!system::is_positive(__int32_val), "system::is_positive(int32_t)");
+  BOOST_TEST(system::is_negative(__int32_val), "system::is_negative(int32_t)");
 
   int64_t __int64_val;
   BOOST_TEST(system::from_string("-9223372036854775807", __int64_val) ==
@@ -208,6 +214,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(!system::is_nan(__int64_val), "system::is_nan(int64_t)");
   BOOST_TEST(!system::is_zero(__int64_val), "system::is_zero(int64_t)");
   BOOST_TEST(!system::is_positive(__int64_val), "system::is_positive(int64_t)");
+  BOOST_TEST(system::is_negative(__int64_val), "system::is_negative(int64_t)");
 
   uint8_t __uint8_val;
   BOOST_TEST(system::from_string("255", __uint8_val) == 255,
@@ -217,6 +224,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(!system::is_nan(__uint8_val), "system::is_nan(uint8_t)");
   BOOST_TEST(!system::is_zero(__uint8_val), "system::is_zero(uint8_t)");
   BOOST_TEST(system::is_positive(__uint8_val), "system::is_positive(uint8_t)");
+  BOOST_TEST(!system::is_negative(__uint8_val), "system::is_negative(uint8_t)");
 
   uint16_t __uint16_val;
   BOOST_TEST(system::from_string("65535", __uint16_val) == 65535,
@@ -228,6 +236,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(!system::is_zero(__uint16_val), "system::is_zero(uint16_t)");
   BOOST_TEST(system::is_positive(__uint16_val),
              "system::is_positive(uint16_t)");
+  BOOST_TEST(!system::is_negative(__uint16_val),
+             "system::is_negative(uint16_t)");
 
   uint32_t __uint32_val;
   BOOST_TEST(system::from_string("4294967295", __uint32_val) == 4294967295,
@@ -239,6 +249,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(!system::is_zero(__uint32_val), "system::is_zero(uint32_t)");
   BOOST_TEST(system::is_positive(__uint32_val),
              "system::is_positive(uint32_t)");
+  BOOST_TEST(!system::is_negative(__uint32_val),
+             "system::is_negative(uint32_t)");
 
   uint64_t __uint64_val;
   BOOST_TEST(system::from_string("9223372036854775807", __uint64_val) ==
@@ -251,6 +263,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(!system::is_zero(__uint64_val), "system::is_zero(uint64_t)");
   BOOST_TEST(system::is_positive(__uint64_val),
              "system::is_positive(uint64_t)");
+  BOOST_TEST(!system::is_negative(__uint64_val),
+             "system::is_negative(uint64_t)");
 
 #ifdef TEUTHID_HAVE_INT_128
   int128_t __int128_val = (int128_t)INT64_MAX * 10;
@@ -271,6 +285,10 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
              "system::is_positive(int128_t)");
   BOOST_TEST(system::is_positive(__uint128_val),
              "system::is_positive(uint128_t)");
+  BOOST_TEST(!system::is_negative(__int128_val),
+             "system::is_negative(int128_t)");
+  BOOST_TEST(!system::is_negative(__uint128_val),
+             "system::is_negative(uint128_t)");
   int128_t __int128_val2 = -13;
   system::swap(__int128_val, __int128_val2);
   BOOST_TEST((__int128_val == -13), "system::swap(int128_t)");

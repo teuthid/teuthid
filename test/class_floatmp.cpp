@@ -59,6 +59,9 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST(!system::is_positive(__x1), "system::is_positive()");
   BOOST_TEST(!system::is_positive(__x2), "system::is_positive()");
   BOOST_TEST(system::is_positive(__x3), "system::is_positive()");
+  BOOST_TEST(system::is_negative(__x1), "system::is_negative()");
+  BOOST_TEST(!system::is_negative(__x2), "system::is_negative()");
+  BOOST_TEST(!system::is_negative(__x3), "system::is_negative()");
 
   __x1 = 0, __x2 = 0, __x3 = 0;
   BOOST_TEST((__x1 == __x2), "operator==");
