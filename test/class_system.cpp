@@ -281,10 +281,6 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
 
   float __float_val, __float_val2 = 9.9;
   system::from_string("1.2345", __float_val);
-  BOOST_TEST(system::is_finite(__float_val), "system::is_finite(float)");
-  BOOST_TEST(!system::is_infinite(__float_val), "system::is_infinite(float)");
-  BOOST_TEST(!system::is_nan(__float_val), "system::is_nan(float)");
-  BOOST_TEST(!system::is_zero(__float_val), "system::is_zero(float)");
   BOOST_TEST(system::equal_to(__float_val, __float_val),
              "system::from_string(float)");
   BOOST_TEST(!system::less_than(__float_val, __float_val),
@@ -299,15 +295,16 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
              "system::less_than(float)");
   BOOST_TEST(!system::less_than((float)1.2346, __float_val),
              "system::less_than(float)");
+  BOOST_TEST(system::is_finite(__float_val), "system::is_finite(float)");
+  BOOST_TEST(!system::is_infinite(__float_val), "system::is_infinite(float)");
+  BOOST_TEST(!system::is_nan(__float_val), "system::is_nan(float)");
+  BOOST_TEST(!system::is_zero(__float_val), "system::is_zero(float)");
+  BOOST_TEST(system::is_positive(__float_val), "system::is_positive(float)");
   system::swap(__float_val, __float_val2);
   BOOST_TEST(system::equal_to(__float_val, (float)9.9), "system::swap(float)");
 
   double __double_val;
   system::from_string("1.23456", __double_val);
-  BOOST_TEST(system::is_finite(__double_val), "system::is_finite(double)");
-  BOOST_TEST(!system::is_infinite(__double_val), "system::is_infinite(double)");
-  BOOST_TEST(!system::is_nan(__double_val), "system::is_nan(double)");
-  BOOST_TEST(!system::is_zero(__double_val), "system::is_zero(double)");
   BOOST_TEST(system::equal_to(__double_val, __double_val),
              "system::from_string(double)");
   BOOST_TEST(!system::less_than(__double_val, __double_val),
@@ -322,15 +319,14 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
              "system::less_than(double)");
   BOOST_TEST(!system::less_than((double)1.23457, __double_val),
              "system::less_than(double)");
+  BOOST_TEST(system::is_finite(__double_val), "system::is_finite(double)");
+  BOOST_TEST(!system::is_infinite(__double_val), "system::is_infinite(double)");
+  BOOST_TEST(!system::is_nan(__double_val), "system::is_nan(double)");
+  BOOST_TEST(!system::is_zero(__double_val), "system::is_zero(double)");
+  BOOST_TEST(system::is_positive(__double_val), "system::is_positive(double)");
 
   long double __ldouble_val;
   system::from_string("1.234567", __ldouble_val);
-  BOOST_TEST(system::is_finite(__ldouble_val),
-             "system::is_finite(long double)");
-  BOOST_TEST(!system::is_infinite(__ldouble_val),
-             "system::is_infinite(long double)");
-  BOOST_TEST(!system::is_nan(__ldouble_val), "system::is_nan(long double)");
-  BOOST_TEST(!system::is_zero(__ldouble_val), "system::is_zero(long double)");
   BOOST_TEST(system::equal_to(__ldouble_val, __ldouble_val),
              "system::from_string(long double)");
   BOOST_TEST(!system::less_than(__ldouble_val, __ldouble_val),
@@ -345,6 +341,14 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
              "system::less_than(long double)");
   BOOST_TEST(!system::less_than((long double)1.234568, __ldouble_val),
              "system::less_than(long double)");
+  BOOST_TEST(system::is_finite(__ldouble_val),
+             "system::is_finite(long double)");
+  BOOST_TEST(!system::is_infinite(__ldouble_val),
+             "system::is_infinite(long double)");
+  BOOST_TEST(!system::is_nan(__ldouble_val), "system::is_nan(long double)");
+  BOOST_TEST(!system::is_zero(__ldouble_val), "system::is_zero(long double)");
+  BOOST_TEST(system::is_positive(__ldouble_val),
+             "system::is_positive(long double)");
 
   system::from_string("1.2345", __mpfr);
   BOOST_TEST(system::is_finite(__mpfr), "system::is_finite(mpfr_t)");
