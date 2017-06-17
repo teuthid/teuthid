@@ -69,9 +69,9 @@ bool system::uses_cl_backend(bool enabled) {
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 #ifdef TEUTHID_HAVE_INT_128
-std::string system::uint128_to_string_(uint128_t value) {
+std::string system::uint128_to_string_(uint128_t x) {
   unsigned __mod;
-  uint128_t __div, __value = value;
+  uint128_t __div, __value = x;
   std::string __s;
   do {
     __div = __value / 10;
@@ -83,32 +83,32 @@ std::string system::uint128_to_string_(uint128_t value) {
   return __s;
 }
 
-template <> std::string system::to_string(const int128_t &value) {
-  if ((value < INT64_MIN) || (value > INT64_MAX)) {
-    bool __minus = (value < 0);
-    uint128_t __value = (value >= 0) ? value : -value;
+template <> std::string system::to_string(const int128_t &x) {
+  if ((x < INT64_MIN) || (x > INT64_MAX)) {
+    bool __minus = (x < 0);
+    uint128_t __value = (x >= 0) ? x : -x;
     std::string __s = system::uint128_to_string_(__value);
     __s = __minus ? ("-" + __s) : __s;
     return __s;
   } else
-    return std::to_string(static_cast<long long>(value));
+    return std::to_string(static_cast<long long>(x));
 }
 
-template <> std::string system::to_string(const uint128_t &value) {
-  if (value > UINT64_MAX)
-    return system::uint128_to_string_(value);
+template <> std::string system::to_string(const uint128_t &x) {
+  if (x > UINT64_MAX)
+    return system::uint128_to_string_(x);
   else
-    return std::to_string(static_cast<unsigned long long>(value));
+    return std::to_string(static_cast<unsigned long long>(x));
 }
 #endif // TEUTHID_HAVE_INT_128
 
 #define __TEUTHID_STRING_FROM_FLOAT(TYPE)                                      \
-  template <> std::string system::to_string(const TYPE &value) {               \
+  template <> std::string system::to_string(const TYPE &x) {                   \
     std::ostringstream __os;                                                   \
     __os.precision(system::format_float_precision_.load());                    \
     __os << (system::format_float_scientific_.load() ? std::scientific         \
                                                      : std::fixed);            \
-    __os << value;                                                             \
+    __os << x;                                                                 \
     return __os.str();                                                         \
   }
 __TEUTHID_STRING_FROM_FLOAT(float);
@@ -116,26 +116,25 @@ __TEUTHID_STRING_FROM_FLOAT(double);
 __TEUTHID_STRING_FROM_FLOAT(long double);
 #undef __TEUTHID_STRING_FROM_FLOAT
 
-template <> std::string system::to_string(const mpfr_t &value) {
+template <> std::string system::to_string(const mpfr_t &x) {
   char __str[512], __precision[64];
   std::string __format =
       (system::format_float_scientific_.load() ? "%%.%ldRe" : "%%.%ldRf");
   sprintf(__precision, __format.c_str(),
           system::format_float_precision_.load());
-  mpfr_sprintf(__str, __precision, value);
+  mpfr_sprintf(__str, __precision, x);
   return std::string(__str);
 }
 
-template <> std::string system::to_string(const floatmp_base &value) {
-  return system::to_string(value.c_mpfr());
+template <> std::string system::to_string(const floatmp_base &x) {
+  return system::to_string(x.c_mpfr());
 }
 
-template <>
-std::string system::to_string(const std::vector<std::string> &value) {
+template <> std::string system::to_string(const std::vector<std::string> &v) {
   std::string __str;
-  for (std::size_t __i = 0; __i < value.size(); __i++) {
-    __str += value[__i];
-    if ((__i + 1) < value.size())
+  for (std::size_t __i = 0; __i < v.size(); __i++) {
+    __str += v[__i];
+    if ((__i + 1) < v.size())
       __str += " ";
   }
   return __str;
@@ -143,28 +142,28 @@ std::string system::to_string(const std::vector<std::string> &value) {
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
-std::size_t system::split_string(const std::string &str,
-                                 std::vector<std::string> &vec, char delim) {
-  vec.clear();
-  if (!str.empty()) {
+std::size_t system::split_string(const std::string &s,
+                                 std::vector<std::string> &v, char delim) {
+  v.clear();
+  if (!s.empty()) {
     std::size_t __start = 0, __end = 0;
     std::string __sub;
-    while ((__end = str.find(delim, __start)) != std::string::npos) {
+    while ((__end = s.find(delim, __start)) != std::string::npos) {
       if (__end != __start) {
-        __sub = str.substr(__start, __end - __start);
+        __sub = s.substr(__start, __end - __start);
         if (!__sub.empty())
-          vec.push_back(__sub);
+          v.push_back(__sub);
       }
       __start = __end + 1;
     }
     if (__end != __start) {
-      __sub = str.substr(__start);
+      __sub = s.substr(__start);
       if (!__sub.empty())
-        vec.push_back(__sub);
+        v.push_back(__sub);
     }
-    vec.shrink_to_fit();
+    v.shrink_to_fit();
   }
-  return vec.size();
+  return v.size();
 }
 
 void system::format_float_output(std::streamsize precision, bool scientific) {
@@ -180,8 +179,8 @@ std::streamsize system::format_float_precision(std::streamsize precision) {
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-std::string system::validate_string_(const std::string &str) {
-  std::string __s = str;
+std::string system::validate_string_(const std::string &s) {
+  std::string __s = s;
   if (!__s.empty()) {
     std::transform(__s.begin(), __s.end(), __s.begin(), ::tolower);
     __s.erase(std::remove_if(__s.begin(), __s.end(), ::isspace), __s.end());
@@ -189,28 +188,26 @@ std::string system::validate_string_(const std::string &str) {
   return __s;
 }
 
-template <>
-bool &system::from_string(const std::string &str_value, bool &value) {
-  std::string __s = system::validate_string_(str_value);
+template <> bool &system::from_string(const std::string &s, bool &x) {
+  std::string __s = system::validate_string_(s);
   if (!__s.empty())
     if ((__s == "false") || (__s == "true") || (__s == "1") || (__s == "0")) {
-      value = ((__s == "true") || (__s == "1"));
-      return value;
+      x = ((__s == "true") || (__s == "1"));
+      return x;
     }
   throw std::invalid_argument("empty or invalid string");
 }
 
 #define __TEUTHID_SIGNED_INTEGER_FROM_STRING(TYPE)                             \
-  template <>                                                                  \
-  TYPE &system::from_string(const std::string &str_value, TYPE &value) {       \
-    std::string __s = system::validate_string_(str_value);                     \
+  template <> TYPE &system::from_string(const std::string &s, TYPE &x) {       \
+    std::string __s = system::validate_string_(s);                             \
     if (!__s.empty()) {                                                        \
       long long __long = std::stoll(__s);                                      \
       TYPE __val = __long;                                                     \
       if (__long != __val)                                                     \
         throw std::out_of_range("system::from_string()");                      \
-      value = __val;                                                           \
-      return value;                                                            \
+      x = __val;                                                               \
+      return x;                                                                \
     }                                                                          \
     throw std::invalid_argument("empty or invalid string");                    \
   }
@@ -221,16 +218,15 @@ __TEUTHID_SIGNED_INTEGER_FROM_STRING(int64_t);
 #undef __TEUTHID_SIGNED_INTEGER_FROM_STRING
 
 #define __TEUTHID_UNSIGNED_INTEGER_FROM_STRING(TYPE)                           \
-  template <>                                                                  \
-  TYPE &system::from_string(const std::string &str_value, TYPE &value) {       \
-    std::string __s = system::validate_string_(str_value);                     \
+  template <> TYPE &system::from_string(const std::string &s, TYPE &x) {       \
+    std::string __s = system::validate_string_(s);                             \
     if (!__s.empty()) {                                                        \
       unsigned long long __long = std::stoull(__s);                            \
       TYPE __val = __long;                                                     \
       if (__long != __val)                                                     \
         throw std::out_of_range("system::from_string()");                      \
-      value = __val;                                                           \
-      return value;                                                            \
+      x = __val;                                                               \
+      return x;                                                                \
     }                                                                          \
     throw std::invalid_argument("empty or invalid string");                    \
   }
@@ -287,12 +283,11 @@ uint128_t &system::from_string(const std::string &str_value, uint128_t &value) {
 #endif // TEUTHID_HAVE_INT_128
 
 #define __TEUTHID_FLOAT_FROM_STRING(TYPE, FUN)                                 \
-  template <>                                                                  \
-  TYPE &system::from_string(const std::string &str_value, TYPE &value) {       \
-    std::string __s = system::validate_string_(str_value);                     \
+  template <> TYPE &system::from_string(const std::string &s, TYPE &x) {       \
+    std::string __s = system::validate_string_(s);                             \
     if (!__s.empty()) {                                                        \
-      value = FUN(__s);                                                        \
-      return value;                                                            \
+      x = FUN(__s);                                                            \
+      return x;                                                                \
     }                                                                          \
     throw std::invalid_argument("empty or invalid string");                    \
   }

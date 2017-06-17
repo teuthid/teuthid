@@ -124,9 +124,9 @@ option to be able to use the OpenCL platforms and devices.
 
 
 /*! 
-\fn template <typename T> static std::string system::to_string(const T &value)
+\fn template <typename T> static std::string system::to_string(const T &x)
 \brief Converts a value of type \c T to a string.
-@param[in] value a value of any type except of the array type (like \c char[]) 
+@param[in] x a value of any type except of the array type (like \c char[]) 
 or the pointer type (like \c int*, but \c void* is allowed).
 \return a string holding the converted value of type \c T.
 \note The function has specializations for the following types: \c bool, 
@@ -142,10 +142,10 @@ settings given by the function format_float_output().
 
 
 /*! 
-\fn std::size_t system::split_string(const std::string &str, std::vector<std::string> &vec, char delim);
+\fn std::size_t system::split_string(const std::string &s, std::vector<std::string> &v, char delim);
 \brief Splits a string by a delimiter.
-@param[in] str a string to be split.
-@param[in,out] vec the result of splitting as a vector of strings.
+@param[in] s a string to be split.
+@param[in,out] v the result of splitting as a vector of strings.
 @param[in] delim the delimiter (default is <tt>' '</tt> - a space).
 \return a size of vector containing separated strings.
 \note The function ignores empty delimited substrings.
@@ -197,12 +197,12 @@ a fixed notation.
 
 
 /*! 
-\fn template <typename T> static T &system::from_string(const std::string &str_value, T &value)
+\fn template <typename T> static T &system::from_string(const std::string &s, T &x)
 \brief Interprets a value in a string.
 \details Discards any whitespace characters (as identified by calling 
 \c std::isspace()) and converts all characters to lower case.
-@param[in] str_value the string to convert.
-@param[in,out] value the string converted to the specified value of type \c T.
+@param[in] s the string to convert.
+@param[in,out] x the string converted to the specified value of type \c T.
 \exception std::invalid_argument if no conversion could be performed.
 \exception std::out_of_range if the converted string would fall out of the 
 range of the result type \c T.
@@ -262,12 +262,12 @@ enumeration type (scoped or unscoped). Otherwise, the behavior is undefined.
 
 
 /*!
-\fn template <typename T> static bool system::is_finite(const T &value)
+\fn template <typename T> static bool system::is_finite(const T &x)
 \brief Determines if the floating point number has finite value.
-\details Determines if the given floating point number \c value has finite 
+\details Determines if the given floating point number \c x has finite 
 value i.e. it is normal, subnormal or zero, but not infinite or NaN.
-@param[in] value a floating point value
-\return \c true value if \c value has finite value, \c false if \c value is 
+@param[in] x a floating point value
+\return \c true value if \c x has finite value, \c false if \c x is 
 infinite or NaN.
 \note The function has specializations for the following types: \c float, 
 \c double, <tt>long double</tt>, \c mpfr_t, 
@@ -277,11 +277,11 @@ infinite or NaN.
 
 
 /*!
-\fn template <typename T> static bool system::is_infinite(const T &value)
+\fn template <typename T> static bool system::is_infinite(const T &x)
 \brief Determines if the floating point number is a positive or negative 
 infinity.
-@param[in] value a floating point value
-\return \c true if \c value is infinite, \c false otherwise.
+@param[in] x a floating point value
+\return \c true if \c x is infinite, \c false otherwise.
 \note The function has specializations for the following types: \c float, 
 \c double, <tt>long double</tt>, \c mpfr_t, 
 \ref teuthid::floatmp "floatmp<Precision>" and integral types.
@@ -290,21 +290,22 @@ infinity.
 
 
 /*!
-\fn template <typename T> static bool system::is_nan(const T &value)
+\fn template <typename T> static bool system::is_nan(const T &x)
 \brief Determines if the floating point number is NaN.
-@param[in] value a floating point value
-\return \c true if \c value is a NaN, \c false otherwise.
+@param[in] x a floating point value
+\return \c true if \c x is a NaN, \c false otherwise.
 \note The function has specializations for the following types: \c float, 
 \c double, <tt>long double</tt>, \c mpfr_t, 
 \ref teuthid::floatmp "floatmp<Precision>" and integral types.
 \see system::is_finite().
 */
 
+
 /*!
-\fn template <typename T> static bool system::is_zero(const T &value)
+\fn template <typename T> static bool system::is_zero(const T &x)
 \brief Determines if the floating point number has zero value.
-@param[in] value a floating point value
-\return \c true value if \c value has zero value, \c false otherwise.
+@param[in] x a floating point value
+\return \c true if \c x has zero value, \c false otherwise.
 \note The function has specializations for the following types: \c float, 
 \c double, <tt>long double</tt>, \c mpfr_t, 
 \ref teuthid::floatmp "floatmp<Precision>" and integral types.

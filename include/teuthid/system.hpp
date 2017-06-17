@@ -47,11 +47,11 @@ public:
   static bool uses_cl_backend() noexcept { return system::clb_.load(); }
   static bool uses_cl_backend(bool enabled);
 
-  template <typename T> static std::string to_string(const T &value) {
+  template <typename T> static std::string to_string(const T &x) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
-  static std::size_t split_string(const std::string &str,
-                                  std::vector<std::string> &vec,
+  static std::size_t split_string(const std::string &s,
+                                  std::vector<std::string> &v,
                                   char delim = ' ');
   static std::streamsize default_format_float_precision() noexcept {
     return default_format_float_precision_;
@@ -63,8 +63,7 @@ public:
   static bool format_float_scientific(bool scientific) {
     return format_float_scientific_.exchange(scientific);
   }
-  template <typename T>
-  static T &from_string(const std::string &str_value, T &value) {
+  template <typename T> static T &from_string(const std::string &s, T &x) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
   template <typename T> static bool equal_to(const T &x, const T &y) {
@@ -77,82 +76,54 @@ public:
     static_assert(std::is_enum<E>::value, "requires enumeration type");
     return static_cast<typename std::underlying_type<E>::type>(en);
   }
-  template <typename T> static bool is_finite(const T &value) {
+  template <typename T> static bool is_finite(const T &x) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
-  template <typename T> static bool is_infinite(const T &value) {
+  template <typename T> static bool is_infinite(const T &x) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
-  template <typename T> static bool is_nan(const T &value) {
+  template <typename T> static bool is_nan(const T &x) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
-  template <typename T> static bool is_zero(const T &value) {
+  template <typename T> static bool is_zero(const T &x) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
   template <typename T> static void swap(T &x, T &y) { std::swap(x, y); }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-  static std::string to_string(const bool &value) {
-    return (value ? std::string("true") : std::string("false"));
+  static std::string to_string(const bool &x) {
+    return (x ? std::string("true") : std::string("false"));
   }
-  static std::string to_string(const int8_t &value) {
-    return std::to_string(value);
+  static std::string to_string(const int8_t &x) { return std::to_string(x); }
+  static std::string to_string(const int16_t &x) { return std::to_string(x); }
+  static std::string to_string(const int32_t &x) { return std::to_string(x); }
+  static std::string to_string(const int64_t &x) { return std::to_string(x); }
+  static std::string to_string(const uint8_t &x) { return std::to_string(x); }
+  static std::string to_string(const uint16_t &x) { return std::to_string(x); }
+  static std::string to_string(const uint32_t &x) { return std::to_string(x); }
+  static std::string to_string(const uint64_t &x) { return std::to_string(x); }
+  static std::string to_string(const char &x) { return std::string(1, x); }
+  static std::string to_string(const char *const &x) { return std::string(x); }
+  static std::string to_string(const std::string &x) { return std::string(x); }
+  static std::string to_string(void *const &x) {
+    return system::to_string(reinterpret_cast<uintptr_t>(x));
   }
-  static std::string to_string(const int16_t &value) {
-    return std::to_string(value);
+  template <std::size_t P> static std::string to_string(const floatmp<P> &x) {
+    return system::to_string(x.c_mpfr());
   }
-  static std::string to_string(const int32_t &value) {
-    return std::to_string(value);
+  template <std::size_t P>
+  static floatmp<P> &from_string(const std::string &s, floatmp<P> &x);
+  template <std::size_t P> static bool is_finite(const floatmp<P> &x) {
+    return x.is_finite();
   }
-  static std::string to_string(const int64_t &value) {
-    return std::to_string(value);
+  template <std::size_t P> static bool is_infinite(const floatmp<P> &x) {
+    return x.is_infinite();
   }
-  static std::string to_string(const uint8_t &value) {
-    return std::to_string(value);
+  template <std::size_t P> static bool is_nan(const floatmp<P> &x) {
+    return x.is_nan();
   }
-  static std::string to_string(const uint16_t &value) {
-    return std::to_string(value);
-  }
-  static std::string to_string(const uint32_t &value) {
-    return std::to_string(value);
-  }
-  static std::string to_string(const uint64_t &value) {
-    return std::to_string(value);
-  }
-  static std::string to_string(const char &value) {
-    return std::string(1, value);
-  }
-  static std::string to_string(const char *const &value) {
-    return std::string(value);
-  }
-  static std::string to_string(const std::string &value) {
-    return std::string(value);
-  }
-  static std::string to_string(void *const &value) {
-    return system::to_string(reinterpret_cast<uintptr_t>(value));
-  }
-  template <std::size_t Precision>
-  static std::string to_string(const floatmp<Precision> &value) {
-    return system::to_string(value.c_mpfr());
-  }
-  template <std::size_t Precision>
-  static floatmp<Precision> &from_string(const std::string &str_value,
-                                         floatmp<Precision> &value);
-  template <std::size_t Precision>
-  static bool is_finite(const floatmp<Precision> &value) {
-    return value.is_finite();
-  }
-  template <std::size_t Precision>
-  static bool is_infinite(const floatmp<Precision> &value) {
-    return value.is_infinite();
-  }
-  template <std::size_t Precision>
-  static bool is_nan(const floatmp<Precision> &value) {
-    return value.is_nan();
-  }
-  template <std::size_t Precision>
-  static bool is_zero(const floatmp<Precision> &value) {
-    return value.is_zero();
+  template <std::size_t P> static bool is_zero(const floatmp<P> &x) {
+    return x.is_zero();
   }
   template <std::size_t P1, std::size_t P2>
   static void swap(floatmp<P1> &x, floatmp<P2> &y) {
@@ -169,63 +140,50 @@ private:
   static std::atomic<std::streamsize> format_float_precision_;
   static std::atomic_bool format_float_scientific_;
 #ifdef TEUTHID_HAVE_INT_128
-  static std::string uint128_to_string_(uint128_t value);
+  static std::string uint128_to_string_(uint128_t x);
   static uint128_t string_to_unit128_(const std::string &s);
 #endif
-  static std::string validate_string_(const std::string &str);
+  static std::string validate_string_(const std::string &s);
 }; // class system
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
+
 // specializations of system::to_string<T>()
 #ifdef TEUTHID_HAVE_INT_128
-template <> std::string system::to_string(const int128_t &value);
-template <> std::string system::to_string(const uint128_t &value);
+template <> std::string system::to_string(const int128_t &x);
+template <> std::string system::to_string(const uint128_t &x);
 #endif // TEUTHID_HAVE_INT_128
-template <> std::string system::to_string(const float &value);
-template <> std::string system::to_string(const double &value);
-template <> std::string system::to_string(const long double &value);
-template <> std::string system::to_string(const mpfr_t &value);
-template <> std::string system::to_string(const floatmp_base &value);
-template <>
-std::string system::to_string(const std::vector<std::string> &value);
+template <> std::string system::to_string(const float &x);
+template <> std::string system::to_string(const double &x);
+template <> std::string system::to_string(const long double &x);
+template <> std::string system::to_string(const mpfr_t &x);
+template <> std::string system::to_string(const floatmp_base &x);
+template <> std::string system::to_string(const std::vector<std::string> &v);
 
 // specializations of system::from_string<T>()
 // may throw: std::invalid_argument, std::out_of_range
+template <> bool &system::from_string(const std::string &s, bool &x);
+template <> int8_t &system::from_string(const std::string &s, int8_t &x);
+template <> int16_t &system::from_string(const std::string &s, int16_t &x);
+template <> int32_t &system::from_string(const std::string &s, int32_t &x);
+template <> int64_t &system::from_string(const std::string &s, int64_t &x);
+template <> uint8_t &system::from_string(const std::string &s, uint8_t &x);
+template <> uint16_t &system::from_string(const std::string &s, uint16_t &x);
+template <> uint32_t &system::from_string(const std::string &s, uint32_t &x);
+template <> uint64_t &system::from_string(const std::string &s, uint64_t &x);
+template <> float &system::from_string(const std::string &s, float &x);
+template <> double &system::from_string(const std::string &s, double &x);
 template <>
-bool &system::from_string(const std::string &str_value, bool &value);
-template <>
-int8_t &system::from_string(const std::string &str_value, int8_t &value);
-template <>
-int16_t &system::from_string(const std::string &str_value, int16_t &value);
-template <>
-int32_t &system::from_string(const std::string &str_value, int32_t &value);
-template <>
-int64_t &system::from_string(const std::string &str_value, int64_t &value);
-template <>
-uint8_t &system::from_string(const std::string &str_value, uint8_t &value);
-template <>
-uint16_t &system::from_string(const std::string &str_value, uint16_t &value);
-template <>
-uint32_t &system::from_string(const std::string &str_value, uint32_t &value);
-template <>
-uint64_t &system::from_string(const std::string &str_value, uint64_t &value);
-template <>
-float &system::from_string(const std::string &str_value, float &value);
-template <>
-double &system::from_string(const std::string &str_value, double &value);
-template <>
-long double &system::from_string(const std::string &str_value,
-                                 long double &value);
+long double &system::from_string(const std::string &s, long double &x);
 template <>
 mpfr_t &system::from_string(const std::string &str_value, mpfr_t &value);
 template <>
 floatmp_base &system::from_string(const std::string &str_value,
                                   floatmp_base &value);
-template <std::size_t Precision>
-floatmp<Precision> &system::from_string(const std::string &str_value,
-                                        floatmp<Precision> &value) {
-  return dynamic_cast<floatmp<Precision> &>(
-      system::from_string(str_value, static_cast<floatmp_base &>(value)));
+template <std::size_t P>
+floatmp<P> &system::from_string(const std::string &s, floatmp<P> &x) {
+  return dynamic_cast<floatmp<P> &>(
+      system::from_string(s, static_cast<floatmp_base &>(x)));
 }
 #ifdef TEUTHID_HAVE_INT_128
 template <>
