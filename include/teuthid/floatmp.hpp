@@ -325,27 +325,27 @@ public:
     TEUTHID_CHECK_FLOATMP_PRECISION(Precision);
   }
   template <std::size_t P>
-  floatmp(const floatmp<P> &value)
-      : floatmp_base(Precision, static_cast<const floatmp_base &>(value)) {
+  floatmp(const floatmp<P> &x)
+      : floatmp_base(Precision, static_cast<const floatmp_base &>(x)) {
     TEUTHID_CHECK_FLOATMP_PRECISION(Precision);
   }
-  template <typename T>
-  floatmp(const T &value) : floatmp_base(Precision, value) {
+  template <typename T> floatmp(const T &x) : floatmp_base(Precision, x) {
     TEUTHID_CHECK_FLOATMP_PRECISION(Precision);
   }
   virtual ~floatmp() {}
   floatmp &operator=(const floatmp &other) {
     if (this != &other)
-      mpfr_set(value_, other.value_, static_cast<mpfr_rnd_t>(rounding_mode()));
+      mpfr_set(value_, other.c_mpfr(),
+               static_cast<mpfr_rnd_t>(rounding_mode()));
     return *this;
   }
   template <std::size_t P> floatmp &operator=(const floatmp<P> &other) {
     TEUTHID_CHECK_FLOATMP_PRECISION(P);
-    mpfr_set(value_, other.value_, static_cast<mpfr_rnd_t>(rounding_mode()));
+    mpfr_set(value_, other.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
     return *this;
   }
-  template <typename T> floatmp &operator=(const T &value) {
-    floatmp_base::assign(value);
+  template <typename T> floatmp &operator=(const T &x) {
+    floatmp_base::assign(x);
     return *this;
   }
   template <std::size_t P> operator floatmp<P>() const {
@@ -357,55 +357,55 @@ public:
     mpfr_neg(__v.value_, c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
     return __v;
   }
-  template <typename T> floatmp &operator+=(const T &value) {
-    floatmp_base::add(value);
+  template <typename T> floatmp &operator+=(const T &x) {
+    floatmp_base::add(x);
     return *this;
   }
-  template <typename T> floatmp &operator-=(const T &value) {
-    floatmp_base::sub(value);
+  template <typename T> floatmp &operator-=(const T &x) {
+    floatmp_base::sub(x);
     return *this;
   }
-  template <typename T> floatmp &operator*=(const T &value) {
-    floatmp_base::mul(value);
+  template <typename T> floatmp &operator*=(const T &x) {
+    floatmp_base::mul(x);
     return *this;
   }
-  template <typename T> floatmp &operator/=(const T &value) {
-    floatmp_base::div(value);
+  template <typename T> floatmp &operator/=(const T &x) {
+    floatmp_base::div(x);
     return *this;
   }
 
-  template <typename T> floatmp &assign(const T &value) {
-    floatmp_base::assign(value);
+  template <typename T> floatmp &assign(const T &x) {
+    floatmp_base::assign(x);
     return *this;
   }
-  template <typename T> bool equal_to(const T &value) const {
+  template <typename T> bool equal_to(const T &x) const {
     return floatmp_base::equal_to(
-        static_cast<floatmp_base>(floatmp<Precision>(value)));
+        static_cast<floatmp_base>(floatmp<Precision>(x)));
   }
-  template <typename T> bool less_than(const T &value) const {
+  template <typename T> bool less_than(const T &x) const {
     return floatmp_base::less_than(
-        static_cast<floatmp_base>(floatmp<Precision>(value)));
+        static_cast<floatmp_base>(floatmp<Precision>(x)));
   }
-  template <typename T> floatmp &add(const T &value) {
-    floatmp_base::add(value);
+  template <typename T> floatmp &add(const T &x) {
+    floatmp_base::add(x);
     return *this;
   }
-  template <typename T> floatmp &sub(const T &value) {
-    floatmp_base::sub(value);
+  template <typename T> floatmp &sub(const T &x) {
+    floatmp_base::sub(x);
     return *this;
   }
-  template <typename T> floatmp &mul(const T &value) {
-    floatmp_base::mul(value);
+  template <typename T> floatmp &mul(const T &x) {
+    floatmp_base::mul(x);
     return *this;
   }
-  template <typename T> floatmp &div(const T &value) {
-    floatmp_base::div(value);
+  template <typename T> floatmp &div(const T &x) {
+    floatmp_base::div(x);
     return *this;
   }
   constexpr std::size_t precision() const noexcept { return Precision; }
-  template <std::size_t P> floatmp &swap(floatmp<P> &value) {
-    floatmp __tmp(value);
-    value.assign(value_);
+  template <std::size_t P> floatmp &swap(floatmp<P> &x) {
+    floatmp __tmp(x);
+    x.assign(c_mpfr());
     return assign(__tmp);
   }
   template <std::size_t P> floatmp &abs(const floatmp<P> &x) {
@@ -468,11 +468,11 @@ public:
   }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-  template <std::size_t P> bool equal_to(const floatmp<P> &value) const {
-    return floatmp_base::equal_to(static_cast<const floatmp_base &>(value));
+  template <std::size_t P> bool equal_to(const floatmp<P> &x) const {
+    return floatmp_base::equal_to(static_cast<const floatmp_base &>(x));
   }
-  template <std::size_t P> bool less_than(const floatmp<P> &value) const {
-    return floatmp_base::less_than(static_cast<const floatmp_base &>(value));
+  template <std::size_t P> bool less_than(const floatmp<P> &x) const {
+    return floatmp_base::less_than(static_cast<const floatmp_base &>(x));
   }
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 };     // class floatmp
