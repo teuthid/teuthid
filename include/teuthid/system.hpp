@@ -175,21 +175,17 @@ template <> float &system::from_string(const std::string &s, float &x);
 template <> double &system::from_string(const std::string &s, double &x);
 template <>
 long double &system::from_string(const std::string &s, long double &x);
+template <> mpfr_t &system::from_string(const std::string &s, mpfr_t &x);
 template <>
-mpfr_t &system::from_string(const std::string &str_value, mpfr_t &value);
-template <>
-floatmp_base &system::from_string(const std::string &str_value,
-                                  floatmp_base &value);
+floatmp_base &system::from_string(const std::string &s, floatmp_base &x);
 template <std::size_t P>
 floatmp<P> &system::from_string(const std::string &s, floatmp<P> &x) {
   return dynamic_cast<floatmp<P> &>(
       system::from_string(s, static_cast<floatmp_base &>(x)));
 }
 #ifdef TEUTHID_HAVE_INT_128
-template <>
-int128_t &system::from_string(const std::string &str_value, int128_t &value);
-template <>
-uint128_t &system::from_string(const std::string &str_value, uint128_t &value);
+template <> int128_t &system::from_string(const std::string &s, int128_t &x);
+template <> uint128_t &system::from_string(const std::string &s, uint128_t &x);
 #endif // TEUTHID_HAVE_INT_128
 
 // specializations of system::equal_to<T>()
@@ -206,8 +202,8 @@ template <> bool system::less_than(const mpfr_t &x, const mpfr_t &y);
 
 // specialization of system::is_finite<T>()
 #define __TEUTHID_SYSTEM_IS_FINITE(TYPE)                                       \
-  template <> inline bool system::is_finite(const TYPE &value) {               \
-    return std::isfinite(value);                                               \
+  template <> inline bool system::is_finite(const TYPE &x) {                   \
+    return std::isfinite(x);                                                   \
   }
 __TEUTHID_SYSTEM_IS_FINITE(bool)
 __TEUTHID_SYSTEM_IS_FINITE(char)
@@ -223,25 +219,25 @@ __TEUTHID_SYSTEM_IS_FINITE(float)
 __TEUTHID_SYSTEM_IS_FINITE(double)
 __TEUTHID_SYSTEM_IS_FINITE(long double)
 #undef __TEUTHID_SYSTEM_IS_FINITE
-template <> inline bool system::is_finite(const mpfr_t &value) {
-  return (mpfr_number_p(value) != 0);
+template <> inline bool system::is_finite(const mpfr_t &x) {
+  return (mpfr_number_p(x) != 0);
 }
-template <> inline bool system::is_finite(const floatmp_base &value) {
-  return value.is_finite();
+template <> inline bool system::is_finite(const floatmp_base &x) {
+  return x.is_finite();
 }
 #ifdef TEUTHID_HAVE_INT_128
-template <> inline bool system::is_finite(const int128_t &value) {
-  return system::is_finite(floatmp_base::int128_to_ldouble_(value));
+template <> inline bool system::is_finite(const int128_t &x) {
+  return system::is_finite(floatmp_base::int128_to_ldouble_(x));
 }
-template <> inline bool system::is_finite(const uint128_t &value) {
-  return system::is_finite(floatmp_base::uint128_to_ldouble_(value));
+template <> inline bool system::is_finite(const uint128_t &x) {
+  return system::is_finite(floatmp_base::uint128_to_ldouble_(x));
 }
 #endif // TEUTHID_HAVE_INT_128
 
 // specialization of system::is_infinite<T>()
 #define __TEUTHID_SYSTEM_IS_INFINITE(TYPE)                                     \
-  template <> inline bool system::is_infinite(const TYPE &value) {             \
-    return std::isinf(value);                                                  \
+  template <> inline bool system::is_infinite(const TYPE &x) {                 \
+    return std::isinf(x);                                                      \
   }
 __TEUTHID_SYSTEM_IS_INFINITE(bool)
 __TEUTHID_SYSTEM_IS_INFINITE(char)
@@ -257,25 +253,25 @@ __TEUTHID_SYSTEM_IS_INFINITE(float)
 __TEUTHID_SYSTEM_IS_INFINITE(double)
 __TEUTHID_SYSTEM_IS_INFINITE(long double)
 #undef __TEUTHID_SYSTEM_IS_INFINITE
-template <> inline bool system::is_infinite(const mpfr_t &value) {
-  return (mpfr_inf_p(value) != 0);
+template <> inline bool system::is_infinite(const mpfr_t &x) {
+  return (mpfr_inf_p(x) != 0);
 }
-template <> inline bool system::is_infinite(const floatmp_base &value) {
-  return value.is_infinite();
+template <> inline bool system::is_infinite(const floatmp_base &x) {
+  return x.is_infinite();
 }
 #ifdef TEUTHID_HAVE_INT_128
-template <> inline bool system::is_infinite(const int128_t &value) {
-  return system::is_infinite(floatmp_base::int128_to_ldouble_(value));
+template <> inline bool system::is_infinite(const int128_t &x) {
+  return system::is_infinite(floatmp_base::int128_to_ldouble_(x));
 }
-template <> inline bool system::is_infinite(const uint128_t &value) {
-  return system::is_infinite(floatmp_base::uint128_to_ldouble_(value));
+template <> inline bool system::is_infinite(const uint128_t &x) {
+  return system::is_infinite(floatmp_base::uint128_to_ldouble_(x));
 }
 #endif // TEUTHID_HAVE_INT_128
 
 // specialization of system::is_nan<T>()
 #define __TEUTHID_SYSTEM_IS_NAN(TYPE)                                          \
-  template <> inline bool system::is_nan(const TYPE &value) {                  \
-    return std::isnan(value);                                                  \
+  template <> inline bool system::is_nan(const TYPE &x) {                      \
+    return std::isnan(x);                                                      \
   }
 __TEUTHID_SYSTEM_IS_NAN(bool)
 __TEUTHID_SYSTEM_IS_NAN(char)
@@ -291,57 +287,47 @@ __TEUTHID_SYSTEM_IS_NAN(float)
 __TEUTHID_SYSTEM_IS_NAN(double)
 __TEUTHID_SYSTEM_IS_NAN(long double)
 #undef __TEUTHID_SYSTEM_IS_NAN
-template <> inline bool system::is_nan(const mpfr_t &value) {
-  return (mpfr_nan_p(value) != 0);
+template <> inline bool system::is_nan(const mpfr_t &x) {
+  return (mpfr_nan_p(x) != 0);
 }
-template <> inline bool system::is_nan(const floatmp_base &value) {
-  return value.is_nan();
+template <> inline bool system::is_nan(const floatmp_base &x) {
+  return x.is_nan();
 }
 #ifdef TEUTHID_HAVE_INT_128
-template <> inline bool system::is_nan(const int128_t &value) {
-  return system::is_nan(floatmp_base::int128_to_ldouble_(value));
+template <> inline bool system::is_nan(const int128_t &x) {
+  return system::is_nan(floatmp_base::int128_to_ldouble_(x));
 }
-template <> inline bool system::is_nan(const uint128_t &value) {
-  return system::is_nan(floatmp_base::uint128_to_ldouble_(value));
+template <> inline bool system::is_nan(const uint128_t &x) {
+  return system::is_nan(floatmp_base::uint128_to_ldouble_(x));
 }
 #endif // TEUTHID_HAVE_INT_128
 
 // specialization of system::is_zero<T>()
-template <> inline bool system::is_zero(const bool &value) { return !value; }
-template <> inline bool system::is_zero(const char &value) { return !value; }
-template <> inline bool system::is_zero(const int8_t &value) { return !value; }
-template <> inline bool system::is_zero(const int16_t &value) { return !value; }
-template <> inline bool system::is_zero(const int32_t &value) { return !value; }
-template <> inline bool system::is_zero(const int64_t &value) { return !value; }
-template <> inline bool system::is_zero(const uint8_t &value) { return !value; }
-template <> inline bool system::is_zero(const uint16_t &value) {
-  return !value;
-}
-template <> inline bool system::is_zero(const uint32_t &value) {
-  return !value;
-}
-template <> inline bool system::is_zero(const uint64_t &value) {
-  return !value;
-}
+template <> inline bool system::is_zero(const bool &x) { return !x; }
+template <> inline bool system::is_zero(const char &x) { return !x; }
+template <> inline bool system::is_zero(const int8_t &x) { return !x; }
+template <> inline bool system::is_zero(const int16_t &x) { return !x; }
+template <> inline bool system::is_zero(const int32_t &x) { return !x; }
+template <> inline bool system::is_zero(const int64_t &x) { return !x; }
+template <> inline bool system::is_zero(const uint8_t &x) { return !x; }
+template <> inline bool system::is_zero(const uint16_t &x) { return !x; }
+template <> inline bool system::is_zero(const uint32_t &x) { return !x; }
+template <> inline bool system::is_zero(const uint64_t &x) { return !x; }
 #ifdef TEUTHID_HAVE_INT_128
-template <> inline bool system::is_zero(const int128_t &value) {
-  return !value;
-}
-template <> inline bool system::is_zero(const uint128_t &value) {
-  return !value;
-}
+template <> inline bool system::is_zero(const int128_t &x) { return !x; }
+template <> inline bool system::is_zero(const uint128_t &x) { return !x; }
 #endif // TEUTHID_HAVE_INT_128
-template <> inline bool system::is_zero(const float &value) {
-  return system::equal_to(value, static_cast<float>(0));
+template <> inline bool system::is_zero(const float &x) {
+  return system::equal_to(x, static_cast<float>(0));
 }
-template <> inline bool system::is_zero(const double &value) {
-  return system::equal_to(value, static_cast<double>(0));
+template <> inline bool system::is_zero(const double &x) {
+  return system::equal_to(x, static_cast<double>(0));
 }
-template <> inline bool system::is_zero(const long double &value) {
-  return system::equal_to(value, static_cast<long double>(0));
+template <> inline bool system::is_zero(const long double &x) {
+  return system::equal_to(x, static_cast<long double>(0));
 }
-template <> inline bool system::is_zero(const mpfr_t &value) {
-  return (system::to_string(value).compare(
+template <> inline bool system::is_zero(const mpfr_t &x) {
+  return (system::to_string(x).compare(
               system::to_string(static_cast<long double>(0))) == 0);
 }
 

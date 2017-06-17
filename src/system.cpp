@@ -249,33 +249,31 @@ uint128_t system::string_to_unit128_(const std::string &s) {
   return __value;
 }
 
-template <>
-int128_t &system::from_string(const std::string &str_value, int128_t &value) {
+template <> int128_t &system::from_string(const std::string &s, int128_t &x) {
   bool __minus = false;
-  std::string __s = system::validate_string_(str_value);
+  std::string __s = system::validate_string_(s);
   if (!__s.empty()) {
     if ((__s[0] == '+') || (__s[0] == '-')) {
       __minus = (__s[0] == '-');
       __s = __s.substr(1);
     }
     if (!__s.empty()) {
-      value = system::string_to_unit128_(__s);
-      value = __minus ? -value : value;
-      return value;
+      x = system::string_to_unit128_(__s);
+      x = __minus ? -x : x;
+      return x;
     }
   }
   throw std::invalid_argument("empty or invalid string");
 }
 
-template <>
-uint128_t &system::from_string(const std::string &str_value, uint128_t &value) {
-  std::string __s = system::validate_string_(str_value);
+template <> uint128_t &system::from_string(const std::string &s, uint128_t &x) {
+  std::string __s = system::validate_string_(s);
   if (!__s.empty()) {
     if (__s[0] == '+')
       __s = __s.substr(1);
     if (!__s.empty()) {
-      value = system::string_to_unit128_(__s);
-      return value;
+      x = system::string_to_unit128_(__s);
+      return x;
     }
   }
   throw std::invalid_argument("empty or invalid string");
@@ -296,29 +294,26 @@ __TEUTHID_FLOAT_FROM_STRING(double, stod);
 __TEUTHID_FLOAT_FROM_STRING(long double, stold);
 #undef __TEUTHID_FLOAT_FROM_STRING
 
-template <>
-mpfr_t &system::from_string(const std::string &str_value, mpfr_t &value) {
-  std::string __s = system::validate_string_(str_value);
+template <> mpfr_t &system::from_string(const std::string &s, mpfr_t &x) {
+  std::string __s = system::validate_string_(s);
   if (!__s.empty())
-    if (mpfr_set_str(value, __s.c_str(), 10,
-                     mpfr_get_default_rounding_mode()) == 0)
-      return value;
+    if (mpfr_set_str(x, __s.c_str(), 10, mpfr_get_default_rounding_mode()) == 0)
+      return x;
   throw std::invalid_argument("empty or invalid string");
 }
 
 template <>
-floatmp_base &system::from_string(const std::string &str_value,
-                                  floatmp_base &value) {
-  std::string __s = system::validate_string_(str_value);
+floatmp_base &system::from_string(const std::string &s, floatmp_base &x) {
+  std::string __s = system::validate_string_(s);
   mpfr_t __result;
-  mpfr_init2(__result, mpfr_get_prec(value.c_mpfr()));
+  mpfr_init2(__result, mpfr_get_prec(x.c_mpfr()));
   if (!__s.empty())
     if (mpfr_set_str(__result, __s.c_str(), 10,
                      static_cast<mpfr_rnd_t>(floatmp_base::rounding_mode())) ==
         0) {
-      value.assign(__result);
+      x.assign(__result);
       mpfr_clear(__result);
-      return value;
+      return x;
     }
   throw std::invalid_argument("empty or invalid string");
 }
