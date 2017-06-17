@@ -88,6 +88,9 @@ public:
   template <typename T> static bool is_zero(const T &x) {
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
+  template <typename T> static bool is_positive(const T &x) {
+    TETHID_CHECK_TYPE_SPECIALIZATION(T);
+  }
   template <typename T> static void swap(T &x, T &y) { std::swap(x, y); }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -124,6 +127,9 @@ public:
   }
   template <std::size_t P> static bool is_zero(const floatmp<P> &x) {
     return x.is_zero();
+  }
+  template <std::size_t P> static bool is_positive(const floatmp<P> &x) {
+    return x.is_positive();
   }
   template <std::size_t P1, std::size_t P2>
   static void swap(floatmp<P1> &x, floatmp<P2> &y) {
@@ -330,6 +336,25 @@ template <> inline bool system::is_zero(const mpfr_t &x) {
   return (system::to_string(x).compare(
               system::to_string(static_cast<long double>(0))) == 0);
 }
+
+// specialization of system::is_positive<T>()
+template <> inline bool system::is_positive(const bool &x) { return x; }
+template <> inline bool system::is_positive(const char &x) { return x > 0; }
+template <> inline bool system::is_positive(const int8_t &x) { return x > 0; }
+template <> inline bool system::is_positive(const int16_t &x) { return x > 0; }
+template <> inline bool system::is_positive(const int32_t &x) { return x > 0; }
+template <> inline bool system::is_positive(const int64_t &x) { return x > 0; }
+template <> inline bool system::is_positive(const uint8_t &x) { return x > 0; }
+template <> inline bool system::is_positive(const uint16_t &x) { return x > 0; }
+template <> inline bool system::is_positive(const uint32_t &x) { return x > 0; }
+template <> inline bool system::is_positive(const uint64_t &x) { return x > 0; }
+#ifdef TEUTHID_HAVE_INT_128
+template <> inline bool system::is_positive(const int128_t &x) { return x > 0; }
+template <> inline bool system::is_positive(const uint128_t &x) {
+  return x > 0;
+}
+#endif // TEUTHID_HAVE_INT_128
+
 
 // specialization of system::swap<T>()
 template <> inline void system::swap(mpfr_t &x, mpfr_t &y) { mpfr_swap(x, y); }
