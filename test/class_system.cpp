@@ -351,14 +351,15 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
              "system::is_positive(long double)");
 
   system::from_string("1.2345", __mpfr);
-  BOOST_TEST(system::is_finite(__mpfr), "system::is_finite(mpfr_t)");
-  BOOST_TEST(!system::is_infinite(__mpfr), "system::is_infinite(mpfr_t)");
-  BOOST_TEST(!system::is_nan(__mpfr), "system::is_nan(mpfr_t)");
-  BOOST_TEST(!system::is_zero(__mpfr), "system::is_zero(mpfr_t)");
   BOOST_TEST(mpfr_cmp_ld(__mpfr, (long double)1.2345) == 0,
              "system::from_string(mpfr_t)");
   BOOST_TEST(system::equal_to(__mpfr, __mpfr), "system::equal_to(mpfr_t)");
   BOOST_TEST(!system::less_than(__mpfr, __mpfr), "system::less_than(mpfr_t)");
+  BOOST_TEST(system::is_finite(__mpfr), "system::is_finite(mpfr_t)");
+  BOOST_TEST(!system::is_infinite(__mpfr), "system::is_infinite(mpfr_t)");
+  BOOST_TEST(!system::is_nan(__mpfr), "system::is_nan(mpfr_t)");
+  BOOST_TEST(!system::is_zero(__mpfr), "system::is_zero(mpfr_t)");
+  BOOST_TEST(system::is_positive(__mpfr), "system::is_positive(mpfr_t)");
   mpfr_t __mpfr2;
   mpfr_init2(__mpfr2, mpfr_get_default_prec());
   system::from_string("9.9999", __mpfr2);

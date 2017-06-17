@@ -230,7 +230,7 @@ according to the current format settings for to_string(). For other types, the
 function behaves just like the \c operator== (for those types for which this 
 operator is defined).
 \see system::format_float_output(), system::format_float_precision(), 
-system::less_than().
+system::less_than(), system::is_positive().
 */
 
 
@@ -272,7 +272,8 @@ infinite or NaN.
 \note The function has specializations for the following types: \c float, 
 \c double, <tt>long double</tt>, \c mpfr_t, 
 \ref teuthid::floatmp "floatmp<Precision>" and integral types.
-\see system::is_infinite(), system::is_nan(), system::is_zero().
+\see system::is_infinite(), system::is_nan(), system::is_zero(), 
+system::is_positive().
 */
 
 
@@ -309,7 +310,18 @@ infinity.
 \note The function has specializations for the following types: \c float, 
 \c double, <tt>long double</tt>, \c mpfr_t, 
 \ref teuthid::floatmp "floatmp<Precision>" and integral types.
-\see system::equal_to(), system::is_finite().
+\see system::equal_to(), system::is_finite(), system::is_positive().
+*/
+
+/*!
+\fn template <typename T> static bool system::is_positive(const T &x)
+\brief Determines if the floating point number has positive value.
+@param[in] x a floating point value
+\return \c true if \c x has positive value, \c false otherwise.
+\note The function has specializations for the following types: \c float, 
+\c double, <tt>long double</tt>, \c mpfr_t, 
+\ref teuthid::floatmp "floatmp<Precision>" and integral types.
+\see system::equal_to(), system::is_finite(), system::is_zero().
 */
 
 

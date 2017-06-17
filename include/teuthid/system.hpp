@@ -333,8 +333,8 @@ template <> inline bool system::is_zero(const long double &x) {
   return system::equal_to(x, static_cast<long double>(0));
 }
 template <> inline bool system::is_zero(const mpfr_t &x) {
-  return (system::to_string(x).compare(
-              system::to_string(static_cast<long double>(0))) == 0);
+  return system::equal_to(mpfr_get_ld(x, mpfr_get_default_rounding_mode()),
+                          static_cast<long double>(0));
 }
 
 // specialization of system::is_positive<T>()
@@ -362,6 +362,10 @@ template <> inline bool system::is_positive(const double &x) {
 }
 template <> inline bool system::is_positive(const long double &x) {
   return system::less_than(static_cast<long double>(0), x);
+}
+template <> inline bool system::is_positive(const mpfr_t &x) {
+  return system::less_than(static_cast<long double>(0),
+                           mpfr_get_ld(x, mpfr_get_default_rounding_mode()));
 }
 
 // specialization of system::swap<T>()
