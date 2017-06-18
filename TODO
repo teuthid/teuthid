@@ -1,1 +1,3 @@
-+ implement class neuron<T value_t> 
++ implement class interval<FT float_type>
++ inplement class concurrent
++ implement class neuron<FT float_type> 
