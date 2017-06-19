@@ -55,6 +55,10 @@ int main() {
   __f5 /= 100000;
   std::cout << "  x.div(100000) => " << system::to_string(__f5);
   std::cout << std::endl;
+  std::cout << "  exp(x) => " << system::to_string(std::exp(__f5));
+  std::cout << "  exp2(x) => " << system::to_string(std::exp2(__f5));
+  std::cout << "  expm1(x) => " << system::to_string(std::expm1(__f5));
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<10> __f10 = __value;
@@ -81,6 +85,10 @@ int main() {
   std::cout << "  x.mul(100000) => " << system::to_string(__f10);
   __f10 /= 100000;
   std::cout << "  x.div(100000) => " << system::to_string(__f10);
+  std::cout << std::endl;
+  std::cout << "  exp(x) => " << system::to_string(std::exp(__f10));
+  std::cout << "  exp2(x) => " << system::to_string(std::exp2(__f10));
+  std::cout << "  expm1(x) => " << system::to_string(std::expm1(__f10));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
@@ -109,6 +117,10 @@ int main() {
   __f20 /= 100000;
   std::cout << "  x.div(100000) => " << system::to_string(__f20);
   std::cout << std::endl;
+  std::cout << "  exp(x) => " << system::to_string(std::exp(__f20));
+  std::cout << "  exp2(x) => " << system::to_string(std::exp2(__f20));
+  std::cout << "  expm1(x) => " << system::to_string(std::expm1(__f20));
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<50> __f50 = __value;
@@ -135,6 +147,10 @@ int main() {
   std::cout << "  x.mul(100000) => " << system::to_string(__f50);
   __f50 /= 100000;
   std::cout << "  x.div(100000) => " << system::to_string(__f50);
+  std::cout << std::endl;
+  std::cout << "  exp(x) => " << system::to_string(std::exp(__f50));
+  std::cout << "  exp2(x) => " << system::to_string(std::exp2(__f50));
+  std::cout << "  expm1(x) => " << system::to_string(std::expm1(__f50));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
@@ -163,6 +179,10 @@ int main() {
   __f100 /= 100000;
   std::cout << "  x.div(100000) => " << system::to_string(__f100);
   std::cout << std::endl;
+  std::cout << "  exp(x) => " << system::to_string(std::exp(__f100));
+  std::cout << "  exp2(x) => " << system::to_string(std::exp2(__f100));
+  std::cout << "  expm1(x) => " << system::to_string(std::expm1(__f100));
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<200> __f200 = __value;
@@ -189,6 +209,10 @@ int main() {
   std::cout << "  x.mul(100000) => " << system::to_string(__f200);
   __f200 /= 100000;
   std::cout << "  x.div(100000) => " << system::to_string(__f200);
+  std::cout << std::endl;
+  std::cout << "  exp(x) => " << system::to_string(std::exp(__f200));
+  std::cout << "  exp2(x) => " << system::to_string(std::exp2(__f200));
+  std::cout << "  expm1(x) => " << system::to_string(std::expm1(__f200));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
