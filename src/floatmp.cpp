@@ -34,14 +34,6 @@ bool floatmp_base::less_than(const floatmp_base &x) const {
   return system::less_than(c_mpfr(), x.c_mpfr());
 }
 
-bool floatmp_base::is_positive() const {
-  return system::less_than(floatmp_base::zero_value_.c_mpfr(), c_mpfr());
-}
-
-bool floatmp_base::is_negative() const {
-  return system::less_than(c_mpfr(), floatmp_base::zero_value_.c_mpfr());
-}
-
 void floatmp_base::fmod(const floatmp_base &x, const floatmp_base &y) {
   if (y.is_zero())
     throw std::domain_error("invalid divisor of fmod()");
@@ -80,4 +72,11 @@ void floatmp_base::log10(const floatmp_base &x) {
     throw std::domain_error("invalid arg of log10()");
   else
     mpfr_log10(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+}
+
+void floatmp_base::log2(const floatmp_base &x) {
+  if (!x.is_positive())
+    throw std::domain_error("invalid arg of log2()");
+  else
+    mpfr_log2(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
 }
