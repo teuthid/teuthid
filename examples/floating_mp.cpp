@@ -59,6 +59,10 @@ int main() {
   std::cout << "  exp2(x) => " << system::to_string(std::exp2(__f5));
   std::cout << "  expm1(x) => " << system::to_string(std::expm1(__f5));
   std::cout << std::endl;
+  std::cout << "  log(x) => " << system::to_string(std::log(__f5));
+  std::cout << "  log10(x) => " << system::to_string(std::log10(__f5));
+  std::cout << "  log2(x) => " << system::to_string(std::log2(__f5));
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<10> __f10 = __value;
@@ -89,6 +93,10 @@ int main() {
   std::cout << "  exp(x) => " << system::to_string(std::exp(__f10));
   std::cout << "  exp2(x) => " << system::to_string(std::exp2(__f10));
   std::cout << "  expm1(x) => " << system::to_string(std::expm1(__f10));
+  std::cout << std::endl;
+  std::cout << "  log(x) => " << system::to_string(std::log(__f10));
+  std::cout << "  log10(x) => " << system::to_string(std::log10(__f10));
+  std::cout << "  log2(x) => " << system::to_string(std::log2(__f10));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
@@ -121,6 +129,10 @@ int main() {
   std::cout << "  exp2(x) => " << system::to_string(std::exp2(__f20));
   std::cout << "  expm1(x) => " << system::to_string(std::expm1(__f20));
   std::cout << std::endl;
+  std::cout << "  log(x) => " << system::to_string(std::log(__f20));
+  std::cout << "  log10(x) => " << system::to_string(std::log10(__f20));
+  std::cout << "  log2(x) => " << system::to_string(std::log2(__f20));
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<50> __f50 = __value;
@@ -151,6 +163,10 @@ int main() {
   std::cout << "  exp(x) => " << system::to_string(std::exp(__f50));
   std::cout << "  exp2(x) => " << system::to_string(std::exp2(__f50));
   std::cout << "  expm1(x) => " << system::to_string(std::expm1(__f50));
+  std::cout << std::endl;
+  std::cout << "  log(x) => " << system::to_string(std::log(__f50));
+  std::cout << "  log10(x) => " << system::to_string(std::log10(__f50));
+  std::cout << "  log2(x) => " << system::to_string(std::log2(__f50));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
@@ -183,6 +199,10 @@ int main() {
   std::cout << "  exp2(x) => " << system::to_string(std::exp2(__f100));
   std::cout << "  expm1(x) => " << system::to_string(std::expm1(__f100));
   std::cout << std::endl;
+  std::cout << "  log(x) => " << system::to_string(std::log(__f100));
+  std::cout << "  log10(x) => " << system::to_string(std::log10(__f100));
+  std::cout << "  log2(x) => " << system::to_string(std::log2(__f100));
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<200> __f200 = __value;
@@ -213,6 +233,10 @@ int main() {
   std::cout << "  exp(x) => " << system::to_string(std::exp(__f200));
   std::cout << "  exp2(x) => " << system::to_string(std::exp2(__f200));
   std::cout << "  expm1(x) => " << system::to_string(std::expm1(__f200));
+  std::cout << std::endl;
+  std::cout << "  log(x) => " << system::to_string(std::log(__f200));
+  std::cout << "  log10(x) => " << system::to_string(std::log10(__f200));
+  std::cout << "  log2(x) => " << system::to_string(std::log2(__f200));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
