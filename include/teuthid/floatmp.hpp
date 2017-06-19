@@ -260,6 +260,7 @@ private:
     mpfr_expm1(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
   }
   void log(const floatmp_base &x);
+  void log10(const floatmp_base &x);
 
 #ifdef TEUTHID_HAVE_INT_128
   static long double int128_to_ldouble_(const int128_t &x) {
@@ -466,6 +467,10 @@ public:
     floatmp_base::log(static_cast<const floatmp_base &>(x));
     return *this;
   }
+  template <std::size_t P> floatmp &log10(const floatmp<P> &x) {
+    floatmp_base::log10(static_cast<const floatmp_base &>(x));
+    return *this;
+  }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   template <std::size_t P> bool equal_to(const floatmp<P> &x) const {
@@ -635,6 +640,9 @@ template <std::size_t P> inline auto expm1(const teuthid::floatmp<P> &x) {
 }
 template <std::size_t P> inline auto log(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().log(x);
+}
+template <std::size_t P> inline auto log10(const teuthid::floatmp<P> &x) {
+  return teuthid::floatmp<P>().log10(x);
 }
 
 } // namespace std

@@ -74,3 +74,10 @@ void floatmp_base::log(const floatmp_base &x) {
   else
     mpfr_log(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
 }
+
+void floatmp_base::log10(const floatmp_base &x) {
+  if (!x.is_positive())
+    throw std::domain_error("invalid arg of log10()");
+  else
+    mpfr_log10(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+}
