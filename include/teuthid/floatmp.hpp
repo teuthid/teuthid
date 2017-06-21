@@ -490,7 +490,17 @@ public:
     return floatmp_base::less_than(static_cast<const floatmp_base &>(x));
   }
 #endif // DOXYGEN_SHOULD_SKIP_THIS
-};     // class floatmp
+
+  static floatmp<Precision> zero() {
+    return floatmp<Precision>(floatmp_base::zero_);
+  }
+  static floatmp<Precision> minus_one() {
+    return floatmp<Precision>(floatmp_base::minus_one_);
+  }
+  static floatmp<Precision> plus_one() {
+    return floatmp<Precision>(floatmp_base::plus_one_);
+  }
+}; // class floatmp
 
 /******************************************************************************/
 

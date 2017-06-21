@@ -107,6 +107,10 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST(system::equal_to(float256_t(__x1), float256_t(__x3)),
              "operator float256_t()");
 
+  BOOST_TEST((float256_t::zero() == 0), "floatmp::zero()");
+  BOOST_TEST((float256_t::minus_one() == -1), "floatmp::minus_one()");
+  BOOST_TEST((float256_t::plus_one() == 1), "floatmp::plus_one()");
+
   __x1 = 1.0, __x2 = 2.0, __x3 = 3.0;
   BOOST_TEST(!__x1.is_zero(), "is_zero()");
   BOOST_TEST(__x1.less_than(2), "less_than()");
