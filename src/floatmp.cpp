@@ -24,7 +24,11 @@
 using namespace teuthid;
 
 std::atomic_int floatmp_base::round_mode_(mpfr_get_default_rounding_mode());
-floatmp_base floatmp_base::zero_value_(floatmp_base::max_precision());
+floatmp_base floatmp_base::zero_(floatmp_base::max_precision());
+floatmp_base floatmp_base::minus_one_(floatmp_base::max_precision(),
+                                      static_cast<long double>(-1));
+floatmp_base floatmp_base::plus_one_(floatmp_base::max_precision(),
+                                     static_cast<long double>(1));
 
 bool floatmp_base::equal_to(const floatmp_base &x) const {
   return system::equal_to(c_mpfr(), x.c_mpfr());
@@ -79,4 +83,11 @@ void floatmp_base::log2(const floatmp_base &x) {
     throw std::domain_error("invalid arg of log2()");
   else
     mpfr_log2(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+}
+
+void floatmp_base::log1p(const floatmp_base &x) {
+  if (!minus_one_.less_than(x))
+    throw std::domain_error("invalid arg of log2()");
+  else
+    mpfr_log1p(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
 }

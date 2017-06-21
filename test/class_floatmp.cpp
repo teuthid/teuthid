@@ -268,11 +268,13 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
 
   __x2 = 99.9999;
   BOOST_TEST((__x1.log(__x2) == std::log(double(__x2))), "log()");
-  BOOST_TEST((std::log(__x2) == std::log(double(__x2))), "std::log()");  
+  BOOST_TEST((std::log(__x2) == std::log(double(__x2))), "std::log()");
   BOOST_TEST((__x1.log10(__x2) == std::log10(double(__x2))), "log10()");
-  BOOST_TEST((std::log10(__x2) == std::log10(double(__x2))), "std::log10()");  
+  BOOST_TEST((std::log10(__x2) == std::log10(double(__x2))), "std::log10()");
   BOOST_TEST((__x1.log2(__x2) == std::log2(double(__x2))), "log2()");
-  BOOST_TEST((std::log2(__x2) == std::log2(double(__x2))), "std::log2()");  
+  BOOST_TEST((std::log2(__x2) == std::log2(double(__x2))), "std::log2()");
+  BOOST_TEST((__x1.log1p(__x2) == std::log1p(double(__x2))), "log1p()");
+  BOOST_TEST((std::log1p(__x2) == std::log1p(double(__x2))), "std::log1p()");
 
 #ifdef TEUTHID_HAVE_INT_128
   __x1 = static_cast<int128_t>(INT64_MAX) * 10;

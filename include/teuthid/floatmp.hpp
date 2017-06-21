@@ -104,8 +104,8 @@ public:
   bool is_finite() const { return (mpfr_number_p(value_) != 0); }
   bool is_infinite() const { return (mpfr_inf_p(value_) != 0); }
   bool is_nan() const { return (mpfr_nan_p(value_) != 0); }
-  bool is_zero() const { return equal_to(floatmp_base::zero_value_); }
-  bool is_negative() const { return less_than(floatmp_base::zero_value_); }
+  bool is_zero() const { return equal_to(floatmp_base::zero_); }
+  bool is_negative() const { return less_than(floatmp_base::zero_); }
   bool is_positive() const { return !is_zero() && !is_negative(); }
 
   static constexpr std::size_t max_precision() noexcept {
@@ -260,6 +260,7 @@ private:
   void log(const floatmp_base &x);
   void log10(const floatmp_base &x);
   void log2(const floatmp_base &x);
+  void log1p(const floatmp_base &x);
 
 #ifdef TEUTHID_HAVE_INT_128
   static long double int128_to_ldouble_(const int128_t &x) {
@@ -276,7 +277,9 @@ private:
 
   mpfr_t value_;
   static std::atomic_int round_mode_;
-  static floatmp_base zero_value_;
+  static floatmp_base zero_;
+  static floatmp_base minus_one_;
+  static floatmp_base plus_one_;
 }; // class floatmp_base
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -474,6 +477,10 @@ public:
     floatmp_base::log2(static_cast<const floatmp_base &>(x));
     return *this;
   }
+  template <std::size_t P> floatmp &log1p(const floatmp<P> &x) {
+    floatmp_base::log1p(static_cast<const floatmp_base &>(x));
+    return *this;
+  }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   template <std::size_t P> bool equal_to(const floatmp<P> &x) const {
@@ -649,6 +656,9 @@ template <std::size_t P> inline auto log10(const teuthid::floatmp<P> &x) {
 }
 template <std::size_t P> inline auto log2(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().log2(x);
+}
+template <std::size_t P> inline auto log1p(const teuthid::floatmp<P> &x) {
+  return teuthid::floatmp<P>().log1p(x);
 }
 
 } // namespace std
