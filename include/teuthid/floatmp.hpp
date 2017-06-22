@@ -48,7 +48,7 @@ enum class floatmp_round_t : int {
 #define TEUTHID_CHECK_FLOATMP_PRECISION(PRECISION)                             \
   static_assert((PRECISION >= floatmp_base::min_precision()),                  \
                 "Too low floatmp precision.");                                 \
-  static_assert((PRECISION < floatmp_base::max_precision()),                   \
+  static_assert((PRECISION <= floatmp_base::max_precision()),                  \
                 "Too high floatmp precision.");
 
 class floatmp_base {
@@ -261,6 +261,7 @@ private:
   void log10(const floatmp_base &x);
   void log2(const floatmp_base &x);
   void log1p(const floatmp_base &x);
+  void ceil(const floatmp_base &x) { mpfr_ceil(value_, x.c_mpfr()); }
 
 #ifdef TEUTHID_HAVE_INT_128
   static long double int128_to_ldouble_(const int128_t &x) {
@@ -481,6 +482,10 @@ public:
     floatmp_base::log1p(static_cast<const floatmp_base &>(x));
     return *this;
   }
+  template <std::size_t P> floatmp &ceil(const floatmp<P> &x) {
+    floatmp_base::ceil(static_cast<const floatmp_base &>(x));
+    return *this;
+  }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   template <std::size_t P> bool equal_to(const floatmp<P> &x) const {
@@ -669,6 +674,9 @@ template <std::size_t P> inline auto log2(const teuthid::floatmp<P> &x) {
 }
 template <std::size_t P> inline auto log1p(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().log1p(x);
+}
+template <std::size_t P> inline auto ceil(const teuthid::floatmp<P> &x) {
+  return teuthid::floatmp<P>().ceil(x);
 }
 
 } // namespace std
