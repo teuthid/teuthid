@@ -38,6 +38,15 @@ bool floatmp_base::less_than(const floatmp_base &x) const {
   return system::less_than(c_mpfr(), x.c_mpfr());
 }
 
+bool floatmp_base::is_integer() const {
+  if (is_finite()) {
+    floatmp_base __x(mpfr_get_prec(c_mpfr()));
+    __x.trunc(*this);
+    return equal_to(__x);
+  } else
+    return false;
+}
+
 void floatmp_base::fmod(const floatmp_base &x, const floatmp_base &y) {
   if (y.is_zero())
     throw std::domain_error("invalid divisor of fmod()");

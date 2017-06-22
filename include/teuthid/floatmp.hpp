@@ -107,6 +107,7 @@ public:
   bool is_zero() const { return equal_to(floatmp_base::zero_); }
   bool is_negative() const { return less_than(floatmp_base::zero_); }
   bool is_positive() const { return !is_zero() && !is_negative(); }
+  bool is_integer() const;
 
   static constexpr std::size_t max_precision() noexcept {
     return TEUTHID_FLOAT_MAX_PRECISION;

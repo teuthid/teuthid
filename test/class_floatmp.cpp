@@ -287,6 +287,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((std::floor(__x2) == std::floor(double(__x2))), "std::floor()");
   BOOST_TEST((__x1.trunc(__x2) == std::trunc(double(__x2))), "trunc()");
   BOOST_TEST((std::trunc(__x2) == std::trunc(double(__x2))), "std::trunc()");
+  BOOST_TEST(__x1.is_integer(), "is_integer()");
+  BOOST_TEST(!__x2.is_integer(), "is_integer()");
   __x2 = 99.0001;
   BOOST_TEST((__x1.ceil(__x2) == std::ceil(double(__x2))), "ceil()");
   BOOST_TEST((std::ceil(__x2) == std::ceil(double(__x2))), "std::ceil()");
@@ -294,6 +296,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((std::floor(__x2) == std::floor(double(__x2))), "std::floor()");
   BOOST_TEST((__x1.trunc(__x2) == std::trunc(double(__x2))), "trunc()");
   BOOST_TEST((std::trunc(__x2) == std::trunc(double(__x2))), "std::trunc()");
+  BOOST_TEST(__x1.is_integer(), "is_integer()");
+  BOOST_TEST(!__x2.is_integer(), "is_integer()");
 
 #ifdef TEUTHID_HAVE_INT_128
   __x1 = static_cast<int128_t>(INT64_MAX) * 10;
