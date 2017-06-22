@@ -283,9 +283,13 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   __x2 = 99.9999;
   BOOST_TEST((__x1.ceil(__x2) == std::ceil(double(__x2))), "ceil()");
   BOOST_TEST((std::ceil(__x2) == std::ceil(double(__x2))), "std::ceil()");
-  __x2 = 99;
+  BOOST_TEST((__x1.floor(__x2) == std::floor(double(__x2))), "floor()");
+  BOOST_TEST((std::floor(__x2) == std::floor(double(__x2))), "std::floor()");
+  __x2 = 99.0001;
   BOOST_TEST((__x1.ceil(__x2) == std::ceil(double(__x2))), "ceil()");
   BOOST_TEST((std::ceil(__x2) == std::ceil(double(__x2))), "std::ceil()");
+  BOOST_TEST((__x1.floor(__x2) == std::floor(double(__x2))), "floor()");
+  BOOST_TEST((std::floor(__x2) == std::floor(double(__x2))), "std::floor()");
 
 #ifdef TEUTHID_HAVE_INT_128
   __x1 = static_cast<int128_t>(INT64_MAX) * 10;
