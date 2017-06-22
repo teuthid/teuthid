@@ -263,6 +263,7 @@ private:
   void log1p(const floatmp_base &x);
   void ceil(const floatmp_base &x) { mpfr_ceil(value_, x.c_mpfr()); }
   void floor(const floatmp_base &x) { mpfr_floor(value_, x.c_mpfr()); }
+  void trunc(const floatmp_base &x) { mpfr_trunc(value_, x.c_mpfr()); }
 
 #ifdef TEUTHID_HAVE_INT_128
   static long double int128_to_ldouble_(const int128_t &x) {
@@ -491,6 +492,10 @@ public:
     floatmp_base::floor(static_cast<const floatmp_base &>(x));
     return *this;
   }
+  template <std::size_t P> floatmp &trunc(const floatmp<P> &x) {
+    floatmp_base::trunc(static_cast<const floatmp_base &>(x));
+    return *this;
+  }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   template <std::size_t P> bool equal_to(const floatmp<P> &x) const {
@@ -685,6 +690,9 @@ template <std::size_t P> inline auto ceil(const teuthid::floatmp<P> &x) {
 }
 template <std::size_t P> inline auto floor(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().floor(x);
+}
+template <std::size_t P> inline auto trunc(const teuthid::floatmp<P> &x) {
+  return teuthid::floatmp<P>().trunc(x);
 }
 
 } // namespace std
