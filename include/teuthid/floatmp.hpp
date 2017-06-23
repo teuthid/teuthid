@@ -262,6 +262,7 @@ private:
   void log10(const floatmp_base &x);
   void log2(const floatmp_base &x);
   void log1p(const floatmp_base &x);
+  void pow(const floatmp_base &x, const floatmp_base &y);
   void ceil(const floatmp_base &x) { mpfr_ceil(value_, x.c_mpfr()); }
   void floor(const floatmp_base &x) { mpfr_floor(value_, x.c_mpfr()); }
   void trunc(const floatmp_base &x) { mpfr_trunc(value_, x.c_mpfr()); }
@@ -485,6 +486,12 @@ public:
     floatmp_base::log1p(static_cast<const floatmp_base &>(x));
     return *this;
   }
+  template <std::size_t P1, std::size_t P2>
+  floatmp &pow(const floatmp<P1> &x, const floatmp<P2> &y) {
+    floatmp_base::pow(static_cast<const floatmp_base &>(x),
+                      static_cast<const floatmp_base &>(y));
+    return *this;
+  }
   template <std::size_t P> floatmp &ceil(const floatmp<P> &x) {
     floatmp_base::ceil(static_cast<const floatmp_base &>(x));
     return *this;
@@ -685,6 +692,10 @@ template <std::size_t P> inline auto log2(const teuthid::floatmp<P> &x) {
 }
 template <std::size_t P> inline auto log1p(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().log1p(x);
+}
+template <std::size_t P1, std::size_t P2>
+inline auto pow(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y) {
+  return teuthid::floatmp<std::max(P1, P2)>().pow(x, y);
 }
 template <std::size_t P> inline auto ceil(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().ceil(x);

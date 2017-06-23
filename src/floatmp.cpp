@@ -100,3 +100,12 @@ void floatmp_base::log1p(const floatmp_base &x) {
   else
     mpfr_log1p(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
 }
+
+void floatmp_base::pow(const floatmp_base &x, const floatmp_base &y) {
+  if (x.is_negative() && !y.is_integer())
+    throw std::domain_error("invalid arg of pow()");
+  if (x.is_zero() && !y.is_positive())
+    throw std::domain_error("invalid arg of pow()");
+  mpfr_pow(value_, x.c_mpfr(), y.c_mpfr(),
+           static_cast<mpfr_rnd_t>(rounding_mode()));
+}

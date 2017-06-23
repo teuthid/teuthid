@@ -22,6 +22,12 @@
 #include <boost/test/unit_test.hpp>
 #include <teuthid/system.hpp>
 
+#define TO_FLT(x) static_cast<float>(x)
+#define TO_DBL(x) static_cast<double>(x)
+#define TO_LDBL(x) static_cast<long double>(x)
+#define TO_INT128(x) static_cast<int128_t>(x)
+#define TO_UINT128(x) static_cast<uint128_t>(x)
+
 using namespace teuthid;
 
 BOOST_AUTO_TEST_CASE(class_teuthid_system) {
@@ -78,35 +84,33 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
              "to_string(uint64_t)");
 
 #ifdef TEUTHID_HAVE_INT_128
-  int128_t __int_128 = static_cast<int128_t>(INT64_MIN) - 13;
-  int128_t __int_128_x = 0;
+  int128_t __int_128 = TO_INT128(INT64_MIN) - 13, __int_128_x = 0;
   __s = system::to_string(__int_128);
   BOOST_TEST(!__s.empty(), "system::to_string(int128_t)");
   system::from_string(__s, __int_128_x);
   BOOST_TEST((__int_128 == __int_128_x), "system::from_string(int128_t)");
-  __int_128 = static_cast<int128_t>(INT64_MAX) + 13;
+  __int_128 = TO_INT128(INT64_MAX) + 13;
   __s = system::to_string(__int_128);
   BOOST_TEST(!__s.empty(), "system::to_string(int128_t)");
   system::from_string(__s, __int_128_x);
   BOOST_TEST((__int_128 == __int_128_x), "system::from_string(int128_t)");
-  __int_128 = static_cast<int128_t>(INT64_MIN) * 13;
+  __int_128 = TO_INT128(INT64_MIN) * 13;
   __s = system::to_string(__int_128);
   BOOST_TEST(!__s.empty(), "system::to_string(int128_t)");
   system::from_string(__s, __int_128_x);
   BOOST_TEST((__int_128 == __int_128_x), "system::from_string(int128_t)");
-  __int_128 = static_cast<int128_t>(INT64_MAX) * 13;
+  __int_128 = TO_INT128(INT64_MAX) * 13;
   __s = system::to_string(__int_128);
   BOOST_TEST(!__s.empty(), "system::to_string(int128_t)");
   system::from_string(__s, __int_128_x);
   BOOST_TEST((__int_128 == __int_128_x), "system::from_string(int128_t)");
 
-  uint128_t __uint_128 = static_cast<uint128_t>(UINT64_MAX) + 13;
-  uint128_t __uint_128_x = 0;
+  uint128_t __uint_128 = TO_UINT128(UINT64_MAX) + 13, __uint_128_x = 0;
   __s = system::to_string(__uint_128);
   BOOST_TEST(!__s.empty(), "system::to_string(uint128_t)");
   system::from_string(__s, __uint_128_x);
   BOOST_TEST((__uint_128 == __uint_128_x), "system::from_string(uint128_t)");
-  __uint_128 = static_cast<uint128_t>(UINT64_MAX) * 13;
+  __uint_128 = TO_UINT128(UINT64_MAX) * 13;
   __s = system::to_string(__uint_128);
   BOOST_TEST(!__s.empty(), "system::to_string(uint128_t)");
   system::from_string(__s, __uint_128_x);
@@ -267,8 +271,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
              "system::is_negative(uint64_t)");
 
 #ifdef TEUTHID_HAVE_INT_128
-  int128_t __int128_val = (int128_t)INT64_MAX * 10;
-  uint128_t __uint128_val = (uint128_t)UINT64_MAX * 10;
+  int128_t __int128_val = TO_INT128(INT64_MAX) * 10;
+  uint128_t __uint128_val = TO_UINT128(UINT64_MAX) * 10;
   BOOST_TEST((__int128_val == __int128_val));
   BOOST_TEST((__int128_val != __uint128_val));
   BOOST_TEST(system::is_finite(__int128_val), "system::is_finite(int128_t)");
@@ -328,15 +332,15 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
              "system::from_string(double)");
   BOOST_TEST(!system::less_than(__double_val, __double_val),
              "system::from_string(double)");
-  BOOST_TEST(system::equal_to(__double_val, (double)1.23456),
+  BOOST_TEST(system::equal_to(__double_val, TO_DBL(1.23456)),
              "system::equal_to(double)");
-  BOOST_TEST(!system::less_than(__double_val, (double)1.23456),
+  BOOST_TEST(!system::less_than(__double_val, TO_DBL(1.23456)),
              "system::less_than(double)");
-  BOOST_TEST(!system::equal_to(__double_val, (double)1.23457),
+  BOOST_TEST(!system::equal_to(__double_val, TO_DBL(1.23457)),
              "system::equal_to(double)");
-  BOOST_TEST(system::less_than(__double_val, (double)1.23457),
+  BOOST_TEST(system::less_than(__double_val, TO_DBL(1.23457)),
              "system::less_than(double)");
-  BOOST_TEST(!system::less_than((double)1.23457, __double_val),
+  BOOST_TEST(!system::less_than(TO_DBL(1.23457), __double_val),
              "system::less_than(double)");
   BOOST_TEST(system::is_finite(__double_val), "system::is_finite(double)");
   BOOST_TEST(!system::is_infinite(__double_val), "system::is_infinite(double)");
@@ -351,15 +355,15 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
              "system::from_string(long double)");
   BOOST_TEST(!system::less_than(__ldouble_val, __ldouble_val),
              "system::from_string(long double)");
-  BOOST_TEST(system::equal_to(__ldouble_val, (long double)1.234567),
+  BOOST_TEST(system::equal_to(__ldouble_val, TO_LDBL(1.234567)),
              "system::equal_to(long double)");
-  BOOST_TEST(!system::less_than(__ldouble_val, (long double)1.234567),
+  BOOST_TEST(!system::less_than(__ldouble_val, TO_LDBL(1.234567)),
              "system::less_than(long double)");
-  BOOST_TEST(!system::equal_to(__ldouble_val, (long double)1.234568),
+  BOOST_TEST(!system::equal_to(__ldouble_val, TO_LDBL(1.234568)),
              "system::equal_to(long double)");
-  BOOST_TEST(system::less_than(__ldouble_val, (long double)1.234568),
+  BOOST_TEST(system::less_than(__ldouble_val, TO_LDBL(1.234568)),
              "system::less_than(long double)");
-  BOOST_TEST(!system::less_than((long double)1.234568, __ldouble_val),
+  BOOST_TEST(!system::less_than(TO_LDBL(1.234568), __ldouble_val),
              "system::less_than(long double)");
   BOOST_TEST(system::is_finite(__ldouble_val),
              "system::is_finite(long double)");
@@ -373,7 +377,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
              "system::is_negative(long double)");
 
   system::from_string("1.2345", __mpfr);
-  BOOST_TEST(mpfr_cmp_ld(__mpfr, (long double)1.2345) == 0,
+  BOOST_TEST(mpfr_cmp_ld(__mpfr, TO_LDBL(1.2345)) == 0,
              "system::from_string(mpfr_t)");
   BOOST_TEST(system::equal_to(__mpfr, __mpfr), "system::equal_to(mpfr_t)");
   BOOST_TEST(!system::less_than(__mpfr, __mpfr), "system::less_than(mpfr_t)");
@@ -387,8 +391,7 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   mpfr_init2(__mpfr2, mpfr_get_default_prec());
   system::from_string("9.9999", __mpfr2);
   system::swap(__mpfr, __mpfr2);
-  BOOST_TEST(mpfr_cmp_ld(__mpfr, (long double)9.9999) == 0,
-             "system::swap(mpfr_t)");
+  BOOST_TEST(mpfr_cmp_ld(__mpfr, TO_LDBL(9.9999)) == 0, "system::swap(mpfr_t)");
 
   floatmp<200> __floatmp1;
   floatmp<300> __floatmp2;

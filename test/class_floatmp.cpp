@@ -23,6 +23,12 @@
 #include <teuthid/floatmp.hpp>
 #include <teuthid/system.hpp>
 
+#define TO_FLT(x) static_cast<float>(x)
+#define TO_DBL(x) static_cast<double>(x)
+#define TO_LDBL(x) static_cast<long double>(x)
+#define TO_INT128(x) static_cast<int128_t>(x)
+#define TO_UINT128(x) static_cast<uint128_t>(x)
+
 using namespace teuthid;
 
 BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
@@ -65,20 +71,20 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
 
   __x1 = 0, __x2 = 0, __x3 = 0;
   BOOST_TEST((__x1 == __x2), "operator==");
-  BOOST_TEST((__x1 == (double)__x2), "operator==");
-  BOOST_TEST(((double)__x1 == __x2), "operator==");
+  BOOST_TEST((__x1 == TO_LDBL(__x2)), "operator==");
+  BOOST_TEST((TO_LDBL(__x1) == __x2), "operator==");
   BOOST_TEST(!(__x1 < __x2), "operator<");
-  BOOST_TEST(!(__x1 < (double)__x2), "operator<");
-  BOOST_TEST(!((double)__x1 < __x2), "operator<");
+  BOOST_TEST(!(__x1 < TO_LDBL(__x2)), "operator<");
+  BOOST_TEST(!(TO_LDBL(__x1) < __x2), "operator<");
   BOOST_TEST(!(__x1 > __x2), "operator>");
-  BOOST_TEST(!(__x1 > (double)__x2), "operator>");
-  BOOST_TEST(!((double)__x1 > __x2), "operator>");
+  BOOST_TEST(!(__x1 > TO_LDBL(__x2)), "operator>");
+  BOOST_TEST(!(TO_LDBL(__x1) > __x2), "operator>");
   BOOST_TEST((__x1 <= __x2), "operator<=");
-  BOOST_TEST((__x1 <= (double)__x2), "operator<=");
-  BOOST_TEST(((double)__x1 <= __x2), "operator<=");
+  BOOST_TEST((__x1 <= TO_LDBL(__x2)), "operator<=");
+  BOOST_TEST((TO_LDBL(__x1) <= __x2), "operator<=");
   BOOST_TEST((__x1 >= __x2), "operator>=");
-  BOOST_TEST((__x1 >= (double)__x2), "operator>=");
-  BOOST_TEST(((double)__x1 >= __x2), "operator>=");
+  BOOST_TEST((__x1 >= TO_LDBL(__x2)), "operator>=");
+  BOOST_TEST((TO_LDBL(__x1) >= __x2), "operator>=");
   BOOST_TEST((__x1 == __x3), "operator==");
   __x1 = 0.9999999999, __x3 = -0.9999999999;
   BOOST_TEST(!(__x1 == __x2), "operator==");
@@ -90,9 +96,9 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
 
   __x3 = __x1;
   BOOST_TEST((__x1 == __x3), "operator==");
-  BOOST_TEST(system::equal_to(float(__x1), float(__x3)), "operator float()");
-  BOOST_TEST(system::equal_to(double(__x1), double(__x3)), "operator double()");
-  BOOST_TEST(system::equal_to((long double)(__x1), (long double)(__x3)),
+  BOOST_TEST(system::equal_to(TO_FLT(__x1), TO_FLT(__x3)), "operator float()");
+  BOOST_TEST(system::equal_to(TO_DBL(__x1), TO_DBL(__x3)), "operator double()");
+  BOOST_TEST(system::equal_to(TO_LDBL(__x1), TO_LDBL(__x3)),
              "operator long double()");
   BOOST_TEST(system::equal_to(float16_t(__x1), float16_t(__x3)),
              "operator float16_t()");
@@ -207,37 +213,37 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((std::fabs(__x1) == 1.111), "std::fabs()");
 
   __x1 = 33.33, __x2 = 9.9;
-  BOOST_TEST((__x1.fmod(__x1, __x2) == std::fmod(double(__x1), double(__x2))),
+  BOOST_TEST((__x1.fmod(__x1, __x2) == std::fmod(TO_LDBL(__x1), TO_LDBL(__x2))),
              "fmod()");
   __x1 = -33.33;
-  BOOST_TEST((__x2.fmod(__x1, __x2) == std::fmod(double(__x1), double(__x2))),
+  BOOST_TEST((__x2.fmod(__x1, __x2) == std::fmod(TO_LDBL(__x1), TO_LDBL(__x2))),
              "fmod()");
   __x1 = -999.99, __x2 = 9.9;
-  BOOST_TEST((std::fmod(__x1, __x2) == std::fmod(double(__x1), double(__x2))),
+  BOOST_TEST((std::fmod(__x1, __x2) == std::fmod(TO_LDBL(__x1), TO_LDBL(__x2))),
              "std::fmod()");
 
   __x1 = 33.33, __x2 = 8.8;
   BOOST_TEST((__x1.remainder(__x1, __x2) ==
-              std::remainder(double(__x1), double(__x2))),
+              std::remainder(TO_LDBL(__x1), TO_LDBL(__x2))),
              "remainder()");
   __x1 = -22.22;
   BOOST_TEST((__x2.remainder(__x1, __x2) ==
-              std::remainder(double(__x1), double(__x2))),
+              std::remainder(TO_LDBL(__x1), TO_LDBL(__x2))),
              "remainder()");
   __x1 = 1.234, __x2 = 8.8;
   BOOST_TEST((std::remainder(__x1, __x2) ==
-              std::remainder(double(__x1), double(__x2))),
+              std::remainder(TO_LDBL(__x1), TO_LDBL(__x2))),
              "std::remainder()");
 
   __x1 = 1.1111, __x2 = -2.2222, __x3 = 3.3333;
   BOOST_TEST((__x1.fma(__x2, __x2, __x3) ==
-              std::fma(double(__x2), double(__x2), double(__x3))),
+              std::fma(TO_LDBL(__x2), TO_LDBL(__x2), TO_LDBL(__x3))),
              "fma()");
   BOOST_TEST((std::fma(__x1, __x2, __x3) ==
-              std::fma(double(__x1), double(__x2), double(__x3))),
+              std::fma(TO_LDBL(__x1), TO_LDBL(__x2), TO_LDBL(__x3))),
              "std::fma()");
   BOOST_TEST((std::fma(__x2, __x3, __x1) ==
-              std::fma(double(__x2), double(__x3), double(__x1))),
+              std::fma(TO_LDBL(__x2), TO_LDBL(__x3), TO_LDBL(__x1))),
              "std::fma()");
 
   __x1 = 1.1111, __x2 = -2.2222;
@@ -253,92 +259,92 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((std::fmin(__x1, __x1) == __x1), "std::fmin()");
 
   __x1 = 9.9999, __x2 = 5.5555;
-  BOOST_TEST((__x3.fdim(__x1, __x2) == std::fdim(double(__x1), double(__x2))),
+  BOOST_TEST((__x3.fdim(__x1, __x2) == std::fdim(TO_LDBL(__x1), TO_LDBL(__x2))),
              "fdim()");
-  BOOST_TEST((__x3.fdim(__x2, __x1) == std::fdim(double(__x2), double(__x1))),
+  BOOST_TEST((__x3.fdim(__x2, __x1) == std::fdim(TO_LDBL(__x2), TO_LDBL(__x1))),
              "fdim()");
-  BOOST_TEST((std::fdim(__x1, __x2) == std::fdim(double(__x1), double(__x2))),
+  BOOST_TEST((std::fdim(__x1, __x2) == std::fdim(TO_LDBL(__x1), TO_LDBL(__x2))),
              "std::fdim()");
-  BOOST_TEST((std::fdim(__x2, __x1) == std::fdim(double(__x2), double(__x1))),
+  BOOST_TEST((std::fdim(__x2, __x1) == std::fdim(TO_LDBL(__x2), TO_LDBL(__x1))),
              "std::fdim()");
 
   __x2 = -9.9999;
-  BOOST_TEST((__x1.exp(__x2) == std::exp(double(__x2))), "exp()");
-  BOOST_TEST((std::exp(__x2) == std::exp(double(__x2))), "std::exp()");
-  BOOST_TEST((__x1.exp2(__x2) == std::exp2(double(__x2))), "exp2()");
-  BOOST_TEST((std::exp2(__x2) == std::exp2(double(__x2))), "std::exp2()");
-  BOOST_TEST((__x1.expm1(__x2) == std::expm1(double(__x2))), "expm1()");
-  BOOST_TEST((std::expm1(__x2) == std::expm1(double(__x2))), "std::expm1()");
+  BOOST_TEST((__x1.exp(__x2) == std::exp(TO_LDBL(__x2))), "exp()");
+  BOOST_TEST((std::exp(__x2) == std::exp(TO_LDBL(__x2))), "std::exp()");
+  BOOST_TEST((__x1.exp2(__x2) == std::exp2(TO_LDBL(__x2))), "exp2()");
+  BOOST_TEST((std::exp2(__x2) == std::exp2(TO_LDBL(__x2))), "std::exp2()");
+  BOOST_TEST((__x1.expm1(__x2) == std::expm1(TO_LDBL(__x2))), "expm1()");
+  BOOST_TEST((std::expm1(__x2) == std::expm1(TO_LDBL(__x2))), "std::expm1()");
 
   __x2 = 99.9999;
-  BOOST_TEST((__x1.log(__x2) == std::log(double(__x2))), "log()");
-  BOOST_TEST((std::log(__x2) == std::log(double(__x2))), "std::log()");
-  BOOST_TEST((__x1.log10(__x2) == std::log10(double(__x2))), "log10()");
-  BOOST_TEST((std::log10(__x2) == std::log10(double(__x2))), "std::log10()");
-  BOOST_TEST((__x1.log2(__x2) == std::log2(double(__x2))), "log2()");
-  BOOST_TEST((std::log2(__x2) == std::log2(double(__x2))), "std::log2()");
-  BOOST_TEST((__x1.log1p(__x2) == std::log1p(double(__x2))), "log1p()");
-  BOOST_TEST((std::log1p(__x2) == std::log1p(double(__x2))), "std::log1p()");
+  BOOST_TEST((__x1.log(__x2) == std::log(TO_LDBL(__x2))), "log()");
+  BOOST_TEST((std::log(__x2) == std::log(TO_LDBL(__x2))), "std::log()");
+  BOOST_TEST((__x1.log10(__x2) == std::log10(TO_LDBL(__x2))), "log10()");
+  BOOST_TEST((std::log10(__x2) == std::log10(TO_LDBL(__x2))), "std::log10()");
+  BOOST_TEST((__x1.log2(__x2) == std::log2(TO_LDBL(__x2))), "log2()");
+  BOOST_TEST((std::log2(__x2) == std::log2(TO_LDBL(__x2))), "std::log2()");
+  BOOST_TEST((__x1.log1p(__x2) == std::log1p(TO_LDBL(__x2))), "log1p()");
+  BOOST_TEST((std::log1p(__x2) == std::log1p(TO_LDBL(__x2))), "std::log1p()");
 
   __x2 = 99.9999;
-  BOOST_TEST((__x1.ceil(__x2) == std::ceil(double(__x2))), "ceil()");
-  BOOST_TEST((std::ceil(__x2) == std::ceil(double(__x2))), "std::ceil()");
-  BOOST_TEST((__x1.floor(__x2) == std::floor(double(__x2))), "floor()");
-  BOOST_TEST((std::floor(__x2) == std::floor(double(__x2))), "std::floor()");
-  BOOST_TEST((__x1.trunc(__x2) == std::trunc(double(__x2))), "trunc()");
-  BOOST_TEST((std::trunc(__x2) == std::trunc(double(__x2))), "std::trunc()");
+  BOOST_TEST((__x1.ceil(__x2) == std::ceil(TO_LDBL(__x2))), "ceil()");
+  BOOST_TEST((std::ceil(__x2) == std::ceil(TO_LDBL(__x2))), "std::ceil()");
+  BOOST_TEST((__x1.floor(__x2) == std::floor(TO_LDBL(__x2))), "floor()");
+  BOOST_TEST((std::floor(__x2) == std::floor(TO_LDBL(__x2))), "std::floor()");
+  BOOST_TEST((__x1.trunc(__x2) == std::trunc(TO_LDBL(__x2))), "trunc()");
+  BOOST_TEST((std::trunc(__x2) == std::trunc(TO_LDBL(__x2))), "std::trunc()");
   BOOST_TEST(__x1.is_integer(), "is_integer()");
   BOOST_TEST(!__x2.is_integer(), "is_integer()");
   __x2 = 99.0001;
-  BOOST_TEST((__x1.ceil(__x2) == std::ceil(double(__x2))), "ceil()");
-  BOOST_TEST((std::ceil(__x2) == std::ceil(double(__x2))), "std::ceil()");
-  BOOST_TEST((__x1.floor(__x2) == std::floor(double(__x2))), "floor()");
-  BOOST_TEST((std::floor(__x2) == std::floor(double(__x2))), "std::floor()");
-  BOOST_TEST((__x1.trunc(__x2) == std::trunc(double(__x2))), "trunc()");
-  BOOST_TEST((std::trunc(__x2) == std::trunc(double(__x2))), "std::trunc()");
+  BOOST_TEST((__x1.ceil(__x2) == std::ceil(TO_LDBL(__x2))), "ceil()");
+  BOOST_TEST((std::ceil(__x2) == std::ceil(TO_LDBL(__x2))), "std::ceil()");
+  BOOST_TEST((__x1.floor(__x2) == std::floor(TO_LDBL(__x2))), "floor()");
+  BOOST_TEST((std::floor(__x2) == std::floor(TO_LDBL(__x2))), "std::floor()");
+  BOOST_TEST((__x1.trunc(__x2) == std::trunc(TO_LDBL(__x2))), "trunc()");
+  BOOST_TEST((std::trunc(__x2) == std::trunc(TO_LDBL(__x2))), "std::trunc()");
   BOOST_TEST(__x1.is_integer(), "is_integer()");
   BOOST_TEST(!__x2.is_integer(), "is_integer()");
 
+  __x1 = 9.99, __x2 = 5.55;
+  BOOST_TEST((__x3.pow(__x1, __x2) == std::pow(TO_LDBL(__x1), TO_LDBL(__x2))),
+             "pow()");
+  BOOST_TEST((std::pow(__x1, __x2) == std::pow(TO_LDBL(__x1), TO_LDBL(__x2))),
+             "std::pow()");
+
 #ifdef TEUTHID_HAVE_INT_128
-  __x1 = static_cast<int128_t>(INT64_MAX) * 10;
-  __x2 = static_cast<int128_t>(INT64_MAX) * 10;
+  __x1 = TO_INT128(INT64_MAX) * 10, __x2 = TO_INT128(INT64_MAX) * 10;
   BOOST_TEST(!system::to_string(__x1).empty());
   BOOST_TEST(!system::to_string(__x2).empty());
   BOOST_TEST((__x1 == __x2), "operator==");
   __x2 = 0;
-  BOOST_TEST(__x2.less_than(static_cast<int128_t>(INT64_MAX) * 10),
-             "less_than()");
-  __x2 += (static_cast<int128_t>(INT64_MAX) * 10);
+  BOOST_TEST(__x2.less_than(TO_INT128(INT64_MAX) * 10), "less_than()");
+  __x2 += (TO_INT128(INT64_MAX) * 10);
   BOOST_TEST((__x1 == __x2), "add()");
-  __x2 = static_cast<int128_t>(INT64_MAX) * 11;
-  BOOST_TEST(__x1.less_than(static_cast<int128_t>(INT64_MAX) * 11),
-             "less_than()");
-  BOOST_TEST((__x2 < static_cast<int128_t>(INT64_MAX) * 13), "operator<");
+  __x2 = TO_INT128(INT64_MAX) * 11;
+  BOOST_TEST(__x1.less_than(TO_INT128(INT64_MAX) * 11), "less_than()");
+  BOOST_TEST((__x2 < TO_INT128(INT64_MAX) * 13), "operator<");
   BOOST_TEST((__x1 < __x2), "operator<");
   __x3 = __x2;
   __x3 += 0.9999999999;
   BOOST_TEST(__x2.less_than(__x3), "less_than()");
 
-  __x1 = static_cast<int128_t>(INT64_MIN) * 10;
-  __x2 = static_cast<int128_t>(INT64_MIN) * 10;
+  __x1 = TO_INT128(INT64_MIN) * 10, __x2 = TO_INT128(INT64_MIN) * 10;
   BOOST_TEST((__x1 == __x2), "operator==");
-  BOOST_TEST((__x1 == (static_cast<int128_t>(INT64_MIN)) * 10), "operator==");
-  BOOST_TEST((__x1 != (static_cast<int128_t>(INT64_MIN)) * 11), "operator!=");
-  BOOST_TEST((((static_cast<int128_t>(INT64_MIN)) * 10) == __x2), "operator==");
-  BOOST_TEST((((static_cast<int128_t>(INT64_MIN)) * 9) != __x2), "operator!=");
-  __x3 = 0;
-  __x3 += (static_cast<int128_t>(INT64_MIN) * 10);
+  BOOST_TEST((__x1 == (TO_INT128(INT64_MIN)) * 10), "operator==");
+  BOOST_TEST((__x1 != (TO_INT128(INT64_MIN)) * 11), "operator!=");
+  BOOST_TEST((((TO_INT128(INT64_MIN)) * 10) == __x2), "operator==");
+  BOOST_TEST((((TO_INT128(INT64_MIN)) * 9) != __x2), "operator!=");
+  __x3 = 0, __x3 += (TO_INT128(INT64_MIN) * 10);
   BOOST_TEST((__x1 == __x3), "add()");
-  __x2 = static_cast<int128_t>(INT64_MIN) * 11;
+  __x2 = TO_INT128(INT64_MIN) * 11;
   BOOST_TEST((__x1 > __x2), "operator>");
   BOOST_TEST(__x2.less_than(INT64_MIN), "less_than()");
 
-  __x1 = static_cast<uint128_t>(UINT64_MAX) * 10;
-  __x2 = static_cast<uint128_t>(UINT64_MAX) * 10;
+  __x1 = TO_UINT128(UINT64_MAX) * 10, __x2 = TO_UINT128(UINT64_MAX) * 10;
   BOOST_TEST(!system::to_string(__x1).empty());
   BOOST_TEST(!system::to_string(__x2).empty());
   BOOST_TEST((__x1 == __x2), "operator==");
-  __x2 = static_cast<uint128_t>(UINT64_MAX) * 11;
+  __x2 = TO_UINT128(UINT64_MAX) * 11;
   BOOST_TEST((__x1 < __x2), "operator<");
   __x3 = 0.9999999999;
   BOOST_TEST(__x3.less_than(__x2), "less_than()");
