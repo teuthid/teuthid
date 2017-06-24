@@ -68,6 +68,8 @@ int main() {
   std::cout << "  hypot(x, x) => " << system::to_string(std::hypot(__f5, __f5));
   std::cout << std::endl;
   std::cout << "  sin(x) => " << system::to_string(std::sin(__f5));
+  std::cout << "  cos(x) => " << system::to_string(std::cos(__f5));
+  std::cout << "  tan(x) => " << system::to_string(std::tan(__f5));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
@@ -110,6 +112,8 @@ int main() {
             << system::to_string(std::hypot(__f10, __f10));
   std::cout << std::endl;
   std::cout << "  sin(x) => " << system::to_string(std::sin(__f10));
+  std::cout << "  cos(x) => " << system::to_string(std::cos(__f10));
+  std::cout << "  tan(x) => " << system::to_string(std::tan(__f10));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
@@ -152,6 +156,8 @@ int main() {
             << system::to_string(std::hypot(__f20, __f20));
   std::cout << std::endl;
   std::cout << "  sin(x) => " << system::to_string(std::sin(__f20));
+  std::cout << "  cos(x) => " << system::to_string(std::cos(__f20));
+  std::cout << "  tan(x) => " << system::to_string(std::tan(__f20));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
@@ -194,6 +200,8 @@ int main() {
             << system::to_string(std::hypot(__f50, __f50));
   std::cout << std::endl;
   std::cout << "  sin(x) => " << system::to_string(std::sin(__f50));
+  std::cout << "  cos(x) => " << system::to_string(std::cos(__f50));
+  std::cout << "  tan(x) => " << system::to_string(std::tan(__f50));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
@@ -236,6 +244,8 @@ int main() {
             << system::to_string(std::hypot(__f100, __f100));
   std::cout << std::endl;
   std::cout << "  sin(x) => " << system::to_string(std::sin(__f100));
+  std::cout << "  cos(x) => " << system::to_string(std::cos(__f100));
+  std::cout << "  tan(x) => " << system::to_string(std::tan(__f100));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
@@ -278,6 +288,8 @@ int main() {
             << system::to_string(std::hypot(__f200, __f200));
   std::cout << std::endl;
   std::cout << "  sin(x) => " << system::to_string(std::sin(__f200));
+  std::cout << "  cos(x) => " << system::to_string(std::cos(__f200));
+  std::cout << "  tan(x) => " << system::to_string(std::tan(__f200));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
