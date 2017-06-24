@@ -63,6 +63,12 @@ int main() {
   std::cout << "  log10(x) => " << system::to_string(std::log10(__f5));
   std::cout << "  log2(x) => " << system::to_string(std::log2(__f5));
   std::cout << std::endl;
+  std::cout << "  sqrt(x) => " << system::to_string(std::sqrt(__f5));
+  std::cout << "  cbrt(x) => " << system::to_string(std::cbrt(__f5));
+  std::cout << "  hypot(x, x) => " << system::to_string(std::hypot(__f5, __f5));
+  std::cout << std::endl;
+  std::cout << "  sin(x) => " << system::to_string(std::sin(__f5));
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<10> __f10 = __value;
@@ -97,6 +103,13 @@ int main() {
   std::cout << "  log(x) => " << system::to_string(std::log(__f10));
   std::cout << "  log10(x) => " << system::to_string(std::log10(__f10));
   std::cout << "  log2(x) => " << system::to_string(std::log2(__f10));
+  std::cout << std::endl;
+  std::cout << "  sqrt(x) => " << system::to_string(std::sqrt(__f10));
+  std::cout << "  cbrt(x) => " << system::to_string(std::cbrt(__f10));
+  std::cout << "  hypot(x, x) => "
+            << system::to_string(std::hypot(__f10, __f10));
+  std::cout << std::endl;
+  std::cout << "  sin(x) => " << system::to_string(std::sin(__f10));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
@@ -133,6 +146,13 @@ int main() {
   std::cout << "  log10(x) => " << system::to_string(std::log10(__f20));
   std::cout << "  log2(x) => " << system::to_string(std::log2(__f20));
   std::cout << std::endl;
+  std::cout << "  sqrt(x) => " << system::to_string(std::sqrt(__f20));
+  std::cout << "  cbrt(x) => " << system::to_string(std::cbrt(__f20));
+  std::cout << "  hypot(x, x) => "
+            << system::to_string(std::hypot(__f20, __f20));
+  std::cout << std::endl;
+  std::cout << "  sin(x) => " << system::to_string(std::sin(__f20));
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<50> __f50 = __value;
@@ -167,6 +187,13 @@ int main() {
   std::cout << "  log(x) => " << system::to_string(std::log(__f50));
   std::cout << "  log10(x) => " << system::to_string(std::log10(__f50));
   std::cout << "  log2(x) => " << system::to_string(std::log2(__f50));
+  std::cout << std::endl;
+  std::cout << "  sqrt(x) => " << system::to_string(std::sqrt(__f50));
+  std::cout << "  cbrt(x) => " << system::to_string(std::cbrt(__f50));
+  std::cout << "  hypot(x, x) => "
+            << system::to_string(std::hypot(__f50, __f50));
+  std::cout << std::endl;
+  std::cout << "  sin(x) => " << system::to_string(std::sin(__f50));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
@@ -203,6 +230,13 @@ int main() {
   std::cout << "  log10(x) => " << system::to_string(std::log10(__f100));
   std::cout << "  log2(x) => " << system::to_string(std::log2(__f100));
   std::cout << std::endl;
+  std::cout << "  sqrt(x) => " << system::to_string(std::sqrt(__f100));
+  std::cout << "  cbrt(x) => " << system::to_string(std::cbrt(__f100));
+  std::cout << "  hypot(x, x) => "
+            << system::to_string(std::hypot(__f100, __f100));
+  std::cout << std::endl;
+  std::cout << "  sin(x) => " << system::to_string(std::sin(__f100));
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<200> __f200 = __value;
@@ -237,6 +271,13 @@ int main() {
   std::cout << "  log(x) => " << system::to_string(std::log(__f200));
   std::cout << "  log10(x) => " << system::to_string(std::log10(__f200));
   std::cout << "  log2(x) => " << system::to_string(std::log2(__f200));
+  std::cout << std::endl;
+  std::cout << "  sqrt(x) => " << system::to_string(std::sqrt(__f200));
+  std::cout << "  cbrt(x) => " << system::to_string(std::cbrt(__f200));
+  std::cout << "  hypot(x, x) => "
+            << system::to_string(std::hypot(__f200, __f200));
+  std::cout << std::endl;
+  std::cout << "  sin(x) => " << system::to_string(std::sin(__f200));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
