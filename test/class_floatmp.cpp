@@ -339,6 +339,12 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((std::cos(__x1) == std::cos(TO_LDBL(__x1))), "std::cos()");
   BOOST_TEST((__x2.tan(__x1) == std::tan(TO_LDBL(__x1))), "tan()");
   BOOST_TEST((std::tan(__x1) == std::tan(TO_LDBL(__x1))), "std::tan()");
+  BOOST_TEST((__x2.sinh(__x1) == std::sinh(TO_LDBL(__x1))), "sinh()");
+  BOOST_TEST((std::sinh(__x1) == std::sinh(TO_LDBL(__x1))), "std::sinh()");
+  BOOST_TEST((__x2.cosh(__x1) == std::cosh(TO_LDBL(__x1))), "cosh()");
+  BOOST_TEST((std::cosh(__x1) == std::cosh(TO_LDBL(__x1))), "std::cosh()");
+  BOOST_TEST((__x2.tanh(__x1) == std::tanh(TO_LDBL(__x1))), "tanh()");
+  BOOST_TEST((std::tanh(__x1) == std::tanh(TO_LDBL(__x1))), "std::tanh()");
 
 #ifdef TEUTHID_HAVE_INT_128
   __x1 = TO_INT128(INT64_MAX) * 10, __x2 = TO_INT128(INT64_MAX) * 10;

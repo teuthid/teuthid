@@ -71,6 +71,10 @@ int main() {
   std::cout << "  cos(x) => " << system::to_string(std::cos(__f5));
   std::cout << "  tan(x) => " << system::to_string(std::tan(__f5));
   std::cout << std::endl;
+  std::cout << "  sinh(x) => " << system::to_string(std::sinh(__f5));
+  std::cout << "  cosh(x) => " << system::to_string(std::cosh(__f5));
+  std::cout << "  tanh(x) => " << system::to_string(std::tanh(__f5));
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<10> __f10 = __value;
@@ -114,6 +118,10 @@ int main() {
   std::cout << "  sin(x) => " << system::to_string(std::sin(__f10));
   std::cout << "  cos(x) => " << system::to_string(std::cos(__f10));
   std::cout << "  tan(x) => " << system::to_string(std::tan(__f10));
+  std::cout << std::endl;
+  std::cout << "  sinh(x) => " << system::to_string(std::sinh(__f10));
+  std::cout << "  cosh(x) => " << system::to_string(std::cosh(__f10));
+  std::cout << "  tanh(x) => " << system::to_string(std::tanh(__f10));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
@@ -159,6 +167,10 @@ int main() {
   std::cout << "  cos(x) => " << system::to_string(std::cos(__f20));
   std::cout << "  tan(x) => " << system::to_string(std::tan(__f20));
   std::cout << std::endl;
+  std::cout << "  sinh(x) => " << system::to_string(std::sinh(__f20));
+  std::cout << "  cosh(x) => " << system::to_string(std::cosh(__f20));
+  std::cout << "  tanh(x) => " << system::to_string(std::tanh(__f20));
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<50> __f50 = __value;
@@ -202,6 +214,10 @@ int main() {
   std::cout << "  sin(x) => " << system::to_string(std::sin(__f50));
   std::cout << "  cos(x) => " << system::to_string(std::cos(__f50));
   std::cout << "  tan(x) => " << system::to_string(std::tan(__f50));
+  std::cout << std::endl;
+  std::cout << "  sinh(x) => " << system::to_string(std::sinh(__f50));
+  std::cout << "  cosh(x) => " << system::to_string(std::cosh(__f50));
+  std::cout << "  tanh(x) => " << system::to_string(std::tanh(__f50));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
@@ -247,6 +263,10 @@ int main() {
   std::cout << "  cos(x) => " << system::to_string(std::cos(__f100));
   std::cout << "  tan(x) => " << system::to_string(std::tan(__f100));
   std::cout << std::endl;
+  std::cout << "  sinh(x) => " << system::to_string(std::sinh(__f100));
+  std::cout << "  cosh(x) => " << system::to_string(std::cosh(__f100));
+  std::cout << "  tanh(x) => " << system::to_string(std::tanh(__f100));
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<200> __f200 = __value;
@@ -290,6 +310,10 @@ int main() {
   std::cout << "  sin(x) => " << system::to_string(std::sin(__f200));
   std::cout << "  cos(x) => " << system::to_string(std::cos(__f200));
   std::cout << "  tan(x) => " << system::to_string(std::tan(__f200));
+  std::cout << std::endl;
+  std::cout << "  sinh(x) => " << system::to_string(std::sinh(__f200));
+  std::cout << "  cosh(x) => " << system::to_string(std::cosh(__f200));
+  std::cout << "  tanh(x) => " << system::to_string(std::tanh(__f200));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 

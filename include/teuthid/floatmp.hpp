@@ -280,6 +280,15 @@ private:
   void tan(const floatmp_base &x) {
     mpfr_tan(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
   }
+  void sinh(const floatmp_base &x) {
+    mpfr_sinh(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
+  void cosh(const floatmp_base &x) {
+    mpfr_cosh(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
+  void tanh(const floatmp_base &x) {
+    mpfr_tanh(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
   void ceil(const floatmp_base &x) { mpfr_ceil(value_, x.c_mpfr()); }
   void floor(const floatmp_base &x) { mpfr_floor(value_, x.c_mpfr()); }
   void trunc(const floatmp_base &x) { mpfr_trunc(value_, x.c_mpfr()); }
@@ -535,6 +544,18 @@ public:
     floatmp_base::tan(static_cast<const floatmp_base &>(x));
     return *this;
   }
+  template <std::size_t P> floatmp &sinh(const floatmp<P> &x) {
+    floatmp_base::sinh(static_cast<const floatmp_base &>(x));
+    return *this;
+  }
+  template <std::size_t P> floatmp &cosh(const floatmp<P> &x) {
+    floatmp_base::cosh(static_cast<const floatmp_base &>(x));
+    return *this;
+  }
+  template <std::size_t P> floatmp &tanh(const floatmp<P> &x) {
+    floatmp_base::tanh(static_cast<const floatmp_base &>(x));
+    return *this;
+  }
   template <std::size_t P> floatmp &ceil(const floatmp<P> &x) {
     floatmp_base::ceil(static_cast<const floatmp_base &>(x));
     return *this;
@@ -759,6 +780,15 @@ template <std::size_t P> inline auto cos(const teuthid::floatmp<P> &x) {
 }
 template <std::size_t P> inline auto tan(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().tan(x);
+}
+template <std::size_t P> inline auto sinh(const teuthid::floatmp<P> &x) {
+  return teuthid::floatmp<P>().sinh(x);
+}
+template <std::size_t P> inline auto cosh(const teuthid::floatmp<P> &x) {
+  return teuthid::floatmp<P>().cosh(x);
+}
+template <std::size_t P> inline auto tanh(const teuthid::floatmp<P> &x) {
+  return teuthid::floatmp<P>().tanh(x);
 }
 template <std::size_t P> inline auto ceil(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().ceil(x);
