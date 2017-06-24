@@ -310,6 +310,15 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
              "pow()");
   BOOST_TEST((std::pow(__x1, __x2) == std::pow(TO_LDBL(__x1), TO_LDBL(__x2))),
              "std::pow()");
+  __x1 = -9.99, __x2 = 5;
+  BOOST_TEST((__x3.pow(__x1, __x2) == std::pow(TO_LDBL(__x1), TO_LDBL(__x2))),
+             "pow()");
+  BOOST_TEST((std::pow(__x1, __x2) == std::pow(TO_LDBL(__x1), TO_LDBL(__x2))),
+             "std::pow()");
+
+  __x1 = 9.9999;
+  BOOST_TEST((__x2.sqrt(__x1) == std::sqrt(TO_LDBL(__x1))), "sqrt()");
+  BOOST_TEST((std::sqrt(__x1) == std::sqrt(TO_LDBL(__x1))), "std::sqrt()");
 
 #ifdef TEUTHID_HAVE_INT_128
   __x1 = TO_INT128(INT64_MAX) * 10, __x2 = TO_INT128(INT64_MAX) * 10;

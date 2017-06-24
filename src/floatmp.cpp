@@ -109,3 +109,10 @@ void floatmp_base::pow(const floatmp_base &x, const floatmp_base &y) {
   mpfr_pow(value_, x.c_mpfr(), y.c_mpfr(),
            static_cast<mpfr_rnd_t>(rounding_mode()));
 }
+
+void floatmp_base::sqrt(const floatmp_base &x) {
+  if (x.is_negative())
+    throw std::domain_error("invalid arg of sqrt()");
+  else
+    mpfr_sqrt(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+}
