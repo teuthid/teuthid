@@ -324,6 +324,14 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((__x2.cbrt(__x1) == std::cbrt(TO_LDBL(__x1))), "cbrt()");
   BOOST_TEST((std::cbrt(__x1) == std::cbrt(TO_LDBL(__x1))), "std::cbrt()");
 
+  __x1 = 9.9999, __x2 = -9.9999;
+  BOOST_TEST(
+      (__x3.hypot(__x1, __x2) == std::hypot(TO_LDBL(__x1), TO_LDBL(__x2))),
+      "hypot()");
+  BOOST_TEST(
+      (std::hypot(__x1, __x2) == std::hypot(TO_LDBL(__x1), TO_LDBL(__x2))),
+      "std::hypot()");
+
 #ifdef TEUTHID_HAVE_INT_128
   __x1 = TO_INT128(INT64_MAX) * 10, __x2 = TO_INT128(INT64_MAX) * 10;
   BOOST_TEST(!system::to_string(__x1).empty());
