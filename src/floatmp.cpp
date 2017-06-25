@@ -116,3 +116,17 @@ void floatmp_base::sqrt(const floatmp_base &x) {
   else
     mpfr_sqrt(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
 }
+
+void floatmp_base::asin(const floatmp_base &x) {
+  if (x.less_than(floatmp_base::minus_one_) ||
+      floatmp_base::plus_one_.less_than(x))
+    throw std::domain_error("invalid arg of asin()");
+  mpfr_asin(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+}
+
+void floatmp_base::acos(const floatmp_base &x) {
+  if (x.less_than(floatmp_base::minus_one_) ||
+      floatmp_base::plus_one_.less_than(x))
+    throw std::domain_error("invalid arg of asin()");
+  mpfr_acos(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+}

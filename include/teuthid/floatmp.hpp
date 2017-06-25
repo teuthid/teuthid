@@ -280,6 +280,11 @@ private:
   void tan(const floatmp_base &x) {
     mpfr_tan(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
   }
+  void asin(const floatmp_base &x);
+  void acos(const floatmp_base &x);
+  void atan(const floatmp_base &x) {
+    mpfr_atan(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
   void sinh(const floatmp_base &x) {
     mpfr_sinh(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
   }
@@ -544,6 +549,18 @@ public:
     floatmp_base::tan(static_cast<const floatmp_base &>(x));
     return *this;
   }
+  template <std::size_t P> floatmp &asin(const floatmp<P> &x) {
+    floatmp_base::asin(static_cast<const floatmp_base &>(x));
+    return *this;
+  }
+  template <std::size_t P> floatmp &acos(const floatmp<P> &x) {
+    floatmp_base::acos(static_cast<const floatmp_base &>(x));
+    return *this;
+  }
+  template <std::size_t P> floatmp &atan(const floatmp<P> &x) {
+    floatmp_base::atan(static_cast<const floatmp_base &>(x));
+    return *this;
+  }
   template <std::size_t P> floatmp &sinh(const floatmp<P> &x) {
     floatmp_base::sinh(static_cast<const floatmp_base &>(x));
     return *this;
@@ -780,6 +797,15 @@ template <std::size_t P> inline auto cos(const teuthid::floatmp<P> &x) {
 }
 template <std::size_t P> inline auto tan(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().tan(x);
+}
+template <std::size_t P> inline auto asin(const teuthid::floatmp<P> &x) {
+  return teuthid::floatmp<P>().asin(x);
+}
+template <std::size_t P> inline auto acos(const teuthid::floatmp<P> &x) {
+  return teuthid::floatmp<P>().acos(x);
+}
+template <std::size_t P> inline auto atan(const teuthid::floatmp<P> &x) {
+  return teuthid::floatmp<P>().atan(x);
 }
 template <std::size_t P> inline auto sinh(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().sinh(x);
