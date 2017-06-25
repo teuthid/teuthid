@@ -368,6 +368,12 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
       (std::atan2(__x1, __x2) == std::atan2(TO_LDBL(__x1), TO_LDBL(__x2))),
       "std::atan2()");
 
+  __x1 = 1.2345;
+  BOOST_TEST((__x2.erf(__x1) == std::erf(TO_LDBL(__x1))), "erf()");
+  BOOST_TEST((std::erf(__x1) == std::erf(TO_LDBL(__x1))), "std::erf()");
+  BOOST_TEST((__x2.erfc(__x1) == std::erfc(TO_LDBL(__x1))), "erfc()");
+  BOOST_TEST((std::erfc(__x1) == std::erfc(TO_LDBL(__x1))), "std::erfc()");
+
 #ifdef TEUTHID_HAVE_INT_128
   __x1 = TO_INT128(INT64_MAX) * 10, __x2 = TO_INT128(INT64_MAX) * 10;
   BOOST_TEST(!system::to_string(__x1).empty());
