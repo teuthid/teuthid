@@ -354,6 +354,14 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((__x2.atan(__x1) == std::atan(TO_LDBL(__x1))), "atan()");
   BOOST_TEST((std::atan(__x1) == std::atan(TO_LDBL(__x1))), "std::atan()");
 
+  __x1 = 1.1111, __x2 = 0.5555;
+  BOOST_TEST(
+      (__x3.atan2(__x1, __x2) == std::atan2(TO_LDBL(__x1), TO_LDBL(__x2))),
+      "atan2()");
+  BOOST_TEST(
+      (std::atan2(__x1, __x2) == std::atan2(TO_LDBL(__x1), TO_LDBL(__x2))),
+      "std::atan2()");
+
 #ifdef TEUTHID_HAVE_INT_128
   __x1 = TO_INT128(INT64_MAX) * 10, __x2 = TO_INT128(INT64_MAX) * 10;
   BOOST_TEST(!system::to_string(__x1).empty());

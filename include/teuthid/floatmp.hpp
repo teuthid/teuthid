@@ -285,6 +285,10 @@ private:
   void atan(const floatmp_base &x) {
     mpfr_atan(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
   }
+  void atan2(const floatmp_base &x, const floatmp_base &y) {
+    mpfr_atan2(value_, x.c_mpfr(), y.c_mpfr(),
+               static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
   void sinh(const floatmp_base &x) {
     mpfr_sinh(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
   }
@@ -561,6 +565,12 @@ public:
     floatmp_base::atan(static_cast<const floatmp_base &>(x));
     return *this;
   }
+  template <std::size_t P1, std::size_t P2>
+  floatmp &atan2(const floatmp<P1> &x, const floatmp<P2> &y) {
+    floatmp_base::atan2(static_cast<const floatmp_base &>(x),
+                        static_cast<const floatmp_base &>(y));
+    return *this;
+  }
   template <std::size_t P> floatmp &sinh(const floatmp<P> &x) {
     floatmp_base::sinh(static_cast<const floatmp_base &>(x));
     return *this;
@@ -806,6 +816,11 @@ template <std::size_t P> inline auto acos(const teuthid::floatmp<P> &x) {
 }
 template <std::size_t P> inline auto atan(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().atan(x);
+}
+template <std::size_t P1, std::size_t P2>
+inline auto atan2(const teuthid::floatmp<P1> &x,
+                  const teuthid::floatmp<P2> &y) {
+  return teuthid::floatmp<std::max(P1, P2)>().atan2(x, y);
 }
 template <std::size_t P> inline auto sinh(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().sinh(x);
