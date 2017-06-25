@@ -298,6 +298,11 @@ private:
   void tanh(const floatmp_base &x) {
     mpfr_tanh(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
   }
+  void asinh(const floatmp_base &x) {
+    mpfr_asinh(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
+  void acosh(const floatmp_base &x);
+  void atanh(const floatmp_base &x);
   void ceil(const floatmp_base &x) { mpfr_ceil(value_, x.c_mpfr()); }
   void floor(const floatmp_base &x) { mpfr_floor(value_, x.c_mpfr()); }
   void trunc(const floatmp_base &x) { mpfr_trunc(value_, x.c_mpfr()); }
@@ -583,6 +588,18 @@ public:
     floatmp_base::tanh(static_cast<const floatmp_base &>(x));
     return *this;
   }
+  template <std::size_t P> floatmp &asinh(const floatmp<P> &x) {
+    floatmp_base::asinh(static_cast<const floatmp_base &>(x));
+    return *this;
+  }
+  template <std::size_t P> floatmp &acosh(const floatmp<P> &x) {
+    floatmp_base::acosh(static_cast<const floatmp_base &>(x));
+    return *this;
+  }
+  template <std::size_t P> floatmp &atanh(const floatmp<P> &x) {
+    floatmp_base::atanh(static_cast<const floatmp_base &>(x));
+    return *this;
+  }
   template <std::size_t P> floatmp &ceil(const floatmp<P> &x) {
     floatmp_base::ceil(static_cast<const floatmp_base &>(x));
     return *this;
@@ -830,6 +847,15 @@ template <std::size_t P> inline auto cosh(const teuthid::floatmp<P> &x) {
 }
 template <std::size_t P> inline auto tanh(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().tanh(x);
+}
+template <std::size_t P> inline auto asinh(const teuthid::floatmp<P> &x) {
+  return teuthid::floatmp<P>().asinh(x);
+}
+template <std::size_t P> inline auto acosh(const teuthid::floatmp<P> &x) {
+  return teuthid::floatmp<P>().acosh(x);
+}
+template <std::size_t P> inline auto atanh(const teuthid::floatmp<P> &x) {
+  return teuthid::floatmp<P>().atanh(x);
 }
 template <std::size_t P> inline auto ceil(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().ceil(x);

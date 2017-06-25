@@ -130,3 +130,16 @@ void floatmp_base::acos(const floatmp_base &x) {
     throw std::domain_error("invalid arg of asin()");
   mpfr_acos(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
 }
+
+void floatmp_base::acosh(const floatmp_base &x) {
+  if (x.less_than(floatmp_base::plus_one_))
+    throw std::domain_error("invalid arg of acosh()");
+  mpfr_acosh(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+}
+
+void floatmp_base::atanh(const floatmp_base &x) {
+  if (!(floatmp_base::minus_one_.less_than(x) &&
+        x.less_than(floatmp_base::plus_one_)))
+    throw std::domain_error("invalid arg of atanh()");
+  mpfr_atanh(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+}

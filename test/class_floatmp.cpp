@@ -345,6 +345,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((std::cosh(__x1) == std::cosh(TO_LDBL(__x1))), "std::cosh()");
   BOOST_TEST((__x2.tanh(__x1) == std::tanh(TO_LDBL(__x1))), "tanh()");
   BOOST_TEST((std::tanh(__x1) == std::tanh(TO_LDBL(__x1))), "std::tanh()");
+  BOOST_TEST((__x2.acosh(__x1) == std::acosh(TO_LDBL(__x1))), "acosh()");
+  BOOST_TEST((std::acosh(__x1) == std::acosh(TO_LDBL(__x1))), "std::acosh()");
 
   __x1 = 0.5555;
   BOOST_TEST((__x2.asin(__x1) == std::asin(TO_LDBL(__x1))), "asin()");
@@ -353,6 +355,10 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((std::acos(__x1) == std::acos(TO_LDBL(__x1))), "std::acos()");
   BOOST_TEST((__x2.atan(__x1) == std::atan(TO_LDBL(__x1))), "atan()");
   BOOST_TEST((std::atan(__x1) == std::atan(TO_LDBL(__x1))), "std::atan()");
+  BOOST_TEST((__x2.asinh(__x1) == std::asinh(TO_LDBL(__x1))), "asinh()");
+  BOOST_TEST((std::asinh(__x1) == std::asinh(TO_LDBL(__x1))), "std::asinh()");
+  BOOST_TEST((__x2.atanh(__x1) == std::atanh(TO_LDBL(__x1))), "atanh()");
+  BOOST_TEST((std::atanh(__x1) == std::atanh(TO_LDBL(__x1))), "std::atanh()");
 
   __x1 = 1.1111, __x2 = 0.5555;
   BOOST_TEST(

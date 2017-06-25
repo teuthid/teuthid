@@ -79,6 +79,10 @@ int main() {
   std::cout << "  cosh(x) => " << system::to_string(std::cosh(__f5));
   std::cout << "  tanh(x) => " << system::to_string(std::tanh(__f5));
   std::cout << std::endl;
+  std::cout << "  asinh(x) => " << system::to_string(std::asinh(__f5));
+  std::cout << "  acosh(2x) => " << system::to_string(std::acosh(__f5 * 2));
+  std::cout << "  atanh(x) => " << system::to_string(std::atanh(__f5));
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<10> __f10 = __value;
@@ -130,6 +134,10 @@ int main() {
   std::cout << "  sinh(x) => " << system::to_string(std::sinh(__f10));
   std::cout << "  cosh(x) => " << system::to_string(std::cosh(__f10));
   std::cout << "  tanh(x) => " << system::to_string(std::tanh(__f10));
+  std::cout << std::endl;
+  std::cout << "  asinh(x) => " << system::to_string(std::asinh(__f10));
+  std::cout << "  acosh(2x) => " << system::to_string(std::acosh(__f10 * 2));
+  std::cout << "  atanh(x) => " << system::to_string(std::atanh(__f10));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
@@ -183,6 +191,10 @@ int main() {
   std::cout << "  cosh(x) => " << system::to_string(std::cosh(__f20));
   std::cout << "  tanh(x) => " << system::to_string(std::tanh(__f20));
   std::cout << std::endl;
+  std::cout << "  asinh(x) => " << system::to_string(std::asinh(__f20));
+  std::cout << "  acosh(2x) => " << system::to_string(std::acosh(__f20 * 2));
+  std::cout << "  atanh(x) => " << system::to_string(std::atanh(__f20));
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<50> __f50 = __value;
@@ -234,6 +246,10 @@ int main() {
   std::cout << "  sinh(x) => " << system::to_string(std::sinh(__f50));
   std::cout << "  cosh(x) => " << system::to_string(std::cosh(__f50));
   std::cout << "  tanh(x) => " << system::to_string(std::tanh(__f50));
+  std::cout << std::endl;
+  std::cout << "  asinh(x) => " << system::to_string(std::asinh(__f50));
+  std::cout << "  acosh(2x) => " << system::to_string(std::acosh(__f50 * 2));
+  std::cout << "  atanh(x) => " << system::to_string(std::atanh(__f50));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
@@ -287,6 +303,10 @@ int main() {
   std::cout << "  cosh(x) => " << system::to_string(std::cosh(__f100));
   std::cout << "  tanh(x) => " << system::to_string(std::tanh(__f100));
   std::cout << std::endl;
+  std::cout << "  asinh(x) => " << system::to_string(std::asinh(__f100));
+  std::cout << "  acosh(2x) => " << system::to_string(std::acosh(__f100 * 2));
+  std::cout << "  atanh(x) => " << system::to_string(std::atanh(__f100));
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<200> __f200 = __value;
@@ -338,6 +358,10 @@ int main() {
   std::cout << "  sinh(x) => " << system::to_string(std::sinh(__f200));
   std::cout << "  cosh(x) => " << system::to_string(std::cosh(__f200));
   std::cout << "  tanh(x) => " << system::to_string(std::tanh(__f200));
+  std::cout << std::endl;
+  std::cout << "  asinh(x) => " << system::to_string(std::asinh(__f200));
+  std::cout << "  acosh(2x) => " << system::to_string(std::acosh(__f200 * 2));
+  std::cout << "  atanh(x) => " << system::to_string(std::atanh(__f200));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
