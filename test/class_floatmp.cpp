@@ -293,6 +293,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((std::floor(__x2) == std::floor(TO_LDBL(__x2))), "std::floor()");
   BOOST_TEST((__x1.trunc(__x2) == std::trunc(TO_LDBL(__x2))), "trunc()");
   BOOST_TEST((std::trunc(__x2) == std::trunc(TO_LDBL(__x2))), "std::trunc()");
+  BOOST_TEST((__x1.round(__x2) == std::round(TO_LDBL(__x2))), "round()");
+  BOOST_TEST((std::round(__x2) == std::round(TO_LDBL(__x2))), "std::round()");
   BOOST_TEST(__x1.is_integer(), "is_integer()");
   BOOST_TEST(!__x2.is_integer(), "is_integer()");
   __x2 = 99.0001;
@@ -302,8 +304,22 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((std::floor(__x2) == std::floor(TO_LDBL(__x2))), "std::floor()");
   BOOST_TEST((__x1.trunc(__x2) == std::trunc(TO_LDBL(__x2))), "trunc()");
   BOOST_TEST((std::trunc(__x2) == std::trunc(TO_LDBL(__x2))), "std::trunc()");
+  BOOST_TEST((__x1.round(__x2) == std::round(TO_LDBL(__x2))), "round()");
+  BOOST_TEST((std::round(__x2) == std::round(TO_LDBL(__x2))), "std::round()");
   BOOST_TEST(__x1.is_integer(), "is_integer()");
   BOOST_TEST(!__x2.is_integer(), "is_integer()");
+
+  __x1 = 1.5, __x2 = 1.4999;
+  BOOST_TEST((__x3.rint(__x1) == 2), "rint()");
+  BOOST_TEST((__x3.rint(__x2) == 1), "rint()");
+  BOOST_TEST((std::lround(__x1) == 2), "std::lround()");
+  BOOST_TEST((std::lround(__x2) == 1), "std::lround()");
+  BOOST_TEST((std::llround(__x1) == 2), "std::llround()");
+  BOOST_TEST((std::llround(__x2) == 1), "std::llround()");
+  __x1 = TO_LDBL(INT64_MAX) + 0.1;
+  BOOST_TEST((std::llround(__x1) == INT64_MAX), "std::llround()");
+  __x1 = TO_LDBL(INT64_MAX) - 0.1;
+  BOOST_TEST((std::llround(__x1) == INT64_MAX), "std::llround()");
 
   __x1 = 9.99, __x2 = 5.55;
   BOOST_TEST((__x3.pow(__x1, __x2) == std::pow(TO_LDBL(__x1), TO_LDBL(__x2))),

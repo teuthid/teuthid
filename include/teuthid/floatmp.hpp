@@ -104,8 +104,8 @@ public:
   bool is_finite() const { return (mpfr_number_p(value_) != 0); }
   bool is_infinite() const { return (mpfr_inf_p(value_) != 0); }
   bool is_nan() const { return (mpfr_nan_p(value_) != 0); }
-  bool is_zero() const { return equal_to(floatmp_base::zero_); }
-  bool is_negative() const { return less_than(floatmp_base::zero_); }
+  bool is_zero() const { return equal_to(zero_); }
+  bool is_negative() const { return less_than(zero_); }
   bool is_positive() const { return !is_zero() && !is_negative(); }
   bool is_integer() const;
 
@@ -314,7 +314,10 @@ private:
   void ceil(const floatmp_base &x) { mpfr_ceil(value_, x.c_mpfr()); }
   void floor(const floatmp_base &x) { mpfr_floor(value_, x.c_mpfr()); }
   void trunc(const floatmp_base &x) { mpfr_trunc(value_, x.c_mpfr()); }
-
+  void round(const floatmp_base &x) { mpfr_round(value_, x.c_mpfr()); }
+  void rint(const floatmp_base &x) {
+    mpfr_rint(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
 #ifdef TEUTHID_HAVE_INT_128
   static long double int128_to_ldouble_(const int128_t &x) {
     return static_cast<long double>(INT64_MAX) *
@@ -636,6 +639,14 @@ public:
     floatmp_base::trunc(static_cast<const floatmp_base &>(x));
     return *this;
   }
+  template <std::size_t P> floatmp &round(const floatmp<P> &x) {
+    floatmp_base::round(static_cast<const floatmp_base &>(x));
+    return *this;
+  }
+  template <std::size_t P> floatmp &rint(const floatmp<P> &x) {
+    floatmp_base::rint(static_cast<const floatmp_base &>(x));
+    return *this;
+  }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   template <std::size_t P> bool equal_to(const floatmp<P> &x) const {
@@ -901,6 +912,17 @@ template <std::size_t P> inline auto floor(const teuthid::floatmp<P> &x) {
 }
 template <std::size_t P> inline auto trunc(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().trunc(x);
+}
+template <std::size_t P> inline auto round(const teuthid::floatmp<P> &x) {
+  return teuthid::floatmp<P>().round(x);
+}
+template <std::size_t P> inline long lround(const teuthid::floatmp<P> &x) {
+  return mpfr_get_si(x.c_mpfr(), static_cast<mpfr_rnd_t>(
+                                     teuthid::floatmp_base::rounding_mode()));
+}
+template <std::size_t P> inline long llround(const teuthid::floatmp<P> &x) {
+  return mpfr_get_sj(x.c_mpfr(), static_cast<mpfr_rnd_t>(
+                                     teuthid::floatmp_base::rounding_mode()));
 }
 
 } // namespace std
