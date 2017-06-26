@@ -143,3 +143,19 @@ void floatmp_base::atanh(const floatmp_base &x) {
     throw std::domain_error("invalid arg of atanh()");
   mpfr_atanh(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
 }
+
+void floatmp_base::tgamma(const floatmp_base &x) {
+  if (x.is_zero())
+    throw std::domain_error("invalid arg of tgamma()");
+  if (x.is_integer() && x.is_negative())
+    throw std::domain_error("invalid arg of tgamma()");
+  mpfr_gamma(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+}
+
+void floatmp_base::lgamma(const floatmp_base &x) {
+  if (x.is_zero())
+    throw std::domain_error("invalid arg of tgamma()");
+  if (x.is_integer() && x.is_negative())
+    throw std::domain_error("invalid arg of tgamma()");
+  mpfr_lngamma(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+}

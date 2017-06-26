@@ -309,6 +309,8 @@ private:
   void erfc(const floatmp_base &x) {
     mpfr_erfc(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
   }
+  void tgamma(const floatmp_base &x);
+  void lgamma(const floatmp_base &x);
   void ceil(const floatmp_base &x) { mpfr_ceil(value_, x.c_mpfr()); }
   void floor(const floatmp_base &x) { mpfr_floor(value_, x.c_mpfr()); }
   void trunc(const floatmp_base &x) { mpfr_trunc(value_, x.c_mpfr()); }
@@ -614,6 +616,14 @@ public:
     floatmp_base::erfc(static_cast<const floatmp_base &>(x));
     return *this;
   }
+  template <std::size_t P> floatmp &tgamma(const floatmp<P> &x) {
+    floatmp_base::tgamma(static_cast<const floatmp_base &>(x));
+    return *this;
+  }
+  template <std::size_t P> floatmp &lgamma(const floatmp<P> &x) {
+    floatmp_base::lgamma(static_cast<const floatmp_base &>(x));
+    return *this;
+  }
   template <std::size_t P> floatmp &ceil(const floatmp<P> &x) {
     floatmp_base::ceil(static_cast<const floatmp_base &>(x));
     return *this;
@@ -876,6 +886,12 @@ template <std::size_t P> inline auto erf(const teuthid::floatmp<P> &x) {
 }
 template <std::size_t P> inline auto erfc(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().erfc(x);
+}
+template <std::size_t P> inline auto tgamma(const teuthid::floatmp<P> &x) {
+  return teuthid::floatmp<P>().tgamma(x);
+}
+template <std::size_t P> inline auto lgamma(const teuthid::floatmp<P> &x) {
+  return teuthid::floatmp<P>().lgamma(x);
 }
 template <std::size_t P> inline auto ceil(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().ceil(x);

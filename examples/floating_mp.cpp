@@ -86,6 +86,9 @@ int main() {
   std::cout << "  erf(x) => " << system::to_string(std::erf(__f5));
   std::cout << "  erfc(x) => " << system::to_string(std::erfc(__f5));
   std::cout << std::endl;
+  std::cout << "  tgamma(x) => " << system::to_string(std::tgamma(__f5));
+  std::cout << "  lgamma(x) => " << system::to_string(std::lgamma(__f5));
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<10> __f10 = __value;
@@ -144,6 +147,9 @@ int main() {
   std::cout << std::endl;
   std::cout << "  erf(x) => " << system::to_string(std::erf(__f10));
   std::cout << "  erfc(x) => " << system::to_string(std::erfc(__f10));
+  std::cout << std::endl;
+  std::cout << "  tgamma(x) => " << system::to_string(std::tgamma(__f10));
+  std::cout << "  lgamma(x) => " << system::to_string(std::lgamma(__f10));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
@@ -204,6 +210,9 @@ int main() {
   std::cout << "  erf(x) => " << system::to_string(std::erf(__f20));
   std::cout << "  erfc(x) => " << system::to_string(std::erfc(__f20));
   std::cout << std::endl;
+  std::cout << "  tgamma(x) => " << system::to_string(std::tgamma(__f20));
+  std::cout << "  lgamma(x) => " << system::to_string(std::lgamma(__f20));
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<50> __f50 = __value;
@@ -262,6 +271,9 @@ int main() {
   std::cout << std::endl;
   std::cout << "  erf(x) => " << system::to_string(std::erf(__f50));
   std::cout << "  erfc(x) => " << system::to_string(std::erfc(__f50));
+  std::cout << std::endl;
+  std::cout << "  tgamma(x) => " << system::to_string(std::tgamma(__f50));
+  std::cout << "  lgamma(x) => " << system::to_string(std::lgamma(__f50));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
@@ -322,6 +334,9 @@ int main() {
   std::cout << "  erf(x) => " << system::to_string(std::erf(__f100));
   std::cout << "  erfc(x) => " << system::to_string(std::erfc(__f100));
   std::cout << std::endl;
+  std::cout << "  tgamma(x) => " << system::to_string(std::tgamma(__f100));
+  std::cout << "  lgamma(x) => " << system::to_string(std::lgamma(__f100));
+  std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
   floatmp<200> __f200 = __value;
@@ -380,6 +395,9 @@ int main() {
   std::cout << std::endl;
   std::cout << "  erf(x) => " << system::to_string(std::erf(__f200));
   std::cout << "  erfc(x) => " << system::to_string(std::erfc(__f200));
+  std::cout << std::endl;
+  std::cout << "  tgamma(x) => " << system::to_string(std::tgamma(__f200));
+  std::cout << "  lgamma(x) => " << system::to_string(std::lgamma(__f200));
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 

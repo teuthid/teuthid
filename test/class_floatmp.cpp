@@ -373,6 +373,12 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((std::erf(__x1) == std::erf(TO_LDBL(__x1))), "std::erf()");
   BOOST_TEST((__x2.erfc(__x1) == std::erfc(TO_LDBL(__x1))), "erfc()");
   BOOST_TEST((std::erfc(__x1) == std::erfc(TO_LDBL(__x1))), "std::erfc()");
+  BOOST_TEST((__x2.tgamma(__x1) == std::tgamma(TO_LDBL(__x1))), "tgamma()");
+  BOOST_TEST((std::tgamma(__x1) == std::tgamma(TO_LDBL(__x1))),
+             "std::tgamma()");
+  BOOST_TEST((__x2.lgamma(__x1) == std::lgamma(TO_LDBL(__x1))), "lgamma()");
+  BOOST_TEST((std::lgamma(__x1) == std::lgamma(TO_LDBL(__x1))),
+             "std::lgamma()");
 
 #ifdef TEUTHID_HAVE_INT_128
   __x1 = TO_INT128(INT64_MAX) * 10, __x2 = TO_INT128(INT64_MAX) * 10;
