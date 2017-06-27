@@ -920,7 +920,8 @@ template <std::size_t P> inline long lround(const teuthid::floatmp<P> &x) {
   return mpfr_get_si(x.c_mpfr(), static_cast<mpfr_rnd_t>(
                                      teuthid::floatmp_base::rounding_mode()));
 }
-template <std::size_t P> inline long llround(const teuthid::floatmp<P> &x) {
+template <std::size_t P>
+inline long long llround(const teuthid::floatmp<P> &x) {
   return mpfr_get_sj(x.c_mpfr(), static_cast<mpfr_rnd_t>(
                                      teuthid::floatmp_base::rounding_mode()));
 }
