@@ -310,8 +310,16 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST(!__x2.is_integer(), "is_integer()");
 
   __x1 = 1.5, __x2 = 1.4999;
-  BOOST_TEST((__x3.rint(__x1) == 2), "rint()");
-  BOOST_TEST((__x3.rint(__x2) == 1), "rint()");
+  BOOST_TEST((__x3.nearbyint(__x1) == std::nearbyint(TO_LDBL(__x1))),
+             "nearbyint()");
+  BOOST_TEST((__x3.nearbyint(__x2) == std::nearbyint(TO_LDBL(__x2))),
+             "nearbyint()");
+  BOOST_TEST((std::nearbyint(__x1) == std::nearbyint(TO_LDBL(__x1))),
+             "std::nearbyint()");
+  BOOST_TEST((std::nearbyint(__x2) == std::nearbyint(TO_LDBL(__x2))),
+             "std::nearbyint()");
+  BOOST_TEST((std::rint(__x1) == std::rint(TO_LDBL(__x1))), "std::rint()");
+  BOOST_TEST((std::rint(__x2) == std::rint(TO_LDBL(__x2))), "std::rint()");
   BOOST_TEST((std::lround(__x1) == 2), "std::lround()");
   BOOST_TEST((std::lround(__x2) == 1), "std::lround()");
   BOOST_TEST((std::llround(__x1) == 2), "std::llround()");

@@ -315,7 +315,7 @@ private:
   void floor(const floatmp_base &x) { mpfr_floor(value_, x.c_mpfr()); }
   void trunc(const floatmp_base &x) { mpfr_trunc(value_, x.c_mpfr()); }
   void round(const floatmp_base &x) { mpfr_round(value_, x.c_mpfr()); }
-  void rint(const floatmp_base &x) {
+  void nearbyint(const floatmp_base &x) {
     mpfr_rint(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
   }
 #ifdef TEUTHID_HAVE_INT_128
@@ -643,8 +643,8 @@ public:
     floatmp_base::round(static_cast<const floatmp_base &>(x));
     return *this;
   }
-  template <std::size_t P> floatmp &rint(const floatmp<P> &x) {
-    floatmp_base::rint(static_cast<const floatmp_base &>(x));
+  template <std::size_t P> floatmp &nearbyint(const floatmp<P> &x) {
+    floatmp_base::nearbyint(static_cast<const floatmp_base &>(x));
     return *this;
   }
 
@@ -923,6 +923,12 @@ template <std::size_t P> inline long lround(const teuthid::floatmp<P> &x) {
 template <std::size_t P> inline long llround(const teuthid::floatmp<P> &x) {
   return mpfr_get_sj(x.c_mpfr(), static_cast<mpfr_rnd_t>(
                                      teuthid::floatmp_base::rounding_mode()));
+}
+template <std::size_t P> inline auto nearbyint(const teuthid::floatmp<P> &x) {
+  return teuthid::floatmp<P>().nearbyint(x);
+}
+template <std::size_t P> inline auto rint(const teuthid::floatmp<P> &x) {
+  return teuthid::floatmp<P>().nearbyint(x);
 }
 
 } // namespace std
