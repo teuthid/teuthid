@@ -931,6 +931,51 @@ template <std::size_t P> inline auto nearbyint(const teuthid::floatmp<P> &x) {
 template <std::size_t P> inline auto rint(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().nearbyint(x);
 }
+template <std::size_t P> inline bool isfinite(const teuthid::floatmp<P> &x) {
+  return x.is_finite();
+}
+template <std::size_t P> inline bool isinf(const teuthid::floatmp<P> &x) {
+  return x.is_infinite();
+}
+template <std::size_t P> inline bool isnan(const teuthid::floatmp<P> &x) {
+  return x.is_nan();
+}
+template <std::size_t P> inline bool isnormal(const teuthid::floatmp<P> &x) {
+  return x.is_finite() && !x.is_zero();
+}
+template <std::size_t P> inline bool signbit(const teuthid::floatmp<P> &x) {
+  return x.is_negative();
+}
+template <std::size_t P1, std::size_t P2>
+inline bool isgreater(const teuthid::floatmp<P1> &x,
+                      const teuthid::floatmp<P2> &y) {
+  return x > y;
+}
+template <std::size_t P1, std::size_t P2>
+inline bool isgreaterequal(const teuthid::floatmp<P1> &x,
+                           const teuthid::floatmp<P2> &y) {
+  return x >= y;
+}
+template <std::size_t P1, std::size_t P2>
+inline bool isless(const teuthid::floatmp<P1> &x,
+                   const teuthid::floatmp<P2> &y) {
+  return x < y;
+}
+template <std::size_t P1, std::size_t P2>
+inline bool islessequal(const teuthid::floatmp<P1> &x,
+                        const teuthid::floatmp<P2> &y) {
+  return x <= y;
+}
+template <std::size_t P1, std::size_t P2>
+inline bool islessgreater(const teuthid::floatmp<P1> &x,
+                          const teuthid::floatmp<P2> &y) {
+  return (x < y) || (y < x);
+}
+template <std::size_t P1, std::size_t P2>
+inline bool isunordered(const teuthid::floatmp<P1> &x,
+                        const teuthid::floatmp<P2> &y) {
+  return x.is_nan() || y.is_nan();
+}
 
 } // namespace std
 

@@ -46,14 +46,18 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
              "floatmp::rounding_mode()");
   BOOST_TEST(__x1.is_finite(), "is_finite()");
   BOOST_TEST(system::is_finite(__x2), "system::is_finite()");
+  BOOST_TEST(std::isfinite(__x2), "std::isfinite()");
   BOOST_TEST(!__x2.is_infinite(), "is_infinite()");
   BOOST_TEST(!system::is_infinite(__x3), "system::is_infinite()");
+  BOOST_TEST(!std::isinf(__x3), "std::isinf()");
   BOOST_TEST(!__x1.is_nan(), "is_nan()");
   BOOST_TEST(!system::is_nan(__x2), "system::is_nan()");
+  BOOST_TEST(!std::isnan(__x2), "std::isnan()");
   BOOST_TEST(__x1.is_zero(), "is_zero()");
   BOOST_TEST(__x2.is_zero(), "is_zero()");
   BOOST_TEST(__x3.is_zero(), "is_zero()");
   BOOST_TEST(system::is_zero(__x2), "system::is_zero()");
+  BOOST_TEST(!std::isunordered(__x1, __x2), "std::isunordered()");
 
   __x1 = -0.1, __x2 = 0.0, __x3 = 0.1;
   BOOST_TEST(!__x1.is_positive(), "is_positive()");
@@ -68,6 +72,12 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST(system::is_negative(__x1), "system::is_negative()");
   BOOST_TEST(!system::is_negative(__x2), "system::is_negative()");
   BOOST_TEST(!system::is_negative(__x3), "system::is_negative()");
+  BOOST_TEST(std::isnormal(__x1), "std::isnormal()");
+  BOOST_TEST(!std::isnormal(__x2), "std::isnormal()");
+  BOOST_TEST(std::isnormal(__x3), "std::isnormal()");
+  BOOST_TEST(std::signbit(__x1), "std::signbit()");
+  BOOST_TEST(!std::signbit(__x2), "std::signbit()");
+  BOOST_TEST(!std::signbit(__x3), "std::signbit()");
 
   __x1 = 0, __x2 = 0, __x3 = 0;
   BOOST_TEST((__x1 == __x2), "operator==");
@@ -122,6 +132,14 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST(__x1.less_than(2), "less_than()");
   BOOST_TEST(__x1.less_than(3.0), "less_than()");
   BOOST_TEST((__x1 < 3), "operator<");
+  BOOST_TEST(std::isgreater(__x2, __x1), "std::isgreater()");
+  BOOST_TEST(std::isgreaterequal(__x2, __x1), "std::isgreaterequal()");
+  BOOST_TEST(std::isgreaterequal(__x2, __x2), "std::isgreaterequal()");
+  BOOST_TEST(std::isless(__x2, __x3), "std::isless()");
+  BOOST_TEST(std::islessequal(__x2, __x3), "std::islessequal()");
+  BOOST_TEST(std::islessequal(__x3, __x3), "std::islessequal()");
+  BOOST_TEST(std::islessgreater(__x2, __x3), "std::islessgreater()");
+  BOOST_TEST(!std::islessgreater(__x3, __x3), "std::islessgreater()");
   __x1 += __x2;
   BOOST_TEST((__x1 == __x3), "add()");
   BOOST_TEST(__x1.equal_to(3), "equal_to()");
