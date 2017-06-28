@@ -37,6 +37,9 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   floatmp<100> __x3;
   float __x4;
 
+  BOOST_TEST(system::is_floatmp(__x2), "system::is_floatmp()");
+  BOOST_TEST(!system::is_floatmp(__x4), "system::is_floatmp()");
+
   BOOST_TEST(__x1.precision() == float256_prec, "precision()");
   BOOST_TEST(__x2.precision() == 500, "precision()");
   BOOST_TEST(__x3.precision() == 100, "precision()");

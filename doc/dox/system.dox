@@ -349,3 +349,11 @@ system::is_positive().
 \ref teuthid::floatmp "floatmp<Precision>". For other types, the function 
 behaves just like the \c std::swap().
 */
+
+
+/*!
+\fn template <typename T> static constexpr bool system::is_floatmp(const T &)
+\brief Checks whether \c T is a multiple precision floating-point type. 
+\return \c true if \c T is the type of 
+\ref teuthid::floatmp "floatmp<Precision>", \c false otherwise.
+*/
