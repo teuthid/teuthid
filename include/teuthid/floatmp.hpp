@@ -779,199 +779,198 @@ __TEUTHID_FLOATMP_ARITHMETIC_SPEC(operator/, div)
 /******************************************************************************/
 
 namespace std {
-template <std::size_t P1, std::size_t P2>
+template <size_t P1, size_t P2>
 inline void swap(teuthid::floatmp<P1> &x, teuthid::floatmp<P2> &y) {
   x.swap(y);
 }
-template <std::size_t P> inline auto abs(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto abs(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().abs(x);
 }
-template <std::size_t P> inline auto fabs(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto fabs(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().abs(x);
 }
-template <std::size_t P1, std::size_t P2>
+template <size_t P1, size_t P2>
 inline auto fmod(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y) {
   return teuthid::floatmp<std::max(P1, P2)>().fmod(x, y);
 }
-template <std::size_t P1, std::size_t P2>
+template <size_t P1, size_t P2>
 inline auto remainder(const teuthid::floatmp<P1> &x,
                       const teuthid::floatmp<P2> &y) {
   return teuthid::floatmp<std::max(P1, P2)>().remainder(x, y);
 }
-template <std::size_t P1, std::size_t P2, std::size_t P3>
+template <size_t P1, size_t P2, size_t P3>
 inline auto fma(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y,
                 const teuthid::floatmp<P3> &z) {
   return teuthid::floatmp<std::max(std::max(P1, P2), P3)>().fma(x, y, z);
 }
-template <std::size_t P1, std::size_t P2>
+template <size_t P1, size_t P2>
 inline auto fmax(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y) {
   return teuthid::floatmp<std::max(P1, P2)>().fmax(x, y);
 }
-template <std::size_t P1, std::size_t P2>
+template <size_t P1, size_t P2>
 inline auto fmin(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y) {
   return teuthid::floatmp<std::max(P1, P2)>().fmin(x, y);
 }
-template <std::size_t P1, std::size_t P2>
+template <size_t P1, size_t P2>
 inline auto fdim(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y) {
   return teuthid::floatmp<std::max(P1, P2)>().fdim(x, y);
 }
-template <std::size_t P> inline auto exp(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto exp(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().exp(x);
 }
-template <std::size_t P> inline auto exp2(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto exp2(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().exp2(x);
 }
-template <std::size_t P> inline auto expm1(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto expm1(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().expm1(x);
 }
-template <std::size_t P> inline auto log(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto log(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().log(x);
 }
-template <std::size_t P> inline auto log10(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto log10(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().log10(x);
 }
-template <std::size_t P> inline auto log2(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto log2(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().log2(x);
 }
-template <std::size_t P> inline auto log1p(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto log1p(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().log1p(x);
 }
-template <std::size_t P1, std::size_t P2>
+template <size_t P1, std::size_t P2>
 inline auto pow(const teuthid::floatmp<P1> &x, const teuthid::floatmp<P2> &y) {
   return teuthid::floatmp<std::max(P1, P2)>().pow(x, y);
 }
-template <std::size_t P> inline auto sqrt(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto sqrt(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().sqrt(x);
 }
-template <std::size_t P> inline auto cbrt(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto cbrt(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().cbrt(x);
 }
-template <std::size_t P1, std::size_t P2>
+template <size_t P1, size_t P2>
 inline auto hypot(const teuthid::floatmp<P1> &x,
                   const teuthid::floatmp<P2> &y) {
   return teuthid::floatmp<std::max(P1, P2)>().hypot(x, y);
 }
-template <std::size_t P> inline auto sin(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto sin(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().sin(x);
 }
-template <std::size_t P> inline auto cos(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto cos(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().cos(x);
 }
-template <std::size_t P> inline auto tan(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto tan(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().tan(x);
 }
-template <std::size_t P> inline auto asin(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto asin(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().asin(x);
 }
-template <std::size_t P> inline auto acos(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto acos(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().acos(x);
 }
-template <std::size_t P> inline auto atan(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto atan(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().atan(x);
 }
-template <std::size_t P1, std::size_t P2>
+template <size_t P1, size_t P2>
 inline auto atan2(const teuthid::floatmp<P1> &x,
                   const teuthid::floatmp<P2> &y) {
   return teuthid::floatmp<std::max(P1, P2)>().atan2(x, y);
 }
-template <std::size_t P> inline auto sinh(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto sinh(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().sinh(x);
 }
-template <std::size_t P> inline auto cosh(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto cosh(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().cosh(x);
 }
-template <std::size_t P> inline auto tanh(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto tanh(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().tanh(x);
 }
-template <std::size_t P> inline auto asinh(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto asinh(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().asinh(x);
 }
-template <std::size_t P> inline auto acosh(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto acosh(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().acosh(x);
 }
-template <std::size_t P> inline auto atanh(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto atanh(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().atanh(x);
 }
-template <std::size_t P> inline auto erf(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto erf(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().erf(x);
 }
-template <std::size_t P> inline auto erfc(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto erfc(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().erfc(x);
 }
-template <std::size_t P> inline auto tgamma(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto tgamma(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().tgamma(x);
 }
-template <std::size_t P> inline auto lgamma(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto lgamma(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().lgamma(x);
 }
-template <std::size_t P> inline auto ceil(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto ceil(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().ceil(x);
 }
-template <std::size_t P> inline auto floor(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto floor(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().floor(x);
 }
-template <std::size_t P> inline auto trunc(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto trunc(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().trunc(x);
 }
-template <std::size_t P> inline auto round(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto round(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().round(x);
 }
-template <std::size_t P> inline long lround(const teuthid::floatmp<P> &x) {
+template <size_t P> inline long lround(const teuthid::floatmp<P> &x) {
   return mpfr_get_si(x.c_mpfr(), static_cast<mpfr_rnd_t>(
                                      teuthid::floatmp_base::rounding_mode()));
 }
-template <std::size_t P>
-inline long long llround(const teuthid::floatmp<P> &x) {
+template <size_t P> inline long long llround(const teuthid::floatmp<P> &x) {
   return mpfr_get_sj(x.c_mpfr(), static_cast<mpfr_rnd_t>(
                                      teuthid::floatmp_base::rounding_mode()));
 }
-template <std::size_t P> inline auto nearbyint(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto nearbyint(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().nearbyint(x);
 }
-template <std::size_t P> inline auto rint(const teuthid::floatmp<P> &x) {
+template <size_t P> inline auto rint(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().nearbyint(x);
 }
-template <std::size_t P> inline bool isfinite(const teuthid::floatmp<P> &x) {
+template <size_t P> inline bool isfinite(const teuthid::floatmp<P> &x) {
   return x.is_finite();
 }
-template <std::size_t P> inline bool isinf(const teuthid::floatmp<P> &x) {
+template <size_t P> inline bool isinf(const teuthid::floatmp<P> &x) {
   return x.is_infinite();
 }
-template <std::size_t P> inline bool isnan(const teuthid::floatmp<P> &x) {
+template <size_t P> inline bool isnan(const teuthid::floatmp<P> &x) {
   return x.is_nan();
 }
-template <std::size_t P> inline bool isnormal(const teuthid::floatmp<P> &x) {
+template <size_t P> inline bool isnormal(const teuthid::floatmp<P> &x) {
   return x.is_finite() && !x.is_zero();
 }
-template <std::size_t P> inline bool signbit(const teuthid::floatmp<P> &x) {
+template <size_t P> inline bool signbit(const teuthid::floatmp<P> &x) {
   return x.is_negative();
 }
-template <std::size_t P1, std::size_t P2>
+template <size_t P1, size_t P2>
 inline bool isgreater(const teuthid::floatmp<P1> &x,
                       const teuthid::floatmp<P2> &y) {
   return x > y;
 }
-template <std::size_t P1, std::size_t P2>
+template <size_t P1, size_t P2>
 inline bool isgreaterequal(const teuthid::floatmp<P1> &x,
                            const teuthid::floatmp<P2> &y) {
   return x >= y;
 }
-template <std::size_t P1, std::size_t P2>
+template <size_t P1, size_t P2>
 inline bool isless(const teuthid::floatmp<P1> &x,
                    const teuthid::floatmp<P2> &y) {
   return x < y;
 }
-template <std::size_t P1, std::size_t P2>
+template <size_t P1, size_t P2>
 inline bool islessequal(const teuthid::floatmp<P1> &x,
                         const teuthid::floatmp<P2> &y) {
   return x <= y;
 }
-template <std::size_t P1, std::size_t P2>
+template <size_t P1, size_t P2>
 inline bool islessgreater(const teuthid::floatmp<P1> &x,
                           const teuthid::floatmp<P2> &y) {
   return (x < y) || (y < x);
 }
-template <std::size_t P1, std::size_t P2>
+template <size_t P1, size_t P2>
 inline bool isunordered(const teuthid::floatmp<P1> &x,
                         const teuthid::floatmp<P2> &y) {
   return x.is_nan() || y.is_nan();
