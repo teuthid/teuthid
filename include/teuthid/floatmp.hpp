@@ -36,13 +36,12 @@ template <std::size_t Precision> class floatmp;
 namespace teuthid {
 
 enum class floatmp_round_t : int {
-  RNDN = MPFR_RNDN, // round to nearest, with ties to even
-  RNDZ = MPFR_RNDZ, // round toward zero
-  RNDU = MPFR_RNDU, // round toward +Inf
-  RNDD = MPFR_RNDD, // round toward -Inf
-  RNDA = MPFR_RNDA, // round away from zero
-  // RNDF = MPFR_RNDF,  // faithful rounding (not implemented yet)
-  RNDNA = MPFR_RNDNA // round to nearest, with ties away from zero
+  round_to_nearest = MPFR_RNDN,
+  round_toward_zero = MPFR_RNDZ,
+  round_toward_infinity = MPFR_RNDU,
+  round_toward_neg_infinity = MPFR_RNDD,
+  round_away_from_zero = MPFR_RNDA,
+  round_to_nearest_away_from_zero = MPFR_RNDNA
 };
 
 #define TEUTHID_CHECK_FLOATMP_PRECISION(PRECISION)                             \
@@ -85,21 +84,6 @@ public:
     return mpfr_get_ld(value_, static_cast<mpfr_rnd_t>(rounding_mode()));
   }
 
-  template <typename T> void assign(const T &x) {
-    TETHID_CHECK_TYPE_SPECIALIZATION(T);
-  }
-  template <typename T> void add(const T &x) {
-    TETHID_CHECK_TYPE_SPECIALIZATION(T);
-  }
-  template <typename T> void sub(const T &x) {
-    TETHID_CHECK_TYPE_SPECIALIZATION(T);
-  }
-  template <typename T> void mul(const T &x) {
-    TETHID_CHECK_TYPE_SPECIALIZATION(T);
-  }
-  template <typename T> void div(const T &x) {
-    TETHID_CHECK_TYPE_SPECIALIZATION(T);
-  }
   const mpfr_t &c_mpfr() const noexcept { return value_; }
   bool is_finite() const { return (mpfr_number_p(value_) != 0); }
   bool is_infinite() const { return (mpfr_inf_p(value_) != 0); }
@@ -123,103 +107,6 @@ public:
         round_mode_.exchange(static_cast<int>(mode)));
   }
 
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-#define __TEUTHID_FLOATMP_ASSIGN_SPEC(TYPE, FUN)                               \
-  floatmp_base(std::size_t precision, const TYPE &x) {                         \
-    mpfr_init2(value_, precision);                                             \
-    FUN(value_, x, static_cast<mpfr_rnd_t>(rounding_mode()));                  \
-  }                                                                            \
-  void assign(const TYPE &x) {                                                 \
-    FUN(value_, x, static_cast<mpfr_rnd_t>(rounding_mode()));                  \
-  }
-  __TEUTHID_FLOATMP_ASSIGN_SPEC(int8_t, mpfr_set_sj)
-  __TEUTHID_FLOATMP_ASSIGN_SPEC(int16_t, mpfr_set_sj)
-  __TEUTHID_FLOATMP_ASSIGN_SPEC(int32_t, mpfr_set_sj)
-  __TEUTHID_FLOATMP_ASSIGN_SPEC(int64_t, mpfr_set_sj)
-  __TEUTHID_FLOATMP_ASSIGN_SPEC(uint8_t, mpfr_set_uj)
-  __TEUTHID_FLOATMP_ASSIGN_SPEC(uint16_t, mpfr_set_uj)
-  __TEUTHID_FLOATMP_ASSIGN_SPEC(uint32_t, mpfr_set_uj)
-  __TEUTHID_FLOATMP_ASSIGN_SPEC(uint64_t, mpfr_set_uj)
-  __TEUTHID_FLOATMP_ASSIGN_SPEC(float, mpfr_set_flt)
-  __TEUTHID_FLOATMP_ASSIGN_SPEC(double, mpfr_set_d)
-  __TEUTHID_FLOATMP_ASSIGN_SPEC(long double, mpfr_set_ld)
-  __TEUTHID_FLOATMP_ASSIGN_SPEC(mpfr_t, mpfr_set)
-#undef __TEUTHID_FLOATMP_ASSIGN_SPEC
-  template <std::size_t P> void assign(const floatmp<P> &x) {
-    TEUTHID_CHECK_FLOATMP_PRECISION(P);
-    mpfr_set(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
-  }
-
-#define __TEUTHID_FLOATMP_ARITHMETIC_SPEC(OPER, TYPE, FUN)                     \
-  void OPER(const TYPE &x) {                                                   \
-    FUN(value_, c_mpfr(), x, static_cast<mpfr_rnd_t>(rounding_mode()));        \
-  }
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, int8_t, mpfr_add_si)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, int16_t, mpfr_add_si)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, int32_t, mpfr_add_si)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, int64_t, mpfr_add_si)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, uint8_t, mpfr_add_ui)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, uint16_t, mpfr_add_ui)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, uint32_t, mpfr_add_ui)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, uint64_t, mpfr_add_ui)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, float, mpfr_add_d)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, double, mpfr_add_d)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, mpfr_t, mpfr_add)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, int8_t, mpfr_sub_si)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, int16_t, mpfr_sub_si)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, int32_t, mpfr_sub_si)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, int64_t, mpfr_sub_si)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, uint8_t, mpfr_sub_ui)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, uint16_t, mpfr_sub_ui)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, uint32_t, mpfr_sub_ui)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, uint64_t, mpfr_sub_ui)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, float, mpfr_sub_d)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, double, mpfr_sub_d)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, mpfr_t, mpfr_sub)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, int8_t, mpfr_mul_si)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, int16_t, mpfr_mul_si)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, int32_t, mpfr_mul_si)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, int64_t, mpfr_mul_si)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, uint8_t, mpfr_mul_ui)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, uint16_t, mpfr_mul_ui)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, uint32_t, mpfr_mul_ui)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, uint64_t, mpfr_mul_ui)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, float, mpfr_mul_d)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, double, mpfr_mul_d)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, mpfr_t, mpfr_mul)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, int8_t, mpfr_div_si)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, int16_t, mpfr_div_si)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, int32_t, mpfr_div_si)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, int64_t, mpfr_div_si)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, uint8_t, mpfr_div_ui)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, uint16_t, mpfr_div_ui)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, uint32_t, mpfr_div_ui)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, uint64_t, mpfr_div_ui)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, float, mpfr_div_d)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, double, mpfr_div_d)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, mpfr_t, mpfr_div)
-#undef __TEUTHID_FLOATMP_ARITHMETIC_SPEC
-
-#define __TEUTHID_FLOATMP_ARITHMETIC_SPEC(OPER, FUN)                           \
-  void OPER(const long double &x) {                                            \
-    mpfr_t __v;                                                                \
-    mpfr_init2(__v, mpfr_get_prec(value_));                                    \
-    mpfr_set_ld(__v, x, static_cast<mpfr_rnd_t>(rounding_mode()));             \
-    FUN(value_, c_mpfr(), __v, static_cast<mpfr_rnd_t>(rounding_mode()));      \
-    mpfr_clear(__v);                                                           \
-  }                                                                            \
-  template <std::size_t P> void OPER(const floatmp<P> &x) {                    \
-    TEUTHID_CHECK_FLOATMP_PRECISION(P);                                        \
-    FUN(value_, c_mpfr(), x.c_mpfr(),                                          \
-        static_cast<mpfr_rnd_t>(rounding_mode()));                             \
-  }
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, mpfr_add)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, mpfr_sub)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, mpfr_mul)
-  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, mpfr_div)
-#undef __TEUTHID_FLOATMP_ARITHMETIC_SPEC
-#endif // DOXYGEN_SHOULD_SKIP_THIS
-
 private:
   floatmp_base() { mpfr_init2(value_, mpfr_get_default_prec()); }
   floatmp_base(const floatmp_base &x) {
@@ -231,6 +118,21 @@ private:
     mpfr_swap(value_, x.value_);
   }
 
+  template <typename T> void assign(const T &x) {
+    TETHID_CHECK_TYPE_SPECIALIZATION(T);
+  }
+  template <typename T> void add(const T &x) {
+    TETHID_CHECK_TYPE_SPECIALIZATION(T);
+  }
+  template <typename T> void sub(const T &x) {
+    TETHID_CHECK_TYPE_SPECIALIZATION(T);
+  }
+  template <typename T> void mul(const T &x) {
+    TETHID_CHECK_TYPE_SPECIALIZATION(T);
+  }
+  template <typename T> void div(const T &x) {
+    TETHID_CHECK_TYPE_SPECIALIZATION(T);
+  }
   bool equal_to(const floatmp_base &x) const;
   bool less_than(const floatmp_base &x) const;
   void abs(const floatmp_base &x) {
@@ -330,6 +232,101 @@ private:
            static_cast<long double>(x % UINT64_MAX);
   }
 #endif // TEUTHID_HAVE_INT_128
+
+#define __TEUTHID_FLOATMP_ASSIGN_SPEC(TYPE, FUN)                               \
+  floatmp_base(std::size_t precision, const TYPE &x) {                         \
+    mpfr_init2(value_, precision);                                             \
+    FUN(value_, x, static_cast<mpfr_rnd_t>(rounding_mode()));                  \
+  }                                                                            \
+  void assign(const TYPE &x) {                                                 \
+    FUN(value_, x, static_cast<mpfr_rnd_t>(rounding_mode()));                  \
+  }
+  __TEUTHID_FLOATMP_ASSIGN_SPEC(int8_t, mpfr_set_sj)
+  __TEUTHID_FLOATMP_ASSIGN_SPEC(int16_t, mpfr_set_sj)
+  __TEUTHID_FLOATMP_ASSIGN_SPEC(int32_t, mpfr_set_sj)
+  __TEUTHID_FLOATMP_ASSIGN_SPEC(int64_t, mpfr_set_sj)
+  __TEUTHID_FLOATMP_ASSIGN_SPEC(uint8_t, mpfr_set_uj)
+  __TEUTHID_FLOATMP_ASSIGN_SPEC(uint16_t, mpfr_set_uj)
+  __TEUTHID_FLOATMP_ASSIGN_SPEC(uint32_t, mpfr_set_uj)
+  __TEUTHID_FLOATMP_ASSIGN_SPEC(uint64_t, mpfr_set_uj)
+  __TEUTHID_FLOATMP_ASSIGN_SPEC(float, mpfr_set_flt)
+  __TEUTHID_FLOATMP_ASSIGN_SPEC(double, mpfr_set_d)
+  __TEUTHID_FLOATMP_ASSIGN_SPEC(long double, mpfr_set_ld)
+  __TEUTHID_FLOATMP_ASSIGN_SPEC(mpfr_t, mpfr_set)
+#undef __TEUTHID_FLOATMP_ASSIGN_SPEC
+  template <std::size_t P> void assign(const floatmp<P> &x) {
+    TEUTHID_CHECK_FLOATMP_PRECISION(P);
+    mpfr_set(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+  }
+
+#define __TEUTHID_FLOATMP_ARITHMETIC_SPEC(OPER, TYPE, FUN)                     \
+  void OPER(const TYPE &x) {                                                   \
+    FUN(value_, c_mpfr(), x, static_cast<mpfr_rnd_t>(rounding_mode()));        \
+  }
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, int8_t, mpfr_add_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, int16_t, mpfr_add_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, int32_t, mpfr_add_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, int64_t, mpfr_add_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, uint8_t, mpfr_add_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, uint16_t, mpfr_add_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, uint32_t, mpfr_add_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, uint64_t, mpfr_add_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, float, mpfr_add_d)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, double, mpfr_add_d)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, mpfr_t, mpfr_add)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, int8_t, mpfr_sub_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, int16_t, mpfr_sub_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, int32_t, mpfr_sub_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, int64_t, mpfr_sub_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, uint8_t, mpfr_sub_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, uint16_t, mpfr_sub_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, uint32_t, mpfr_sub_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, uint64_t, mpfr_sub_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, float, mpfr_sub_d)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, double, mpfr_sub_d)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, mpfr_t, mpfr_sub)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, int8_t, mpfr_mul_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, int16_t, mpfr_mul_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, int32_t, mpfr_mul_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, int64_t, mpfr_mul_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, uint8_t, mpfr_mul_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, uint16_t, mpfr_mul_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, uint32_t, mpfr_mul_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, uint64_t, mpfr_mul_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, float, mpfr_mul_d)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, double, mpfr_mul_d)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, mpfr_t, mpfr_mul)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, int8_t, mpfr_div_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, int16_t, mpfr_div_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, int32_t, mpfr_div_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, int64_t, mpfr_div_si)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, uint8_t, mpfr_div_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, uint16_t, mpfr_div_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, uint32_t, mpfr_div_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, uint64_t, mpfr_div_ui)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, float, mpfr_div_d)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, double, mpfr_div_d)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, mpfr_t, mpfr_div)
+#undef __TEUTHID_FLOATMP_ARITHMETIC_SPEC
+
+#define __TEUTHID_FLOATMP_ARITHMETIC_SPEC(OPER, FUN)                           \
+  void OPER(const long double &x) {                                            \
+    mpfr_t __v;                                                                \
+    mpfr_init2(__v, mpfr_get_prec(value_));                                    \
+    mpfr_set_ld(__v, x, static_cast<mpfr_rnd_t>(rounding_mode()));             \
+    FUN(value_, c_mpfr(), __v, static_cast<mpfr_rnd_t>(rounding_mode()));      \
+    mpfr_clear(__v);                                                           \
+  }                                                                            \
+  template <std::size_t P> void OPER(const floatmp<P> &x) {                    \
+    TEUTHID_CHECK_FLOATMP_PRECISION(P);                                        \
+    FUN(value_, c_mpfr(), x.c_mpfr(),                                          \
+        static_cast<mpfr_rnd_t>(rounding_mode()));                             \
+  }
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, mpfr_add)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(sub, mpfr_sub)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, mpfr_mul)
+  __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, mpfr_div)
+#undef __TEUTHID_FLOATMP_ARITHMETIC_SPEC
 
   mpfr_t value_;
   static std::atomic_int round_mode_;
