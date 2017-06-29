@@ -72,6 +72,25 @@ public:
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   floatmp_base &operator=(const floatmp_base &) = delete;
   floatmp_base &operator=(floatmp_base &&) = delete;
+
+#define __TEUTHID_FLOATMP_CTOR_SPEC(TYPE, FUN)                                 \
+  floatmp_base(std::size_t precision, const TYPE &x) {                         \
+    mpfr_init2(value_, precision);                                             \
+    FUN(value_, x, static_cast<mpfr_rnd_t>(rounding_mode()));                  \
+  }
+  __TEUTHID_FLOATMP_CTOR_SPEC(int8_t, mpfr_set_sj)
+  __TEUTHID_FLOATMP_CTOR_SPEC(int16_t, mpfr_set_sj)
+  __TEUTHID_FLOATMP_CTOR_SPEC(int32_t, mpfr_set_sj)
+  __TEUTHID_FLOATMP_CTOR_SPEC(int64_t, mpfr_set_sj)
+  __TEUTHID_FLOATMP_CTOR_SPEC(uint8_t, mpfr_set_uj)
+  __TEUTHID_FLOATMP_CTOR_SPEC(uint16_t, mpfr_set_uj)
+  __TEUTHID_FLOATMP_CTOR_SPEC(uint32_t, mpfr_set_uj)
+  __TEUTHID_FLOATMP_CTOR_SPEC(uint64_t, mpfr_set_uj)
+  __TEUTHID_FLOATMP_CTOR_SPEC(float, mpfr_set_flt)
+  __TEUTHID_FLOATMP_CTOR_SPEC(double, mpfr_set_d)
+  __TEUTHID_FLOATMP_CTOR_SPEC(long double, mpfr_set_ld)
+  __TEUTHID_FLOATMP_CTOR_SPEC(mpfr_t, mpfr_set)
+#undef __TEUTHID_FLOATMP_CTOR_SPEC
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
   explicit operator float() const {
@@ -234,10 +253,6 @@ private:
 #endif // TEUTHID_HAVE_INT_128
 
 #define __TEUTHID_FLOATMP_ASSIGN_SPEC(TYPE, FUN)                               \
-  floatmp_base(std::size_t precision, const TYPE &x) {                         \
-    mpfr_init2(value_, precision);                                             \
-    FUN(value_, x, static_cast<mpfr_rnd_t>(rounding_mode()));                  \
-  }                                                                            \
   void assign(const TYPE &x) {                                                 \
     FUN(value_, x, static_cast<mpfr_rnd_t>(rounding_mode()));                  \
   }
