@@ -465,4 +465,20 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   __x3 += __x2;
   BOOST_TEST(__x2.less_than(__x3), "less_than()");
 #endif // TEUTHID_HAVE_INT_128
+
+  bool __check;
+  BOOST_TEST((__check = std::numeric_limits<float256_t>::is_specialized),
+             "numeric_linits::is_specialized");
+  BOOST_TEST((__check = std::numeric_limits<float256_t>::is_signed),
+             "numeric_linits::is_signed");
+  BOOST_TEST(!(__check = std::numeric_limits<float256_t>::is_integer),
+             "numeric_linits::is_integer");
+  BOOST_TEST(!(__check = std::numeric_limits<float256_t>::is_exact),
+             "numeric_linits::is_exact");
+  BOOST_TEST((__check = std::numeric_limits<float256_t>::has_infinity),
+             "numeric_linits::has_infinity");
+  BOOST_TEST((__check = std::numeric_limits<float256_t>::has_quiet_NaN),
+             "numeric_linits::has_quiet_NaN");
+  BOOST_TEST((__check = std::numeric_limits<float256_t>::has_signaling_NaN),
+             "numeric_linits::has_signaling_NaN");
 }

@@ -21,6 +21,7 @@
 
 #include <algorithm>
 #include <atomic>
+#include <limits>
 
 #include <mpfr.h>
 #include <teuthid/config.hpp>
@@ -987,6 +988,20 @@ inline bool isunordered(const teuthid::floatmp<P1> &x,
                         const teuthid::floatmp<P2> &y) {
   return x.is_nan() || y.is_nan();
 }
+
+template <> template <size_t P> class numeric_limits<teuthid::floatmp<P>> {
+public:
+  static constexpr bool is_specialized = true;
+
+  static constexpr bool is_signed = true;
+  static constexpr bool is_integer = false;
+  static constexpr bool is_exact = false;
+  static constexpr int radix = 2;
+
+  static constexpr bool has_infinity = true;
+  static constexpr bool has_quiet_NaN = true;
+  static constexpr bool has_signaling_NaN = true;
+};
 
 } // namespace std
 
