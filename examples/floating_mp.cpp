@@ -33,6 +33,9 @@ int main() {
   floatmp<5> __f5 = __value;
   std::cout << "floatmp<5>   x=0.9876543219  to_string(x) => "
             << system::to_string(__f5) << std::endl;
+  std::cout << "  numeric_linits<floatmp<5>>::min() => "
+            << system::to_string(std::numeric_limits<floatmp<5>>::min());
+  std::cout << std::endl;
   std::cout << "  float(x) => " << system::to_string(float(__f5))
             << "  double(x) => " << system::to_string(double(__f5))
             << "  long double(x) => " << system::to_string((long double)(__f5))

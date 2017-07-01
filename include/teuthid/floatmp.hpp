@@ -992,7 +992,7 @@ inline bool isunordered(const teuthid::floatmp<P1> &x,
 template <> template <size_t P> class numeric_limits<teuthid::floatmp<P>> {
 public:
   static constexpr bool is_specialized = true;
-
+  static teuthid::floatmp<P> min() noexcept;
   static constexpr bool is_signed = true;
   static constexpr bool is_integer = false;
   static constexpr bool is_exact = false;
@@ -1002,6 +1002,12 @@ public:
   static constexpr bool has_quiet_NaN = true;
   static constexpr bool has_signaling_NaN = true;
 };
+
+template <size_t P>
+teuthid::floatmp<P> numeric_limits<teuthid::floatmp<P>>::min() noexcept {
+  teuthid::floatmp<P> __emin = mpfr_get_emin() - 1;
+  return teuthid::floatmp<P>().exp2(__emin);
+}
 
 } // namespace std
 
