@@ -425,6 +425,16 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST((std::lgamma(__x1) == std::lgamma(TO_LDBL(__x1))),
              "std::lgamma()");
 
+  __x1 = 1, __x2 = 2;
+  BOOST_TEST((__x3.nextafter(__x1, __x2) >= __x1), "nextafter()");
+  BOOST_TEST((__x3.nextafter(__x2, __x1) <= __x2), "nextafter()");
+  BOOST_TEST((std::nextafter(__x1, __x2) >= __x1), "std::nextafter()");
+  BOOST_TEST((std::nextafter(__x2, __x1) <= __x2), "std::nextafter()");
+  BOOST_TEST((std::nexttoward(__x1, TO_LDBL(__x2)) >= __x1),
+             "std::nexttoward()");
+  BOOST_TEST((std::nexttoward(__x2, TO_LDBL(__x1)) <= __x2),
+             "std::nexttoward()");
+
 #ifdef TEUTHID_HAVE_INT_128
   __x1 = TO_INT128(INT64_MAX) * 10, __x2 = TO_INT128(INT64_MAX) * 10;
   BOOST_TEST(!system::to_string(__x1).empty());

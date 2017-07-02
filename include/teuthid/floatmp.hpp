@@ -240,6 +240,7 @@ private:
   void nearbyint(const floatmp_base &x) {
     mpfr_rint(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
   }
+  void nextafter(const floatmp_base &x, const floatmp_base &y);
 #ifdef TEUTHID_HAVE_INT_128
   static long double int128_to_ldouble_(const int128_t &x) {
     return static_cast<long double>(INT64_MAX) *
@@ -660,6 +661,12 @@ public:
     floatmp_base::nearbyint(static_cast<const floatmp_base &>(x));
     return *this;
   }
+  template <std::size_t P1, std::size_t P2>
+  floatmp &nextafter(const floatmp<P1> &x, const floatmp<P2> &y) {
+    floatmp_base::nextafter(static_cast<const floatmp_base &>(x),
+                            static_cast<const floatmp_base &>(y));
+    return *this;
+  }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   template <std::size_t P> bool equal_to(const floatmp<P> &x) const {
@@ -942,6 +949,15 @@ template <size_t P> inline auto nearbyint(const teuthid::floatmp<P> &x) {
 }
 template <size_t P> inline auto rint(const teuthid::floatmp<P> &x) {
   return teuthid::floatmp<P>().nearbyint(x);
+}
+template <size_t P1, size_t P2>
+inline auto nextafter(const teuthid::floatmp<P1> &x,
+                      const teuthid::floatmp<P2> &y) {
+  return teuthid::floatmp<std::max(P1, P2)>().nextafter(x, y);
+}
+template <size_t P>
+inline auto nexttoward(const teuthid::floatmp<P> &x, long double y) {
+  return teuthid::floatmp<P>().nextafter(x, teuthid::floatmp<P>(y));
 }
 template <size_t P> inline bool isfinite(const teuthid::floatmp<P> &x) {
   return x.is_finite();

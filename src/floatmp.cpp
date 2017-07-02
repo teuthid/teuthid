@@ -43,24 +43,22 @@ bool floatmp_base::is_integer() const {
     floatmp_base __x(mpfr_get_prec(c_mpfr()));
     __x.trunc(*this);
     return equal_to(__x);
-  } else
-    return false;
+  }
+  return false;
 }
 
 void floatmp_base::fmod(const floatmp_base &x, const floatmp_base &y) {
   if (y.is_zero())
     throw std::domain_error("invalid divisor of fmod()");
-  else
-    mpfr_fmod(value_, x.c_mpfr(), y.c_mpfr(),
-              static_cast<mpfr_rnd_t>(rounding_mode()));
+  mpfr_fmod(value_, x.c_mpfr(), y.c_mpfr(),
+            static_cast<mpfr_rnd_t>(rounding_mode()));
 }
 
 void floatmp_base::remainder(const floatmp_base &x, const floatmp_base &y) {
   if (y.is_zero())
     throw std::domain_error("invalid divisor of remainder()");
-  else
-    mpfr_remainder(value_, x.c_mpfr(), y.c_mpfr(),
-                   static_cast<mpfr_rnd_t>(rounding_mode()));
+  mpfr_remainder(value_, x.c_mpfr(), y.c_mpfr(),
+                 static_cast<mpfr_rnd_t>(rounding_mode()));
 }
 
 void floatmp_base::fmax(const floatmp_base &x, const floatmp_base &y) {
@@ -76,29 +74,25 @@ void floatmp_base::fmin(const floatmp_base &x, const floatmp_base &y) {
 void floatmp_base::log(const floatmp_base &x) {
   if (!x.is_positive())
     throw std::domain_error("invalid arg of log()");
-  else
-    mpfr_log(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+  mpfr_log(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
 }
 
 void floatmp_base::log10(const floatmp_base &x) {
   if (!x.is_positive())
     throw std::domain_error("invalid arg of log10()");
-  else
-    mpfr_log10(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+  mpfr_log10(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
 }
 
 void floatmp_base::log2(const floatmp_base &x) {
   if (!x.is_positive())
     throw std::domain_error("invalid arg of log2()");
-  else
-    mpfr_log2(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+  mpfr_log2(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
 }
 
 void floatmp_base::log1p(const floatmp_base &x) {
   if (!minus_one_.less_than(x))
     throw std::domain_error("invalid arg of log2()");
-  else
-    mpfr_log1p(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+  mpfr_log1p(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
 }
 
 void floatmp_base::pow(const floatmp_base &x, const floatmp_base &y) {
@@ -113,8 +107,7 @@ void floatmp_base::pow(const floatmp_base &x, const floatmp_base &y) {
 void floatmp_base::sqrt(const floatmp_base &x) {
   if (x.is_negative())
     throw std::domain_error("invalid arg of sqrt()");
-  else
-    mpfr_sqrt(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+  mpfr_sqrt(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
 }
 
 void floatmp_base::asin(const floatmp_base &x) {
@@ -155,4 +148,11 @@ void floatmp_base::lgamma(const floatmp_base &x) {
   if (x.is_integer() && x.is_negative())
     throw std::domain_error("invalid arg of tgamma()");
   mpfr_lngamma(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+}
+
+void floatmp_base::nextafter(const floatmp_base &x, const floatmp_base &y) {
+  if (!x.is_finite())
+    throw std::domain_error("invalid arg of nextafter()");
+  mpfr_set(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+  mpfr_nexttoward(value_, y.c_mpfr());
 }
