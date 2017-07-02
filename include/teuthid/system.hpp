@@ -101,6 +101,9 @@ public:
   template <typename T> static constexpr bool is_floating_point(const T &x) {
     return std::is_floating_point<T>::value || system::is_floatmp(x);
   }
+  template <typename T> static T nextabove(const T &x) {
+    TETHID_CHECK_TYPE_SPECIALIZATION(T);
+  }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
   static std::string to_string(const bool &x) {
@@ -150,6 +153,9 @@ public:
   template <std::size_t P>
   static constexpr bool is_floatmp(const floatmp<P> &x) {
     return true;
+  }
+  template <std::size_t P> static floatmp<P> nextabove(const floatmp<P> &x) {
+    return floatmp<P>().nextabove(x);
   }
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -417,6 +423,17 @@ template <> inline bool system::is_negative(const mpfr_t &x) {
 
 // specialization of system::swap<T>()
 template <> inline void system::swap(mpfr_t &x, mpfr_t &y) { mpfr_swap(x, y); }
+
+// specialization of system::nextabove<T>()
+template <> inline float system::nextabove(const float &x) {
+  std::nextafter(x, std::numeric_limits<float>::infinity());
+}
+template <> inline double system::nextabove(const double &x) {
+  std::nextafter(x, std::numeric_limits<double>::infinity());
+}
+template <> inline long double system::nextabove(const long double &x) {
+  std::nextafter(x, std::numeric_limits<long double>::infinity());
+}
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
