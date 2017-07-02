@@ -352,8 +352,18 @@ behaves just like the \c std::swap().
 
 
 /*!
-\fn template <typename T> static constexpr bool system::is_floatmp(const T &)
+\fn template <typename T> static constexpr bool system::is_floatmp(const T &x)
 \brief Checks whether \c T is a multiple precision floating-point type. 
 \return \c true if \c T is the type of 
 \ref teuthid::floatmp "floatmp<Precision>", \c false otherwise.
+\see system::is_floating_point().
+*/
+
+
+/*!
+\fn template <typename T> static constexpr bool system::is_floating_point(const T &x)
+\brief Checks whether \c T is a floating-point type.
+\return \c true if \c T is the type \c float, \c double, <tt>long double</tt>, 
+\ref teuthid::floatmp "floatmp<Precision>". Otherwise, returns \c false.
+\see system::is_floatmp().
 */

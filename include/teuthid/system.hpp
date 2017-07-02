@@ -95,8 +95,11 @@ public:
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
   template <typename T> static void swap(T &x, T &y) { std::swap(x, y); }
-  template <typename T> static constexpr bool is_floatmp(const T &) {
+  template <typename T> static constexpr bool is_floatmp(const T &x) {
     return false;
+  }
+  template <typename T> static constexpr bool is_floating_point(const T &x) {
+    return std::is_floating_point<T>::value || system::is_floatmp(x);
   }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -145,7 +148,7 @@ public:
     x.swap(y);
   }
   template <std::size_t P>
-  static constexpr bool is_floatmp(const floatmp<P> &) {
+  static constexpr bool is_floatmp(const floatmp<P> &x) {
     return true;
   }
 #endif // DOXYGEN_SHOULD_SKIP_THIS
