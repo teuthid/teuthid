@@ -241,6 +241,8 @@ private:
     mpfr_rint(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
   }
   void nextafter(const floatmp_base &x, const floatmp_base &y);
+  void nextabove(const floatmp_base &x);
+  void nextbelow(const floatmp_base &x);
 #ifdef TEUTHID_HAVE_INT_128
   static long double int128_to_ldouble_(const int128_t &x) {
     return static_cast<long double>(INT64_MAX) *
@@ -665,6 +667,14 @@ public:
   floatmp &nextafter(const floatmp<P1> &x, const floatmp<P2> &y) {
     floatmp_base::nextafter(static_cast<const floatmp_base &>(x),
                             static_cast<const floatmp_base &>(y));
+    return *this;
+  }
+  template <std::size_t P> floatmp &nextabove(const floatmp<P> &x) {
+    floatmp_base::nextabove(static_cast<const floatmp_base &>(x));
+    return *this;
+  }
+  template <std::size_t P> floatmp &nextbelow(const floatmp<P> &x) {
+    floatmp_base::nextbelow(static_cast<const floatmp_base &>(x));
     return *this;
   }
 

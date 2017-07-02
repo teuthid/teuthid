@@ -156,3 +156,17 @@ void floatmp_base::nextafter(const floatmp_base &x, const floatmp_base &y) {
   mpfr_set(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
   mpfr_nexttoward(value_, y.c_mpfr());
 }
+
+void floatmp_base::nextabove(const floatmp_base &x) {
+  if (!x.is_finite())
+    throw std::domain_error("invalid arg of nextabove()");
+  mpfr_set(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+  mpfr_nextabove(value_);
+}
+
+void floatmp_base::nextbelow(const floatmp_base &x) {
+  if (!x.is_finite())
+    throw std::domain_error("invalid arg of nextbelow()");
+  mpfr_set(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
+  mpfr_nextbelow(value_);
+}

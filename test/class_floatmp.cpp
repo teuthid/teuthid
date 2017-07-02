@@ -434,6 +434,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
              "std::nexttoward()");
   BOOST_TEST((std::nexttoward(__x2, TO_LDBL(__x1)) <= __x2),
              "std::nexttoward()");
+  BOOST_TEST((__x3.nextabove(__x1) >= __x1), "nextabove()");
+  BOOST_TEST((__x3.nextbelow(__x1) <= __x1), "nextbelow()");
 
 #ifdef TEUTHID_HAVE_INT_128
   __x1 = TO_INT128(INT64_MAX) * 10, __x2 = TO_INT128(INT64_MAX) * 10;
