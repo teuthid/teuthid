@@ -327,6 +327,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(system::equal_to(__float_val, (float)9.9), "system::swap(float)");
   BOOST_TEST(system::nextabove(__float_val) >= __float_val,
              "system::nextabove()");
+  BOOST_TEST(system::nextbelow(__float_val) <= __float_val,
+             "system::nextbelow()");
 
   double __double_val;
   system::from_string("1.23456", __double_val);
@@ -352,6 +354,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
   BOOST_TEST(!system::is_negative(__double_val), "system::is_negative(double)");
   BOOST_TEST(system::nextabove(__double_val) >= __double_val,
              "system::nextabove()");
+  BOOST_TEST(system::nextbelow(__double_val) <= __double_val,
+             "system::nextbelow()");
 
   long double __ldouble_val;
   system::from_string("1.234567", __ldouble_val);
@@ -381,6 +385,8 @@ BOOST_AUTO_TEST_CASE(class_teuthid_system) {
              "system::is_negative(long double)");
   BOOST_TEST(system::nextabove(__ldouble_val) != __ldouble_val,
              "system::nextabove()");
+  BOOST_TEST(system::nextbelow(__ldouble_val) != __ldouble_val,
+             "system::nextbelow()");
 
   system::from_string("1.2345", __mpfr);
   BOOST_TEST(mpfr_cmp_ld(__mpfr, TO_LDBL(1.2345)) == 0,
