@@ -33,9 +33,6 @@ int main() {
   floatmp<5> __f5 = __value, __f5a;
   std::cout << "floatmp<5>   x=0.9876543219  to_string(x) => "
             << system::to_string(__f5) << std::endl;
-  std::cout << "  numeric_linits<floatmp<5>>::min() => "
-            << system::to_string(std::numeric_limits<floatmp<5>>::min());
-  std::cout << std::endl;
   std::cout << "  float(x) => " << system::to_string(float(__f5))
             << "  double(x) => " << system::to_string(double(__f5))
             << "  long double(x) => " << system::to_string((long double)(__f5))
@@ -92,8 +89,11 @@ int main() {
   std::cout << "  tgamma(x) => " << system::to_string(std::tgamma(__f5));
   std::cout << "  lgamma(x) => " << system::to_string(std::lgamma(__f5));
   std::cout << std::endl;
+  system::format_float_scientific(true);
   std::cout << "  nextabove(x) => " << system::to_string(__f5a.nextabove(__f5));
   std::cout << "  nextbelow(x) => " << system::to_string(__f5a.nextbelow(__f5));
+  std::cout << "  epsilon() => " << system::to_string(floatmp<5>::epsilon());
+  system::format_float_scientific(false);
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
@@ -157,10 +157,13 @@ int main() {
   std::cout << "  tgamma(x) => " << system::to_string(std::tgamma(__f10));
   std::cout << "  lgamma(x) => " << system::to_string(std::lgamma(__f10));
   std::cout << std::endl;
+  system::format_float_scientific(true);
   std::cout << "  nextabove(x) => "
             << system::to_string(__f10a.nextabove(__f10));
   std::cout << "  nextbelow(x) => "
             << system::to_string(__f10a.nextbelow(__f10));
+  std::cout << "  epsilon() => " << system::to_string(floatmp<10>::epsilon());
+  system::format_float_scientific(false);
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
@@ -224,10 +227,13 @@ int main() {
   std::cout << "  tgamma(x) => " << system::to_string(std::tgamma(__f20));
   std::cout << "  lgamma(x) => " << system::to_string(std::lgamma(__f20));
   std::cout << std::endl;
+  system::format_float_scientific(true);  
   std::cout << "  nextabove(x) => "
             << system::to_string(__f20a.nextabove(__f20));
   std::cout << "  nextbelow(x) => "
             << system::to_string(__f20a.nextbelow(__f20));
+  std::cout << "  epsilon() => " << system::to_string(floatmp<20>::epsilon());
+  system::format_float_scientific(false);
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
@@ -291,10 +297,13 @@ int main() {
   std::cout << "  tgamma(x) => " << system::to_string(std::tgamma(__f50));
   std::cout << "  lgamma(x) => " << system::to_string(std::lgamma(__f50));
   std::cout << std::endl;
+  system::format_float_scientific(true);  
   std::cout << "  nextabove(x) => "
             << system::to_string(__f50a.nextabove(__f50));
   std::cout << "  nextbelow(x) => "
             << system::to_string(__f50a.nextbelow(__f50));
+  std::cout << "  epsilon() => " << system::to_string(floatmp<50>::epsilon());
+  system::format_float_scientific(false);  
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
@@ -358,10 +367,13 @@ int main() {
   std::cout << "  tgamma(x) => " << system::to_string(std::tgamma(__f100));
   std::cout << "  lgamma(x) => " << system::to_string(std::lgamma(__f100));
   std::cout << std::endl;
+  system::format_float_scientific(true);  
   std::cout << "  nextabove(x) => "
             << system::to_string(__f100a.nextabove(__f100));
   std::cout << "  nextbelow(x) => "
             << system::to_string(__f100a.nextbelow(__f100));
+  std::cout << "  epsilon() => " << system::to_string(floatmp<100>::epsilon());
+  system::format_float_scientific(false);  
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 
@@ -425,10 +437,13 @@ int main() {
   std::cout << "  tgamma(x) => " << system::to_string(std::tgamma(__f200));
   std::cout << "  lgamma(x) => " << system::to_string(std::lgamma(__f200));
   std::cout << std::endl;
+  system::format_float_scientific(true);  
   std::cout << "  nextabove(x) => "
             << system::to_string(__f200a.nextabove(__f200));
   std::cout << "  nextbelow(x) => "
             << system::to_string(__f200a.nextbelow(__f200));
+  std::cout << "  epsilon() => " << system::to_string(floatmp<200>::epsilon());
+  system::format_float_scientific(false);  
   std::cout << std::endl;
   std::cout << "  --" << std::endl;
 

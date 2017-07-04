@@ -687,14 +687,20 @@ public:
   }
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
-  static floatmp<Precision> zero() {
+  static inline floatmp<Precision> zero() {
     return floatmp<Precision>(floatmp_base::zero_);
   }
-  static floatmp<Precision> minus_one() {
+  static inline floatmp<Precision> minus_one() {
     return floatmp<Precision>(floatmp_base::minus_one_);
   }
-  static floatmp<Precision> plus_one() {
+  static inline floatmp<Precision> plus_one() {
     return floatmp<Precision>(floatmp_base::plus_one_);
+  }
+  static inline floatmp<Precision> epsilon() {
+    return floatmp<Precision>().nextabove(plus_one()) - plus_one();
+  }
+  static inline floatmp<Precision> min() {
+    return floatmp<Precision>().exp2(floatmp<Precision>(mpfr_get_emin() - 1));
   }
 }; // class floatmp
 
@@ -1023,7 +1029,7 @@ public:
   static constexpr bool is_integer = false;
   static constexpr bool is_exact = false;
   static constexpr int radix = 2;
-
+  static teuthid::floatmp<P> epsilon() noexcept;
   static constexpr bool has_infinity = true;
   static constexpr bool has_quiet_NaN = true;
   static constexpr bool has_signaling_NaN = true;
@@ -1031,8 +1037,11 @@ public:
 
 template <size_t P>
 teuthid::floatmp<P> numeric_limits<teuthid::floatmp<P>>::min() noexcept {
-  teuthid::floatmp<P> __emin = mpfr_get_emin() - 1;
-  return teuthid::floatmp<P>().exp2(__emin);
+  return teuthid::floatmp<P>::min();
+}
+template <size_t P>
+teuthid::floatmp<P> numeric_limits<teuthid::floatmp<P>>::epsilon() noexcept {
+  return teuthid::floatmp<P>::epsilon();
 }
 
 } // namespace std
