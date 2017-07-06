@@ -699,8 +699,12 @@ public:
   static inline floatmp<Precision> epsilon() {
     return floatmp<Precision>().nextabove(plus_one()) - plus_one();
   }
-  static inline floatmp<Precision> min() {
+  static floatmp<Precision> min() {
     return floatmp<Precision>().exp2(floatmp<Precision>(mpfr_get_emin() - 1));
+  }
+  static floatmp<Precision> max() {
+    return (plus_one() - epsilon()) *
+           floatmp<Precision>().exp2(floatmp<Precision>(mpfr_get_emax()));
   }
 }; // class floatmp
 
@@ -1025,6 +1029,10 @@ template <> template <size_t P> class numeric_limits<teuthid::floatmp<P>> {
 public:
   static constexpr bool is_specialized = true;
   static teuthid::floatmp<P> min() noexcept;
+  static teuthid::floatmp<P> max() noexcept;
+  static teuthid::floatmp<P> lowest() noexcept;
+  static constexpr int digits = static_cast<int>(P);
+
   static constexpr bool is_signed = true;
   static constexpr bool is_integer = false;
   static constexpr bool is_exact = false;
@@ -1038,6 +1046,14 @@ public:
 template <size_t P>
 teuthid::floatmp<P> numeric_limits<teuthid::floatmp<P>>::min() noexcept {
   return teuthid::floatmp<P>::min();
+}
+template <size_t P>
+teuthid::floatmp<P> numeric_limits<teuthid::floatmp<P>>::max() noexcept {
+  return teuthid::floatmp<P>::max();
+}
+template <size_t P>
+teuthid::floatmp<P> numeric_limits<teuthid::floatmp<P>>::lowest() noexcept {
+  return -(teuthid::floatmp<P>::max());
 }
 template <size_t P>
 teuthid::floatmp<P> numeric_limits<teuthid::floatmp<P>>::epsilon() noexcept {

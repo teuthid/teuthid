@@ -53,7 +53,7 @@ public:
   static std::size_t split_string(const std::string &s,
                                   std::vector<std::string> &v,
                                   char delim = ' ');
-  static std::streamsize default_format_float_precision() noexcept {
+  static constexpr std::streamsize default_format_float_precision() noexcept {
     return default_format_float_precision_;
   }
   static void format_float_output(

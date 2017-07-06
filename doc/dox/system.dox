@@ -154,7 +154,7 @@ settings given by the function format_float_output().
 
 
 /*! 
-\fn static std::streamsize system::default_format_float_precision()
+\fn static constexpr std::streamsize system::default_format_float_precision()
 \brief Gets the default precision of floating point output.
 \return the default precision (i.e. how many digits are generated) of floating 
 point output performed by system::to_string().
