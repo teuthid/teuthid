@@ -367,3 +367,25 @@ behaves just like the \c std::swap().
 \ref teuthid::floatmp "floatmp<Precision>". Otherwise, returns \c false.
 \see system::is_floatmp().
 */
+
+
+/*! 
+\fn template <typename T> static T system::nextabove(const T &x)
+\brief Determines the next representable value of \c x.
+\return Returns the next representable value of \c x in the direction of 
+<tt>std::numeric_limits<T>::max()</tt>. 
+\note The function has specializations for the following types: \c float, 
+\c double, <tt>long double</tt>, \ref teuthid::floatmp "floatmp<Precision>".
+\see system::is_floating_point(), system::nextbelow().
+*/
+
+
+/*! 
+\fn template <typename T> static T system::nextbelow(const T &x)
+\brief Determines the next representable value of \c x.
+\return Returns the next representable value of \c x in the direction of 
+<tt>std::numeric_limits<T>::lowest()</tt>. 
+\note The function has specializations for the following types: \c float, 
+\c double, <tt>long double</tt>, \ref teuthid::floatmp "floatmp<Precision>".
+\see system::is_floating_point(), system::nextabove().
+*/
