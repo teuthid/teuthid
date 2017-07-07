@@ -21,6 +21,7 @@
 
 #include <algorithm>
 #include <atomic>
+#include <cmath>
 #include <limits>
 
 #include <mpfr.h>
@@ -349,9 +350,9 @@ private:
 
   mpfr_t value_;
   static std::atomic_int round_mode_;
-  static floatmp_base zero_;
-  static floatmp_base minus_one_;
-  static floatmp_base plus_one_;
+  static const floatmp_base zero_;
+  static const floatmp_base minus_one_;
+  static const floatmp_base plus_one_;
 }; // class floatmp_base
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -687,24 +688,30 @@ public:
   }
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
-  static inline floatmp<Precision> zero() {
+  inline static constexpr floatmp<Precision> zero() {
     return floatmp<Precision>(floatmp_base::zero_);
   }
-  static inline floatmp<Precision> minus_one() {
+  inline static constexpr floatmp<Precision> minus_one() {
     return floatmp<Precision>(floatmp_base::minus_one_);
   }
-  static inline floatmp<Precision> plus_one() {
+  inline static constexpr floatmp<Precision> plus_one() {
     return floatmp<Precision>(floatmp_base::plus_one_);
   }
-  static inline floatmp<Precision> epsilon() {
+  inline static constexpr floatmp<Precision> epsilon() {
     return floatmp<Precision>().nextabove(plus_one()) - plus_one();
   }
-  static floatmp<Precision> min() {
+  inline static constexpr floatmp<Precision> min() {
     return floatmp<Precision>().exp2(floatmp<Precision>(mpfr_get_emin() - 1));
   }
-  static floatmp<Precision> max() {
+  inline static constexpr floatmp<Precision> max() {
     return (plus_one() - epsilon()) *
            floatmp<Precision>().exp2(floatmp<Precision>(mpfr_get_emax()));
+  }
+  inline static constexpr floatmp<Precision> round_error() {
+    if (rounding_mode() == floatmp_round_t::round_to_nearest)
+      return floatmp<Precision>(0.5);
+    else
+      return floatmp<Precision>(1.0);
   }
 }; // class floatmp
 
@@ -1028,38 +1035,39 @@ inline bool isunordered(const teuthid::floatmp<P1> &x,
 template <> template <size_t P> class numeric_limits<teuthid::floatmp<P>> {
 public:
   static constexpr bool is_specialized = true;
-  static teuthid::floatmp<P> min() noexcept;
-  static teuthid::floatmp<P> max() noexcept;
-  static teuthid::floatmp<P> lowest() noexcept;
-  static constexpr int digits = static_cast<int>(P);
-
+  static constexpr teuthid::floatmp<P> min() noexcept {
+    return teuthid::floatmp<P>::min();
+  }
+  static constexpr teuthid::floatmp<P> max() noexcept {
+    return teuthid::floatmp<P>::max();
+  }
+  static constexpr teuthid::floatmp<P> lowest() noexcept {
+    return -(teuthid::floatmp<P>::max());
+  }
+  static constexpr int digits = P;
+  static constexpr int digits10 = floor(log10(2) * P);
+  static constexpr int max_digits10 = digits10 + 1;
   static constexpr bool is_signed = true;
   static constexpr bool is_integer = false;
   static constexpr bool is_exact = false;
   static constexpr int radix = 2;
-  static teuthid::floatmp<P> epsilon() noexcept;
+  static constexpr teuthid::floatmp<P> epsilon() noexcept {
+    return teuthid::floatmp<P>::epsilon();
+  }
+  static constexpr teuthid::floatmp<P> round_error() noexcept {
+    return teuthid::floatmp<P>::round_error();
+  }
+  static constexpr int min_exponent = MPFR_EMIN_DEFAULT;
+  static constexpr int min_exponent10 = floor(log10(2) * MPFR_EMIN_DEFAULT);
+  static constexpr int max_exponent = MPFR_EMAX_DEFAULT;
+  static constexpr int max_exponent10 = floor(log10(2) * MPFR_EMAX_DEFAULT);
   static constexpr bool has_infinity = true;
   static constexpr bool has_quiet_NaN = true;
   static constexpr bool has_signaling_NaN = true;
-};
+  static constexpr float_denorm_style has_denorm = denorm_absent;
+  static constexpr bool has_denorm_loss = false;
 
-template <size_t P>
-teuthid::floatmp<P> numeric_limits<teuthid::floatmp<P>>::min() noexcept {
-  return teuthid::floatmp<P>::min();
-}
-template <size_t P>
-teuthid::floatmp<P> numeric_limits<teuthid::floatmp<P>>::max() noexcept {
-  return teuthid::floatmp<P>::max();
-}
-template <size_t P>
-teuthid::floatmp<P> numeric_limits<teuthid::floatmp<P>>::lowest() noexcept {
-  return -(teuthid::floatmp<P>::max());
-}
-template <size_t P>
-teuthid::floatmp<P> numeric_limits<teuthid::floatmp<P>>::epsilon() noexcept {
-  return teuthid::floatmp<P>::epsilon();
-}
-
+}; // class numeric_limits<teuthid::floatmp<P>>
 } // namespace std
 
 #endif // TEUTHID_FLOATMP_HPP

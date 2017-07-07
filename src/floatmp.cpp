@@ -24,11 +24,11 @@
 using namespace teuthid;
 
 std::atomic_int floatmp_base::round_mode_(mpfr_get_default_rounding_mode());
-floatmp_base floatmp_base::zero_(floatmp_base::max_precision());
-floatmp_base floatmp_base::minus_one_(floatmp_base::max_precision(),
-                                      static_cast<long double>(-1));
-floatmp_base floatmp_base::plus_one_(floatmp_base::max_precision(),
-                                     static_cast<long double>(1));
+const floatmp_base floatmp_base::zero_(floatmp_base::max_precision());
+const floatmp_base floatmp_base::minus_one_(floatmp_base::max_precision(),
+                                            static_cast<long double>(-1));
+const floatmp_base floatmp_base::plus_one_(floatmp_base::max_precision(),
+                                           static_cast<long double>(1));
 
 bool floatmp_base::equal_to(const floatmp_base &x) const {
   return system::equal_to(c_mpfr(), x.c_mpfr());
