@@ -713,6 +713,16 @@ public:
     else
       return floatmp<Precision>(1.0);
   }
+  static constexpr floatmp<Precision> infinity() {
+    floatmp<Precision> __x;
+    mpfr_set_inf(__x.value_, 1);
+    return __x;
+  }
+  static constexpr floatmp<Precision> nan() {
+    floatmp<Precision> __x;
+    mpfr_set_nan(__x.value_);
+    return __x;
+  }
 }; // class floatmp
 
 /******************************************************************************/
@@ -1066,6 +1076,23 @@ public:
   static constexpr bool has_signaling_NaN = true;
   static constexpr float_denorm_style has_denorm = denorm_absent;
   static constexpr bool has_denorm_loss = false;
+  static constexpr teuthid::floatmp<P> infinity() noexcept {
+    return teuthid::floatmp<P>::infinity();
+  }
+  static constexpr teuthid::floatmp<P> quiet_NaN() noexcept {
+    return teuthid::floatmp<P>::nan();
+  }
+  static constexpr teuthid::floatmp<P> signaling_NaN() noexcept {
+    return teuthid::floatmp<P>::nan();
+  }
+  static constexpr teuthid::floatmp<P> denorm_min() noexcept {
+    return teuthid::floatmp<P>::min();
+  }
+  static constexpr bool is_iec559 = true;
+  static constexpr bool is_bounded = true;
+  static constexpr bool is_modulo = false;
+  static constexpr bool traps = true;
+  static constexpr bool tinyness_before = true;
 
 }; // class numeric_limits<teuthid::floatmp<P>>
 } // namespace std

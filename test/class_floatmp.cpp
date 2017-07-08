@@ -64,6 +64,9 @@ BOOST_AUTO_TEST_CASE(class_teuthid_floatmp) {
   BOOST_TEST(system::is_zero(__x2), "system::is_zero()");
   BOOST_TEST(!std::isunordered(__x1, __x2), "std::isunordered()");
 
+  BOOST_TEST(std::isinf(float256_t::infinity()), "std::isinf()");
+  BOOST_TEST(std::isnan(float256_t::nan()), "std::isnan()");
+
   __x1 = -0.1, __x2 = 0.0, __x3 = 0.1;
   BOOST_TEST(!__x1.is_positive(), "is_positive()");
   BOOST_TEST(!__x2.is_positive(), "is_positive()");
