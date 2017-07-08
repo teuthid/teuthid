@@ -1043,6 +1043,9 @@ inline bool isunordered(const teuthid::floatmp<P1> &x,
 }
 
 template <> template <size_t P> class numeric_limits<teuthid::floatmp<P>> {
+private:
+  static constexpr float_round_style round_style_() noexcept;
+
 public:
   static constexpr bool is_specialized = true;
   static constexpr teuthid::floatmp<P> min() noexcept {
@@ -1093,8 +1096,28 @@ public:
   static constexpr bool is_modulo = false;
   static constexpr bool traps = true;
   static constexpr bool tinyness_before = true;
-
+  static constexpr float_round_style round_style = round_style_();
 }; // class numeric_limits<teuthid::floatmp<P>>
+
+template <>
+template <size_t P>
+constexpr float_round_style
+numeric_limits<teuthid::floatmp<P>>::round_style_() noexcept {
+  switch (teuthid::floatmp_base::rounding_mode()) {
+  case teuthid::floatmp_round_t::round_to_nearest:
+    return round_to_nearest;
+  case teuthid::floatmp_round_t::round_toward_zero:
+    return round_toward_zero;
+  case teuthid::floatmp_round_t::round_toward_infinity:
+    return round_toward_infinity;
+  case teuthid::floatmp_round_t::round_toward_neg_infinity:
+    return round_toward_neg_infinity;
+  case teuthid::floatmp_round_t::round_toward_neg_infinity:
+    return round_toward_neg_infinity;
+  default:
+    return round_indeterminate;
+  }
+}
 } // namespace std
 
 #endif // TEUTHID_FLOATMP_HPP
