@@ -1,0 +1,61 @@
+/*
+  This file is part of the Teuthid project.
+  Copyright (C) 2016-2017 Mariusz Przygodzki (mariusz.przygodzki@gmail.com)
+
+    This library is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with the Teuthid.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/*! 
+\file floatmp.hpp 
+*/ 
+
+
+/*! 
+\enum teuthid::floatmp_round_t
+\brief This enumeration includes named constants that identifies rounding modes for multiprecison floating-point values.
+\see floatmp::rounding_mode().
+*/
+/*!
+\var teuthid::floatmp_round_t::round_to_nearest
+\hideinitializer
+Indicates a rounding to nearest (\c roundTiesToEven in IEEE 754-2008).
+*/
+/*!
+\var teuthid::floatmp_round_t::round_toward_zero
+\hideinitializer
+Indicates a rounding toward zero (\c roundTowardZero in IEEE 754-2008).
+*/
+/*!
+\var teuthid::floatmp_round_t::round_toward_infinity
+\hideinitializer
+Indicates a rounding toward plus infinity (\c roundTowardPositive in 
+IEEE 754-2008).
+*/
+/*!
+\var teuthid::floatmp_round_t::round_toward_neg_infinity
+\hideinitializer
+Indicates a rounding toward minus infinity (\c roundTowardNegative in 
+IEEE 754-2008).
+*/
+/*!
+\var teuthid::floatmp_round_t::round_away_from_zero
+\hideinitializer
+Indicates a rounding away from zero.
+*/
+/*!
+\var teuthid::floatmp_round_t::round_to_nearest_away_from_zero
+\hideinitializer
+Indicates a rounding to nearest, with ties away from zero.
+*/
+
