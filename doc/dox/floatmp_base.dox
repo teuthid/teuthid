@@ -23,7 +23,7 @@
 
 /*! 
 \enum teuthid::floatmp_round_t
-\brief This enumeration includes named constants that identifies rounding modes for multiprecison floating-point values.
+\brief This enumeration includes named constants that identifies rounding modes for multiprecison floating-point numbers.
 \see floatmp::rounding_mode().
 */
 /*!
@@ -57,5 +57,24 @@ Indicates a rounding away from zero.
 \var teuthid::floatmp_round_t::round_to_nearest_away_from_zero
 \hideinitializer
 Indicates a rounding to nearest, with ties away from zero.
+*/
+
+
+/*!
+\class teuthid::floatmp_base floatmp.hpp <teuthid/floatmp.hpp>
+\brief This is a base class of teuthid::floatmp that represents floating-point 
+numbers with precise semantics.
+\see floatmp::max_precision(), floatmp::min_precision().
+*/
+
+
+/*!
+\fn teuthid::floatmp_base::floatmp_base(std::size_t precision)
+\brief Constructs the object that represents a floating-point number with a 
+specified precision.
+\details Sets the value to zero.
+@param[in] precision a precision of floating-point number. This value should be 
+within the range [min_precision(), max_precision()].
+\see is_zero().
 */
 

@@ -21,6 +21,7 @@
 
 #include <algorithm>
 #include <atomic>
+#include <cassert>
 #include <cmath>
 #include <limits>
 
@@ -60,14 +61,17 @@ class floatmp_base {
 
 public:
   floatmp_base(std::size_t precision) {
+    assert_precision_(precision);
     mpfr_init2(value_, precision);
     mpfr_set_zero(value_, 1);
   }
   floatmp_base(std::size_t precision, const floatmp_base &x) {
+    assert_precision_(precision);
     mpfr_init2(value_, precision);
     mpfr_set(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
   }
   template <typename T> floatmp_base(std::size_t precision, const T &x) {
+    assert_precision_(precision);
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
   virtual ~floatmp_base() { mpfr_clear(value_); }
@@ -77,6 +81,7 @@ public:
 
 #define __TEUTHID_FLOATMP_CTOR_SPEC(TYPE, FUN)                                 \
   floatmp_base(std::size_t precision, const TYPE &x) {                         \
+    assert_precision_(precision);                                              \
     mpfr_init2(value_, precision);                                             \
     FUN(value_, x, static_cast<mpfr_rnd_t>(rounding_mode()));                  \
   }
@@ -348,6 +353,11 @@ private:
   __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, mpfr_div)
 #undef __TEUTHID_FLOATMP_ARITHMETIC_SPEC
 
+  static void assert_precision_(std::size_t precision) {
+    assert(precision >= min_precision());
+    assert(precision <= max_precision());
+  }
+
   mpfr_t value_;
   static std::atomic_int round_mode_;
   static const floatmp_base zero_;
@@ -359,12 +369,14 @@ private:
 #ifdef TEUTHID_HAVE_INT_128
 template <>
 inline floatmp_base::floatmp_base(std::size_t precision, const int128_t &x) {
+  assert_precision_(precision);
   mpfr_init2(value_, precision);
   mpfr_set_ld(value_, int128_to_ldouble_(x),
               static_cast<mpfr_rnd_t>(rounding_mode()));
 }
 template <>
 inline floatmp_base::floatmp_base(std::size_t precision, const uint128_t &x) {
+  assert_precision_(precision);
   mpfr_init2(value_, precision);
   mpfr_set_ld(value_, uint128_to_ldouble_(x),
               static_cast<mpfr_rnd_t>(rounding_mode()));
