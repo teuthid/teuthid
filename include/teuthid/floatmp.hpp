@@ -71,7 +71,6 @@ public:
     mpfr_set(value_, x.c_mpfr(), static_cast<mpfr_rnd_t>(rounding_mode()));
   }
   template <typename T> floatmp_base(std::size_t precision, const T &x) {
-    assert_precision_(precision);
     TETHID_CHECK_TYPE_SPECIALIZATION(T);
   }
   virtual ~floatmp_base() { mpfr_clear(value_); }
