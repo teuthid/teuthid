@@ -103,14 +103,10 @@ public:
 #undef __TEUTHID_FLOATMP_CTOR_SPEC
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
-  explicit operator float() const {
-    return mpfr_get_flt(value_, static_cast<mpfr_rnd_t>(rounding_mode()));
-  }
-  explicit operator double() const {
-    return mpfr_get_d(value_, static_cast<mpfr_rnd_t>(rounding_mode()));
-  }
+  explicit operator float() const { return mpfr_get_flt(value_, mpfr_rnd_()); }
+  explicit operator double() const { return mpfr_get_d(value_, mpfr_rnd_()); }
   explicit operator long double() const {
-    return mpfr_get_ld(value_, static_cast<mpfr_rnd_t>(rounding_mode()));
+    return mpfr_get_ld(value_, mpfr_rnd_());
   }
 
   const mpfr_t &c_mpfr() const noexcept { return value_; }
