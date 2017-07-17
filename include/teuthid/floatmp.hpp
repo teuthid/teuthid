@@ -1097,8 +1097,6 @@ numeric_limits<teuthid::floatmp<P>>::round_style_() noexcept {
     return round_toward_infinity;
   case teuthid::floatmp_round_t::round_toward_neg_infinity:
     return round_toward_neg_infinity;
-  case teuthid::floatmp_round_t::round_toward_neg_infinity:
-    return round_toward_neg_infinity;
   default:
     return round_indeterminate;
   }
