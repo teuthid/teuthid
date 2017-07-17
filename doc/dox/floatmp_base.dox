@@ -101,7 +101,7 @@ specified precision.
 within the range [min_precision(), max_precision()].
 @param[in] x a number.
 \note The function has specializations for the following types: \c float, 
-\c double, <tt>long double</tt>, \c mpfr_t and integral types.
+\c double, <tt>long double</tt>, \c mpfr_t and integer types.
 */
 
 
@@ -166,4 +166,40 @@ is_positive(), is_integer().
 \return \c true if this multi-precision floating-point number is a NaN, 
 \c false otherwise.
 \see system::is_nan(), is_finite(), is_infinite().
+*/
+
+
+/*!
+\fn bool floatmp_base::is_zero() const
+\brief Determines if this number has zero value.
+\return \c true if this multi-precision floating-point number has zero value, 
+\c false otherwise.
+\see system::is_zero(), is_negative(), is_positive(), is_integer().
+*/
+
+
+/*!
+\fn bool floatmp_base::is_negative() const
+\brief Determines if this number has negative value.
+\return \c true if this multi-precision floating-point number has negative 
+value, \c false otherwise.
+\see system::is_negative(), is_positive(), is_zero().
+*/
+
+
+/*!
+\fn bool floatmp_base::is_positive() const
+\brief Determines if this number has positive value.
+\return \c true if this multi-precision floating-point number has positive 
+value, \c false otherwise.
+\see system::is_positive(), is_negative(), is_zero().
+*/
+
+
+/*!
+\fn bool floatmp_base::is_integer() const
+\brief Determines if this number is an integer.
+\return \c true if this multi-precision floating-point number is an integer, 
+\c false otherwise.
+\see is_zero().
 */
