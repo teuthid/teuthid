@@ -120,10 +120,10 @@ public:
   bool is_integer() const;
 
   static constexpr std::size_t max_precision() noexcept {
-    return TEUTHID_FLOAT_MAX_PRECISION;
+    return TEUTHID_FLOATMP_MAX_PRECISION;
   }
   static constexpr std::size_t min_precision() noexcept {
-    return MPFR_PREC_MIN;
+    return TEUTHID_FLOATMP_MIN_PRECISION;
   }
   static floatmp_round_t rounding_mode() noexcept {
     return static_cast<floatmp_round_t>(round_mode_.load());

@@ -64,8 +64,10 @@ Indicates a rounding to nearest, with ties away from zero.
 /*!
 \class teuthid::floatmp_base floatmp.hpp <teuthid/floatmp.hpp>
 \brief This is a base class of teuthid::floatmp that represents floating-point 
-numbers with precise semantics.
-\see floatmp::max_precision(), floatmp::min_precision().
+numbers with precise semantics. 
+\details The precision is the number of bits used to represent the significand 
+of a floating-point number. The precision can be any integer between 
+min_precision() and max_precision().
 */
 
 
@@ -202,4 +204,24 @@ value, \c false otherwise.
 \return \c true if this multi-precision floating-point number is an integer, 
 \c false otherwise.
 \see is_zero().
+*/
+
+
+/*!
+\fn static constexpr std::size_t floatmp_base::max_precision() noexcept
+\brief Gets the maximum permitted precision.
+\details The precision is the number of bits used to represent the significand 
+of a floating-point number. The precision can be any integer between 
+min_precision() and max_precision().
+\returns the maximum permitted precision of floating-point numbers.
+*/
+
+
+/*!
+\fn static constexpr std::size_t floatmp_base::min_precision() noexcept
+\brief Gets the minimum permitted precision.
+\details The precision is the number of bits used to represent the significand 
+of a floating-point number. The precision can be any integer between 
+min_precision() and max_precision().
+\returns the minimum permitted precision of floating-point numbers.
 */
