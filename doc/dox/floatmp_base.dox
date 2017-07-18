@@ -213,7 +213,7 @@ value, \c false otherwise.
 \details The precision is the number of bits used to represent the significand 
 of a floating-point number. The precision can be any integer between 
 min_precision() and max_precision().
-\returns the maximum permitted precision of floating-point numbers.
+\return the maximum permitted precision of floating-point numbers.
 */
 
 
@@ -223,5 +223,22 @@ min_precision() and max_precision().
 \details The precision is the number of bits used to represent the significand 
 of a floating-point number. The precision can be any integer between 
 min_precision() and max_precision().
-\returns the minimum permitted precision of floating-point numbers.
+\return the minimum permitted precision of floating-point numbers.
+*/
+
+/*!
+\fn static floatmp_round_t teuthid::floatmp_base::rounding_mode() noexcept
+\brief Gets the current rounding mode.
+\details The initial rounding mode is floatmp_round_t::round_to_nearest.
+\return the current rounding mode for all multi-precision floating-point 
+numbers regardless of their precision.
+*/
+
+
+/*!
+\fn static floatmp_round_t teuthid::floatmp_base::rounding_mode(floatmp_round_t mode) noexcept
+\brief Sets a new rounding mode.
+@param[in] mode a new rounding mode for all multi-precision floating-point 
+numbers regardless of their precision. 
+\return the previous rounding mode.
 */
