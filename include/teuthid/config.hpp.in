@@ -49,8 +49,8 @@ constexpr std::size_t float80_prec = 64;
 constexpr std::size_t float128_prec = 113;
 constexpr std::size_t float256_prec = 237;
 
-#define TEUTHID_FLOATMP_MAX_PRECISION 2048;
-#define TEUTHID_FLOATMP_MIN_PRECISION 5;
+#define TEUTHID_FLOATMP_MAX_PRECISION 2048
+#define TEUTHID_FLOATMP_MIN_PRECISION 5
 
 @typedef_int8_t@
 @typedef_int16_t@
