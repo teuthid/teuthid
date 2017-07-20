@@ -43,3 +43,43 @@ precision \c Precision.
 max_precision().
 \see assign(), equal_to().
 */
+
+
+/*!
+\fn teuthid::floatmp::floatmp(const floatmp<P> &x)
+\brief Constructs the object that represents a floating-point number with the 
+precision \c Precision.
+\details Sets the value of this number to the value of \c x.
+\note The precision can be any integer between min_precision() and 
+max_precision().
+@param[in] x a a multi-precision floating-point number.
+\see assign(), equal_to().
+*/
+
+
+/*!
+\fn teuthid::floatmp::floatmp(const T &x)
+\brief Constructs the object that represents a floating-point number with the 
+precision \c Precision.
+\details Sets the value of this number to the value \c x.
+\note This constructor has specializations for the following types: \c float, 
+\c double, <tt>long double</tt>, \c mpfr_t and integer types.
+\note The precision can be any integer between min_precision() and 
+max_precision().
+@param[in] x a value.
+\see assign(), equal_to().
+*/
+
+
+/*!
+\fn teuthid::floatmp::~floatmp()
+\brief Destructs this object that represents a floating-point number.
+*/
+
+
+/*!
+\fn floatmp& teuthid::floatmp<Precision>::operator=(const floatmp <Precision> &other)	
+\brief Sets the value of this number to the value of the number \c other.
+\return the reference to this object.
+\see assign().
+*/

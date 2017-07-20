@@ -101,8 +101,8 @@ specified precision.
 \details Sets the value of this number to \c x.
 @param[in] precision a precision of floating-point number. This value should be 
 within the range [min_precision(), max_precision()].
-@param[in] x a number.
-\note The function has specializations for the following types: \c float, 
+@param[in] x a value.
+\note This constructor has specializations for the following types: \c float, 
 \c double, <tt>long double</tt>, \c mpfr_t and integer types.
 */
 
