@@ -80,6 +80,7 @@ max_precision().
 /*!
 \fn floatmp& teuthid::floatmp<Precision>::operator=(const floatmp <Precision> &other)	
 \brief Sets the value of this number to the value of the number \c other.
+\details The canonical copy-assignment operator.
 \return the reference to this object.
 \see assign().
 */
