@@ -75,7 +75,7 @@ min_precision() and max_precision().
 \fn teuthid::floatmp_base::floatmp_base(std::size_t precision)
 \brief Constructs the object that represents a floating-point number with a 
 specified precision.
-\details Sets the value to zero.
+\details Sets the value of this number to zero.
 @param[in] precision a precision of floating-point number. This value should be 
 within the range [min_precision(), max_precision()].
 \see is_zero().
@@ -86,7 +86,7 @@ within the range [min_precision(), max_precision()].
 \fn teuthid::floatmp_base::floatmp_base(std::size_t precision, const floatmp_base &x)
 \brief Constructs the object that represents a floating-point number with a 
 specified precision.
-\details Sets the value to \c x.
+\details Sets the value of this number to \c x.
 @param[in] precision a precision of floating-point number. This value should be 
 within the range [min_precision(), max_precision()].
 @param[in] x a multi-precision floating-point number.
@@ -98,7 +98,7 @@ within the range [min_precision(), max_precision()].
 \fn teuthid::floatmp_base::floatmp_base(std::size_t precision, const T &x)
 \brief Constructs the object that represents a floating-point number with a 
 specified precision.
-\details Sets the value to \c x.
+\details Sets the value of this number to \c x.
 @param[in] precision a precision of floating-point number. This value should be 
 within the range [min_precision(), max_precision()].
 @param[in] x a number.

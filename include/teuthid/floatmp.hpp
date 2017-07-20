@@ -401,7 +401,6 @@ public:
     return *this;
   }
   template <std::size_t P> floatmp &operator=(const floatmp<P> &other) {
-    TEUTHID_CHECK_FLOATMP_PRECISION(P);
     mpfr_set(value_, other.c_mpfr(), mpfr_rnd_());
     return *this;
   }
@@ -410,7 +409,6 @@ public:
     return *this;
   }
   template <std::size_t P> operator floatmp<P>() const {
-    TEUTHID_CHECK_FLOATMP_PRECISION(P);
     return floatmp<P>(*this);
   }
   floatmp operator-() const {
