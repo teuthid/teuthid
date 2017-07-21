@@ -106,3 +106,21 @@ than precision of this number.
 \return the reference to this object.
 \see assign().
 */
+
+
+/*!
+\fn teuthid::floatmp<Precision>::operator floatmp<P>() const
+\brief Convert to a floating-point number with specified precision.
+\return a multi-precision floating-point number with precision \c P.
+\see min_precision(), max_precision().
+*/
+
+
+/*!
+\fn floatmp teuthid::floatmp<Precision>::operator-() const
+\brief Gets a floating-point number with the opposite sign to this number.
+\details This is the unary negation operator.
+\return a floating-point number with the opposite sign to this number without 
+changing the precision.
+\see sub().
+*/
