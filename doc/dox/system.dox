@@ -226,10 +226,9 @@ range of the result type \c T.
 \note The function has specializations for the following types: \c float, 
 \c double, <tt>long double</tt>, \c mpfr_t and 
 \ref teuthid::floatmp "floatmp<Precision>".
-\n To compare floating point types, this function converts numbers to strings 
-according to the current format settings for to_string(). For other types, the 
-function behaves just like the \c operator== (for those types for which this 
-operator is defined).
+\note To compare floating point types, this function converts numbers to 
+strings according to the current format settings for to_string(). For other 
+types, the function behaves just like the \c operator== (for those types for which this operator is defined).
 \see system::format_float_output(), system::format_float_precision(), 
 system::less_than(), system::is_positive(), system::is_negative().
 */
@@ -244,10 +243,10 @@ system::less_than(), system::is_positive(), system::is_negative().
 \note The function has specializations for the following types: \c float, 
 \c double, <tt>long double</tt>, \c mpfr_t and 
 \ref teuthid::floatmp "floatmp<Precision>".
-\n To compare floating point types, this function converts numbers to strings 
-according to the current format settings for to_string(). For other types, the 
-function behaves just like the \c operator< (for those types for which this 
-operator is defined).
+\note To compare floating point types, this function converts numbers to 
+strings according to the current format settings for to_string(). For other 
+types, the function behaves just like the \c operator< (for those types for 
+which this operator is defined).
 \see system::format_float_output(), system::format_float_precision(), 
 system::equal_to().
 */

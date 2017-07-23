@@ -100,10 +100,10 @@ than precision of this number.
 /*!
 \fn floatmp& teuthid::floatmp<Precision>::operator=(const T &x)
 \brief Sets the value of this number to the value \c x.
-@param[in] x a value.
+@param[in] x a value to be assigned to this number.
+\return the reference to this object.
 \note This constructor has specializations for the following types: \c float, 
 \c double, <tt>long double</tt>, \c mpfr_t and integer types. 
-\return the reference to this object.
 \see assign().
 */
 
@@ -123,4 +123,137 @@ than precision of this number.
 \return a floating-point number with the opposite sign to this number without 
 changing the precision.
 \see sub().
+*/
+
+
+/*!
+\fn floatmp& teuthid::floatmp<Precision>::operator+=(const T &x)
+\brief Adds the value \c x to this number.
+@param[in] x a value to be added to this number.
+\return the reference to this object.
+\note This operator has specializations for the following types: \c float, 
+\c double, <tt>long double</tt>, \c mpfr_t and integer types. 
+\see add().
+*/
+
+
+/*!
+\fn floatmp& teuthid::floatmp<Precision>::operator-=(const T &x)
+\brief Subtracts the value \c x from this number.
+@param[in] x a value to be subtracted from this number.
+\return the reference to this object.
+\note This operator has specializations for the following types: \c float, 
+\c double, <tt>long double</tt>, \c mpfr_t and integer types. 
+\see sub().
+*/
+
+
+/*!
+\fn floatmp& teuthid::floatmp<Precision>::operator*=(const T &x)
+\brief Multiplies this number by the value \c x.
+@param[in] x a value by which this number will be multiplied.
+\return the reference to this object.
+\note This operator has specializations for the following types: \c float, 
+\c double, <tt>long double</tt>, \c mpfr_t and integer types. 
+\see mul().
+*/
+
+
+/*!
+\fn floatmp& teuthid::floatmp<Precision>::operator/=(const T &x)
+\brief Divides this number by the value \c x.
+@param[in] x a value by which this number will be divived.
+\return the reference to this object.
+\note This operator has specializations for the following types: \c float, 
+\c double, <tt>long double</tt>, \c mpfr_t and integer types. 
+\see div().
+*/
+
+
+/*!
+\fn floatmp& floatmp::assign(const T &x)
+\brief Sets the value of this number to the value \c x.
+@param[in] x a value to be assigned to this number.
+\return the reference to this object.
+\note This constructor has specializations for the following types: \c float, 
+\c double, <tt>long double</tt>, \c mpfr_t and integer types. 
+\see equal_to(), less_than().
+*/
+
+
+/*!
+\fn bool floatmp::equal_to(const T &x) const
+\brief Checks whether \c x is equal to this number.
+@param[in] x a value of type \c T to compare.
+\return \c true if \c x is equal to this number, \c false otherwise.
+\note This function has specializations for the following types: \c float, 
+\c double, <tt>long double</tt>, \c mpfr_t and integer types.
+\note To compare these numbers, this function converts both numbers to 
+strings according to the current format settings for system::to_string().
+\see system::equal_to(), less_than().
+*/
+
+
+/*!
+\fn bool floatmp::less_than(const T &x) const
+\brief Checks whether this number is less than \c x.
+@param[in] x a value of type \c T to compare.
+\return \c true if this number is less than \c x, \c false otherwise.
+\note This function has specializations for the following types: \c float, 
+\c double, <tt>long double</tt>, \c mpfr_t and integer types.
+\note To compare these numbers, this function converts both numbers to 
+strings according to the current format settings for system::to_string().
+\see system::less_than(), equal_to().
+*/
+
+
+/*!
+\fn floatmp& floatmp::add(const T &x)
+\brief Adds the value \c x to this number.
+@param[in] x a value to be added to this number.
+\return the reference to this object.
+\note This function has specializations for the following types: \c float, 
+\c double, <tt>long double</tt>, \c mpfr_t and integer types. 
+\see sub(), mul(), div().
+*/
+
+
+/*!
+\fn floatmp& floatmp::sub(const T &x)
+\brief Subtracts the value \c x from this number.
+@param[in] x a value to be subtracted from this number.
+\return the reference to this object.
+\note This function has specializations for the following types: \c float, 
+\c double, <tt>long double</tt>, \c mpfr_t and integer types. 
+\see add(), mul(), div().
+*/
+
+
+/*!
+\fn floatmp& floatmp::mul(const T &x)
+\brief Multiplies this number by the value \c x.
+@param[in] x a value by which this number will be multiplied.
+\return the reference to this object.
+\note This function has specializations for the following types: \c float, 
+\c double, <tt>long double</tt>, \c mpfr_t and integer types. 
+\see add(), sub(), div().
+*/
+
+
+/*!
+\fn floatmp& floatmp::div(const T &x)
+\brief Divides this number by the value \c x.
+@param[in] x a value by which this number will be divived.
+\return the reference to this object.
+\note This function has specializations for the following types: \c float, 
+\c double, <tt>long double</tt>, \c mpfr_t and integer types. 
+\see add(), sub(), mul().
+*/
+
+
+/*!
+\fn constexpr std::size_t floatmp::precision() const noexcept
+\brief Gets the precision.
+\return the precision of this number.
+\see max_precision(), min_precision().
 */
