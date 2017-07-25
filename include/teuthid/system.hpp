@@ -433,24 +433,24 @@ template <> inline void system::swap(mpfr_t &x, mpfr_t &y) { mpfr_swap(x, y); }
 
 // specialization of system::nextabove<T>()
 template <> inline float system::nextabove(const float &x) {
-  std::nextafter(x, std::numeric_limits<float>::max());
+  return std::nextafter(x, std::numeric_limits<float>::max());
 }
 template <> inline double system::nextabove(const double &x) {
-  std::nextafter(x, std::numeric_limits<double>::max());
+  return std::nextafter(x, std::numeric_limits<double>::max());
 }
 template <> inline long double system::nextabove(const long double &x) {
-  std::nextafter(x, std::numeric_limits<long double>::max());
+  return std::nextafter(x, std::numeric_limits<long double>::max());
 }
 
 // specialization of system::nextbelow<T>()
 template <> inline float system::nextbelow(const float &x) {
-  std::nextafter(x, std::numeric_limits<float>::lowest());
+  return std::nextafter(x, std::numeric_limits<float>::lowest());
 }
 template <> inline double system::nextbelow(const double &x) {
-  std::nextafter(x, std::numeric_limits<double>::lowest());
+  return std::nextafter(x, std::numeric_limits<double>::lowest());
 }
 template <> inline long double system::nextbelow(const long double &x) {
-  std::nextafter(x, std::numeric_limits<long double>::lowest());
+  return std::nextafter(x, std::numeric_limits<long double>::lowest());
 }
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
