@@ -50,7 +50,7 @@ max_precision().
 \brief Constructs the object that represents a floating-point number with the 
 precision \c Precision.
 \details Sets the value of this number to the value of \c x.
-@param[in] x a a multi-precision floating-point number.
+@param[in] x a multi-precision floating-point number.
 \note The precision can be any integer between min_precision() and 
 max_precision().
 \see assign(), equal_to().
@@ -190,7 +190,7 @@ changing the precision.
 \c double, <tt>long double</tt>, \c mpfr_t and integer types.
 \note To compare these numbers, this function converts both numbers to 
 strings according to the current format settings for system::to_string().
-\see system::equal_to(), less_than().
+\see system::equal_to(), less_than(), swap().
 */
 
 
@@ -256,4 +256,22 @@ strings according to the current format settings for system::to_string().
 \brief Gets the precision.
 \return the precision of this number.
 \see max_precision(), min_precision().
+*/
+
+
+/*!
+\fn floatmp& floatmp::swap(floatmp<P> &x)
+\brief Exchanges the value of this number with the value \c x.
+\details Precision of both numbers remains unchanged.
+@param[in,out] x the value to be swapped.
+\return the reference to this object.
+\see system::swap(), equal_to().
+*/
+
+
+/*!
+\fn floatmp& floatmp::abs(const floatmp<P> &x)
+\brief Sets this number to the absolute value of \c x (|x|).
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
 */
