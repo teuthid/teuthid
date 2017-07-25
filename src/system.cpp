@@ -71,12 +71,11 @@ bool system::uses_cl_backend(bool enabled) {
 
 #ifdef TEUTHID_HAVE_INT_128
 std::string system::uint128_to_string_(uint128_t x) {
-  unsigned __mod;
   uint128_t __div, __value = x;
   std::string __s;
   do {
     __div = __value / 10;
-    __mod = __value % 10;
+    unsigned __mod = __value % 10;
     __s += std::to_string(__mod);
     __value = __div;
   } while (__div > 0);
@@ -251,9 +250,9 @@ uint128_t system::string_to_unit128_(const std::string &s) {
 }
 
 template <> int128_t &system::from_string(const std::string &s, int128_t &x) {
-  bool __minus = false;
   std::string __s = system::validate_string_(s);
   if (!__s.empty()) {
+    bool __minus = false;
     if ((__s[0] == '+') || (__s[0] == '-')) {
       __minus = (__s[0] == '-');
       __s = __s.substr(1);
