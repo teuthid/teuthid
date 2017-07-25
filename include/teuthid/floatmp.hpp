@@ -65,7 +65,7 @@ class floatmp_base {
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 public:
-  floatmp_base(std::size_t precision) {
+  explicit floatmp_base(std::size_t precision) {
     TEUTHID_ASSERT_FLOATMP_PRECISION(precision);
     mpfr_init2(value_, precision);
     mpfr_set_zero(value_, 1);
