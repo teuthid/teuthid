@@ -85,7 +85,7 @@ public:
 
 private:
   platform() {}
-  platform(platform_id_t id) : id_(id) {}
+  explicit platform(platform_id_t id) : id_(id) {}
   platform_id_t id_;             // platform ID
   devices_t devices_;            // devices of this platform
   static platforms_t platforms_; // all available platforms

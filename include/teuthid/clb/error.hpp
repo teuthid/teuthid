@@ -32,7 +32,7 @@ public:
       : std::runtime_error(what_arg), cl_error_(0) {}
   explicit error(const char *what_arg)
       : std::runtime_error(what_arg), cl_error_(0) {}
-  error(int cl_error)
+  explicit error(int cl_error)
       : std::runtime_error(code_to_string_(cl_error)), cl_error_(cl_error) {}
 
   virtual int cl_error() const noexcept { return cl_error_; }
@@ -46,14 +46,14 @@ class invalid_platform : public error {
 public:
   explicit invalid_platform(const std::string &what_arg) : error(what_arg) {}
   explicit invalid_platform(const char *what_arg) : error(what_arg) {}
-  invalid_platform(int cl_error) : error(cl_error) {}
+  explicit invalid_platform(int cl_error) : error(cl_error) {}
 };
 
 class invalid_device : public error {
 public:
   explicit invalid_device(const std::string &what_arg) : error(what_arg) {}
   explicit invalid_device(const char *what_arg) : error(what_arg) {}
-  invalid_device(int cl_error) : error(cl_error) {}
+  explicit invalid_device(int cl_error) : error(cl_error) {}
 };
 
 } // namespace clb
