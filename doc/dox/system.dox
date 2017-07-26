@@ -204,10 +204,10 @@ a fixed notation.
 \c std::isspace()) and converts all characters to lower case.
 @param[in] s the string to convert.
 @param[in,out] x the string converted to the specified value of type \c T.
+\return  the string converted to the specified value of type \c T.
 \exception std::invalid_argument if no conversion could be performed.
 \exception std::out_of_range if the converted string would fall out of the 
 range of the result type \c T.
-\return  the string converted to the specified value of type \c T.
 \note The function has specializations for the following types: \c bool, 
 \c int8_t, \c int16_t, \c int32_t, \c int64_t, \c int128_t, \c uint8_t, 
 \c uint16_t, \c uint32_t, \c uint64_t, \c uint128_t, \c float, \c double, 

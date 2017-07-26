@@ -247,7 +247,7 @@ strings according to the current format settings for system::to_string().
 \return the reference to this object.
 \note This function has specializations for the following types: \c float, 
 \c double, <tt>long double</tt>, \c mpfr_t and integer types. 
-\see add(), sub(), mul().
+\see add(), sub(), mul(), fmod(), remainder().
 */
 
 
@@ -271,7 +271,50 @@ strings according to the current format settings for system::to_string().
 
 /*!
 \fn floatmp& floatmp::abs(const floatmp<P> &x)
-\brief Sets this number to the absolute value of \c x (|x|).
+\brief Sets this number to the absolute value of \c x (\c |x|).
 @param[in] x a multi-precision floating-point number.
 \return the reference to this object.
+*/
+
+
+/*!
+\fn floatmp& floatmp::fmod(const floatmp<P1> &x, const floatmp<P2> &y)
+\brief Sets this number to the remainder of the division operation \c x/y.
+\details The remainder of the division operation \c x/y calculated by this 
+function is exactly the value <tt>x - n*y</tt>, where \c n is \c x/y with its 
+fractional part truncated. The result has the same sign as \c x and is less 
+than \c y in magnitude.
+@param[in] x a multi-precision floating-point number.
+@param[in] y a multi-precision floating-point number.
+\return the reference to this object.
+\exception std::domain_error if \c y is zero.
+\see div(), remainder().
+*/
+
+
+/*!
+\fn floatmp& floatmp::remainder(const floatmp<P1> &x, const floatmp<P2> &y)
+\brief Set this number to the IEEE remainder of the division operation \c x/y.
+\details The IEEE remainder of the division operation \c x/y calculated by this 
+function is exactly the value <tt>x - n*y</tt>, where the value \c n is the 
+integral value nearest the exact value \c x/y. When <tt>|n-x/y| = ½</tt>, the 
+value \c n is chosen to be even. In contrast to fmod(), the result is not 
+guaranteed to have the same sign as \c x. 
+@param[in] x a multi-precision floating-point number.
+@param[in] y a multi-precision floating-point number.
+\return the reference to this object.
+\exception std::domain_error if \c y is zero.
+\see div(), fmod(), fma().
+*/
+
+
+/*!
+\fn floatmp& floatmp::fma(const floatmp<P1> &x, const floatmp<P2> &y, const floatmp<P3> &z)
+\brief Set this number to <tt>(x*y) + z</tt> as if to infinite precision and 
+rounded only once to fit the result type.
+@param[in] x a multi-precision floating-point number.
+@param[in] y a multi-precision floating-point number.
+@param[in] z a multi-precision floating-point number.
+\return the reference to this object.
+\see remainder().
 */
