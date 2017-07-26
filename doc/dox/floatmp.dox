@@ -190,7 +190,7 @@ changing the precision.
 \c double, <tt>long double</tt>, \c mpfr_t and integer types.
 \note To compare these numbers, this function converts both numbers to 
 strings according to the current format settings for system::to_string().
-\see system::equal_to(), less_than(), swap().
+\see system::equal_to(), less_than(), swap(), fmax(), fmin().
 */
 
 
@@ -203,7 +203,7 @@ strings according to the current format settings for system::to_string().
 \c double, <tt>long double</tt>, \c mpfr_t and integer types.
 \note To compare these numbers, this function converts both numbers to 
 strings according to the current format settings for system::to_string().
-\see system::less_than(), equal_to().
+\see system::less_than(), equal_to(), fmax(), fmin().
 */
 
 
@@ -317,4 +317,28 @@ rounded only once to fit the result type.
 @param[in] z a multi-precision floating-point number.
 \return the reference to this object.
 \see remainder().
+*/
+
+
+/*!
+\fn floatmp& floatmp::fmax(const floatmp<P1> &x, const floatmp<P2> &y)
+\brief Set this number to the larger of two arguments.
+@param[in] x a multi-precision floating-point number.
+@param[in] y a multi-precision floating-point number.
+\return the reference to this object.
+\note To compare numbers, this function converts both numbers to strings 
+according to the current format settings for system::to_string().
+\see fmin(), equal_to(), less_than().
+*/
+
+
+/*!
+\fn floatmp& floatmp::fmin(const floatmp<P1> &x, const floatmp<P2> &y)
+\brief Set this number to the smaller of two arguments.
+@param[in] x a multi-precision floating-point number.
+@param[in] y a multi-precision floating-point number.
+\return the reference to this object.
+\note To compare numbers, this function converts both numbers to strings 
+according to the current format settings for system::to_string().
+\see fmax(), equal_to(), less_than().
 */
