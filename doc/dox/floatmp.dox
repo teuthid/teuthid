@@ -225,7 +225,7 @@ strings according to the current format settings for system::to_string().
 \return the reference to this object.
 \note This function has specializations for the following types: \c float, 
 \c double, <tt>long double</tt>, \c mpfr_t and integer types. 
-\see add(), mul(), div().
+\see add(), mul(), div(), fdim().
 */
 
 
@@ -274,6 +274,7 @@ strings according to the current format settings for system::to_string().
 \brief Sets this number to the absolute value of \c x (\c |x|).
 @param[in] x a multi-precision floating-point number.
 \return the reference to this object.
+\see fdim().
 */
 
 
@@ -294,7 +295,7 @@ than \c y in magnitude.
 
 /*!
 \fn floatmp& floatmp::remainder(const floatmp<P1> &x, const floatmp<P2> &y)
-\brief Set this number to the IEEE remainder of the division operation \c x/y.
+\brief Sets this number to the IEEE remainder of the division operation \c x/y.
 \details The IEEE remainder of the division operation \c x/y calculated by this 
 function is exactly the value <tt>x - n*y</tt>, where the value \c n is the 
 integral value nearest the exact value \c x/y. When <tt>|n-x/y| = ½</tt>, the 
@@ -310,7 +311,7 @@ guaranteed to have the same sign as \c x.
 
 /*!
 \fn floatmp& floatmp::fma(const floatmp<P1> &x, const floatmp<P2> &y, const floatmp<P3> &z)
-\brief Set this number to <tt>(x*y) + z</tt> as if to infinite precision and 
+\brief Sets this number to <tt>(x*y) + z</tt> as if to infinite precision and 
 rounded only once to fit the result type.
 @param[in] x a multi-precision floating-point number.
 @param[in] y a multi-precision floating-point number.
@@ -322,23 +323,54 @@ rounded only once to fit the result type.
 
 /*!
 \fn floatmp& floatmp::fmax(const floatmp<P1> &x, const floatmp<P2> &y)
-\brief Set this number to the larger of two arguments.
+\brief Sets this number to the larger of two arguments.
 @param[in] x a multi-precision floating-point number.
 @param[in] y a multi-precision floating-point number.
 \return the reference to this object.
 \note To compare numbers, this function converts both numbers to strings 
 according to the current format settings for system::to_string().
-\see fmin(), equal_to(), less_than().
+\see fmin(), fdim(), equal_to(), less_than().
 */
 
 
 /*!
 \fn floatmp& floatmp::fmin(const floatmp<P1> &x, const floatmp<P2> &y)
-\brief Set this number to the smaller of two arguments.
+\brief Sets this number to the smaller of two arguments.
 @param[in] x a multi-precision floating-point number.
 @param[in] y a multi-precision floating-point number.
 \return the reference to this object.
 \note To compare numbers, this function converts both numbers to strings 
 according to the current format settings for system::to_string().
 \see fmax(), equal_to(), less_than().
+*/
+
+
+/*!
+\fn floatmp& floatmp::fdim(const floatmp<P1> &x, const floatmp<P2> &y)
+\brief Sets this number to the positive difference between \c x and \c y
+\details If \c x>y, the result is \c x-y, otherwise (if \c x≤y), the result is 
+\c 0.
+@param[in] x a multi-precision floating-point number.
+@param[in] y a multi-precision floating-point number.
+\return the reference to this object.
+\see abs(), fmax().
+*/
+
+
+/*!
+\fn floatmp& floatmp::exp(const floatmp<P> &x)
+\brief Sets this number to \e e (Euler's number, \c 2.7182818) raised to the 
+given power \c x.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\see exp2(), expm1(), log().
+*/
+
+
+/*!
+\fn floatmp& floatmp::exp2(const floatmp<P> &x)
+\brief Sets this number to \c 2 raised to the given power \c x.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\see exp(), expm1(), log2().
 */
