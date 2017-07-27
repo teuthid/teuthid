@@ -424,3 +424,56 @@ the given power \c x minus \c 1.0.
 \exception std::domain_error if \c x is less than or equal to \c -1.
 \see log(), log10(), log2(), expm1(), minus_one().
 */
+
+
+/*!
+\fn floatmp& floatmp::pow(const floatmp<P1> &x, const floatmp<P2> &y)
+\brief Sets this number to the value of \c x raised to the power \c y.
+@param[in] x a multi-precision floating-point number.
+@param[in] y a multi-precision floating-point number.
+\return the reference to this object.
+\exception std::domain_error if \c x is finite and negative and \c y is finite 
+and non-integer.
+\exception std::domain_error if \c x is zero and \c y is zero or negative.
+\see sqrt(), cbrt(), hypot(), is_negative(), is_zero().
+*/
+
+
+/*!
+\fn floatmp& floatmp::sqrt(const floatmp<P> &x)
+\brief Sets this number to the square root of \c x.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\exception std::domain_error if \c x is less than zero.
+\see pow(), cbrt(), hypot(), is_negative().
+*/
+
+
+/*!
+\fn floatmp& floatmp::cbrt(const floatmp<P> &x)
+\brief Sets this number to the cubic root of \c x (\c<sup>3</sup>√x).
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\see pow(), sqrt(), hypot().
+*/
+
+
+/*!
+\fn floatmp& floatmp::hypot(const floatmp<P1> &x, const floatmp<P2> &y)
+\brief Sets this number to the square root of the sum of the squares of \c x 
+and \c y (\c√x<sup>2</sup>+y<sup>2</sup>).
+@param[in] x a multi-precision floating-point number.
+@param[in] y a multi-precision floating-point number.
+\return the reference to this object.
+\see pow(), sqrt(), cbrt().
+*/
+
+
+/*!
+\fn floatmp& floatmp::sin(const floatmp<P> &x)
+\brief Sets this number to the sine of \c x (measured in radians).
+@param[in] x a multi-precision floating-point number representing angle in 
+radians.
+\return the reference to this object.
+\see cos(), tan(), asin().
+*/
