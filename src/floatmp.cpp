@@ -90,7 +90,7 @@ void floatmp_base::log2(const floatmp_base &x) {
 
 void floatmp_base::log1p(const floatmp_base &x) {
   if (!minus_one_.less_than(x))
-    throw std::domain_error("invalid arg of log2()");
+    throw std::domain_error("invalid arg of log1p()");
   mpfr_log1p(value_, x.c_mpfr(), mpfr_rnd_());
 }
 

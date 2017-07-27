@@ -398,9 +398,29 @@ the given power \c x minus \c 1.0.
 
 /*!
 \fn floatmp& floatmp::log10(const floatmp<P> &x)
-\brief Sets this number to the common (base-<em>10</em>) logarithm of \c x.
+\brief Sets this number to the common (base \e 10) logarithm of \c x.
 @param[in] x a multi-precision floating-point number.
 \return the reference to this object.
 \exception std::domain_error if \c x is less than or equal to zero.
 \see log(), log2(), log1p(), is_positive().
+*/
+
+
+/*!
+\fn floatmp& floatmp::log2(const floatmp<P> &x)
+\brief Sets this number to the binary (base \e 2) logarithm of \c x.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\exception std::domain_error if \c x is less than or equal to zero.
+\see log(), log10(), log1p(), exp2(), is_positive().
+*/
+
+
+/*!
+\fn floatmp& floatmp::log1p(const floatmp<P> &x)
+\brief Sets this number to the natural (base \e e) logarithm of \c 1+x.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\exception std::domain_error if \c x is less than or equal to \c -1.
+\see log(), log10(), log2(), expm1(), minus_one().
 */
