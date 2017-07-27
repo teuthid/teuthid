@@ -477,3 +477,52 @@ radians.
 \return the reference to this object.
 \see cos(), tan(), asin().
 */
+
+
+/*!
+\fn floatmp& floatmp::cos(const floatmp<P> &x)
+\brief Sets this number to the cosine of \c x (measured in radians).
+@param[in] x a multi-precision floating-point number representing angle in 
+radians.
+\return the reference to this object.
+\see sin(), tan(), acos().
+*/
+
+
+/*!
+\fn floatmp& floatmp::tan(const floatmp<P> &x)
+\brief Sets this number to the tangent of \c x (measured in radians).
+@param[in] x a multi-precision floating-point number representing angle in 
+radians.
+\return the reference to this object.
+\see sin(), cos(), atan().
+*/
+
+
+/*!
+\fn floatmp& floatmp::asin(const floatmp<P> &x)
+\brief Sets this number to the principal value of the arc sine of \c x.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\exception std::domain_error if \c x is outside the range <tt>[-1.0; 1.0]</tt>.
+\see acos(), atan(), atan2(), sin(), minus_one(), plus_one().
+*/
+
+
+/*!
+\fn floatmp& floatmp::acos(const floatmp<P> &x)
+\brief Sets this number to the principal value of the arc cosine of \c x.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\exception std::domain_error if \c x is outside the range <tt>[-1.0; 1.0]</tt>.
+\see asin(), atan(), atan2(), cos(), minus_one(), plus_one().
+*/
+
+
+/*!
+\fn floatmp& floatmp::atan(const floatmp<P> &x)
+\brief Sets this number to the principal value of the arc tangent of \c x.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\see asin(), acos(), atan2(), tan().
+*/
