@@ -359,8 +359,8 @@ according to the current format settings for system::to_string().
 
 /*!
 \fn floatmp& floatmp::exp(const floatmp<P> &x)
-\brief Sets this number to \e e (Euler's number, \c 2.7182818) raised to the 
-given power \c x.
+\brief Sets this number to the \e e (Euler's number, \c 2.7182818) raised to 
+the given power \c x.
 @param[in] x a multi-precision floating-point number.
 \return the reference to this object.
 \see exp2(), expm1(), log().
@@ -373,4 +373,34 @@ given power \c x.
 @param[in] x a multi-precision floating-point number.
 \return the reference to this object.
 \see exp(), expm1(), log2().
+*/
+
+
+/*!
+\fn floatmp& floatmp::expm1(const floatmp<P> &x)
+\brief Sets this number to the \e e (Euler's number, \c 2.7182818) raised to 
+the given power \c x minus \c 1.0.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\see exp(), exp2(), log1p().
+*/
+
+
+/*!
+\fn floatmp& floatmp::log(const floatmp<P> &x)
+\brief Sets this number to the natural (base \e e) logarithm of \c x.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\exception std::domain_error if \c x is less than or equal to zero.
+\see log10(), log2(), log1p(), exp(), is_positive().
+*/
+
+
+/*!
+\fn floatmp& floatmp::log10(const floatmp<P> &x)
+\brief Sets this number to the common (base-<em>10</em>) logarithm of \c x.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\exception std::domain_error if \c x is less than or equal to zero.
+\see log(), log2(), log1p(), is_positive().
 */

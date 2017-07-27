@@ -145,7 +145,7 @@ multi-precision floating-point number.
 
 /*!
 \fn bool floatmp_base::is_finite() const
-\brief Determines if this number has finite value.
+\brief Determines if this number has a finite value.
 \return \c true if this multi-precision floating-point number has finite value, 
 \c false if this number is infinite or NaN.
 \see system::is_finite(), is_infinite(), is_nan(), is_zero(), is_negative(), 
@@ -173,7 +173,7 @@ is_positive(), is_integer().
 
 /*!
 \fn bool floatmp_base::is_zero() const
-\brief Determines if this number has zero value.
+\brief Determines if this number has a zero value.
 \return \c true if this multi-precision floating-point number has zero value, 
 \c false otherwise.
 \see system::is_zero(), is_negative(), is_positive(), is_integer().
@@ -182,7 +182,7 @@ is_positive(), is_integer().
 
 /*!
 \fn bool floatmp_base::is_negative() const
-\brief Determines if this number has negative value.
+\brief Determines if this number has a negative value.
 \return \c true if this multi-precision floating-point number has negative 
 value, \c false otherwise.
 \see system::is_negative(), is_positive(), is_zero().
@@ -191,7 +191,7 @@ value, \c false otherwise.
 
 /*!
 \fn bool floatmp_base::is_positive() const
-\brief Determines if this number has positive value.
+\brief Determines if this number has a positive value.
 \return \c true if this multi-precision floating-point number has positive 
 value, \c false otherwise.
 \see system::is_positive(), is_negative(), is_zero().
