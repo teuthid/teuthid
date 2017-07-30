@@ -526,3 +526,70 @@ radians.
 \return the reference to this object.
 \see asin(), acos(), atan2(), tan().
 */
+
+
+/*!
+\fn floatmp& floatmp::atan2(const floatmp<P1> &x, const floatmp<P2> &y)
+\brief Sets this number to the arc tangent of \c y/x using the signs of 
+arguments to determine the correct quadrant.
+@param[in] x a multi-precision floating-point number.
+@param[in] y a multi-precision floating-point number.
+\return the reference to this object.
+\see asin(), acos(), atan()
+*/
+
+
+/*!
+\fn floatmp& floatmp::sinh(const floatmp<P> &x)
+\brief Sets this number to the hyperbolic sine of \c x.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\see cosh(), tanh(), asinh().
+*/
+
+
+/*!
+\fn floatmp& floatmp::cosh(const floatmp<P> &x)
+\brief Sets this number to the hyperbolic cosine of \c x.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\see sinh(), tanh(), acosh().
+*/
+
+
+/*!
+\fn floatmp& floatmp::tanh(const floatmp<P> &x)
+\brief Sets this number to the hyperbolic tangent of \c x.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\see sinh(), cosh(), atanh().
+*/
+
+
+/*!
+\fn floatmp& floatmp::asinh(const floatmp<P> &x)
+\brief Sets this number to the inverse hyperbolic sine of \c x.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\see acosh(), atanh(), sinh().
+*/
+
+
+/*!
+\fn floatmp& floatmp::acosh(const floatmp<P> &x)
+\brief Sets this number to the inverse hyperbolic cosine of \c x.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\exception std::domain_error if \c x is less than \c 1.
+\see asinh(), atanh(), cosh(), plus_one().
+*/
+
+
+/*!
+\fn floatmp& floatmp::atanh(const floatmp<P> &x)
+\brief Sets this number to the inverse hyperbolic tangent of \c x.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\exception std::domain_error if \c x is not on the interval <tt>(-1, +1)</tt>.
+\see asinh(), acosh(), tanh(), minus_one(), plus_one().
+*/
