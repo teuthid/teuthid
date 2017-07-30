@@ -593,3 +593,37 @@ arguments to determine the correct quadrant.
 \exception std::domain_error if \c x is not on the interval <tt>(-1, +1)</tt>.
 \see asinh(), acosh(), tanh(), minus_one(), plus_one().
 */
+
+
+/*!
+\fn floatmp& floatmp::erf(const floatmp<P> &x)
+\brief Sets this number to the 
+<a href="https://en.wikipedia.org/wiki/Error_function">error function</a> 
+of \c x.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\see erfc().
+*/
+
+
+/*!
+\fn floatmp& floatmp::erfc(const floatmp<P> &x)
+\brief Sets this number to the 
+<a href="https://en.wikipedia.org/wiki/Error_function">complementary error 
+function</a> of \c x.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\see erf().
+*/
+
+
+/*!
+\fn floatmp& floatmp::tgamma(const floatmp<P> &x)
+\brief Sets this number to the
+<a href="https://en.wikipedia.org/wiki/Gamma_function">gamma function</a> 
+of \c x.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\exception std::domain_error if \c x is zero or is an integer less than zero.
+\see lgamma(), is_integer(), is_zero().
+*/
