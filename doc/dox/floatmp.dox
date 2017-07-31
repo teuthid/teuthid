@@ -627,3 +627,43 @@ of \c x.
 \exception std::domain_error if \c x is zero or is an integer less than zero.
 \see lgamma(), is_integer(), is_zero().
 */
+
+
+/*!
+\fn floatmp& floatmp::lgamma(const floatmp<P> &x)
+\brief Sets this number to the natural logarithm of the absolute value of the 
+<a href="https://en.wikipedia.org/wiki/Gamma_function">gamma function</a> 
+of \c x.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\exception std::domain_error if \c x is zero or is an integer less than zero.
+\see tgamma(), is_integer(), is_zero().
+*/
+
+
+/*!
+\fn floatmp& floatmp::ceil(const floatmp<P> &x)
+\brief Sets this number to the smallest integer value not less than \c x.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\see floor(), trunc(), round(), nearbyint().
+*/
+
+
+/*!
+\fn floatmp& floatmp::floor(const floatmp<P> &x)
+\brief Sets this number to the largest integer value not greater than \c x.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\see ceil(), trunc(), round().
+*/
+
+
+/*!
+\fn floatmp& floatmp::trunc(const floatmp<P> &x)
+\brief Sets this number to the nearest integer not greater in magnitude than 
+\c x.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\see floor(), ceil(), round().
+*/
