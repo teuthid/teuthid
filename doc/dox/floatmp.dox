@@ -698,7 +698,7 @@ direction of \c y.
 @param[in] y a multi-precision floating-point number.
 \return the reference to this object.
 \exception std::domain_error if \c x is not finite.
-\see nextabove(), nextbelow(), is_finite().
+\see nextabove(), nextbelow(), is_finite(), epsilon().
 */
 
 
@@ -709,7 +709,7 @@ direction of plus infinity.
 @param[in] x a multi-precision floating-point number.
 \return the reference to this object.
 \exception std::domain_error if \c x is not finite.
-\see nextafter(), nextbelow(), is_finite().
+\see nextafter(), nextbelow(), is_finite(), epsilon().
 */
 
 
@@ -720,5 +720,81 @@ direction of minus infinity.
 @param[in] x a multi-precision floating-point number.
 \return the reference to this object.
 \exception std::domain_error if \c x is not finite.
-\see nextafter(), nextabove(), is_finite().
+\see nextafter(), nextabove(), is_finite(), epsilon().
+*/
+
+
+/*!
+\fn static constexpr floatmp<Precision> teuthid::floatmp<Precision>::zero()
+\brief Gets the zero value of floating-point number.
+\see minus_one(), is_zero().
+*/
+
+
+/*!
+\fn static constexpr floatmp<Precision> teuthid::floatmp<Precision>::minus_one()
+\brief Gets the value \c -1 of floating-point number.
+\see zero(), plus_one().
+*/
+
+
+/*!
+\fn static constexpr floatmp<Precision> teuthid::floatmp<Precision>::plus_one()
+\brief Gets the value \c +1 of floating-point number.
+\see zero(), minus_one().
+*/
+
+
+/*!
+\fn static constexpr floatmp<Precision> teuthid::floatmp<Precision>::epsilon()
+\brief Gets the the machine epsilon.
+\return the machine epsilon, the difference between \c 1.0 and the next value 
+representable by the floating-point number with precision \c Precision.
+\see nextabove(), nextbelow().
+*/
+
+
+/*!
+\fn static constexpr floatmp<Precision> teuthid::floatmp<Precision>::min()
+\brief Gets the minimum finite value.
+\return the minimum finite value representable by the floating-point number 
+with precision \c Precision.
+\see max(), is_finite().
+*/
+
+
+/*!
+\fn static constexpr floatmp<Precision> teuthid::floatmp<Precision>::max()
+\brief Gets the maximum finite value.
+\return the maximum finite value representable by the floating-point number 
+with precision \c Precision.
+\see min(), is_finite().
+*/
+
+
+/*!
+\fn static constexpr floatmp<Precision> teuthid::floatmp<Precision>::round_error()
+\brief Gets the largest possible rounding error.
+\return the largest possible rounding error in ULPs (units in the last place) 
+as defined by ISO 10967, which can vary from \c 0.5 (rounding to the nearest 
+digit) to \c 1.0 (rounding to zero or to infinity).
+\see rounding_mode().
+*/
+
+
+/*!
+\fn static constexpr floatmp<Precision> teuthid::floatmp<Precision>::infinity()
+\brief Gets the positive infinity value.
+\return the special value "positive infinity", as represented by the 
+floating-point number with precision \c Precision.
+\see is_infinite().
+*/
+
+
+/*!
+\fn static constexpr floatmp<Precision> teuthid::floatmp<Precision>::nan()
+\brief Gets a NaN value.
+\return the special value "not-a-number", as represented by the floating-point 
+number with precision \c Precision.
+\see is_nan().
 */
