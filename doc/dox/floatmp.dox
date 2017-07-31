@@ -667,3 +667,58 @@ of \c x.
 \return the reference to this object.
 \see floor(), ceil(), round().
 */
+
+
+/*!
+\fn floatmp& floatmp::round(const floatmp<P> &x)
+\brief Sets this number to the nearest integer value to \c x, rounding halfway 
+cases away from zero, regardless of the current rounding mode.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\see floor(), ceil(), trunc().
+*/
+
+
+/*!
+\fn floatmp& floatmp::nearbyint(const floatmp<P> &x)
+\brief Sets this number to the nearest integer value to \c x, according to the 
+current rounding mode.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\see round().
+*/
+
+
+/*!
+\fn floatmp& floatmp::nextafter(const floatmp<P1> &x, const floatmp<P2> &y)
+\brief Sets this number to the next representable value of \c x in the 
+direction of \c y.
+\details Sets this number to the value of \c y if \c x equals to \c y.
+@param[in] x a multi-precision floating-point number.
+@param[in] y a multi-precision floating-point number.
+\return the reference to this object.
+\exception std::domain_error if \c x is not finite.
+\see nextabove(), nextbelow(), is_finite().
+*/
+
+
+/*!
+\fn floatmp& floatmp::nextabove(const floatmp<P> &x)
+\brief Sets this number to the next representable value of \c x in the 
+direction of plus infinity.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\exception std::domain_error if \c x is not finite.
+\see nextafter(), nextbelow(), is_finite().
+*/
+
+
+/*!
+\fn floatmp& floatmp::nextbelow(const floatmp<P> &x)
+\brief Sets this number to the next representable value of \c x in the 
+direction of minus infinity.
+@param[in] x a multi-precision floating-point number.
+\return the reference to this object.
+\exception std::domain_error if \c x is not finite.
+\see nextafter(), nextabove(), is_finite().
+*/
