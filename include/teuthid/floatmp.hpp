@@ -246,6 +246,7 @@ private:
   }
 #endif // TEUTHID_HAVE_INT_128
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #define __TEUTHID_FLOATMP_ASSIGN_SPEC(TYPE, FUN)                               \
   void assign(const TYPE &x) { FUN(value_, x, mpfr_rnd_()); }
   __TEUTHID_FLOATMP_ASSIGN_SPEC(int8_t, mpfr_set_sj)
@@ -261,11 +262,13 @@ private:
   __TEUTHID_FLOATMP_ASSIGN_SPEC(long double, mpfr_set_ld)
   __TEUTHID_FLOATMP_ASSIGN_SPEC(mpfr_t, mpfr_set)
 #undef __TEUTHID_FLOATMP_ASSIGN_SPEC
+#endif // DOXYGEN_SHOULD_SKIP_THIS
   template <std::size_t P> void assign(const floatmp<P> &x) {
     TEUTHID_CHECK_FLOATMP_PRECISION(P);
     mpfr_set(value_, x.c_mpfr(), mpfr_rnd_());
   }
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #define __TEUTHID_FLOATMP_ARITHMETIC_SPEC(OPER, TYPE, FUN)                     \
   void OPER(const TYPE &x) { FUN(value_, c_mpfr(), x, mpfr_rnd_()); }
   __TEUTHID_FLOATMP_ARITHMETIC_SPEC(add, int8_t, mpfr_add_si)
@@ -331,6 +334,7 @@ private:
   __TEUTHID_FLOATMP_ARITHMETIC_SPEC(mul, mpfr_mul)
   __TEUTHID_FLOATMP_ARITHMETIC_SPEC(div, mpfr_div)
 #undef __TEUTHID_FLOATMP_ARITHMETIC_SPEC
+#endif // DOXYGEN_SHOULD_SKIP_THIS
 
   static mpfr_rnd_t mpfr_rnd_() noexcept {
     return static_cast<mpfr_rnd_t>(round_mode_.load());
